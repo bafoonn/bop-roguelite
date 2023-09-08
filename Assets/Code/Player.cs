@@ -6,32 +6,25 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private InputReader _inputReader;
-    private Mover _mover;
     private Rigidbody2D _rigidbody;
-    [SerializeField] private Motion _basicMotion;
-    [SerializeField] private Motion _dodgeMotion;
+    private PlayerMovement _movement;
 
     private void Awake()
     {
         _inputReader = this.AddOrGetComponent<InputReader>();
-        _mover = this.AddOrGetComponent<Mover>();
+        _movement = this.AddOrGetComponent<PlayerMovement>();
         _rigidbody = this.AddOrGetComponent<Rigidbody2D>();
-        _inputReader.DodgeCallback += () =>
+        _inputReader.DodgeCallback = () =>
         {
-            _mover.AddMotion(_dodgeMotion);
+            _movement.Dodge(_inputReader.movement);
         };
 
-        _rigidbody.gravityScale = 0;
 
-        _dodgeMotion.Type = Motion.MotionType.Single;
-
-        _mover.Setup(_rigidbody);
-        _mover.AddMotion(_basicMotion);
+        _movement.Setup(_rigidbody);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        _basicMotion.Direction = _inputReader.movement;
-        _dodgeMotion.Direction = _inputReader.movement;
+        _movement.Move(_inputReader.movement, Time.fixedDeltaTime);
     }
 }

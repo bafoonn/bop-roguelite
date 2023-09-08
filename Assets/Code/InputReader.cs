@@ -5,11 +5,11 @@ public class InputReader : MonoBehaviour
 {
     private Controls _controls;
     public Vector2 movement;
-    public event Action DodgeCallback;
-    public event Action InteractCallback;
-    public event Action QuickAttackCallback;
-    public event Action HeavyAttackCallback;
-    public event Action HookCallback;
+    public Action DodgeCallback;
+    public Action InteractCallback;
+    public Action QuickAttackCallback;
+    public Action HeavyAttackCallback;
+    public Action HookCallback;
 
     private void Awake()
     {
