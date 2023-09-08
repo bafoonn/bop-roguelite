@@ -22,9 +22,9 @@ public class EnemyAi : MonoBehaviour
     [SerializeField] private Transform Player;
     private GameObject player;
     private Image attackIndicator;
-    public float timeToAttack = 0;
-    public float defaultTimeToAttack = 2;
-    public float stunTimer = 1;
+    public float timeToAttack = 0; // When this reaches defaultTimeToAttack enemy will attack
+    public float defaultTimeToAttack = 2; //Increase this if you want to make ai take longer
+    public float stunTimer = 1; // Will be used or replaced when adding stagger
 
     //[SerializeField] private float chaseDistanceThershold = 3, attackDistanceThershold = 0.8f;
     //private float passedTime = 1;
@@ -36,14 +36,7 @@ public class EnemyAi : MonoBehaviour
         attackIndicator = GetComponentInChildren<Image>();
         //Detect objects
         InvokeRepeating("PerformDetection", 0, detectionDelay);
-        if (gameObject.tag.Contains("Ranged"))
-        {
-            //Ranged attack method
-        }
-        else
-        {
-            //Melee attack Method
-        }
+        
     }
 
     private void PerformDetection()
@@ -86,6 +79,14 @@ public class EnemyAi : MonoBehaviour
     public void Attack()
     {
         Debug.Log("Swing");
+        if (gameObject.tag.Contains("Ranged"))
+        {
+            //Ranged attack method
+        }
+        else
+        {
+            //Melee attack Method
+        }
     }
 
     private IEnumerator ChaseAndAttack()
@@ -104,11 +105,11 @@ public class EnemyAi : MonoBehaviour
             if(distance < attackDistance)
             {
                 Debug.Log("Attacking");
-                //Attacking //TODO: ADD DELAY TO LET PLAYER KNOW THAT ENEMY IS ATTACKING ETC
+                //Attacking 
                 
                 movementInput = Vector2.zero;
                 OnAttackPressed?.Invoke();
-                if (timeToAttack >= defaultTimeToAttack)
+                if (timeToAttack >= defaultTimeToAttack) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
                 {
                     Attack(); // Attack method
                     timeToAttack = 0;
