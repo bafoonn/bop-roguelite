@@ -1,19 +1,25 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InputReader : MonoBehaviour
 {
+    private Camera _camera;
     private Controls _controls;
-    public Vector2 movement;
+    public Vector2 Movement;
+    public Vector2 Aim;
+    public Vector2 MousePos;
     public Action DodgeCallback;
     public Action InteractCallback;
     public Action QuickAttackCallback;
     public Action HeavyAttackCallback;
     public Action HookCallback;
+    private bool mouseAim = true;
 
     private void Awake()
     {
         _controls = new Controls();
+        _camera = Camera.main;
     }
 
     private void OnEnable()
@@ -24,7 +30,10 @@ public class InputReader : MonoBehaviour
         _controls.Player.QuickAttack.performed += OnQuickAttack;
         _controls.Player.HeavyAttack.performed += OnHeavyAttack;
         _controls.Player.Hook.performed += OnHook;
+        _controls.Player.Aim.performed += OnAim;
+        _controls.Player.MousePos.performed += OnMousePos;
     }
+
 
     private void OnDisable()
     {
@@ -34,12 +43,42 @@ public class InputReader : MonoBehaviour
         _controls.Player.QuickAttack.performed -= OnQuickAttack;
         _controls.Player.HeavyAttack.performed -= OnHeavyAttack;
         _controls.Player.Hook.performed -= OnHook;
-        movement = Vector2.zero;
+        _controls.Player.Aim.performed -= OnAim;
+        _controls.Player.MousePos.performed -= OnMousePos;
+        Movement = Vector2.zero;
+    }
+
+    private void OnAim(InputAction.CallbackContext obj)
+    {
+        mouseAim = false;
+    }
+
+    private void OnMousePos(InputAction.CallbackContext obj)
+    {
+        mouseAim = true;
     }
 
     private void Update()
     {
-        movement = _controls.Player.Movement.ReadValue<Vector2>();
+        Movement = _controls.Player.Movement.ReadValue<Vector2>();
+        MousePos = _controls.Player.MousePos.ReadValue<Vector2>();
+
+        if (mouseAim)
+        {
+            Vector2 target = _camera.ScreenToWorldPoint(MousePos);
+            Aim = (target - (Vector2)transform.position).normalized;
+        }
+        else
+        {
+            Aim = _controls.Player.Aim.ReadValue<Vector2>();
+        }
+
+        if (Aim == Vector2.zero)
+        {
+            Aim = Movement.normalized;
+        }
+
+        Debug.DrawLine(transform.position, transform.position + (Vector3)Aim, Color.green);
     }
 
     private void OnDodge(UnityEngine.InputSystem.InputAction.CallbackContext obj)

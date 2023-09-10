@@ -1,4 +1,6 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace Pasta
 {
@@ -24,6 +26,17 @@ namespace Pasta
         public static void Deactivate(this GameObject gameObject)
         {
             gameObject.SetActive(false);
+        }
+
+
+        public static bool Includes(this LayerMask layerMask, string layerName)
+        {
+            return layerMask.Includes(LayerMask.NameToLayer(layerName));
+        }
+
+        public static bool Includes(this LayerMask layerMask, int layer)
+        {
+            return layerMask == (layerMask | (1 << layer));
         }
     }
 }

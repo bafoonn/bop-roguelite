@@ -60,18 +60,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "MousePosition",
+                    "name": "Aim",
                     "type": "Value",
-                    "id": "98e5af8f-7fe6-4400-9343-3044812f440c",
+                    "id": "a318de72-1f9e-4b69-a364-7f6cf9d8753d",
                     "expectedControlType": "Vector2",
-                    "processors": "",
+                    "processors": "StickDeadzone,NormalizeVector2",
                     "interactions": "",
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Aim",
+                    "name": "MousePos",
                     "type": "Value",
-                    "id": "a318de72-1f9e-4b69-a364-7f6cf9d8753d",
+                    "id": "77ca95ba-174f-436b-8a82-77f499c73cb5",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -169,8 +169,19 @@
                 },
                 {
                     "name": "",
-                    "id": "f40e456b-9fb5-4539-bb28-b18857ac0262",
+                    "id": "a10960a6-a547-4919-95d9-fa94989a11a5",
                     "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Dodge",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f40e456b-9fb5-4539-bb28-b18857ac0262",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -192,7 +203,7 @@
                 {
                     "name": "",
                     "id": "c319b14e-6a7f-4d1f-a15d-f2073985e3e0",
-                    "path": "<Gamepad>/rightTrigger",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -247,22 +258,11 @@
                 {
                     "name": "",
                     "id": "cc228f45-ad21-4e31-a571-6166d0bac47f",
-                    "path": "<Gamepad>/leftTrigger",
+                    "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Hook",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "1cf57dd6-5181-482d-bd76-418c52ebdc50",
-                    "path": "<Mouse>/position",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KB&M",
-                    "action": "MousePosition",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -274,6 +274,17 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "219e45d4-49ca-4c4c-bc6b-dfff2e8cb751",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KB&M",
+                    "action": "MousePos",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
