@@ -4,6 +4,7 @@ using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using static UnityEngine.GraphicsBuffer;
 
 public class EnemyAi : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class EnemyAi : MonoBehaviour
     [SerializeField] private AISolver movementDirectionSolver;
     bool Chasing = false;
 
+    private WeaponParent weaponParent;
+
     [SerializeField] private Transform Player;
     private GameObject player;
     private Image attackIndicator;
@@ -31,29 +34,39 @@ public class EnemyAi : MonoBehaviour
 
     private void Start()
     {
+
         player = GameObject.FindGameObjectWithTag("Player");
         Player = player.transform;
         attackIndicator = GetComponentInChildren<Image>();
+        weaponParent = GetComponentInChildren<WeaponParent>();
+
         //Detect objects
+
+
+    }
+    private void Awake()
+    {
         InvokeRepeating("PerformDetection", 0, detectionDelay);
-        
     }
 
     private void PerformDetection()
     {
-        foreach(Detector detector in detectors)
+        foreach (Detector detector in detectors)
         {
-            detector.Detect(aiData);    
+            detector.Detect(aiData);
         }
-        
+
     }
     private void Update()
     {
-        if(aiData.currentTarget != null)
+
+        if (aiData.currentTarget != null)
         {
+
             //Looking at target.
             OnPointerInput?.Invoke(aiData.currentTarget.position);
-            if(Chasing == false)
+
+            if (Chasing == false)
             {
                 Chasing = true;
                 StartCoroutine(ChaseAndAttack());
@@ -66,12 +79,12 @@ public class EnemyAi : MonoBehaviour
                 attackIndicator.fillAmount = timeToAttack / defaultTimeToAttack;
             }
         }
-        else if(aiData.GetTargetsCount() > 0)
+        else if (aiData.GetTargetsCount() > 0)
         {
             //Getting the target
             aiData.currentTarget = aiData.targets[0];
         }
-        
+
         //Debug.Log(movementInput);
         OnMovementInput?.Invoke(movementInput);
     }
@@ -85,13 +98,13 @@ public class EnemyAi : MonoBehaviour
         }
         else
         {
-            //Melee attack Method
+            weaponParent.Attack();
         }
     }
 
     private IEnumerator ChaseAndAttack()
     {
-        if(aiData.currentTarget == null)
+        if (aiData.currentTarget == null)
         {
             movementInput = Vector2.zero;
             timeToAttack = 0;
@@ -102,11 +115,11 @@ public class EnemyAi : MonoBehaviour
         else
         {
             float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
-            if(distance < attackDistance)
+            if (distance < attackDistance)
             {
                 Debug.Log("Attacking");
                 //Attacking 
-                
+
                 movementInput = Vector2.zero;
                 OnAttackPressed?.Invoke();
                 if (timeToAttack >= defaultTimeToAttack) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
@@ -122,6 +135,7 @@ public class EnemyAi : MonoBehaviour
             {
                 Debug.Log("Chasing");
                 //Chasing
+
                 timeToAttack = 0;
                 attackIndicator.fillAmount = 0;
                 movementInput = movementDirectionSolver.GetDirectionToMove(steeringBehaviours, aiData);

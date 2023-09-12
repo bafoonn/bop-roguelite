@@ -8,7 +8,7 @@ public class AgentAnimations : MonoBehaviour
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
     }
 
     public void RotateToPointer(Vector2 lookDirection)
@@ -25,9 +25,9 @@ public class AgentAnimations : MonoBehaviour
         transform.localScale = scale;
     }
 
-    public void PlayAnimation(Vector2 movementInput)
-    {
-        animator.SetBool("Running", movementInput.magnitude > 0);
+    //public void PlayAnimation(Vector2 movementInput)
+    //{
+    //    animator.SetBool("Running", movementInput.magnitude > 0);
 
-    }
+    //}
 }
