@@ -22,7 +22,7 @@ public class TargetDetector : Detector
 
         if (playerCollider != null)
         {
-            Debug.Log("Sees the player");
+            Debug.Log("Sees the player"); // If this detects but enemy dosent move then try increasing player collider size
             // Checks if enemy can see the player.
             Vector2 direction = (playerCollider.transform.position - transform.position).normalized;
             RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, targetDetectionRange, obstacleLayerMask);
@@ -36,7 +36,7 @@ public class TargetDetector : Detector
             }
             else
             {
-                Debug.Log("No collider on the player");
+                Debug.Log("No collider on the player or not on playerlayermask");
                 colliders = null;
             }
         }
