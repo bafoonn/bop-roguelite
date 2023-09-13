@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 
-public class MapGeneration : MonoBehaviour
+public class OldMapGeneration : MonoBehaviour
 {
     [System.Serializable]
     public class Count
