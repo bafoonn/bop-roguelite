@@ -10,8 +10,8 @@ public class WeaponParent : MonoBehaviour
     public Vector2 PointerPosition { get; set; }
 
     private GameObject AttackIndicatorImage;
-
-
+    [SerializeField] private GameObject projectile;
+    [SerializeField] private GameObject ProjectileSpawnPoint;
     private Collider2D AttackCollider;
 
 
@@ -52,12 +52,15 @@ public class WeaponParent : MonoBehaviour
         AttackCollider.enabled = true;
         StartCoroutine(StopAttack());
     }
-    private IEnumerator StopAttack()
+    private IEnumerator StopAttack() // TEST STUFF
     {
         yield return new WaitForSeconds(0.1f);
         AttackCollider.enabled = false;
     }
-
+    public void RangedAttack()
+    {
+        Instantiate(projectile, ProjectileSpawnPoint.transform.position, ProjectileSpawnPoint.transform.rotation);
+    }
 
 
     private void OnDrawGizmosSelected()

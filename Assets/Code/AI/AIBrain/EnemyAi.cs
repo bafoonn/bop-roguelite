@@ -94,12 +94,17 @@ public class EnemyAi : MonoBehaviour
         Debug.Log("Swing");
         if (gameObject.tag.Contains("Ranged"))
         {
-            //Ranged attack method
+            weaponParent.RangedAttack();
         }
         else
         {
             weaponParent.Attack();
         }
+    }
+
+    public void Death()
+    {
+
     }
 
     private IEnumerator ChaseAndAttack()
