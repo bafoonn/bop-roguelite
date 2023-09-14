@@ -10,12 +10,13 @@ namespace Pasta
         public float QuickAttackTime = 0.2f;
         public float HeavyAttackTime = 0.8f;
 
-        private Coroutine _heavyRoutine;
-        private Coroutine _quickRoutine;
+        private Coroutine _attackRoutine;
 
-        public bool CanQuickAttack => _quickRoutine == null;
-        public bool CanHeavyAttack => _heavyRoutine == null;
+        public bool CanAttack => _attackRoutine == null;
+        public bool IsAttacking => _attackRoutine != null;
         private HittableSensor _sensor;
+
+        private bool _cancellable = true;
 
         private void Awake()
         {
@@ -30,19 +31,20 @@ namespace Pasta
 
         public bool TryToAttack(Vector2 dir, AttackType type = AttackType.Quick)
         {
+            if (!CanAttack)
+            {
+                return false;
+            }
+
             switch (type)
             {
                 case AttackType.Quick:
-                    if (!CanQuickAttack)
-                    {
-                        return false;
-                    }
-
-                    _quickRoutine = StartCoroutine(QuickAttack(dir));
-
+                    _attackRoutine = StartCoroutine(QuickAttack(dir));
                     break;
+
                 case AttackType.Heavy:
-                    return false;
+                    _attackRoutine = StartCoroutine(HeavyAttack(dir));
+                    break;
             }
             return true;
         }
@@ -54,12 +56,39 @@ namespace Pasta
             {
                 hittable.Hit(10);
             }
-            _quickRoutine = null;
+            _attackRoutine = null;
         }
 
         private IEnumerator HeavyAttack(Vector2 dir)
         {
-            throw new NotImplementedException();
+            float waitTime = HeavyAttackTime * 0.5f;
+            yield return new WaitForSeconds(waitTime);
+
+            _cancellable = false;
+            yield return new WaitForSeconds(waitTime);
+
+            foreach (var hittable in _sensor.Items)
+            {
+                hittable.Hit(30);
+            }
+            _cancellable = true;
+            _attackRoutine = null;
+        }
+
+        public bool Cancel()
+        {
+            if (!_cancellable)
+            {
+                return false;
+            }
+
+            if (_attackRoutine != null)
+            {
+                StopCoroutine(_attackRoutine);
+                _attackRoutine = null;
+            }
+
+            return true;
         }
     }
 }

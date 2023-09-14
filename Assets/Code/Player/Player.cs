@@ -25,6 +25,10 @@ public class Player : MonoBehaviour, IHittable
 
         _inputReader.DodgeCallback = () =>
         {
+            if (!_attackHandler.Cancel())
+            {
+                return;
+            }
             _movement.TryRoll(_inputReader.Movement);
         };
 
@@ -34,8 +38,16 @@ public class Player : MonoBehaviour, IHittable
             {
                 return;
             }
+            _attackHandler.TryToAttack(_inputReader.Movement, PlayerAttackHandler.AttackType.Quick);
+        };
 
-            _attackHandler.TryToAttack(_inputReader.Movement);
+        _inputReader.HeavyAttackCallback = () =>
+        {
+            if (_movement.IsRolling)
+            {
+                return;
+            }
+            _attackHandler.TryToAttack(_inputReader.Movement, PlayerAttackHandler.AttackType.Heavy);
         };
 
         _movement.Setup(_rigidbody);
@@ -43,7 +55,12 @@ public class Player : MonoBehaviour, IHittable
 
     private void FixedUpdate()
     {
+        var movement = _inputReader.Movement;
+        if (_attackHandler.IsAttacking)
+        {
+            movement *= 0.3f;
+        }
         _attackHandler.transform.right = _inputReader.Aim;
-        _movement.Move(_inputReader.Movement);
+        _movement.Move(movement);
     }
 }
