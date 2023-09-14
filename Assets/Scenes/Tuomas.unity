@@ -662,10 +662,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48f98bcbcf4fa374aade894523ce3bed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BaseSpeed: 5
   Speed: 5
   Lerp: 15
   _currentDir: {x: 0, y: 0}
   _targetDir: {x: 0, y: 0}
+  _dodgeCooldown: 0.1
+  _dodgeDuration: 0.4
+  _dodgeSpeed: 8
 --- !u!1 &1442978513
 GameObject:
   m_ObjectHideFlags: 0

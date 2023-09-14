@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Pasta
 {
     [RequireComponent(typeof(BoxCollider2D))]
-    public class HittableSensor : Sensor<IHittable>
+    public class AttackArea : Sensor<IHittable>
     {
     }
 }

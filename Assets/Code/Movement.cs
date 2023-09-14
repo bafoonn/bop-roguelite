@@ -8,9 +8,14 @@ namespace Pasta
     {
 
         protected Rigidbody2D _rigidbody = null;
-        public float Speed = 5.0f;
+        public float BaseSpeed = 5.0f, Speed = 0f;
         public float Lerp = 15f;
         public Vector2 _currentDir, _targetDir;
+
+        private void Awake()
+        {
+            SetSpeed();
+        }
 
         protected virtual void FixedUpdate()
         {
@@ -23,6 +28,11 @@ namespace Pasta
         {
             Debug.Assert(rigidbody != null);
             _rigidbody = rigidbody;
+        }
+
+        public void SetSpeed(float flatIncrease = 0, float percentIncrease = 0)
+        {
+            Speed = (BaseSpeed + flatIncrease) * (1 + percentIncrease);
         }
 
         public virtual void Move(Vector2 dir)

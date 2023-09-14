@@ -56,11 +56,16 @@ public class Player : MonoBehaviour, IHittable
     private void FixedUpdate()
     {
         var movement = _inputReader.Movement;
+
         if (_attackHandler.IsAttacking)
         {
             movement *= 0.3f;
         }
-        _attackHandler.transform.right = _inputReader.Aim;
+
+        if (!_attackHandler.IsAttacking)
+        {
+            _attackHandler.transform.right = _inputReader.Aim;
+        }
         _movement.Move(movement);
     }
 }

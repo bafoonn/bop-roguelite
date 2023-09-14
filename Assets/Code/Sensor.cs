@@ -9,8 +9,8 @@ namespace Pasta
     public abstract class Sensor<T> : MonoBehaviour
     {
         private Rigidbody2D _rigidbody = null;
-        private List<T> _items = new();
-        public List<T> Items => _items;
+        protected List<T> _objects = new();
+        public List<T> Objects => _objects;
         public LayerMask SensedLayers;
 
         public UnityEvent<T> OnItemDetected;
@@ -32,22 +32,44 @@ namespace Pasta
                 return;
             }
 
-            if (collision.TryGetComponent<T>(out var item))
+            if (collision.TryGetComponent<T>(out var obj))
             {
-                _items.Add(item);
+                _objects.Add(obj);
                 if (OnItemDetected != null)
                 {
-                    OnItemDetected.Invoke(item);
+                    OnItemDetected.Invoke(obj);
                 }
+                OnEnter(obj);
+            }
+        }
+
+        private void OnTriggerStay2D(Collider2D collision)
+        {
+            if (collision.TryGetComponent<T>(out var obj))
+            {
+                OnStay(obj);
             }
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.TryGetComponent<T>(out var item))
+            if (collision.TryGetComponent<T>(out var obj))
             {
-                _items.Remove(item);
+                _objects.Remove(obj);
+                OnExit(obj);
             }
+        }
+
+        protected virtual void OnEnter(T obj)
+        {
+        }
+
+        protected virtual void OnStay(T obj)
+        {
+        }
+
+        protected virtual void OnExit(T obj)
+        {
         }
     }
 }

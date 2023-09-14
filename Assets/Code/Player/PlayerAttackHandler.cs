@@ -14,13 +14,13 @@ namespace Pasta
 
         public bool CanAttack => _attackRoutine == null;
         public bool IsAttacking => _attackRoutine != null;
-        private HittableSensor _sensor;
+        private AttackArea _sensor;
 
         private bool _cancellable = true;
 
         private void Awake()
         {
-            _sensor = GetComponentInChildren<HittableSensor>();
+            _sensor = GetComponentInChildren<AttackArea>();
         }
 
         public enum AttackType
@@ -52,7 +52,7 @@ namespace Pasta
         private IEnumerator QuickAttack(Vector2 dir)
         {
             yield return new WaitForSeconds(QuickAttackTime);
-            foreach (var hittable in _sensor.Items)
+            foreach (var hittable in _sensor.Objects)
             {
                 hittable.Hit(10);
             }
@@ -67,7 +67,7 @@ namespace Pasta
             _cancellable = false;
             yield return new WaitForSeconds(waitTime);
 
-            foreach (var hittable in _sensor.Items)
+            foreach (var hittable in _sensor.Objects)
             {
                 hittable.Hit(30);
             }

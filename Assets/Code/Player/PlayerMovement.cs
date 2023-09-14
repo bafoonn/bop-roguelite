@@ -6,8 +6,9 @@ using UnityEngine;
 
 public class PlayerMovement : Movement
 {
-    private const float DODGE_COOLDOWN = 0.2f;
-    private const float DODGE_DURATION = 0.5f;
+    [SerializeField] private float _dodgeCooldown = 0.2f;
+    [SerializeField] private float _dodgeDuration = 0.5f;
+    [SerializeField] private float _dodgeSpeed = 10f;
 
     private Coroutine _rollRoutine = null;
     private bool _isRolling = false;
@@ -48,13 +49,13 @@ public class PlayerMovement : Movement
         _targetDir = dir;
 
         float timer = 0;
-        float baseSpeed = Speed;
+        float baseSpeed = _dodgeSpeed;
         float start = baseSpeed * 2f;
         float end = -baseSpeed;
 
-        while (timer < DODGE_DURATION)
+        while (timer < _dodgeDuration)
         {
-            float t = timer / DODGE_DURATION;
+            float t = timer / _dodgeDuration;
             float flip = 1 - t;
             float square = flip * flip;
 
@@ -64,9 +65,9 @@ public class PlayerMovement : Movement
         }
 
         _isRolling = false;
-        Speed = baseSpeed;
+        SetSpeed();
 
-        yield return new WaitForSeconds(DODGE_COOLDOWN);
+        yield return new WaitForSeconds(_dodgeCooldown);
         _rollRoutine = null;
     }
 }
