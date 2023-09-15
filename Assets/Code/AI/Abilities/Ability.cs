@@ -4,13 +4,14 @@ using UnityEngine;
 
 namespace Pasta
 {
-    
+
     public class Ability : ScriptableObject
     {
         public string AbilityName = null;
         public float coolDown = 0f;
+        public float ActiveTime = 0f;
         public float damage = 1f;
-        
+
         public virtual void Activate(GameObject parent)
         {
 

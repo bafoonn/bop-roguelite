@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87c46b5532810d84e93f3f9c9de29571, type: 3}
-  m_Name: Whirlwind
+  m_Script: {fileID: 11500000, guid: 6f28cdbb510ce504e85dd12a2e4455ca, type: 3}
+  m_Name: Charge
   m_EditorClassIdentifier: 
-  AbilityName: Whirlwind
-  coolDown: 4
+  AbilityName: Charge
+  coolDown: 5
   ActiveTime: 2
-  damage: 2
-  radius: 10
+  damage: 1
+  speed: 10
