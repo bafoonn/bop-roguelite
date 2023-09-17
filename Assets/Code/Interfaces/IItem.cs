@@ -4,7 +4,9 @@ using UnityEngine;
 
 namespace Pasta
 {
-    public class Stats : MonoBehaviour
+    public interface IItem
     {
+        public void Loot();
+        public void Drop();
     }
 }

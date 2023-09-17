@@ -9,55 +9,97 @@ namespace Pasta
     public class Stat
     {
         [SerializeField] private float _baseValue;
-        [SerializeField] private StatType _type;
-        public float BaseValue => _baseValue;
-        public StatType Type => _type;
-
-        private HashSet<StatEffect> _effects = new HashSet<StatEffect>();
-
-        public Stat(float baseValue)
-        {
-            _baseValue = baseValue;
-        }
-
-        public Stat(StatType type)
-        {
-            _type = type;
-        }
-
-        public Stat(float baseValue, StatType type)
-        {
-            _baseValue = baseValue;
-            _type = type;
-        }
-
+        private float _value = 10;
         public float Value
         {
             get
             {
-                float value = BaseValue;
+                return _value;
+            }
 
-                foreach (StatEffect effect in _effects)
+            private set
+            {
+                if (ValueChanged != null)
                 {
-                    if (effect.Type == StatEffectType.Additive)
-                    {
-                        value += effect.Value;
-                    }
+                    ValueChanged(value);
                 }
 
-                foreach (StatEffect effect in _effects)
-                {
-                    if (effect.Type == StatEffectType.Multiplicative)
-                    {
-                        value *= effect.Value;
-                    }
-                }
-
-                return value;
+                _value = value;
             }
         }
 
-        public void AddEffect(StatEffect effect) => _effects.Add(effect);
-        public void RemoveEffect(StatEffect effect) => _effects.Remove(effect);
+
+        private HashSet<StatEffect> _effects = new HashSet<StatEffect>();
+        public event Action<float> ValueChanged;
+
+        public Stat(float baseValue)
+        {
+            _baseValue = baseValue;
+            _value = baseValue;
+        }
+
+        private void CalculateValue()
+        {
+            float newValue = _baseValue;
+
+            foreach (StatEffect effect in _effects)
+            {
+                if (effect.Type == StatEffectType.Additive)
+                {
+                    newValue += effect.Value;
+                }
+            }
+
+            foreach (StatEffect effect in _effects)
+            {
+                if (effect.Type == StatEffectType.Multiplicative)
+                {
+                    newValue *= effect.Value;
+                }
+            }
+
+            Value = newValue;
+        }
+
+        public bool AddEffect(StatEffect effect)
+        {
+            if (!_effects.Add(effect))
+            {
+                return false;
+            }
+
+            CalculateValue();
+            return true;
+        }
+
+        public bool UpdateEffect(StatEffect effect)
+        {
+            if (!_effects.Contains(effect))
+            {
+                return false;
+            }
+
+            _effects.Remove(effect);
+            _effects.Add(effect);
+            CalculateValue();
+            return true;
+        }
+
+        public bool RemoveEffect(StatEffect effect)
+        {
+            if (!_effects.Remove(effect))
+            {
+                return false;
+            }
+
+            CalculateValue();
+            return true;
+        }
+
+        public void Reset()
+        {
+            _effects.Clear();
+            CalculateValue();
+        }
     }
 }

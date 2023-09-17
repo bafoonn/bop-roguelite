@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5495daeefb1d7e4296b49fae089e765, type: 3}
+  m_Name: Chicken Drum Stick
+  m_EditorClassIdentifier: 
+  Name: Chicken Drum Stick
+  Sprite: {fileID: 7482667652216324306, guid: 49d5c802d3161464db2cad7be82a44e2, type: 3}
+  Effects:
+  - Name: Additional Health
+    Stat: 0
+    Value: 50
+    Type: 0
+  - Name: Reduces Movement Speed
+    Stat: 3
+    Value: 0.9
+    Type: 1
