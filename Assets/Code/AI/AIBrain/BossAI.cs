@@ -8,7 +8,7 @@ using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
 using Pasta;
 
-public class BossAI : MonoBehaviour
+public class BossAI : MonoBehaviour, IHittable
 {
     [SerializeField] private List<Detector> detectors;
     [SerializeField] private AIData aiData;
@@ -18,7 +18,7 @@ public class BossAI : MonoBehaviour
 
     public UnityEvent OnAttackPressed;
     public UnityEvent<Vector2> OnMovementInput, OnPointerInput;
-    [SerializeField] private Vector2 movementInput;
+    [SerializeField] public Vector2 movementInput;
     [SerializeField] private AISolver movementDirectionSolver;
     bool Chasing = false;
 
@@ -124,7 +124,10 @@ public class BossAI : MonoBehaviour
                 Debug.Log("Attacking");
                 //Attacking 
                 abilityHolder.CanUseAbility = true; // <- Here for testing purposes.
-                movementInput = Vector2.zero;
+                if (abilityHolder.UseAbility == false)
+                {
+                    movementInput = Vector2.zero;
+                }
                 OnAttackPressed?.Invoke();
                 if (timeToAttack >= defaultTimeToAttack) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
                 {
@@ -148,5 +151,10 @@ public class BossAI : MonoBehaviour
                 StartCoroutine(ChaseAndAttack());
             }
         }
+    }
+
+    public void Hit(float damage)
+    {
+        // TODO: Implement Hit Anim here and take damage.
     }
 }

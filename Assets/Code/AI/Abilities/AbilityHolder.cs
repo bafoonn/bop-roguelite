@@ -39,6 +39,7 @@ namespace Pasta
                     case AbilityState.ready:
                         if (UseAbility)
                         {
+                            Debug.Log("Using" + ability);
                             ability.Activate(gameObject);
                             state = AbilityState.active;
                             activeTime = ability.ActiveTime;

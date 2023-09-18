@@ -1,3 +1,4 @@
+using Pasta;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Callbacks;
@@ -6,7 +7,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
 
-public class EnemyAi : MonoBehaviour
+public class EnemyAi : MonoBehaviour, IHittable
 {
     [SerializeField] private List<Detector> detectors;
     [SerializeField] private AIData aiData;
@@ -107,6 +108,12 @@ public class EnemyAi : MonoBehaviour
 
     }
 
+    //private IEnumerator UnStun()
+    //{
+    //    stunned = false;
+    //    yield return new WaitForSeconds(stunDelay);
+    //}
+
     private IEnumerator ChaseAndAttack()
     {
         if (aiData.currentTarget == null)
@@ -120,6 +127,13 @@ public class EnemyAi : MonoBehaviour
         else
         {
             float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
+            //if (stunned)
+            //{
+            //    movementInput = Vector2.zero;
+            //    timeToAttack = 0;
+            //    attackIndicator.fillAmount = 0;
+            //    // StartCourotine(UnStun());
+            //}
             if (distance < attackDistance)
             {
                 Debug.Log("Attacking");
@@ -149,5 +163,14 @@ public class EnemyAi : MonoBehaviour
                 StartCoroutine(ChaseAndAttack());
             }
         }
+    }
+
+    public void Hit(float damage)
+    {
+        //if(health <= 0)
+        //{
+        //    Destroy(gameObject);
+        //}
+        // TODO: Implement Hit Anim here and take damage.
     }
 }

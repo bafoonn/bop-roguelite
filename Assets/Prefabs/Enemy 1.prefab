@@ -67,6 +67,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6027961555442423532}
+  - {fileID: 4677311266499835787}
   m_Father: {fileID: 8084838211849072565}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -91.47}
 --- !u!212 &1565709467507885505
@@ -179,6 +180,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7f5bb024d752be4d9d568c257ced690, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectile: {fileID: 0}
+  ProjectileSpawnPoint: {fileID: 2629802818854526364}
   radius: 0.6
 --- !u!1 &2170883253053186688
 GameObject:
@@ -229,6 +232,37 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   showGizmos: 0
+--- !u!1 &2629802818854526364
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4677311266499835787}
+  m_Layer: 2
+  m_Name: ProjectileSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4677311266499835787
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2629802818854526364}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0.012825517, w: 0.99991775}
+  m_LocalPosition: {x: 0.5337943, y: 0.28634465, z: -0}
+  m_LocalScale: {x: 3.226559, y: 4.998191, z: -33.333336}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4768127272814901405}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 1.47}
 --- !u!1 &4852982969386972220
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,7 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3420b309b6a6b8f49b8b8fb6d3db88e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetDetectionRange: 5.67
+  targetDetectionRange: 7.28
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 192
@@ -568,7 +602,7 @@ GameObject:
   - component: {fileID: 1867457929088482630}
   m_Layer: 8
   m_Name: Enemy 1
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -599,7 +633,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6992705672734178762}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
