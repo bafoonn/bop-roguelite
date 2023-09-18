@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Pasta
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(menuName = "Abilities/Whirlwind")]
     public class Whirlwind : Ability
     {
         public float radius;

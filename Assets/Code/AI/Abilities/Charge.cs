@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Pasta
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(menuName = "Abilities/Teleport")]
     public class Charge : Ability
     {
         private Rigidbody2D rigidbody;
