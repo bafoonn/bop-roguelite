@@ -1,14 +1,14 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Pasta
 {
     public class PlayerAttackHandler : MonoBehaviour
     {
-        public float QuickAttackTime = 0.2f;
-        public float HeavyAttackTime = 0.8f;
+        [SerializeField] private float _heavyAttackTimeMultiplier = 3.5f;
+        private float _quickAttackTime = 0.2f;
+        private float _heavyAttackTime = 0.8f;
 
         private Coroutine _attackRoutine;
 
@@ -18,9 +18,43 @@ namespace Pasta
 
         private bool _cancellable = true;
 
+        public float _quickAttackDamage = 10f;
+        public float _heavyAttackDamage = 20f;
+        private Stat _damage;
+        private Stat _attackSpeed;
+
         private void Awake()
         {
             _sensor = GetComponentInChildren<AttackArea>();
+        }
+
+        private void Start()
+        {
+            //_damage = StatManager.Current.GetStat(StatType.Damage);
+            //_damage.ValueChanged += OnDamageChanged;
+
+            //_attackSpeed = StatManager.Current.GetStat(StatType.AttackSpeed);
+            //_attackSpeed.ValueChanged += OnAttackSpeedChanged;
+            //SetDamage(_damage.Value, _attackSpeed.Value);
+        }
+
+        private void OnAttackSpeedChanged(float value)
+        {
+            SetDamage(_damage.Value, value);
+        }
+
+        private void OnDamageChanged(float value)
+        {
+            SetDamage(value, _attackSpeed.Value);
+        }
+
+        private void SetDamage(float damage, float attackSpeed)
+        {
+            _quickAttackTime = 1f / attackSpeed;
+            _heavyAttackTime = _quickAttackTime * _heavyAttackTimeMultiplier;
+
+            _quickAttackDamage = damage;
+            _heavyAttackDamage = _quickAttackDamage * (_heavyAttackTime / _quickAttackTime) + 1;
         }
 
         public enum AttackType
@@ -51,25 +85,37 @@ namespace Pasta
 
         private IEnumerator QuickAttack(Vector2 dir)
         {
-            yield return new WaitForSeconds(QuickAttackTime);
-            foreach (var hittable in _sensor.Objects)
+            yield return new WaitForSeconds(_quickAttackTime);
+            for (int i = 0; i < _sensor.Objects.Count; i++)
             {
-                hittable.Hit(100);
+                var hittable = _sensor.Objects[i];
+                if (hittable == null)
+                {
+                    continue;
+                }
+
+                hittable.Hit(_quickAttackDamage);
             }
             _attackRoutine = null;
         }
 
         private IEnumerator HeavyAttack(Vector2 dir)
         {
-            float waitTime = HeavyAttackTime * 0.5f;
+            float waitTime = _heavyAttackTime * 0.5f;
             yield return new WaitForSeconds(waitTime);
 
             _cancellable = false;
             yield return new WaitForSeconds(waitTime);
 
-            foreach (var hittable in _sensor.Objects)
+            for (int i = 0; i < _sensor.Objects.Count; i++)
             {
-                hittable.Hit(30);
+                var hittable = _sensor.Objects[i];
+                if (hittable == null)
+                {
+                    continue;
+                }
+
+                hittable.Hit(_heavyAttackDamage);
             }
             _cancellable = true;
             _attackRoutine = null;

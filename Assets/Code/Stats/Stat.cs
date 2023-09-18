@@ -5,11 +5,10 @@ using UnityEngine;
 
 namespace Pasta
 {
-    [Serializable]
     public class Stat
     {
-        [SerializeField] private float _baseValue;
-        private float _value = 10;
+        private float _baseValue;
+        private float _value;
         public float Value
         {
             get
@@ -28,8 +27,7 @@ namespace Pasta
             }
         }
 
-
-        private HashSet<StatEffect> _effects = new HashSet<StatEffect>();
+        private HashSet<StatEffect> _effects = new();
         public event Action<float> ValueChanged;
 
         public Stat(float baseValue)
@@ -38,7 +36,7 @@ namespace Pasta
             _value = baseValue;
         }
 
-        private void CalculateValue()
+        private float CalculateValue()
         {
             float newValue = _baseValue;
 
@@ -59,6 +57,7 @@ namespace Pasta
             }
 
             Value = newValue;
+            return newValue;
         }
 
         public bool AddEffect(StatEffect effect)

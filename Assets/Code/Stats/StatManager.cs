@@ -9,8 +9,19 @@ namespace Pasta
     public class StatManager : Singleton<StatManager>
     {
         [SerializeField] private StatProfile _currentStatProfile;
+        private Stats _currentStats;
 
         public override bool DoPersist => false;
+
+        protected override void Init()
+        {
+            if (_currentStatProfile == null)
+            {
+                return;
+            }
+
+            _currentStats = new Stats(_currentStatProfile);
+        }
 
         public Stat GetStat(StatType type)
         {
@@ -19,16 +30,16 @@ namespace Pasta
             switch (type)
             {
                 case StatType.Health:
-                    stat = _currentStatProfile.Health;
+                    stat = _currentStats.Health;
                     break;
                 case StatType.Damage:
-                    stat = _currentStatProfile.Damage;
+                    stat = _currentStats.Damage;
                     break;
                 case StatType.AttackSpeed:
-                    stat = _currentStatProfile.AttackSpeed;
+                    stat = _currentStats.AttackSpeed;
                     break;
                 case StatType.MovementSpeed:
-                    stat = _currentStatProfile.MovementSpeed;
+                    stat = _currentStats.MovementSpeed;
                     break;
                 default:
                     throw new NotImplementedException($"GetStat of type {type} is not implemented.");

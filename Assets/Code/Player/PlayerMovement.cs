@@ -14,6 +14,18 @@ public class PlayerMovement : Movement
     private bool _isRolling = false;
     public bool IsRolling => _isRolling;
     public bool CanRoll => (_rollRoutine == null && _isRolling == false);
+    public Stat _movementSpeed;
+
+    private void Start()
+    {
+        //_movementSpeed = StatManager.Current.GetStat(StatType.MovementSpeed);
+    }
+
+    protected override void FixedUpdate()
+    {
+        //BaseSpeed = _movementSpeed.Value;
+        base.FixedUpdate();
+    }
 
     public override void Move(Vector2 dir)
     {
