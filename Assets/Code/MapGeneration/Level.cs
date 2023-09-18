@@ -13,15 +13,9 @@ public class Level : MonoBehaviour
     void Start()
     {
         endPoints = GetComponentInChildren<EndPoints>();
-        endPoints.gameObject.SetActive(false);
+        // endPoints.gameObject.SetActive(false);
         player = GameObject.FindGameObjectWithTag("Player");
         player.transform.position = spawnPoint.transform.position;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void CheckIfRoomComplete()

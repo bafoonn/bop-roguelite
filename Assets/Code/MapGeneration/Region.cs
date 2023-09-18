@@ -14,13 +14,6 @@ public class Region : MonoBehaviour
     private EndPoints endPoints;
     private Level activeLevel;
 
-
-
-
-
-
-    private float timer = 5;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -49,8 +42,11 @@ public class Region : MonoBehaviour
             levelManager.ChangeRegion();
             levelIndex = 0;
         }
-
-        int random = Random.Range(0, levels.Length);
-        activeLevel = Instantiate(levels[random], transform.position, Quaternion.identity);
+        else
+        {
+            int random = Random.Range(0, levels.Length);
+            activeLevel = Instantiate(levels[random], transform.position, Quaternion.identity);
+            activeLevel.transform.SetParent(this.gameObject.transform);
+        }
     }
 }

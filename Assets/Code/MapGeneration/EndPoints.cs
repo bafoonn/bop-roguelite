@@ -5,7 +5,7 @@ using UnityEngine;
 public class EndPoints : MonoBehaviour
 {
     [SerializeField]
-    private EndPoints[] endPoints;
+    private EndPoint[] endPoints;
     private Region region;
     // Start is called before the first frame update
     void Start()
