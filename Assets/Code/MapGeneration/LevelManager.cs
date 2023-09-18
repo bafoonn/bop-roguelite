@@ -40,7 +40,7 @@ public class LevelManager : MonoBehaviour
                 if (i == regionIndex)
                 {
                     regions[i].gameObject.SetActive(true);
-                    regions[i].GenerateLevel();
+                    regions[i].GenerateLevel(0);
                 }
             }
         }

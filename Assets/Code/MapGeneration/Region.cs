@@ -19,17 +19,7 @@ public class Region : MonoBehaviour
     {
         levelManager = GetComponentInParent<LevelManager>();
     }
-    private void Update()
-    {
-        /*timer -= Time.deltaTime;
-        if (timer <= 0)
-        {
-            GenerateLevel();
-            timer = 5;
-        }*/
-    }
-
-    public void GenerateLevel()
+    public void GenerateLevel(int roomRewardIndex)
     {
         if (levelIndex != 0)
         {

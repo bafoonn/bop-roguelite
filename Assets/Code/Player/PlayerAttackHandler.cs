@@ -54,7 +54,7 @@ namespace Pasta
             yield return new WaitForSeconds(QuickAttackTime);
             foreach (var hittable in _sensor.Objects)
             {
-                hittable.Hit(10);
+                hittable.Hit(100);
             }
             _attackRoutine = null;
         }

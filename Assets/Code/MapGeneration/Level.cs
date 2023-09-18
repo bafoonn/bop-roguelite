@@ -6,21 +6,30 @@ public class Level : MonoBehaviour
 {
     private EndPoints endPoints;
     private GameObject player;
+    private GameObject[] activeEnemies;
+    private int enemiesLeft;
 
     [SerializeField]
     private Transform spawnPoint;
+
     // Start is called before the first frame update
     void Start()
     {
         endPoints = GetComponentInChildren<EndPoints>();
-        // endPoints.gameObject.SetActive(false);
+        endPoints.gameObject.SetActive(false);
         player = GameObject.FindGameObjectWithTag("Player");
         player.transform.position = spawnPoint.transform.position;
+        activeEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+        for (int i = 0; i < activeEnemies.Length; i++)
+        {
+            enemiesLeft++;
+        }
     }
 
-    public void CheckIfRoomComplete()
+    public void EnemyKilled()
     {
-        if (GameObject.FindGameObjectWithTag("Enemy") == null)
+        enemiesLeft--;
+        if (enemiesLeft == 0)
         {
             endPoints.gameObject.SetActive(true);
         }

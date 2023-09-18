@@ -166,7 +166,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levels:
   - {fileID: 4454962172724761198, guid: b1d3752f62705f7408dd910a2e622786, type: 3}
-  - {fileID: 4454962172724761198, guid: 314aba6432b110e4bae8b9d78c739952, type: 3}
   levelIndex: 0
 --- !u!1 &393665274
 GameObject:
@@ -290,7 +289,7 @@ GameObject:
   - component: {fileID: 847857893}
   - component: {fileID: 847857892}
   - component: {fileID: 847857891}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -413,7 +412,7 @@ GameObject:
   m_Component:
   - component: {fileID: 913025156}
   - component: {fileID: 913025157}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AttackHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -568,7 +567,7 @@ GameObject:
   - component: {fileID: 1600803038}
   - component: {fileID: 1600803037}
   - component: {fileID: 1600803036}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}

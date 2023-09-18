@@ -4,24 +4,27 @@ using UnityEngine;
 
 public class EndPoint : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    private GameObject[] rewardList;
+    
+    private int roomRewardIndex;
 
-    // Update is called once per frame
-    void Update()
+    public int GenerateRoomRewardIndex()
     {
-        
+        int random = Random.Range(0, rewardList.Length);
+        return random;
+    }
+    public void GenerateRoomReward(int index)
+    {
+        roomRewardIndex = index;
     }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            Region region = GameObject.FindFirstObjectByType<Region>();
-            region.GenerateLevel();
+            Region region = GetComponentInParent<Region>();
+            region.GenerateLevel(roomRewardIndex);
         }
     }
 }

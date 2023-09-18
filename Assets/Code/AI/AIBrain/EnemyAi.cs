@@ -14,6 +14,8 @@ public class EnemyAi : MonoBehaviour, IHittable
     [SerializeField] private float detectionDelay = 0.05f, aiUpdateDelay = 0.06f, attackDelay = 2f;
     [SerializeField] private float attackDistance = 0.5f;
     [SerializeField] private List<SteeringBehaviour> steeringBehaviours;
+    public Health Health { get; protected set; }
+    public static event System.Action<EnemyAi> OnDeath;
 
     public UnityEvent OnAttackPressed;
     public UnityEvent<Vector2> OnMovementInput, OnPointerInput;
@@ -48,6 +50,14 @@ public class EnemyAi : MonoBehaviour, IHittable
     private void Awake()
     {
         InvokeRepeating("PerformDetection", 0, detectionDelay);
+        Health = GetComponent<Health>();
+        Debug.Assert(Health != null);
+        Health.Reset();
+    }
+
+    protected virtual void OnEnable()
+    {
+        Health.OnDeath += DeathAction;
     }
 
     private void PerformDetection()
@@ -103,9 +113,11 @@ public class EnemyAi : MonoBehaviour, IHittable
         }
     }
 
-    public void Death()
+    protected virtual void DeathAction()
     {
-
+        Level level = GameObject.FindFirstObjectByType<Level>();
+        level.EnemyKilled();
+        Destroy(gameObject);
     }
 
     //private IEnumerator UnStun()
@@ -167,10 +179,10 @@ public class EnemyAi : MonoBehaviour, IHittable
 
     public void Hit(float damage)
     {
-        //if(health <= 0)
-        //{
-        //    Destroy(gameObject);
-        //}
-        // TODO: Implement Hit Anim here and take damage.
+        if (OnDeath != null)
+        {
+            OnDeath(this);
+        }
+        Health.TakeDamage(damage);
     }
 }
