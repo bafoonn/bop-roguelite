@@ -21,10 +21,19 @@ namespace Pasta
             originPoint.y += Random.Range(-spawnRadius, spawnRadius);
 
 
+            BeamBall beamBall = FindObjectOfType<BeamBall>();
             float directionFacing = Random.Range(0, spawnRadius);
 
+            DamageArea[] area = gameObject.GetComponentsInChildren<DamageArea>();
+            foreach (DamageArea damagearea in area)
+            {
+                if (beamBall != null)
+                {
+                    damagearea.Damage = beamBall.damage;
+                }
 
-            
+            }
+
         }
 
         // Update is called once per frame

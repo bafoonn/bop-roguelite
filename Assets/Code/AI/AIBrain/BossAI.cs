@@ -13,7 +13,7 @@ public class BossAI : MonoBehaviour, IHittable
     [SerializeField] private List<Detector> detectors;
     [SerializeField] private AIData aiData;
     [SerializeField] private float detectionDelay = 0.05f, aiUpdateDelay = 0.06f, attackDelay = 2f;
-    [SerializeField] private float attackDistance = 0.5f;
+    [SerializeField] public float attackDistance = 0.5f;
     [SerializeField] private List<SteeringBehaviour> steeringBehaviours;
 
     public UnityEvent OnAttackPressed;
@@ -99,6 +99,10 @@ public class BossAI : MonoBehaviour, IHittable
         abilityHolder.UseAbility = true; // <- Here for testing purposes.
 
     }
+    public void UseAbility()
+    {
+        // TODO : ADD ABILITY USE HERE WITH SOME MECHANIC TO INCREASE ATTACK DISTANCE OR JUST USE CERTAIN ABILITIES FROM FAR AWAY FROM TARGET
+    }
 
     public void Death()
     {
@@ -142,7 +146,7 @@ public class BossAI : MonoBehaviour, IHittable
             {
                 Debug.Log("Chasing");
                 //Chasing
-                abilityHolder.CanUseAbility = false; // <- Here for testing purposes.
+                abilityHolder.CanUseAbility = true; // <- Here for testing purposes.
                 timeToAttack = 0;
                 attackIndicator.fillAmount = 0;
                 movementInput = movementDirectionSolver.GetDirectionToMove(steeringBehaviours, aiData);

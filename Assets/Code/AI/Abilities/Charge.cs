@@ -12,13 +12,16 @@ namespace Pasta
         private Rigidbody2D rigidbody;
         private AIData aiData;
         public float speed = 0f;
+        public float distancetoUse;
 
         private BoxCollider2D bC2D;
         public override void Activate(GameObject parent)
         {
             AIData aiData = parent.GetComponent<AIData>();
-            BossAI bossAi = parent.GetComponent<BossAI>(); 
+            BossAI bossAi = parent.GetComponent<BossAI>();
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
             rigidbody = parent.GetComponent<Rigidbody2D>();
+
             rigidbody.MovePosition(aiData.currentTarget.position * speed);
             bC2D = parent.AddComponent<BoxCollider2D>();
             bC2D.isTrigger = true;
@@ -36,7 +39,7 @@ namespace Pasta
                 }
             }
 
-            
+
         }
 
         public override void Deactivate(GameObject parent)
