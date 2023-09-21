@@ -2,36 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EndPoints : MonoBehaviour
+namespace Pasta
 {
-    [SerializeField]
-    private EndPoint[] endPoints;
-    private Region region;
-    private int dublicateCheck;
-    // Start is called before the first frame update
-    void Start()
+    public class EndPoints : MonoBehaviour
     {
-        region = GetComponentInParent<Region>();
-
-        // Dublicate check for room rewards in order to have each endpoint offer a different reward
-        for (int i = 0; i < endPoints.Length; i++)
+        [SerializeField]
+        private EndPoint[] endPoints;
+        private Region region;
+        private int dublicateCheck;
+        // Start is called before the first frame update
+        void Start()
         {
-            int roomRewardIndex = endPoints[i].GenerateRoomRewardIndex();
+            region = GetComponentInParent<Region>();
 
-            if (i == 0)
+            // Dublicate check for room rewards in order to have each endpoint offer a different reward
+            for (int i = 0; i < endPoints.Length; i++)
             {
-                dublicateCheck = roomRewardIndex;
-            }
-            else
-            {
-                while (roomRewardIndex == dublicateCheck)
+                int roomRewardIndex = endPoints[i].GenerateRoomRewardIndex();
+
+                if (i == 0)
                 {
-                    roomRewardIndex = endPoints[i].GenerateRoomRewardIndex();
+                    dublicateCheck = roomRewardIndex;
                 }
+                else
+                {
+                    while (roomRewardIndex == dublicateCheck)
+                    {
+                        roomRewardIndex = endPoints[i].GenerateRoomRewardIndex();
+                    }
+                }
+
+                endPoints[i].GenerateRoomReward(roomRewardIndex);
             }
-
-            endPoints[i].GenerateRoomReward(roomRewardIndex);
         }
-    }
 
+    }
 }

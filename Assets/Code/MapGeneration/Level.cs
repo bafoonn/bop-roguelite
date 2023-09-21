@@ -2,36 +2,51 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Level : MonoBehaviour
+namespace Pasta
 {
-    private EndPoints endPoints;
-    private GameObject player;
-    private GameObject[] activeEnemies;
-    private int enemiesLeft;
-
-    [SerializeField]
-    private Transform spawnPoint;
-
-    // Start is called before the first frame update
-    void Start()
+    public class Level : MonoBehaviour
     {
-        endPoints = GetComponentInChildren<EndPoints>();
-        endPoints.gameObject.SetActive(false);
-        player = GameObject.FindGameObjectWithTag("Player");
-        player.transform.position = spawnPoint.transform.position;
-    }
+        private EndPoints endPoints;
+        private RoomRewardSpawner rewardSpawner;
+        private GameObject player;
+        private int enemiesLeft;
+        private int rewardIndex;
 
-    public void AddToEnemyCount()
-    {
-        enemiesLeft++;
-    }
-    public void EnemyKilled()
-    {
-        enemiesLeft--;
-        if (enemiesLeft == 0)
+        [SerializeField]
+        private Transform spawnPoint;
+
+        // Start is called before the first frame update
+        void Start()
         {
-            endPoints.gameObject.SetActive(true);
+            endPoints = GetComponentInChildren<EndPoints>();
+            endPoints.gameObject.SetActive(false);
+            rewardSpawner = GetComponentInChildren<RoomRewardSpawner>();
+            rewardSpawner.gameObject.SetActive(false);
+            player = GameObject.FindGameObjectWithTag("Player");
+            player.transform.position = spawnPoint.transform.position;
         }
-    }
 
+        public void PassRewardIndex(int index)
+        {
+            rewardIndex = index;
+        }
+        // Called whenever an EnemySpawner spawns an enemy
+        public void AddToEnemyCount()
+        {
+            enemiesLeft++;
+            Debug.Log(enemiesLeft);
+        }
+        // Called whenever an enemy dies, at 0 enemies left activates endpoints that start the next level generation
+        public void EnemyKilled()
+        {
+            enemiesLeft--;
+            if (enemiesLeft == 0)
+            {
+                endPoints.gameObject.SetActive(true);
+                rewardSpawner.gameObject.SetActive(true);
+                rewardSpawner.SpawnReward(rewardIndex);
+            }
+        }
+
+    }
 }
