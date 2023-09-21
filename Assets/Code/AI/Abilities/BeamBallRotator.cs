@@ -21,7 +21,7 @@ namespace Pasta
             originPoint.y += Random.Range(-spawnRadius, spawnRadius);
 
 
-            BeamBall beamBall = FindObjectOfType<BeamBall>();
+            BeamBall beamBall = FindFirstObjectByType<BeamBall>();
             float directionFacing = Random.Range(0, spawnRadius);
 
             DamageArea[] area = gameObject.GetComponentsInChildren<DamageArea>();

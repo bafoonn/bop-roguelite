@@ -53,7 +53,7 @@ namespace Pasta
                         else
                         {
                             UseAbility = false; // <- Here for testing purposes.
-                            ability.Deactivate(gameObject);
+                            ability.Deactivate();
                             state = AbilityState.cooldown;
                             cooldownTime = ability.coolDown;
                         }

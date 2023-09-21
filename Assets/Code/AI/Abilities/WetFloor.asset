@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2ae306f15d643b4f8312e51868cac0c, type: 3}
-  m_Name: BeamBall
+  m_Script: {fileID: 11500000, guid: 7f1cb95d25da44e409252ebcd94608e2, type: 3}
+  m_Name: WetFloor
   m_EditorClassIdentifier: 
-  AbilityName: BeamBall
-  coolDown: 20
-  ActiveTime: 8
-  damage: 4
+  AbilityName: WetFloor
+  coolDown: 7
+  ActiveTime: 10
+  damage: 2
   usableOutsideAttackRange: 1
-  beamGameBall: {fileID: 6813837663239196266, guid: b9522ba32817c6449a50908597171254, type: 3}
-  spawnRadius: 3
-  BossRadius: 2
-  BallRadius: 2
+  maxHowManyPuddles: 6
+  SpawnRadius: 5
+  puddleObject: {fileID: 780448993893128306, guid: b5e00bbe589d8b74a9df488d05e686b6, type: 3}
+  spawnRadius: 5

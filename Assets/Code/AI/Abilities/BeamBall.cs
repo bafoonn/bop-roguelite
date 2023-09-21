@@ -27,7 +27,7 @@ namespace Pasta
 
         }
 
-        public override void Deactivate(GameObject parent)
+        public override void Deactivate()
         {
             Destroy(beamGameBall);
         }

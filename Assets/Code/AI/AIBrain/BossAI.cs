@@ -101,7 +101,10 @@ public class BossAI : MonoBehaviour, IHittable
     }
     public void UseAbility()
     {
-        // TODO : ADD ABILITY USE HERE WITH SOME MECHANIC TO INCREASE ATTACK DISTANCE OR JUST USE CERTAIN ABILITIES FROM FAR AWAY FROM TARGET
+        if(abilityHolder.ability.usableOutsideAttackRange == true)
+        {
+            abilityHolder.UseAbility = true;
+        }
     }
 
     public void Death()
@@ -125,6 +128,7 @@ public class BossAI : MonoBehaviour, IHittable
             float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
             if (distance < attackDistance)
             {
+                movementInput = Vector2.zero;
                 Debug.Log("Attacking");
                 //Attacking 
                 abilityHolder.CanUseAbility = true; // <- Here for testing purposes.
@@ -147,6 +151,7 @@ public class BossAI : MonoBehaviour, IHittable
                 Debug.Log("Chasing");
                 //Chasing
                 abilityHolder.CanUseAbility = true; // <- Here for testing purposes.
+                UseAbility();
                 timeToAttack = 0;
                 attackIndicator.fillAmount = 0;
                 movementInput = movementDirectionSolver.GetDirectionToMove(steeringBehaviours, aiData);
