@@ -49,7 +49,6 @@ namespace Pasta
                 return;
             }
 
-            Debug.Log(item);
             var serializedItem = new SerializedObject(item);
             var itemProp = serializedItem.GetIterator();
             itemProp.Next(true);

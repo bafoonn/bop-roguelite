@@ -9,6 +9,7 @@ public class Player : MonoBehaviour, IHittable
     private Rigidbody2D _rigidbody;
     private PlayerMovement _movement;
     private PlayerAttackHandler _attackHandler;
+    private PlayerHealth _health;
 
     public void Hit(float damage)
     {
@@ -22,6 +23,7 @@ public class Player : MonoBehaviour, IHittable
         _attackHandler = GetComponentInChildren<PlayerAttackHandler>();
         Debug.Assert(_attackHandler != null, $"Player has no PlayerAttackHandler component in children.");
         _rigidbody = this.AddOrGetComponent<Rigidbody2D>();
+        _health = this.AddOrGetComponent<PlayerHealth>();
 
         _inputReader.DodgeCallback = () =>
         {
@@ -52,6 +54,7 @@ public class Player : MonoBehaviour, IHittable
 
         _movement.Setup(_rigidbody);
     }
+
 
     private void FixedUpdate()
     {

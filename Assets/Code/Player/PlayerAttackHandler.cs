@@ -7,7 +7,9 @@ namespace Pasta
     public class PlayerAttackHandler : MonoBehaviour
     {
         [SerializeField] private float _heavyAttackTimeMultiplier = 3.5f;
+        [ReadOnly, SerializeField]
         private float _quickAttackTime = 0.2f;
+        [ReadOnly, SerializeField]
         private float _heavyAttackTime = 0.8f;
 
         private Coroutine _attackRoutine;
@@ -30,12 +32,12 @@ namespace Pasta
 
         private void Start()
         {
-            //_damage = StatManager.Current.GetStat(StatType.Damage);
-            //_damage.ValueChanged += OnDamageChanged;
+            _damage = StatManager.Current.GetStat(StatType.Damage);
+            _damage.ValueChanged += OnDamageChanged;
 
-            //_attackSpeed = StatManager.Current.GetStat(StatType.AttackSpeed);
-            //_attackSpeed.ValueChanged += OnAttackSpeedChanged;
-            //SetDamage(_damage.Value, _attackSpeed.Value);
+            _attackSpeed = StatManager.Current.GetStat(StatType.AttackSpeed);
+            _attackSpeed.ValueChanged += OnAttackSpeedChanged;
+            SetDamage(_damage.Value, _attackSpeed.Value);
         }
 
         private void OnAttackSpeedChanged(float value)
@@ -135,6 +137,12 @@ namespace Pasta
             }
 
             return true;
+        }
+
+        public void Stop()
+        {
+            _cancellable = true;
+            Cancel();
         }
     }
 }

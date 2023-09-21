@@ -8,9 +8,8 @@ namespace Pasta
     /// A struct used to modify the value of a Stat
     /// </summary>
     [Serializable]
-    public struct StatEffect : IEquatable<StatEffect>
+    public class StatEffect : Effect
     {
-        public readonly Guid Id;
         /// <summary>
         /// The name of the effect, also used in comparing. Has to be unique
         /// </summary>
@@ -22,30 +21,24 @@ namespace Pasta
         /// </summary>
         public StatEffectType Type;
 
-        public StatEffect(string name, StatType statType, float value, StatEffectType type)
+        public StatEffect(string name, StatType statType, float value, StatEffectType type) : base()
         {
-            Id = new Guid();
             Name = name;
             Stat = statType;
             Value = value;
             Type = type;
         }
 
-        public override bool Equals(object obj)
+        public override void Apply()
         {
-            if (obj == null) return false;
-            if (!(obj is StatEffect)) return false;
-            return Equals((StatEffect)obj);
+            base.Apply();
+            StatManager.Current.AddEffectToStat(this);
         }
 
-        public bool Equals(StatEffect other)
+        public override void Unapply()
         {
-            return Id.Equals(other.Id);
-        }
-
-        public override int GetHashCode()
-        {
-            return Id.GetHashCode();
+            base.Unapply();
+            StatManager.Current.RemoveEffectFromStat(this);
         }
 
         public override string ToString()

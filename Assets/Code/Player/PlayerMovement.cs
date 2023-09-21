@@ -18,12 +18,13 @@ public class PlayerMovement : Movement
 
     private void Start()
     {
-        //_movementSpeed = StatManager.Current.GetStat(StatType.MovementSpeed);
+        _movementSpeed = StatManager.Current.GetStat(StatType.MovementSpeed);
+        Debug.Log(_movementSpeed.Value);
     }
 
     protected override void FixedUpdate()
     {
-        //BaseSpeed = _movementSpeed.Value;
+        BaseSpeed = _movementSpeed.Value;
         base.FixedUpdate();
     }
 

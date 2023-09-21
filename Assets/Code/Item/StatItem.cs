@@ -13,7 +13,7 @@ namespace Pasta
         {
             foreach (var effect in Effects)
             {
-                StatManager.Current.RemoveEffectFromStat(effect);
+                effect.Unapply();
             }
         }
 
@@ -21,7 +21,7 @@ namespace Pasta
         {
             foreach (var effect in Effects)
             {
-                StatManager.Current.AddEffectToStat(effect);
+                effect.Apply();
             }
         }
     }

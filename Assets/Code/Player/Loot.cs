@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Pasta
@@ -12,10 +13,10 @@ namespace Pasta
             get => _items[index];
             set => _items[index] = value;
         }
-
         public int Count => _items.Count;
-
         public bool IsReadOnly => false;
+
+        private void OnDestroy() => Clear();
 
         public void Add(IItem item)
         {
