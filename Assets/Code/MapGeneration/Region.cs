@@ -2,41 +2,56 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Region : MonoBehaviour
+namespace Pasta
 {
-    [SerializeField]
-    private Level[] levels;
-
-    [SerializeField]
-    private int levelIndex = 0;
-
-    private LevelManager levelManager;
-    private EndPoints endPoints;
-    private Level activeLevel;
-
-    // Start is called before the first frame update
-    void Start()
+    public class Region : MonoBehaviour
     {
-        levelManager = GetComponentInParent<LevelManager>();
-    }
-    public void GenerateLevel(int roomRewardIndex)
-    {
-        if (levelIndex != 0)
-        {
-            Destroy(activeLevel.gameObject);
-        }
-        levelIndex++;
+        [SerializeField]
+        private Level[] levels;
 
-        if (levelIndex == 6)
+        private int levelIndex = 0;
+
+        private LevelManager levelManager;
+        private EndPoints endPoints;
+        private Level activeLevel;
+        private GameObject[] rewardList;
+
+        // Start is called before the first frame update
+        void Start()
         {
-            levelManager.ChangeRegion();
-            levelIndex = 0;
+            levelManager = GetComponentInParent<LevelManager>();
         }
-        else
+        public void GenerateLevel(int roomRewardIndex)
         {
-            int random = Random.Range(0, levels.Length);
-            activeLevel = Instantiate(levels[random], transform.position, Quaternion.identity);
+            if (levelIndex != 0)
+            {
+                Destroy(activeLevel.gameObject);
+            }
+            levelIndex++;
+            // Change region
+            if (levelIndex == 6)
+            {
+                levelManager.ChangeRegion();
+                levelIndex = 0;
+            }
+            // Instantiate boss level, boss level is always the last level in the levels list
+            else if (levelIndex == 5)
+            {
+                InstantiateLevel(levels.Length, roomRewardIndex);
+            }
+            // Instantiate random level from levels list
+            else
+            {
+                int random = Random.Range(0, levels.Length-1);
+                InstantiateLevel(random, roomRewardIndex);
+            }
+        }
+        
+        private void InstantiateLevel(int levelIndex, int roomRewardIndex)
+        {
+            activeLevel = Instantiate(levels[levelIndex], transform.position, Quaternion.identity);
             activeLevel.transform.SetParent(this.gameObject.transform);
+            activeLevel.PassRewardIndex(roomRewardIndex);
         }
     }
 }
