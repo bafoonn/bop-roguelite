@@ -234,7 +234,7 @@ MonoBehaviour:
   detectionRadius: 1.75
   layerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
   showGizmos: 0
 --- !u!1 &4676193228305532068
 GameObject:
@@ -534,7 +534,7 @@ GameObject:
   - component: {fileID: 7233873362738698223}
   m_Layer: 8
   m_Name: Boss
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -752,6 +752,7 @@ MonoBehaviour:
   abilities:
   - {fileID: 11400000, guid: fc9e4e04687c0b046ab3e81fc38c3a81, type: 2}
   - {fileID: 11400000, guid: ffb93609bd506ac45919e53433719486, type: 2}
+  - {fileID: 11400000, guid: 550776ba1b730e141816c0f814c36784, type: 2}
   ability: {fileID: 0}
   CanUseAbility: 0
   UseAbility: 0
@@ -774,7 +775,7 @@ MonoBehaviour:
   detectionDelay: 0.05
   aiUpdateDelay: 0.06
   attackDelay: 2
-  attackDistance: 2
+  attackDistance: 2.1
   steeringBehaviours:
   - {fileID: 5337389736714812942}
   - {fileID: 4012314741522539382}
@@ -877,7 +878,7 @@ MonoBehaviour:
   targetDetectionRange: 7.28
   obstacleLayerMask:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 64
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 64

@@ -21,8 +21,8 @@ namespace Pasta
             BossAI bossAi = parent.GetComponent<BossAI>();
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             rigidbody = parent.GetComponent<Rigidbody2D>();
-
-            rigidbody.MovePosition(aiData.currentTarget.position * speed);
+            Vector2 TargetPos = aiData.currentTarget.position + Random.insideUnitSphere;
+            rigidbody.MovePosition(TargetPos * speed);
             bC2D = parent.AddComponent<BoxCollider2D>();
             bC2D.isTrigger = true;
             bC2D.size = new Vector2(1, 1);
@@ -42,7 +42,7 @@ namespace Pasta
 
         }
 
-        public override void Deactivate(GameObject parent)
+        public override void Deactivate()
         {
             Destroy(bC2D);
             rigidbody.velocity = Vector2.zero;

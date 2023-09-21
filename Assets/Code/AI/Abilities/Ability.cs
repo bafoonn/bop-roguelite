@@ -11,13 +11,14 @@ namespace Pasta
         public float coolDown = 0f;
         public float ActiveTime = 0f;
         public float damage = 1f;
+        public bool usableOutsideAttackRange = false;
 
         public virtual void Activate(GameObject parent)
         {
-
+            
         }
 
-        public virtual void Deactivate(GameObject parent)
+        public virtual void Deactivate()
         {
 
         }

@@ -5,7 +5,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
-using UnityEngine;
 
 namespace Pasta
 {
@@ -40,7 +39,7 @@ namespace Pasta
 
         }
 
-        public override void Deactivate(GameObject p)
+        public override void Deactivate()
         {
             Destroy(cc2d);
         }
