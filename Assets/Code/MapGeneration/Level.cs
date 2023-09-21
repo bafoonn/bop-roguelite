@@ -19,13 +19,12 @@ public class Level : MonoBehaviour
         endPoints.gameObject.SetActive(false);
         player = GameObject.FindGameObjectWithTag("Player");
         player.transform.position = spawnPoint.transform.position;
-        activeEnemies = GameObject.FindGameObjectsWithTag("Enemy");
-        for (int i = 0; i < activeEnemies.Length; i++)
-        {
-            enemiesLeft++;
-        }
     }
 
+    public void AddToEnemyCount()
+    {
+        enemiesLeft++;
+    }
     public void EnemyKilled()
     {
         enemiesLeft--;

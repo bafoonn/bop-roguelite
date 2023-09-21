@@ -16,6 +16,7 @@ public class EnemyAi : MonoBehaviour, IHittable
     [SerializeField] private List<SteeringBehaviour> steeringBehaviours;
     public Health Health { get; protected set; }
     public static event System.Action<EnemyAi> OnDeath;
+    private Level level;
 
     public UnityEvent OnAttackPressed;
     public UnityEvent<Vector2> OnMovementInput, OnPointerInput;
@@ -37,9 +38,9 @@ public class EnemyAi : MonoBehaviour, IHittable
 
     private void Start()
     {
-
         player = GameObject.FindGameObjectWithTag("Player");
         Player = player.transform;
+        level = FindFirstObjectByType<Level>();
         attackIndicator = GetComponentInChildren<Image>();
         weaponParent = GetComponentInChildren<WeaponParent>();
 
@@ -115,7 +116,6 @@ public class EnemyAi : MonoBehaviour, IHittable
 
     protected virtual void DeathAction()
     {
-        Level level = GameObject.FindFirstObjectByType<Level>();
         level.EnemyKilled();
         Destroy(gameObject);
     }

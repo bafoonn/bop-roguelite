@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8807362969998035127}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: SteeringBehaviours
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 1565709467507885505}
   - component: {fileID: 333931124523885455}
   - component: {fileID: 7631863943554251555}
-  m_Layer: 2
+  m_Layer: 7
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -193,7 +193,7 @@ GameObject:
   m_Component:
   - component: {fileID: 299575323501374508}
   - component: {fileID: 9136036092128122192}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: ObstacleDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -230,7 +230,7 @@ MonoBehaviour:
   detectionRadius: 1.75
   layerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 256
   showGizmos: 0
 --- !u!1 &2629802818854526364
 GameObject:
@@ -241,7 +241,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4677311266499835787}
-  m_Layer: 2
+  m_Layer: 7
   m_Name: ProjectileSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -273,7 +273,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8252718744200269379}
   - component: {fileID: 1333527582292187005}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: TargetDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -310,7 +310,7 @@ MonoBehaviour:
   targetDetectionRange: 7.28
   obstacleLayerMask:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 320
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -326,7 +326,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4250969289243013587}
   - component: {fileID: 3838692728030095157}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: ObstacleAvoidance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 4645047411132124182}
   - component: {fileID: 7408664917638220669}
   - component: {fileID: 1696546023301982469}
-  m_Layer: 2
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -474,7 +474,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6118181714257610252}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Detectors
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -508,7 +508,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8084838211849072565}
   - component: {fileID: 6467224216113167214}
-  m_Layer: 2
+  m_Layer: 7
   m_Name: EnemyBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -573,7 +573,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.7640786, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -601,7 +601,7 @@ GameObject:
   - component: {fileID: 2565745539531763249}
   - component: {fileID: 1867457929088482630}
   - component: {fileID: 69885865199376009}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Enemy 1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -739,7 +739,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -892,8 +892,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a48cd636b0de9904f89dc75b933abd19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MaxHealth>k__BackingField: 100
-  <CurrentHealth>k__BackingField: 100
+  <MaxHealth>k__BackingField: 50
+  <CurrentHealth>k__BackingField: 50
 --- !u!1 &7024768928966453706
 GameObject:
   m_ObjectHideFlags: 0
@@ -904,7 +904,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6616921628083319081}
   - component: {fileID: 3029777545630577490}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: SeekBehaviour
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -950,7 +950,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4211401007288343448}
   - component: {fileID: 8370257820556550191}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: AISolver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -996,7 +996,7 @@ GameObject:
   - component: {fileID: 1938852979370979034}
   - component: {fileID: 2513373255749068102}
   - component: {fileID: 4275250793159290879}
-  m_Layer: 2
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
