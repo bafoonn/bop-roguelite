@@ -25,7 +25,7 @@ public class EnemyAi : MonoBehaviour, IHittable
     bool Chasing = false;
 
     private WeaponParent weaponParent;
-
+    private AbilityHolder abilityHolder;
     [SerializeField] private Transform Player;
     private GameObject player;
     private Image attackIndicator;
@@ -43,7 +43,7 @@ public class EnemyAi : MonoBehaviour, IHittable
         level = FindFirstObjectByType<Level>();
         attackIndicator = GetComponentInChildren<Image>();
         weaponParent = GetComponentInChildren<WeaponParent>();
-
+        abilityHolder = GetComponent<AbilityHolder>();
         //Detect objects
 
 
@@ -111,6 +111,7 @@ public class EnemyAi : MonoBehaviour, IHittable
         else
         {
             weaponParent.Attack();
+            abilityHolder.UseAbility = true;
         }
     }
 
@@ -130,6 +131,7 @@ public class EnemyAi : MonoBehaviour, IHittable
     {
         if (aiData.currentTarget == null)
         {
+            abilityHolder.CanUseAbility = false;
             movementInput = Vector2.zero;
             timeToAttack = 0;
             attackIndicator.fillAmount = 0;
@@ -150,7 +152,7 @@ public class EnemyAi : MonoBehaviour, IHittable
             {
                 Debug.Log("Attacking");
                 //Attacking 
-
+                abilityHolder.CanUseAbility = true;
                 movementInput = Vector2.zero;
                 OnAttackPressed?.Invoke();
                 if (timeToAttack >= defaultTimeToAttack) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
@@ -166,7 +168,7 @@ public class EnemyAi : MonoBehaviour, IHittable
             {
                 Debug.Log("Chasing");
                 //Chasing
-
+                abilityHolder.CanUseAbility = false;
                 timeToAttack = 0;
                 attackIndicator.fillAmount = 0;
                 movementInput = movementDirectionSolver.GetDirectionToMove(steeringBehaviours, aiData);
