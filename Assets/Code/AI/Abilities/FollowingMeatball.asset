@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40e6520928dc18849bba54233a213ada, type: 3}
+  m_Name: FollowingMeatball
+  m_EditorClassIdentifier: 
+  AbilityName: Meatball
+  coolDown: 10
+  ActiveTime: 2
+  damage: 1
+  usableOutsideAttackRange: 1
+  spawnRadius: 2
+  MeatBall: {fileID: 910622235303783855, guid: 584e6bb6566b5ad4aa90225d9dc06b9d, type: 3}

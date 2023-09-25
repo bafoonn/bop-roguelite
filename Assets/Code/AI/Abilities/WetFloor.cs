@@ -21,13 +21,13 @@ namespace Pasta
         private Tilemap tileMap;
         public override void Activate(GameObject parent)
         {
-            originPoint2int = Vector2Int.RoundToInt(originPoint);
-            originPoint3int = ((Vector3Int)originPoint2int);
             tileMap = FindFirstObjectByType<Tilemap>();
             float randomPuddleCount = Random.Range(0, maxHowManyPuddles);
             for(int i = 0; i < randomPuddleCount; i++)
             {
                 originPoint = Random.insideUnitSphere * spawnRadius;
+                originPoint2int = Vector2Int.RoundToInt(originPoint);
+                originPoint3int = ((Vector3Int)originPoint2int);
                 if (tileMap.HasTile(originPoint3int))
                 {
                     Instantiate(puddleObject, originPoint, Quaternion.identity);

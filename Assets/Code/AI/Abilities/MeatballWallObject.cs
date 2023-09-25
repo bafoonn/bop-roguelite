@@ -9,9 +9,11 @@ namespace Pasta
     {
         private GameObject player;
         [SerializeField] private GameObject[] meatBall;
+        private Rigidbody2D rigidBody2d;
 
         private void Start()
         {
+            rigidBody2d = GetComponent<Rigidbody2D>();
             player = GameObject.FindGameObjectWithTag("Player");
            
             int random = Random.Range(0, meatBall.Length);
@@ -19,7 +21,14 @@ namespace Pasta
             Vector3 playertransformPos = player.transform.position;
             Vector2 direction = new Vector2(playertransformPos.x - transform.position.x, playertransformPos.y - transform.position.y);
             transform.right = direction;
-            //TODO : MOVE FORWARDS
+        }
+        private void Update()
+        { 
+            if(rigidBody2d != null)
+            {
+                rigidBody2d.AddForce(transform.right);
+            }
+            
         }
     }
 }

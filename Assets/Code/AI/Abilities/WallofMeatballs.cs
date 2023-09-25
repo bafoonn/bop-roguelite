@@ -21,7 +21,7 @@ namespace Pasta
 
         public override void Deactivate()
         {
-            
+            Destroy(MeatBallWall);
         }
     }
 }

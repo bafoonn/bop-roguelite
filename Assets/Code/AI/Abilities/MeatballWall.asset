@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 177709336167850489d2138729d9e331, type: 3}
+  m_Name: MeatballWall
+  m_EditorClassIdentifier: 
+  AbilityName: MeatballWall
+  coolDown: 20
+  ActiveTime: 10
+  damage: 1
+  usableOutsideAttackRange: 1
+  MeatBallWall: {fileID: 5387847651493385125, guid: da85fb2bd18e18247aaa11788541e26f, type: 3}
