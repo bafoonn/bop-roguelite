@@ -26,6 +26,7 @@ namespace Pasta
                 }
                 else
                 {
+                    // ??????????????????
                     while (roomRewardIndex == dublicateCheck)
                     {
                         roomRewardIndex = endPoints[i].GenerateRoomRewardIndex();

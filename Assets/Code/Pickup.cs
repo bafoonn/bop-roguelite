@@ -34,6 +34,7 @@ namespace Pasta
 
             gameObject.name = item.Name;
             GetComponent<SpriteRenderer>().sprite = item.Sprite;
+            Item = item;
             gameObject.Activate();
         }
 

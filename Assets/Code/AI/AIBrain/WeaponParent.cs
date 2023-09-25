@@ -1,3 +1,4 @@
+using Pasta;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -45,6 +46,16 @@ public class WeaponParent : MonoBehaviour
         transform.localScale = scale;
 
 
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            if (collision.TryGetComponent<IHittable>(out var hittable))
+            {
+                hittable.Hit(10);
+            }
+        }
     }
 
     public void Attack()

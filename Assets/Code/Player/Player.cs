@@ -13,7 +13,7 @@ public class Player : MonoBehaviour, IHittable
 
     public void Hit(float damage)
     {
-        throw new System.NotImplementedException();
+        _health.TakeDamage(damage);
     }
 
     private void Awake()

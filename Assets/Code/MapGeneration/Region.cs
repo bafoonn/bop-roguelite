@@ -9,7 +9,7 @@ namespace Pasta
         [SerializeField]
         private Level[] levels;
 
-        private int levelIndex = 0;
+        private int levelIndex = 0; // ?
 
         private LevelManager levelManager;
         private EndPoints endPoints;
@@ -37,19 +37,19 @@ namespace Pasta
             // Instantiate boss level, boss level is always the last level in the levels list
             else if (levelIndex == 5)
             {
-                InstantiateLevel(levels.Length, roomRewardIndex);
+                InstantiateLevel(levels.Length - 1, roomRewardIndex);
             }
             // Instantiate random level from levels list
             else
             {
-                int random = Random.Range(0, levels.Length-1);
+                int random = Random.Range(0, levels.Length - 1);
                 InstantiateLevel(random, roomRewardIndex);
             }
         }
-        
+
         private void InstantiateLevel(int levelIndex, int roomRewardIndex)
         {
-            activeLevel = Instantiate(levels[levelIndex], transform.position, Quaternion.identity);
+            activeLevel = Instantiate(levels[levelIndex], transform.position, Quaternion.identity);//???
             activeLevel.transform.SetParent(this.gameObject.transform);
             activeLevel.PassRewardIndex(roomRewardIndex);
         }

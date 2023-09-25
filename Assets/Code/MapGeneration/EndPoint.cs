@@ -7,9 +7,10 @@ namespace Pasta
     public class EndPoint : MonoBehaviour
     {
         [SerializeField]
-        private GameObject[] rewardList;
+        private Item[] rewardList;
 
         private int roomRewardIndex;
+        [SerializeField] SpriteRenderer itemDisplay;
 
         public int GenerateRoomRewardIndex()
         {
@@ -19,6 +20,7 @@ namespace Pasta
         public void GenerateRoomReward(int index)
         {
             roomRewardIndex = index;
+            itemDisplay.sprite = rewardList[index].Sprite;
         }
 
         private void OnTriggerEnter2D(Collider2D col)

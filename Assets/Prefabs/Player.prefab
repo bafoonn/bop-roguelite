@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 4928316304019425267}
   - component: {fileID: 4366640371036032285}
   - component: {fileID: 5931432911772769512}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 6698329122857279395}
   - component: {fileID: 1842136800834455551}
   - component: {fileID: 8980023714989463818}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -315,7 +315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SensedLayers:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 128
   OnItemDetected:
     m_PersistentCalls:
       m_Calls: []
@@ -329,7 +329,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7945911272454864015}
   - component: {fileID: 9205402971279872284}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AttackHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -364,5 +364,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99b3fd85258b3fe4eb938948a2e7c7ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QuickAttackTime: 0.2
-  HeavyAttackTime: 0.8
+  _heavyAttackTimeMultiplier: 3.5
+  _quickAttackTime: 0.2
+  _heavyAttackTime: 0.8
+  _quickAttackDamage: 10
+  _heavyAttackDamage: 20
