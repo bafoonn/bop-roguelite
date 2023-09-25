@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7f5bb024d752be4d9d568c257ced690, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 0}
+  projectile: {fileID: 5401989974700438533, guid: 58ccf5dbf0290d2499a8cc89c7f9c0df, type: 3}
   ProjectileSpawnPoint: {fileID: 2629802818854526364}
   radius: 0.6
 --- !u!1 &2170883253053186688
@@ -573,7 +573,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.7640786, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -603,8 +603,8 @@ GameObject:
   - component: {fileID: 69885865199376009}
   - component: {fileID: -5337739654956472485}
   m_Layer: 7
-  m_Name: Enemy 1
-  m_TagString: Enemy
+  m_Name: RangedEnemy
+  m_TagString: Ranged Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -786,7 +786,7 @@ MonoBehaviour:
   detectionDelay: 0.01
   aiUpdateDelay: 0.01
   attackDelay: 1
-  attackDistance: 2
+  attackDistance: 5
   steeringBehaviours:
   - {fileID: 3838692728030095157}
   - {fileID: 3029777545630577490}

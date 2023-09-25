@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
         agentMover.MovementInput = MovementInput;
 
         AnimateCharacter();
-        weaponParent.PointerPosition = pointerInput;
+        weaponParent.EnemyWeaponPos = pointerInput;
 
     }
 

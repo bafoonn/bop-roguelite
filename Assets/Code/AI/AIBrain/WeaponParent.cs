@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class WeaponParent : MonoBehaviour
 {
     //public SpriteRenderer characterRenderer, weaponRenderer;
-    public Vector2 PointerPosition { get; set; }
+    public Vector2 EnemyWeaponPos { get; set; } // Replace this!
 
     private GameObject AttackIndicatorImage;
     [SerializeField] private GameObject projectile;
@@ -30,7 +30,7 @@ public class WeaponParent : MonoBehaviour
     private void Update()
     {
 
-        Vector2 direction = (PointerPosition - (Vector2)transform.position).normalized;
+        Vector2 direction = (EnemyWeaponPos - (Vector2)transform.position).normalized;
         transform.right = direction;
 
         Vector2 scale = transform.localScale;
