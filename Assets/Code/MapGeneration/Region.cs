@@ -9,7 +9,7 @@ namespace Pasta
         [SerializeField]
         private Level[] levels;
 
-        private int levelIndex = 0; // ?
+        private int levelNumber = 0;
 
         private LevelManager levelManager;
         private EndPoints endPoints;
@@ -23,19 +23,19 @@ namespace Pasta
         }
         public void GenerateLevel(int roomRewardIndex)
         {
-            if (levelIndex != 0)
+            if (levelNumber != 0)
             {
                 Destroy(activeLevel.gameObject);
             }
-            levelIndex++;
+            levelNumber++;
             // Change region
-            if (levelIndex == 6)
+            if (levelNumber == 6)
             {
                 levelManager.ChangeRegion();
-                levelIndex = 0;
+                levelNumber = 0;
             }
             // Instantiate boss level, boss level is always the last level in the levels list
-            else if (levelIndex == 5)
+            else if (levelNumber == 5)
             {
                 InstantiateLevel(levels.Length - 1, roomRewardIndex);
             }

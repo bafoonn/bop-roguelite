@@ -167,7 +167,7 @@ MonoBehaviour:
   levels:
   - {fileID: 4454962172724761198, guid: b1d3752f62705f7408dd910a2e622786, type: 3}
   - {fileID: 4454962172724761198, guid: 314aba6432b110e4bae8b9d78c739952, type: 3}
-  - {fileID: 4454962172724761198, guid: 314aba6432b110e4bae8b9d78c739952, type: 3}
+  - {fileID: 4454962172724761198, guid: 55b5405f3bf273148a7c01ad1a5e526c, type: 3}
 --- !u!1 &501225122
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,6 +387,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _heavyAttackTimeMultiplier: 3.5
+  _quickAttackTime: 0.2
+  _heavyAttackTime: 0.8
   _quickAttackDamage: 10
   _heavyAttackDamage: 20
 --- !u!1 &1163524773

@@ -18,6 +18,7 @@ namespace Pasta
             {
                 var pickup = Instantiate(pickupPrefab, transform.position, Quaternion.identity);
                 pickup.Setup(rewards[rewardIndex]);
+                pickup.transform.SetParent(this.gameObject.transform);
             }
         }
     }

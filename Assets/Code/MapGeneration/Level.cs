@@ -34,7 +34,6 @@ namespace Pasta
         public void AddToEnemyCount()
         {
             enemiesLeft++;
-            Debug.Log(enemiesLeft);
         }
         // Called whenever an enemy dies, at 0 enemies left activates endpoints that start the next level generation
         public void EnemyKilled()
