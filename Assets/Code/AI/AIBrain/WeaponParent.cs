@@ -63,7 +63,7 @@ public class WeaponParent : MonoBehaviour
             //Debug.Log("LEFT");
             scale.x = -1f;
             spriteRend.flipY = true;
-            attackColliderHolder.transform.localScale = scale;
+            attackColliderHolder.transform.localScale = scale; // Changing child since editing parents scale fucks direction check
         }
         else if (enemyDirectionLocal.x > 0)
         {
@@ -72,7 +72,7 @@ public class WeaponParent : MonoBehaviour
             //Debug.Log("RIGHT");
             scale.x = 1f;
             spriteRend.flipY = false;
-            attackColliderHolder.transform.localScale = scale;
+            attackColliderHolder.transform.localScale = scale; // Changing child since editing parents scale fucks direction check
         }
         
     }
@@ -82,7 +82,7 @@ public class WeaponParent : MonoBehaviour
         {
             if (collision.TryGetComponent<IHittable>(out var hittable))
             {
-                hittable.Hit(10);
+                hittable.Hit(10); // TODO: Change editable value to replace 10(damage)
             }
         }
     }
