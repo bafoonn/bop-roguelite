@@ -60,7 +60,7 @@ public class WeaponParent : MonoBehaviour
         if (enemyDirectionLocal.x < 0)
         {
             
-            Debug.Log("LEFT");
+            //Debug.Log("LEFT");
             scale.x = -1f;
             spriteRend.flipY = true;
             attackColliderHolder.transform.localScale = scale;
@@ -69,7 +69,7 @@ public class WeaponParent : MonoBehaviour
         {
            
           
-            Debug.Log("RIGHT");
+            //Debug.Log("RIGHT");
             scale.x = 1f;
             spriteRend.flipY = false;
             attackColliderHolder.transform.localScale = scale;
