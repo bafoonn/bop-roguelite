@@ -19,7 +19,7 @@ public class EnemyAi : MonoBehaviour, IHittable
     private Level level;
 
     public UnityEvent OnAttackPressed;
-    public UnityEvent<Vector2> OnMovementInput, OnPointerInput;
+    public UnityEvent<Vector2> OnMovementInput, PointerEnemy;
     [SerializeField] private Vector2 movementInput;
     [SerializeField] private AISolver movementDirectionSolver;
     bool Chasing = false;
@@ -76,7 +76,7 @@ public class EnemyAi : MonoBehaviour, IHittable
         {
 
             //Looking at target.
-            OnPointerInput?.Invoke(aiData.currentTarget.position);
+            PointerEnemy?.Invoke(aiData.currentTarget.position);
 
             if (Chasing == false)
             {
