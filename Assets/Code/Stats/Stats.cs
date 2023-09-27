@@ -13,10 +13,10 @@ namespace Pasta
 
         public Stats(StatProfile profile)
         {
-            Health = new Stat(profile.Health);
-            Damage = new Stat(profile.Damage);
-            MovementSpeed = new Stat(profile.MovementSpeed);
-            AttackSpeed = new Stat(profile.AttackSpeed);
+            Health = new Stat(profile.Health, StatType.Health);
+            Damage = new Stat(profile.Damage, StatType.Damage);
+            MovementSpeed = new Stat(profile.MovementSpeed, StatType.MovementSpeed);
+            AttackSpeed = new Stat(profile.AttackSpeed, StatType.AttackSpeed);
         }
     }
 }

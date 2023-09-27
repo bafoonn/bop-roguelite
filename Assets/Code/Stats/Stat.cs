@@ -7,6 +7,7 @@ namespace Pasta
 {
     public class Stat
     {
+        public readonly StatType Type;
         private float _baseValue;
         private float _value;
         public float Value
@@ -18,22 +19,24 @@ namespace Pasta
 
             private set
             {
-                if (ValueChanged != null)
-                {
-                    ValueChanged(value);
-                }
 
                 _value = value;
+                if (ValueChanged != null)
+                {
+                    ValueChanged(_value);
+                }
             }
         }
 
-        private HashSet<StatEffect> _effects = new();
+        //private HashSet<StatEffect> _effects = new();
+        private List<StatEffect> _effects = new();
         public event Action<float> ValueChanged;
 
-        public Stat(float baseValue)
+        public Stat(float baseValue, StatType type)
         {
             _baseValue = baseValue;
             _value = baseValue;
+            Type = type;
         }
 
         private float CalculateValue()
@@ -62,21 +65,21 @@ namespace Pasta
 
         public bool AddEffect(StatEffect effect)
         {
-            if (!_effects.Add(effect))
-            {
-                return false;
-            }
-
+            //if (!_effects.Add(effect))
+            //{
+            //    return false;
+            //}
+            _effects.Add(effect);
             CalculateValue();
             return true;
         }
 
         public bool UpdateEffect(StatEffect effect)
         {
-            if (!_effects.Contains(effect))
-            {
-                return false;
-            }
+            //if (!_effects.Contains(effect))
+            //{
+            //    return false;
+            //}
 
             _effects.Remove(effect);
             _effects.Add(effect);
