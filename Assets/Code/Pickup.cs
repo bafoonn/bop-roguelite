@@ -7,7 +7,7 @@ namespace Pasta
 {
     public class Pickup : MonoBehaviour
     {
-        public Item Item;
+        public ItemBase Item;
 
         public UnityEvent<Pickup> OnPickup;
 
@@ -24,7 +24,7 @@ namespace Pasta
             Setup(Item);
         }
 
-        public void Setup(Item item)
+        public void Setup(ItemBase item)
         {
             if (item == null)
             {
@@ -38,16 +38,12 @@ namespace Pasta
             gameObject.Activate();
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        public void Take()
         {
-            if (collision.TryGetComponent<Player>(out _))
+            gameObject.Deactivate();
+            if (OnPickup != null)
             {
-                gameObject.Deactivate();
-                Item.Loot();
-                if (OnPickup != null)
-                {
-                    OnPickup.Invoke(this);
-                }
+                OnPickup.Invoke(this);
             }
         }
     }

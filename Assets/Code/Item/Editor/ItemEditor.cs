@@ -18,9 +18,9 @@ namespace Pasta
             window.titleContent = new GUIContent("Item Editor");
         }
 
-        private Item[] LoadItems()
+        private ItemBase[] LoadItems()
         {
-            return Resources.LoadAll<Item>("Items");
+            return Resources.LoadAll<ItemBase>("Items");
         }
 
         private void CreateGUI()
@@ -43,7 +43,7 @@ namespace Pasta
         {
             _rightPanel.Clear();
 
-            var item = selectedItems.First() as Item;
+            var item = selectedItems.First() as ItemBase;
             if (item == null)
             {
                 return;

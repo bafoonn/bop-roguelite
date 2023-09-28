@@ -4,12 +4,14 @@ using UnityEngine;
 
 namespace Pasta
 {
-    public abstract class Item : ScriptableObject, IItem
+    public abstract class ItemBase : ScriptableObject, IItem
     {
+        public abstract bool CanStack { get; }
+
         public string Name;
         public Sprite Sprite;
-        public abstract void Drop();
 
         public abstract void Loot();
+        public abstract void Drop();
     }
 }

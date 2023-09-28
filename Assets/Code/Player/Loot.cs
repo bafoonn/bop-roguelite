@@ -18,10 +18,21 @@ namespace Pasta
 
         private void OnDestroy() => Clear();
 
-        public void Add(IItem item)
+        public bool TryAdd(IItem item)
         {
+            if (!item.CanStack && Contains(item))
+            {
+                return false;
+            }
+
             item.Loot();
             _items.Add(item);
+            return true;
+        }
+
+        public void Add(IItem item)
+        {
+            TryAdd(item);
         }
 
         public void Clear()

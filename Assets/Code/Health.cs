@@ -38,7 +38,7 @@ namespace Pasta
             CurrentHealth = MaxHealth;
         }
 
-        public void TakeDamage(float damage)
+        public virtual void TakeDamage(float damage)
         {
             if (IsDead) return;
 
@@ -51,7 +51,7 @@ namespace Pasta
             }
         }
 
-        public void Heal(float amount)
+        public virtual void Heal(float amount)
         {
             if (IsMaxHealth) return;
             CurrentHealth += amount;

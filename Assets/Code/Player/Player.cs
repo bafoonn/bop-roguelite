@@ -2,6 +2,7 @@ using Pasta;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class Player : MonoBehaviour, IHittable
 {
@@ -10,6 +11,7 @@ public class Player : MonoBehaviour, IHittable
     private PlayerMovement _movement;
     private PlayerAttackHandler _attackHandler;
     private PlayerHealth _health;
+    private Loot _loot;
 
     public void Hit(float damage)
     {
@@ -21,9 +23,10 @@ public class Player : MonoBehaviour, IHittable
         _inputReader = this.AddOrGetComponent<InputReader>();
         _movement = this.AddOrGetComponent<PlayerMovement>();
         _attackHandler = GetComponentInChildren<PlayerAttackHandler>();
-        Debug.Assert(_attackHandler != null, $"Player has no PlayerAttackHandler component in children.");
+        Assert.IsNotNull(_attackHandler, "Player has no PlayerAttackHandler component in children.");
         _rigidbody = this.AddOrGetComponent<Rigidbody2D>();
         _health = this.AddOrGetComponent<PlayerHealth>();
+        _loot = this.AddOrGetComponent<Loot>();
 
         _inputReader.DodgeCallback = () =>
         {
@@ -31,7 +34,9 @@ public class Player : MonoBehaviour, IHittable
             {
                 return;
             }
-            _movement.TryRoll(_inputReader.Movement);
+            if (_movement.TryRoll(_inputReader.Movement))
+            {
+            }
         };
 
         _inputReader.QuickAttackCallback = () =>
@@ -70,5 +75,16 @@ public class Player : MonoBehaviour, IHittable
             _attackHandler.transform.right = _inputReader.Aim;
         }
         _movement.Move(movement);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent<Pickup>(out var pickup))
+        {
+            if (_loot.TryAdd(pickup.Item))
+            {
+                pickup.Take();
+            }
+        }
     }
 }

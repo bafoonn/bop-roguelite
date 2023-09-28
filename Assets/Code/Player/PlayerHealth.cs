@@ -24,5 +24,10 @@ namespace Pasta
         {
             SetMax(value);
         }
+
+        public override void Heal(float amount)
+        {
+            base.Heal(amount);
+        }
     }
 }
