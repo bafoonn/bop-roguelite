@@ -13,6 +13,7 @@ namespace Pasta
         public int maxHowManyPuddles = 0;
         public float SpawnRadius = 0;
         [SerializeField] private GameObject puddleObject;
+        private GameObject spawnedPuddle;
         private GameObject[] puddleObjects;
         private Vector2 originPoint;
         private Vector2Int originPoint2int;
@@ -22,7 +23,8 @@ namespace Pasta
         public override void Activate(GameObject parent)
         {
             tileMap = FindFirstObjectByType<Tilemap>();
-            float randomPuddleCount = Random.Range(0, maxHowManyPuddles);
+            int randomPuddleCount = Random.Range(0, maxHowManyPuddles - 1);
+            puddleObjects = new GameObject[randomPuddleCount];
             for(int i = 0; i < randomPuddleCount; i++)
             {
                 originPoint = Random.insideUnitSphere * spawnRadius;
@@ -30,8 +32,7 @@ namespace Pasta
                 originPoint3int = ((Vector3Int)originPoint2int);
                 if (tileMap.HasTile(originPoint3int))
                 {
-                    Instantiate(puddleObject, originPoint, Quaternion.identity);
-                    puddleObjects[i] = puddleObject;
+                    puddleObjects[i] = Instantiate(puddleObject, originPoint, Quaternion.identity);
                 }
             }
             

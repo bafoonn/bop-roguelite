@@ -103,7 +103,6 @@ public class EnemyAi : MonoBehaviour, IHittable
 
     public void Attack()
     {
-        Debug.Log("Swing");
         if (gameObject.tag.Contains("Ranged"))
         {
             weaponParent.RangedAttack();
@@ -150,7 +149,6 @@ public class EnemyAi : MonoBehaviour, IHittable
             //}
             if (distance < attackDistance)
             {
-                Debug.Log("Attacking");
                 //Attacking 
                 abilityHolder.CanUseAbility = true;
                 movementInput = Vector2.zero;
@@ -166,7 +164,6 @@ public class EnemyAi : MonoBehaviour, IHittable
             }
             else
             {
-                Debug.Log("Chasing");
                 //Chasing
                 abilityHolder.CanUseAbility = false;
                 timeToAttack = 0;

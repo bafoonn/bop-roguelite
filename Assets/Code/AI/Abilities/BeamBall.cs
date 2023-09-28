@@ -9,6 +9,7 @@ namespace Pasta
     public class BeamBall : Ability
     {
         [SerializeField] private GameObject beamGameBall;
+        private GameObject spawnedBeamGameBall;
         public int spawnRadius = 10;
         public int BossRadius = 2; // Bosses personal space to avoid spawning on top of boss
         public int BallRadius = 2;
@@ -22,14 +23,14 @@ namespace Pasta
 
 
             float directionFacing = Random.Range(0, spawnRadius);
-            Instantiate(beamGameBall, originPoint, Quaternion.Euler(new Vector3(0f, directionFacing, 0f)));
+            spawnedBeamGameBall = Instantiate(beamGameBall, originPoint, Quaternion.Euler(new Vector3(0f, directionFacing, 0f)));
 
 
         }
 
         public override void Deactivate()
         {
-            Destroy(beamGameBall);
+            Destroy(spawnedBeamGameBall);
         }
     }
 }

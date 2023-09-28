@@ -11,17 +11,18 @@ namespace Pasta
         private Tilemap tileMap;
         private Vector2 center;
         public GameObject MeatBallWall;
+        private GameObject spawnedWall;
         // Start is called before the first frame update
         public override void Activate(GameObject parent)
         {
             tileMap = FindFirstObjectByType<Tilemap>();
             center = tileMap.cellBounds.center;
-            Instantiate(MeatBallWall, center, Quaternion.identity);
+            spawnedWall = Instantiate(MeatBallWall, center, Quaternion.identity);
         }
 
         public override void Deactivate()
         {
-            Destroy(MeatBallWall);
+            Destroy(spawnedWall);
         }
     }
 }

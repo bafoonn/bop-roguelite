@@ -19,7 +19,7 @@ namespace Pasta
         {
 
             random = UnityEngine.Random.Range(0, abilities.Length);
-            ability = abilities[random]; // TODO: TAKE 2 ABILITIES FROM LIST?
+            ability = abilities[random];
         }
 
         enum AbilityState

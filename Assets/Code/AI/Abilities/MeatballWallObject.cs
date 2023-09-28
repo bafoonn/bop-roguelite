@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Pasta
@@ -10,7 +11,8 @@ namespace Pasta
         private GameObject player;
         [SerializeField] private GameObject[] meatBall;
         private Rigidbody2D rigidBody2d;
-
+        [SerializeField] private float speed;
+        private Vector3 target;
         private void Start()
         {
             rigidBody2d = GetComponent<Rigidbody2D>();
@@ -21,14 +23,12 @@ namespace Pasta
             Vector3 playertransformPos = player.transform.position;
             Vector2 direction = new Vector2(playertransformPos.x - transform.position.x, playertransformPos.y - transform.position.y);
             transform.right = direction;
+            target = player.transform.position;
         }
         private void Update()
-        { 
-            if(rigidBody2d != null)
-            {
-                rigidBody2d.AddForce(transform.right);
-            }
-            
+        {
+            var distance = speed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, target, distance);
         }
     }
 }

@@ -5,6 +5,8 @@ using UnityEngine;
 public class AgentAnimations : MonoBehaviour
 {
     private Animator animator;
+    [SerializeField] private GameObject EnemyBody;
+    public bool aim = true;
 
     private void Awake()
     {
@@ -13,16 +15,20 @@ public class AgentAnimations : MonoBehaviour
 
     public void RotateToPointer(Vector2 lookDirection)
     {
-        Vector3 scale = transform.localScale;
-        if (lookDirection.x > 0)
+        if (aim)
         {
-            scale.x = 1;
+            Vector3 scale = transform.localScale;
+            if (lookDirection.x > 0)
+            {
+                scale.x = 1;
+            }
+            else if (lookDirection.x < 0)
+            {
+                scale.x = -1;
+            }
+            EnemyBody.transform.localScale = scale;
         }
-        else if (lookDirection.x < 0)
-        {
-            scale.x = -1;
-        }
-        transform.localScale = scale;
+        
     }
 
     //public void PlayAnimation(Vector2 movementInput)

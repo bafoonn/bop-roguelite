@@ -24,13 +24,16 @@ public class BossAI : MonoBehaviour, IHittable
     public float damage = 10f;
     [SerializeField] private AbilityHolder abilityHolder;
     private WeaponParent weaponParent;
-
+    public Health Health { get; protected set; }
+    public static event System.Action<BossAI> OnDeath;
+    private Level level;
     [SerializeField] private Transform Player;
     private GameObject player;
     private Image attackIndicator;
     public float timeToAttack = 0; // When this reaches defaultTimeToAttack enemy will attack
     public float defaultTimeToAttack = 2; //Increase this if you want to make ai take longer
     public float stunTimer = 1; // Will be used or replaced when adding stagger
+    private AgentAnimations animations;
 
     //[SerializeField] private float chaseDistanceThershold = 3, attackDistanceThershold = 0.8f;
     //private float passedTime = 1;
@@ -40,10 +43,11 @@ public class BossAI : MonoBehaviour, IHittable
 
         player = GameObject.FindGameObjectWithTag("Player");
         Player = player.transform;
-        attackIndicator = GetComponentInChildren<Image>();
+        level = FindFirstObjectByType<Level>();
         weaponParent = GetComponentInChildren<WeaponParent>();
+        attackIndicator = weaponParent.GetComponentInChildren<Image>();
         abilityHolder = GetComponent<AbilityHolder>();
-
+        animations = GetComponent<AgentAnimations>();
         //Detect objects
 
 
@@ -51,8 +55,14 @@ public class BossAI : MonoBehaviour, IHittable
     private void Awake()
     {
         InvokeRepeating("PerformDetection", 0, detectionDelay);
+        Health = GetComponent<Health>();
+        Debug.Assert(Health != null);
+        Health.Reset();
     }
-
+    protected virtual void OnEnable()
+    {
+        Health.OnDeath += DeathAction;
+    }
     private void PerformDetection()
     {
         foreach (Detector detector in detectors)
@@ -80,6 +90,12 @@ public class BossAI : MonoBehaviour, IHittable
             {
                 attackIndicator.enabled = true;
                 timeToAttack += Time.deltaTime;
+                if (timeToAttack >= defaultTimeToAttack / 1.5)
+                {
+                    weaponParent.Aim = false;
+                    animations.aim = false;
+                    Debug.Log("Stopping Aiming");
+                }
                 attackIndicator.fillAmount = timeToAttack / defaultTimeToAttack;
             }
         }
@@ -97,6 +113,7 @@ public class BossAI : MonoBehaviour, IHittable
     {
         Debug.Log("Swing");
         abilityHolder.UseAbility = true; // <- Here for testing purposes.
+        weaponParent.Attack();
 
     }
     public void UseAbility()
@@ -107,9 +124,10 @@ public class BossAI : MonoBehaviour, IHittable
         }
     }
 
-    public void Death()
+    protected virtual void DeathAction()
     {
-
+        level.EnemyKilled();
+        Destroy(gameObject);
     }
 
     private IEnumerator ChaseAndAttack()
@@ -142,12 +160,15 @@ public class BossAI : MonoBehaviour, IHittable
                     Attack(); // Attack method
                     timeToAttack = 0;
                     attackIndicator.fillAmount = 0;
+
                 }
                 yield return new WaitForSeconds(attackDelay);
                 StartCoroutine(ChaseAndAttack());
             }
             else
             {
+                weaponParent.Aim = true;
+                animations.aim = true;
                 Debug.Log("Chasing");
                 //Chasing
                 abilityHolder.CanUseAbility = true; // <- Here for testing purposes.
@@ -155,7 +176,6 @@ public class BossAI : MonoBehaviour, IHittable
                 timeToAttack = 0;
                 attackIndicator.fillAmount = 0;
                 movementInput = movementDirectionSolver.GetDirectionToMove(steeringBehaviours, aiData);
-                Debug.Log(movementInput);
                 yield return new WaitForSeconds(aiUpdateDelay);
                 StartCoroutine(ChaseAndAttack());
             }
@@ -164,6 +184,10 @@ public class BossAI : MonoBehaviour, IHittable
 
     public void Hit(float damage)
     {
-        // TODO: Implement Hit Anim here and take damage.
+        if (OnDeath != null)
+        {
+            OnDeath(this);
+        }
+        Health.TakeDamage(damage);
     }
 }
