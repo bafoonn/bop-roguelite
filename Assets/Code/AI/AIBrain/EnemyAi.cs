@@ -41,8 +41,8 @@ public class EnemyAi : MonoBehaviour, IHittable
         player = GameObject.FindGameObjectWithTag("Player");
         Player = player.transform;
         level = FindFirstObjectByType<Level>();
-        attackIndicator = GetComponentInChildren<Image>();
         weaponParent = GetComponentInChildren<WeaponParent>();
+        attackIndicator = weaponParent.GetComponentInChildren<Image>();
         abilityHolder = GetComponent<AbilityHolder>();
         //Detect objects
 
