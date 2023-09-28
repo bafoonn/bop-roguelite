@@ -9,6 +9,7 @@ namespace Pasta
     public class Projectile : MonoBehaviour
     {
         [SerializeField] private float speed = 5f;
+        public float damage = 2f;
         
         // Start is called before the first frame update
         void Start()
@@ -30,7 +31,7 @@ namespace Pasta
             {
                 if (collision.TryGetComponent<IHittable>(out var hittable))
                 {
-                    hittable.Hit(5);
+                    hittable.Hit(damage);
                 }
             }
         }

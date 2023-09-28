@@ -5258,7 +5258,6 @@ Transform:
   - {fileID: 8818813033477812148}
   - {fileID: 7995406111701598927}
   - {fileID: 774546969190248305}
-  - {fileID: 1238741958675417134}
   - {fileID: 2322131698113039890}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5381,6 +5380,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rewards: []
+  pickupPrefab: {fileID: 0}
 --- !u!1001 &1327584745638422747
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5516,68 +5516,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4788309154293269771, guid: 7b3cd92a0cc55f247aa8ac8e279ad2e3, type: 3}
   m_PrefabInstance: {fileID: 3208285530820233156}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &3422139150047327277
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 5833568101501266203}
-    m_Modifications:
-    - target: {fileID: 1934157340368146916, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
-      propertyPath: m_Name
-      value: EnemySpawner (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4489249160062532611, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -4.16
-      objectReference: {fileID: 0}
-    - target: {fileID: 4489249160062532611, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.61
-      objectReference: {fileID: 0}
-    - target: {fileID: 4489249160062532611, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.07802739
-      objectReference: {fileID: 0}
-    - target: {fileID: 4489249160062532611, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4489249160062532611, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4489249160062532611, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4489249160062532611, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4489249160062532611, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4489249160062532611, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4489249160062532611, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
---- !u!4 &1238741958675417134 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4489249160062532611, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
-  m_PrefabInstance: {fileID: 3422139150047327277}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3815316403994481522
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5630,6 +5568,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6509901214721368227, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
+      propertyPath: enemies.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6509901214721368227, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
+      propertyPath: 'enemies.Array.data[0]'
+      value: 
+      objectReference: {fileID: 7141955673082789303, guid: 1b52ab8268586dd46a24dbd6892920c0, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

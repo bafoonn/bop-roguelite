@@ -34,6 +34,7 @@ namespace Pasta
         {
             if (CanUseAbility)
             {
+                ability = abilities[random];
                 switch (state) // TODO: IMPLEMENT THIS TO BOSS AI SOMEWHERE ELSE THAN UPDATE DUH
                 {
                     case AbilityState.ready:

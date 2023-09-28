@@ -76,16 +76,7 @@ public class WeaponParent : MonoBehaviour
         }
         
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            if (collision.TryGetComponent<IHittable>(out var hittable))
-            {
-                hittable.Hit(10); // TODO: Change editable value to replace 10(damage)
-            }
-        }
-    }
+   
 
     public void Attack()
     {

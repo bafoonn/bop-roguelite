@@ -21,7 +21,7 @@ public class BossAI : MonoBehaviour, IHittable
     [SerializeField] public Vector2 movementInput;
     [SerializeField] private AISolver movementDirectionSolver;
     bool Chasing = false;
-
+    public float damage = 10f;
     [SerializeField] private AbilityHolder abilityHolder;
     private WeaponParent weaponParent;
 

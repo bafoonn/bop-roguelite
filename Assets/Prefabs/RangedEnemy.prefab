@@ -44,6 +44,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3311040392991052134}
   - component: {fileID: 4051467032949220887}
+  - component: {fileID: 8375540922460238939}
   m_Layer: 7
   m_Name: colliderHolder
   m_TagString: Untagged
@@ -113,6 +114,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 12.016004, y: 1.4612724}
   m_EdgeRadius: 0
+--- !u!114 &8375540922460238939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 656837646163247420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76ff669d90c8d934bad5bd321e55d3ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Ai: {fileID: 0}
 --- !u!1 &904455310517922419
 GameObject:
   m_ObjectHideFlags: 0
@@ -826,6 +840,7 @@ MonoBehaviour:
   steeringBehaviours:
   - {fileID: 3838692728030095157}
   - {fileID: 3029777545630577490}
+  damage: 5
   OnAttackPressed:
     m_PersistentCalls:
       m_Calls:

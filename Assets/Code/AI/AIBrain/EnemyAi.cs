@@ -17,7 +17,7 @@ public class EnemyAi : MonoBehaviour, IHittable
     public Health Health { get; protected set; }
     public static event System.Action<EnemyAi> OnDeath;
     private Level level;
-
+    public float damage = 5;
     public UnityEvent OnAttackPressed;
     public UnityEvent<Vector2> OnMovementInput, PointerEnemy;
     [SerializeField] private Vector2 movementInput;
