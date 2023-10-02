@@ -235,6 +235,7 @@ MonoBehaviour:
   detectors: {fileID: 6481803726160377804}
   attackColliderHolder: {fileID: 656837646163247420}
   attackCollider: {fileID: 4051467032949220887}
+  Aim: 1
 --- !u!1 &2170883253053186688
 GameObject:
   m_ObjectHideFlags: 0
@@ -1039,6 +1040,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyBody: {fileID: 6721311283363056939}
+  aim: 1
 --- !u!114 &69885865199376009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1053,6 +1055,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MaxHealth>k__BackingField: 50
   _currentHealth: 100
+  damageText: {fileID: 6345340051648401441, guid: 69c2a01292c705b4bb0b826323b849ee, type: 3}
 --- !u!114 &-5337739654956472485
 MonoBehaviour:
   m_ObjectHideFlags: 0

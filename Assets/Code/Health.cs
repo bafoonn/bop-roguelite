@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Pasta
 {
@@ -10,6 +11,7 @@ namespace Pasta
         public bool IsDead => CurrentHealth <= 0;
         [field: SerializeField] public float MaxHealth { get; private set; } = 100;
         [SerializeField] private float _currentHealth = 100;
+        [SerializeField] private GameObject damageText;
         public float CurrentHealth
         {
             get => _currentHealth;
@@ -43,7 +45,13 @@ namespace Pasta
             if (IsDead) return;
 
             CurrentHealth -= damage;
-
+            Vector3 Position = transform.position;
+            if(damageText != null)
+            {
+                GameObject DamageTextSpawned = Instantiate(damageText, Position, transform.localRotation);
+                DamageTextSpawned.transform.GetChild(0).GetComponent<Text>().text = damage.ToString();
+            }
+            
             if (CurrentHealth <= 0)
             {
                 if (OnDeath != null)
