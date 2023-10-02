@@ -13,11 +13,12 @@ namespace Pasta
         public GameObject MeatBallWall;
         private GameObject spawnedWall;
         public int RandomPos = 1; // 1 = left, 2 = right, 3 = top, 4 = bottom
+        [SerializeField] private BeamBall beamBall;
         // Start is called before the first frame update
         public override void Activate(GameObject parent)
         {
             tileMap = FindFirstObjectByType<Tilemap>();
-
+            beamBall.Activate(parent);
             RandomPos = Random.Range(1, 5);
             Debug.Log(RandomPos + "RANDOMPOS");
             if(RandomPos == 1) // LEFT

@@ -360,7 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3420b309b6a6b8f49b8b8fb6d3db88e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetDetectionRange: 7.28
+  targetDetectionRange: 15
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 320
@@ -943,7 +943,7 @@ MonoBehaviour:
   detectionDelay: 0.01
   aiUpdateDelay: 0.01
   attackDelay: 1
-  attackDistance: 5
+  attackDistance: 13
   steeringBehaviours:
   - {fileID: 3838692728030095157}
   - {fileID: 3029777545630577490}

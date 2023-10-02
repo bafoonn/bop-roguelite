@@ -114,7 +114,8 @@ public class BossAI : MonoBehaviour, IHittable
         Debug.Log("Swing");
         abilityHolder.UseAbility = true; // <- Here for testing purposes.
         weaponParent.Attack();
-
+        weaponParent.Aim = true;
+        animations.aim = true;
     }
     public void UseAbility()
     {
