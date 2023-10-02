@@ -12,6 +12,14 @@ namespace Pasta
         private float highlightScale = 1.4f;
         [SerializeField]
         private float highlightScaleSpeed = 24f;
+        [SerializeField]
+        private float highlightShakeIntensityX = 0f;
+        [SerializeField]
+        private float highlightShakeIntensityY = 5f;
+        [SerializeField]
+        private float highlightShakeDuration = 0.6f;
+        [SerializeField]
+        private float highlightShakeSpeed = 20f;
 
         [SerializeField]
         private float scaleResetSpeed = 8f;
@@ -26,7 +34,7 @@ namespace Pasta
         private float shakeDuration = 0.5f;
         private float shakeXIntensity = 1f;
         private float shakeYIntensity = 1f;
-        private float shakeCount = 1f;
+        private float shakeSpeed = 1f;
         private float shakeTime = 0f;
 
         private float currentRotation;
@@ -52,12 +60,13 @@ namespace Pasta
         {
             if (shouldShake)
             {
-                if (shakeDuration <= 0f)
+                if (shakeTime >= shakeDuration)
                 {
                     shouldShake = false;
+                    shakeTime = 0f;
                 } else
                 {
-                    UpdateShake(shakeTime * Time.deltaTime);
+                    UpdateShake();
                 }
             }
 
@@ -81,24 +90,34 @@ namespace Pasta
         {
             this.scaleSpeed = scaleSpeed;
             targetScale = scale;
+
+            ShakeSmooth(highlightShakeIntensityX, highlightShakeIntensityY, highlightShakeDuration, highlightShakeSpeed);
         }
 
-        private void ShakeSmooth(float xIntensity, float yIntensity, float duration, float shakeCount)
+        private void ShakeSmooth(float xIntensity, float yIntensity, float duration, float shakeSpeed)
         {
             shouldShake = true;
-            shakeTime = 0f;
             shakeDuration = duration;
+            shakeTime = 0f;
             shakeXIntensity = xIntensity;
             shakeYIntensity = yIntensity;
-            this.shakeCount = shakeCount;
+            this.shakeSpeed = shakeSpeed;
+
+            xOffsetSpeed = 1000f;
+            yOffsetSpeed = 1000f;
         }
 
-        private void UpdateShake(float time)
+        private void UpdateShake()
         {
-            float timeIntensity = (1 + Mathf.Cos(time)) / 2f;
-            float sine = Mathf.Sin(time * timeIntensity * shakeCount);
-            float xValue = sine * shakeXIntensity;
-            float yValue = sine * shakeYIntensity;
+            shakeTime += Time.deltaTime;
+            float timeIntensity = (1 + Mathf.Cos((shakeTime / shakeDuration) * Mathf.PI)) / 2;
+            float sine = Mathf.Sin(shakeTime * shakeSpeed);
+            float xValue = sine * shakeXIntensity * timeIntensity;
+            float yValue = sine * shakeYIntensity * timeIntensity;
+
+            Debug.Log(timeIntensity);
+
+            
 
             targetXOffset = xValue;
             targetYOffset = yValue;
@@ -112,6 +131,9 @@ namespace Pasta
             targetScale = 1f;
             targetXOffset = 0f;
             targetYOffset = 0f;
+
+            shouldShake = false;
+            shakeTime = 0f;
         }
 
         public void HardReset()
@@ -125,6 +147,9 @@ namespace Pasta
             currentScale = 1f;
             currentXOffset = 0f;
             currentYOffset = 0f;
+
+            shouldShake = false;
+            shakeTime = 0f;
         }
     }
 }
