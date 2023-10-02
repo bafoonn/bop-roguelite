@@ -10,13 +10,19 @@ namespace Pasta
         private ItemBase[] rewards;
         [SerializeField]
         private Pickup pickupPrefab = null;
-        private bool firstRoom;
+        //private bool firstRoom;
 
 
         public void InitializeRewardSpawn(int rewardIndex)
         {
             if (rewards.Length != 0)
             {
+                var pickup = Instantiate(pickupPrefab, transform.position, Quaternion.identity);
+                pickup.Setup(rewards[rewardIndex]);
+                pickup.transform.SetParent(this.gameObject.transform);
+
+
+                /*
                 if (firstRoom)
                 {
                     int random = Random.Range(0, rewards.Length);
@@ -27,14 +33,16 @@ namespace Pasta
                 {
                     SpawnReward(rewardIndex);
                 }
+                */
             }
         }
-
+        /*
         private void SpawnReward(int rewardIndex)
         {
             var pickup = Instantiate(pickupPrefab, transform.position, Quaternion.identity);
             pickup.Setup(rewards[rewardIndex]);
             pickup.transform.SetParent(this.gameObject.transform);
         }
+        */
     }
 }

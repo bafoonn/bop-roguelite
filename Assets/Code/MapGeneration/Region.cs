@@ -30,7 +30,7 @@ namespace Pasta
             // Change region if level limit per region is reached
             if (levelNumber == 6)
             {
-                levelManager.ChangeRegion();
+                levelManager.ChangeRegion(roomRewardIndex);
                 levelNumber = 0;
             }
 

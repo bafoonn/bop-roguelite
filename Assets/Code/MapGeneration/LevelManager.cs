@@ -7,45 +7,50 @@ namespace Pasta
     public class LevelManager : MonoBehaviour
     {
         [SerializeField]
+        private StartRoom startRoom;
+        private StartRoom room;
+        [SerializeField]
         private Region[] regions;
         private int regionIndex = -1;
+        private int startIndex;
 
         // Start is called before the first frame update
         void Start()
         {
-            ChangeRegion();
+            for (int i = 0; i < regions.Length; i++)
+            {
+                regions[i].gameObject.SetActive(false);
+            }
+            startIndex = regionIndex;
+            room = Instantiate(startRoom, transform.position, Quaternion.identity);
+            room.transform.SetParent(this.gameObject.transform);
         }
 
-        public void ChangeRegion()
+        public void ChangeRegion(int roomRewardIndex)
         {
             if (regionIndex != regions.Length)
             {
-                // Makes sure all regions are inactive before changing to the next one
-                for (int i = 0; i < regions.Length; i++)
+                if (regionIndex != startIndex)
                 {
-                    regions[i].gameObject.SetActive(false);
+                    regions[regionIndex].gameObject.SetActive(false);
+                }
+                else
+                {
+                    Destroy(room.gameObject);
                 }
 
                 regionIndex++;
 
-                // Regions are in order in a list which this loop activates in order, 
-                // a new level generation is called by the level when it's over
-                for (int i = 0; i < regions.Length; i++)
-                {
-                    if (i == regionIndex)
-                    {
-                        regions[i].gameObject.SetActive(true);
-                        regions[i].GenerateLevel(0);
-                    }
-                }
+                regions[regionIndex].gameObject.SetActive(true);
+                regions[regionIndex].GenerateLevel(roomRewardIndex);
             }
             else
             {
-                GameOver();
+                GameOver(true);
             }
         }
 
-        public void GameOver()
+        public void GameOver(bool win)
         {
             Debug.Log("Game over");
         }

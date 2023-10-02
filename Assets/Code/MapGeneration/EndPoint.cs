@@ -48,8 +48,16 @@ namespace Pasta
         {
             if (col.gameObject.CompareTag("Player") && isActive)
             {
-                Region region = GetComponentInParent<Region>();
-                region.GenerateLevel(roomRewardIndex);
+                if (GetComponentInParent<Region>())
+                {
+                    Region region = GetComponentInParent<Region>();
+                    region.GenerateLevel(roomRewardIndex);
+                }
+                else
+                {
+                    LevelManager levelManager = GetComponentInParent<LevelManager>();
+                    levelManager.ChangeRegion(roomRewardIndex);
+                }
             }
         }
 

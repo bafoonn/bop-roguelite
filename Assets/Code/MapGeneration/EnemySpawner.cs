@@ -41,17 +41,21 @@ namespace Pasta
             {
                 yield return new WaitForSeconds(startDelay);
             }
+
             else if (enemiesToSpawn != totalEnemiesToSpawn && spawnDelay != 0)
             {
                 yield return new WaitForSeconds(spawnDelay);
             }
+
             int random = Random.Range(0, enemies.Length);
             Instantiate(enemies[random], transform.position, Quaternion.identity);
             enemiesToSpawn--;
+
             if (enemiesToSpawn == 0)
             {
                 enemiesSpawned = true;
             }
+
             isSpawning = false;
         }
     }
