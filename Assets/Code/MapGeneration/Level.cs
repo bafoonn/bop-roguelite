@@ -12,6 +12,7 @@ namespace Pasta
         private int enemiesLeft;
         private int rewardIndex;
 
+
         [SerializeField]
         private Transform spawnPoint;
 
@@ -30,10 +31,10 @@ namespace Pasta
         {
             rewardIndex = index;
         }
-        // Called whenever an EnemySpawner spawns an enemy
-        public void AddToEnemyCount()
+        // Each enemy spawner passes the value of the number of enemies it will spawn, which is then added to the total sum
+        public void AddToEnemyCount(int addedEnemyCount)
         {
-            enemiesLeft++;
+            enemiesLeft += addedEnemyCount;
         }
         // Called whenever an enemy dies, at 0 enemies left activates endpoints that start the next level generation
         public void EnemyKilled()
@@ -43,7 +44,7 @@ namespace Pasta
             {
                 endPoints.gameObject.SetActive(true);
                 rewardSpawner.gameObject.SetActive(true);
-                rewardSpawner.SpawnReward(rewardIndex);
+                rewardSpawner.InitializeRewardSpawn(rewardIndex);
             }
         }
 

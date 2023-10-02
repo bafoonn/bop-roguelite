@@ -8,13 +8,12 @@ namespace Pasta
     {
         [SerializeField]
         private EndPoint[] endPoints;
-        private Region region;
         private int dublicateCheck;
+        private int loopStopper = 10;
+        private int loop;
         // Start is called before the first frame update
         void Start()
         {
-            region = GetComponentInParent<Region>();
-
             // Dublicate check for room rewards in order to have each endpoint offer a different reward
             for (int i = 0; i < endPoints.Length; i++)
             {
@@ -26,16 +25,16 @@ namespace Pasta
                 }
                 else
                 {
-                    // ??????????????????
-                    while (roomRewardIndex == dublicateCheck)
+                    // Loops until a non dublicate reward is found. 'Or' statement is there to prevent infinite loops
+                    while (roomRewardIndex == dublicateCheck || loop < loopStopper)
                     {
                         roomRewardIndex = endPoints[i].GenerateRoomRewardIndex();
+                        loop++;
                     }
                 }
 
                 endPoints[i].GenerateRoomReward(roomRewardIndex);
             }
         }
-
     }
 }

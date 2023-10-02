@@ -12,9 +12,7 @@ namespace Pasta
         private int levelNumber = 0;
 
         private LevelManager levelManager;
-        private EndPoints endPoints;
         private Level activeLevel;
-        private GameObject[] rewardList;
 
         // Start is called before the first frame update
         void Start()
@@ -28,17 +26,20 @@ namespace Pasta
                 Destroy(activeLevel.gameObject);
             }
             levelNumber++;
-            // Change region
+
+            // Change region if level limit per region is reached
             if (levelNumber == 6)
             {
                 levelManager.ChangeRegion();
                 levelNumber = 0;
             }
-            // Instantiate boss level, boss level is always the last level in the levels list
+
+            // Instantiate boss level if last level for the region is reached, boss level is always the last level in the levels list
             else if (levelNumber == 5)
             {
                 InstantiateLevel(levels.Length - 1, roomRewardIndex);
             }
+
             // Instantiate random level from levels list
             else
             {
@@ -49,7 +50,7 @@ namespace Pasta
 
         private void InstantiateLevel(int levelIndex, int roomRewardIndex)
         {
-            activeLevel = Instantiate(levels[levelIndex], transform.position, Quaternion.identity);//???
+            activeLevel = Instantiate(levels[levelIndex], transform.position, Quaternion.identity);
             activeLevel.transform.SetParent(this.gameObject.transform);
             activeLevel.PassRewardIndex(roomRewardIndex);
         }
