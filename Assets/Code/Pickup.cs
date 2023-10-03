@@ -44,6 +44,7 @@ namespace Pasta
             if (OnPickup != null)
             {
                 OnPickup.Invoke(this);
+                //ItemsUI.instance.Add(Item);
             }
         }
     }

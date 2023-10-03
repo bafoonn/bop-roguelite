@@ -18,7 +18,7 @@ namespace Pasta
         public override void Activate(GameObject parent)
         {
             tileMap = FindFirstObjectByType<Tilemap>();
-            beamBall.Activate(parent);
+            beamBall.Activate(parent); // DELETE THIS OR KEEP IT NEED TO TEST
             RandomPos = Random.Range(1, 5);
             Debug.Log(RandomPos + "RANDOMPOS");
             if(RandomPos == 1) // LEFT
