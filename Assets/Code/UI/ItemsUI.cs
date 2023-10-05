@@ -22,7 +22,27 @@ namespace Pasta
 
         public void Add(ItemBase item)
         {
-            Items.Add(item);
+            if (item.CanStack)
+            {
+                bool alreadyIn = false;
+                foreach(ItemBase Item in Items)
+                {
+                    if(Item.Name == item.Name)
+                    {
+                        Item.Amount += item.Amount;
+                    }
+                }
+                if (!alreadyIn)
+                {
+                    Items.Add(item);
+                }
+            }
+
+            else
+            {
+                Items.Add(item);
+            }
+            
         }
 
         public void ListItems()
@@ -37,7 +57,7 @@ namespace Pasta
                 var itemIcon = obj.transform.Find("ItemImage").GetComponent<Image>();
                 var ItemAmount = obj.transform.Find("ItemAmount").GetComponent<Text>();
                 itemIcon.sprite = item.Sprite;
-                ItemAmount.text += 1;
+                ItemAmount.text = item.Amount.ToString();
             }
             SetUIitems();
         }

@@ -10,6 +10,7 @@ namespace Pasta
 
         public string Name;
         public Sprite Sprite;
+        public int Amount; // FOR INVENTORY
 
         public abstract void Loot();
         public abstract void Drop();
