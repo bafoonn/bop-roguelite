@@ -34,7 +34,7 @@ namespace Pasta
         {
             _facingDir = _movement.IsRolling ? _movement._currentDir : _input.Aim;
             _facingDir.Normalize();
-            _renderer.flipX = _movement.IsRolling && Vector2.Dot(Vector2.right, _facingDir) < 0;
+            _renderer.flipX = (_movement.IsRolling || _movement._currentDir.sqrMagnitude < Mathf.Epsilon) && Vector2.Dot(Vector2.right, _facingDir) < 0;
             _animator.SetFloat(MoveX, _input.Movement.x);
             _animator.SetFloat(MoveY, _input.Movement.y);
 
