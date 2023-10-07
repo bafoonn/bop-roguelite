@@ -225,18 +225,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 355859015999746028, guid: dcabfba1a1c5cc14caaa87d00026cabc, type: 3}
-      propertyPath: m_Color.b
-      value: 0.4185208
-      objectReference: {fileID: 0}
-    - target: {fileID: 355859015999746028, guid: dcabfba1a1c5cc14caaa87d00026cabc, type: 3}
-      propertyPath: m_Color.g
-      value: 0.8962264
-      objectReference: {fileID: 0}
-    - target: {fileID: 355859015999746028, guid: dcabfba1a1c5cc14caaa87d00026cabc, type: 3}
-      propertyPath: m_Color.r
-      value: 0.64039624
-      objectReference: {fileID: 0}
     - target: {fileID: 894218206778268372, guid: dcabfba1a1c5cc14caaa87d00026cabc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -375,7 +363,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &675974401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,6 +376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f955761c30ca48f4daea8bbc2afb7a9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startRoom: {fileID: 0}
   regions:
   - {fileID: 1599593906}
   - {fileID: 1180600957}

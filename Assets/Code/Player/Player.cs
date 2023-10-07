@@ -12,6 +12,7 @@ public class Player : MonoBehaviour, IHittable
     private PlayerAttackHandler _attackHandler;
     private PlayerHealth _health;
     private Loot _loot;
+    private PlayerAnimations _anim;
 
     public void Hit(float damage)
     {
@@ -27,6 +28,8 @@ public class Player : MonoBehaviour, IHittable
         _rigidbody = this.AddOrGetComponent<Rigidbody2D>();
         _health = this.AddOrGetComponent<PlayerHealth>();
         _loot = this.AddOrGetComponent<Loot>();
+        _anim = GetComponent<PlayerAnimations>();
+        _anim.Setup(_movement, _attackHandler, _inputReader);
 
         _inputReader.DodgeCallback = () =>
         {
