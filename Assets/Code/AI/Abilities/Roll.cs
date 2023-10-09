@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Pasta
 {
-    public class Roll : MonoBehaviour
+    public class Roll : MonoBehaviour // PROBS BETTER NAME WOULD HAVE BEEN DASH so no need to animate enemies with roll
     {
         [SerializeField] private float coolDown = 15f;
         private int RandomizeIfWillRoll;
@@ -13,12 +13,14 @@ namespace Pasta
         // Start is called before the first frame update
         void Start()
         {
-            player = GameObject.FindGameObjectWithTag("Player");
             RandomizeIfWillRoll = Random.Range(1, 3);
-            if(RandomizeIfWillRoll == 1)
+            if (RandomizeIfWillRoll == 1)
             {
                 canRoll = true;
+                player = GameObject.FindGameObjectWithTag("Player");
             }
+           
+            
         }
 
         // Update is called once per frame
