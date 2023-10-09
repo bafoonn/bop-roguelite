@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Cheese
   Sprite: {fileID: -2098588154144839390, guid: f1e5810c9a83e214c8afdf006b1d7fb2, type: 3}
+  Amount: 1
+  _canStack: 1
   Effects:
   - Name: Additional Damage
     Stat: 1

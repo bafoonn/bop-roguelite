@@ -13,7 +13,7 @@ public class WeaponParent : MonoBehaviour
 
     private GameObject AttackIndicatorImage;
     [SerializeField] private GameObject projectile;
-    [SerializeField] private GameObject ProjectileSpawnPoint;
+    [SerializeField] public GameObject ProjectileSpawnPoint;
     public Vector2 direction;
     private AIData aidata;
     private Vector3 enemyDirectionLocal;
