@@ -10,9 +10,12 @@ namespace Pasta
         private int RandomizeIfWillRoll;
         private bool canRoll = false;
         private GameObject player;
+        [SerializeField] private float speed = 20f;
+        private Rigidbody2D rbd2d;
         // Start is called before the first frame update
         void Start()
         {
+            rbd2d = GetComponent<Rigidbody2D>();
             RandomizeIfWillRoll = Random.Range(1, 3);
             if (RandomizeIfWillRoll == 1)
             {
@@ -38,6 +41,8 @@ namespace Pasta
                     else
                     {
                         // TODO: ROLL HERE
+                        rbd2d.AddForce(transform.up * speed);
+                        Debug.Log("DASHING");
                         coolDown = 15;
                     }
                 }

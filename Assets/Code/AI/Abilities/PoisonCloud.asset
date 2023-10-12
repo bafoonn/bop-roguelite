@@ -9,14 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f28cdbb510ce504e85dd12a2e4455ca, type: 3}
-  m_Name: Teleport
+  m_Script: {fileID: 11500000, guid: 323b19a04678c954eadb8621bb9ce2dd, type: 3}
+  m_Name: PoisonCloud
   m_EditorClassIdentifier: 
-  AbilityName: Teleport
-  coolDown: 5
-  ActiveTime: 2
+  AbilityName: Poison Cloud
+  coolDown: 20
+  ActiveTime: 10
   damage: 1
   usableOutsideAttackRange: 1
-  AbilityWithAnim: 1
-  speed: 1
-  distancetoUse: 10
+  AbilityWithAnim: 0
+  poisonCloudGameobject: {fileID: 3940570847118249537, guid: ed5f3d1e6ba9ef4409b5317a0eb209d3, type: 3}

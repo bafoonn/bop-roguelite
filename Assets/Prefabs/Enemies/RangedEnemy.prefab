@@ -758,6 +758,7 @@ GameObject:
   - component: {fileID: 69885865199376009}
   - component: {fileID: -5337739654956472485}
   - component: {fileID: 9121187411147353774}
+  - component: {fileID: -1332757763819382833}
   m_Layer: 7
   m_Name: RangedEnemy
   m_TagString: Ranged Enemy
@@ -1085,6 +1086,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af076f86870057a4692e2a523b6837e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-1332757763819382833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6992705672734178762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97badfb1e4b6b2e4496a9de34a2ae458, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coolDown: 15
+  speed: 5
 --- !u!1 &7024768928966453706
 GameObject:
   m_ObjectHideFlags: 0

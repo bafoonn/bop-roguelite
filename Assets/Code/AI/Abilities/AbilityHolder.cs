@@ -14,6 +14,7 @@ namespace Pasta
         private int random = 0;
         public bool CanUseAbility = false; // <- Here for testing purposes.
         public bool UseAbility = false; // <- Here for testing purposes.
+        private bool ActivateAbilityThroughAnim = false;
 
         private void Start()
         {
@@ -35,15 +36,30 @@ namespace Pasta
             if (CanUseAbility)
             {
                 ability = abilities[random];
-                switch (state) // TODO: IMPLEMENT THIS TO BOSS AI SOMEWHERE ELSE THAN UPDATE DUH
+                switch (state)
                 {
                     case AbilityState.ready:
                         if (UseAbility)
                         {
-                            Debug.Log("Using" + ability);
-                            ability.Activate(gameObject);
-                            state = AbilityState.active;
-                            activeTime = ability.ActiveTime;
+                            if (ability.AbilityWithAnim)
+                            {
+                                // TODO: PLAY ANIMATION
+                                if (ActivateAbilityThroughAnim)
+                                {
+                                    Debug.Log("Using" + ability);
+                                    ability.Activate(gameObject);
+                                    state = AbilityState.active;
+                                    activeTime = ability.ActiveTime;
+                                }
+                            }
+                            else
+                            {
+                                Debug.Log("Using" + ability);
+                                ability.Activate(gameObject);
+                                state = AbilityState.active;
+                                activeTime = ability.ActiveTime;
+                            }
+                           
                         }
                         break;
                     case AbilityState.active:
@@ -53,6 +69,7 @@ namespace Pasta
                         }
                         else
                         {
+                            ActivateAbilityThroughAnim = false;
                             UseAbility = false; // <- Here for testing purposes.
                             ability.Deactivate();
                             state = AbilityState.cooldown;
@@ -74,6 +91,10 @@ namespace Pasta
 
 
             }
+        }
+        public void ActivateAbility()
+        {
+            ActivateAbilityThroughAnim = true;
         }
     }
 }

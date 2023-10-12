@@ -30,6 +30,7 @@ namespace Pasta
                     if(Item.Name == item.Name)
                     {
                         Item.Amount += item.Amount;
+                        alreadyIn = true;
                     }
                 }
                 if (!alreadyIn)
@@ -45,6 +46,11 @@ namespace Pasta
             
         }
 
+        private void Update()
+        {
+            ListItems();
+        }
+
         public void ListItems()
         {
             foreach(Transform item in ItemContent)
@@ -55,7 +61,7 @@ namespace Pasta
             {
                 GameObject obj = Instantiate(ItemHolder, ItemContent);
                 var itemIcon = obj.transform.Find("ItemImage").GetComponent<Image>();
-                var ItemAmount = obj.transform.Find("ItemAmount").GetComponent<Text>();
+                var ItemAmount = obj.transform.Find("ItemAmount").GetComponent<TextMesh>();
                 itemIcon.sprite = item.Sprite;
                 ItemAmount.text = item.Amount.ToString();
             }
