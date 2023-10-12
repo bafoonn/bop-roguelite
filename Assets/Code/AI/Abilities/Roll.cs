@@ -8,7 +8,7 @@ namespace Pasta
     {
         [SerializeField] private float coolDown = 15f;
         private int RandomizeIfWillRoll;
-        private bool canRoll = false;
+        public bool canRoll = false;
         private GameObject player;
         [SerializeField] private float speed = 20f;
         private Rigidbody2D rbd2d;
@@ -31,7 +31,7 @@ namespace Pasta
         {
             if (canRoll)
             {
-                if ((player.transform.position - transform.position).magnitude < 2.0f)
+                if ((player.transform.position - transform.position).magnitude < 5.0f)
                 {
                     if (coolDown > 0)
                     {

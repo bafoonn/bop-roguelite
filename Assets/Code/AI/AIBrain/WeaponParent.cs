@@ -17,6 +17,7 @@ public class WeaponParent : MonoBehaviour
     public Vector2 direction;
     private AIData aidata;
     private Vector3 enemyDirectionLocal;
+    private AgentAnimations animations;
     //public Transform circleOrigin;
     public float radius;
     [SerializeField] private GameObject detectors;
@@ -29,6 +30,7 @@ public class WeaponParent : MonoBehaviour
         AttackIndicatorImage = gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject;
         aidata = GetComponentInParent<AIData>();
         spriteRend = GetComponent<SpriteRenderer>();
+        animations = GetComponentInParent<AgentAnimations>();
     }
 
     private void Update()
@@ -93,6 +95,7 @@ public class WeaponParent : MonoBehaviour
         yield return new WaitForSeconds(0.06f);
         attackCollider.enabled = false;
         Aim = true;
+        animations.aim = true;
     }
     public void RangedAttack()
     {
