@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5495daeefb1d7e4296b49fae089e765, type: 3}
   m_Name: Chicken Drum Stick
   m_EditorClassIdentifier: 
+  _canStack: 1
   Name: Chicken Drum Stick
   Sprite: {fileID: 1373213130586829986, guid: 64faa9dc7736ee2499462153e901dd84, type: 3}
-  Amount: 1
-  _canStack: 1
+  Amount: 4
   Effects:
   - Name: Additional Health
     Stat: 0
@@ -23,5 +23,5 @@ MonoBehaviour:
     Type: 0
   - Name: Reduces Movement Speed
     Stat: 3
-    Value: 0.9
+    Value: 0.97
     Type: 1

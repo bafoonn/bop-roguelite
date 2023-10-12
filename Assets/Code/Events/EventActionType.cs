@@ -1,6 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
 namespace Pasta
 {
-    public enum OccurrenceType
+    public enum EventActionType
     {
         None,
         OnHit,
