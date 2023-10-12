@@ -20,7 +20,7 @@ public class EnemyAi : MonoBehaviour, IHittable
     public float damage = 5;
     public UnityEvent OnAttackPressed;
     public UnityEvent<Vector2> OnMovementInput, PointerEnemy;
-    [SerializeField] private Vector2 movementInput;
+    [SerializeField] public Vector2 movementInput;
     [SerializeField] private AISolver movementDirectionSolver;
     bool Chasing = false;
 

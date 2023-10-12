@@ -9,10 +9,15 @@ namespace Pasta
     {
         public GameObject poisonCloudGameobject;
         private GameObject spawnedPoisonCloud;
+        private Vector2 originPoint;
+        public float spawnRadius = 2f;
+        private GameObject player;
         public override void Activate(GameObject parent)
         {
-            spawnedPoisonCloud = Instantiate(poisonCloudGameobject);
-            spawnedPoisonCloud.transform.SetParent(parent.transform);
+            player = GameObject.FindGameObjectWithTag("Player");
+            originPoint = player.transform.position + Random.insideUnitSphere * spawnRadius;
+            spawnedPoisonCloud = Instantiate(poisonCloudGameobject, originPoint, Quaternion.identity);
+            
         }
 
 

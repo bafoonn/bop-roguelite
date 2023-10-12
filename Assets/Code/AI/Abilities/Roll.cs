@@ -6,15 +6,17 @@ namespace Pasta
 {
     public class Roll : MonoBehaviour // PROBS BETTER NAME WOULD HAVE BEEN DASH so no need to animate enemies with roll
     {
-        [SerializeField] private float coolDown = 15f;
+        [SerializeField] private float coolDown = 0;
         private int RandomizeIfWillRoll;
         public bool canRoll = false;
         private GameObject player;
         [SerializeField] private float speed = 20f;
         private Rigidbody2D rbd2d;
+        private EnemyAi enemy;
         // Start is called before the first frame update
         void Start()
         {
+            enemy = GetComponent<EnemyAi>();
             rbd2d = GetComponent<Rigidbody2D>();
             RandomizeIfWillRoll = Random.Range(1, 3);
             if (RandomizeIfWillRoll == 1)
@@ -41,9 +43,9 @@ namespace Pasta
                     else
                     {
                         // TODO: ROLL HERE
-                        rbd2d.AddForce(transform.up * speed);
+                        rbd2d.velocity = new Vector2(0, 2); // TODO: FIX THIS TO BE NOT INSTANT & MAKE CHECK WHERE PLAYER IS AND ROLL ACCORDINGLY
                         Debug.Log("DASHING");
-                        coolDown = 15;
+                        coolDown = 10;
                     }
                 }
             }

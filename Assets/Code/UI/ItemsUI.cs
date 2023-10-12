@@ -29,7 +29,7 @@ namespace Pasta
                 {
                     if(Item.Name == item.Name)
                     {
-                        Item.Amount += item.Amount;
+                        item.Amount += 1;
                         alreadyIn = true;
                     }
                 }
@@ -61,9 +61,10 @@ namespace Pasta
             {
                 GameObject obj = Instantiate(ItemHolder, ItemContent);
                 var itemIcon = obj.transform.Find("ItemImage").GetComponent<Image>();
-                var ItemAmount = obj.transform.Find("ItemAmount").GetComponent<TextMesh>();
+                var ItemAmount = obj.transform.Find("ItemAmount").GetComponent<Text>();
                 itemIcon.sprite = item.Sprite;
                 ItemAmount.text = item.Amount.ToString();
+               
             }
             SetUIitems();
         }
