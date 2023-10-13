@@ -46,12 +46,12 @@ namespace Pasta
 
             CurrentHealth -= damage;
             Vector3 Position = transform.position;
-            if(damageText != null)
+            if (damageText != null)
             {
                 GameObject DamageTextSpawned = Instantiate(damageText, Position, transform.localRotation);
                 DamageTextSpawned.transform.GetChild(0).GetComponent<Text>().text = damage.ToString();
             }
-            
+
             if (CurrentHealth <= 0)
             {
                 if (OnDeath != null)

@@ -13,6 +13,7 @@ public class Player : MonoBehaviour, IHittable
     private PlayerHealth _health;
     private Loot _loot;
     private PlayerAnimations _anim;
+    private EventActions _actions;
 
     public void Hit(float damage)
     {
@@ -30,6 +31,9 @@ public class Player : MonoBehaviour, IHittable
         _loot = this.AddOrGetComponent<Loot>();
         _anim = GetComponent<PlayerAnimations>();
         _anim.Setup(_movement, _attackHandler, _inputReader);
+        _actions = GetComponentInChildren<EventActions>();
+        Assert.IsNotNull(_actions);
+        _actions.Setup(this);
 
         _inputReader.DodgeCallback = () =>
         {
@@ -39,6 +43,7 @@ public class Player : MonoBehaviour, IHittable
             }
             if (_movement.TryRoll(_inputReader.Movement))
             {
+                EventActions.InvokeEvent(EventActionType.OnDodge);
             }
         };
 
