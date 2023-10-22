@@ -19,6 +19,7 @@ namespace Pasta
         public bool CanStack => _canStack;
 
         public string Name;
+        public string Description;
         public Sprite Sprite;
         public int Amount; // FOR INVENTORY
 

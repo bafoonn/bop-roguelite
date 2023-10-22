@@ -7,7 +7,7 @@ namespace Pasta
 {
     public class Pickup : MonoBehaviour
     {
-        public ItemBase Item;
+        [field: SerializeField] public ItemBase Item { get; private set; }
 
         public UnityEvent<Pickup> OnPickup;
 

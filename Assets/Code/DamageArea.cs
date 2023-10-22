@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Pasta
 {
@@ -14,8 +15,15 @@ namespace Pasta
             while (true)
             {
                 yield return new WaitForSeconds(Interval);
-                foreach (IHittable hittable in _objects)
+                for (int i = 0; i < _objects.Count; i++)
                 {
+                    var hittable = _objects[i];
+                    Debug.Log(hittable);
+                    if (hittable == null)
+                    {
+                        continue;
+                    }
+
                     hittable.Hit(Damage);
                 }
             }

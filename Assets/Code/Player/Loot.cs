@@ -16,7 +16,7 @@ namespace Pasta
         public int Count => _items.Count;
         public bool IsReadOnly => false;
 
-        private void OnDestroy() => Clear();
+        private void OnApplicationQuit() => Clear();
 
         public bool TryAdd(IItem item)
         {

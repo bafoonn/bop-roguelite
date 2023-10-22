@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canStack: 1
   Name: Cheese
+  Description: 
   Sprite: {fileID: -2098588154144839390, guid: f1e5810c9a83e214c8afdf006b1d7fb2, type: 3}
   Amount: 0
   Effects:
@@ -21,7 +22,4 @@ MonoBehaviour:
     Stat: 1
     Value: 5
     Type: 0
-  Events:
-  - Name: Heal on dodge
-    EventActionPrefab: {fileID: 8136634457532562364, guid: c2012a0c23ca7cc4d8e53444d8442521, type: 3}
-    ActionType: 3
+  Events: []

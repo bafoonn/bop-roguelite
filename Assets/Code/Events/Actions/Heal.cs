@@ -4,9 +4,10 @@ using UnityEngine;
 
 namespace Pasta
 {
-    public class FlatHeal : EventAction
+    public class Heal : EventAction
     {
-        [SerializeField] float _healAmount = 10f;
+        [SerializeField] private float _healAmount;
+        [SerializeField] private bool _isPercentage = false;
         private PlayerHealth _health = null;
 
         protected override void Init()
@@ -16,7 +17,7 @@ namespace Pasta
 
         protected override void Trigger()
         {
-            _health.Heal(_healAmount);
+            _health.Heal(_isPercentage ? _health.MaxHealth * _healAmount : _healAmount);
         }
     }
 }

@@ -704,14 +704,14 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0
-    width: 1
-    height: 1
+    y: 0.0011876485
+    width: 0.999332
+    height: 0.99762475
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 11.125
+  orthographic size: 6.5625
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -818,7 +818,7 @@ MonoBehaviour:
   m_RefResolutionX: 635
   m_RefResolutionY: 320
   m_CropFrame: 0
-  m_GridSnapping: 0
+  m_GridSnapping: 2
   m_FilterMode: 0
   m_UpscaleRT: 0
   m_PixelSnapping: 0
@@ -1098,7 +1098,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2075454319988192654, guid: 5b5c574c0c554c04bae51c2a3531bf9c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.00012207031
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2075454319988192654, guid: 5b5c574c0c554c04bae51c2a3531bf9c, type: 3}
       propertyPath: m_AnchoredPosition.y

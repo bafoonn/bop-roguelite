@@ -15,7 +15,7 @@ namespace Pasta
 
         public UnityEvent<T> OnItemDetected;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             if (TryGetComponent<Collider2D>(out var collider))
             {

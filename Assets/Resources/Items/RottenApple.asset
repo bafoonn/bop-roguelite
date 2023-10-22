@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f9b0d845e3f73742a1930a2cd0ed9f7, type: 3}
+  m_Name: RottenApple
+  m_EditorClassIdentifier: 
+  _canStack: 1
+  Name: Rotten Apple
+  Description: 
+  Sprite: {fileID: -1608413829978786433, guid: d160d2fe1d320d34ab45ccec0fd5e376, type: 3}
+  Amount: 2
+  Effects:
+  - Name: Less Health
+    Stat: 0
+    Value: -10
+    Type: 0
+  Events:
+  - Name: Rotten Aura
+    EventActionPrefab: {fileID: 2674626695042508919, guid: d9ad2ebcad508fd4da28cd6eb46766e2, type: 3}
+    ActionType: 0

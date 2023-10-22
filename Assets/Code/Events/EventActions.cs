@@ -34,7 +34,7 @@ namespace Pasta
                 return null;
             }
 
-            if (actionPrefab == null || type == EventActionType.None)
+            if (actionPrefab == null)
             {
                 return null;
             }

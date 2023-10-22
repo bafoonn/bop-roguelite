@@ -11,7 +11,8 @@ namespace Pasta
         protected Player _player = null;
         protected EventActionType _actionType = EventActionType.None;
 
-        //public UnityEvent OnTrigger ;
+        public UnityEvent OnInit;
+        public UnityEvent OnTrigger;
 
         private void OnEnable()
         {
@@ -27,10 +28,10 @@ namespace Pasta
         {
             if (type == _actionType)
             {
-                //if (OnTrigger != null)
-                //{
-                //    OnTrigger.Invoke();
-                //}
+                if (OnTrigger != null)
+                {
+                    OnTrigger.Invoke();
+                }
 
                 Trigger();
             }
@@ -41,6 +42,10 @@ namespace Pasta
             _player = player;
             _actionType = type;
             Init();
+            if (OnInit != null)
+            {
+                OnInit.Invoke();
+            }
         }
 
         public void Remove()
@@ -51,6 +56,9 @@ namespace Pasta
         protected virtual void Init()
         {
         }
-        protected abstract void Trigger();
+
+        protected virtual void Trigger()
+        {
+        }
     }
 }

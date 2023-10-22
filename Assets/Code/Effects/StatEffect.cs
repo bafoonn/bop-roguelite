@@ -43,8 +43,19 @@ namespace Pasta
 
         public override string ToString()
         {
-            return $"StatEffect(name: {Name}, stat: {Stat}, value: {Value}, type: {Type})";
+            switch (Type)
+            {
+                case StatEffectType.Additive:
+                    {
+                        string effect = Value > 0 ? "Additional" : "Reduced";
+                        return $"{Value} {effect} {Stat}";
+                    }
+                case StatEffectType.Multiplicative:
+                    {
+                        return $"{Stat} Multiplied by {Value}";
+                    }
+                default: return "";
+            }
         }
-
     }
 }
