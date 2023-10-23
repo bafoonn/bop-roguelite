@@ -25,6 +25,9 @@ namespace Pasta
         private Stat _damage;
         private Stat _attackSpeed;
 
+        private AttackEffects _attackEffects;
+        private bool _hasAttackEffects = false;
+
         private void Awake()
         {
             _sensor = GetComponentInChildren<AttackArea>();
@@ -38,6 +41,9 @@ namespace Pasta
             _attackSpeed = StatManager.Current.GetStat(StatType.AttackSpeed);
             _attackSpeed.ValueChanged += OnAttackSpeedChanged;
             SetDamage(_damage.Value, _attackSpeed.Value);
+
+            _attackEffects = GetComponentInChildren<AttackEffects>();
+            _hasAttackEffects = _attackEffects != null;
         }
 
         private void OnAttackSpeedChanged(float value)
@@ -87,6 +93,7 @@ namespace Pasta
 
         private IEnumerator QuickAttack(Vector2 dir)
         {
+            if (_hasAttackEffects) _attackEffects.QuickAttack();
             yield return new WaitForSeconds(_quickAttackTime);
             for (int i = 0; i < _sensor.Objects.Count; i++)
             {
@@ -98,14 +105,17 @@ namespace Pasta
 
                 hittable.Hit(_quickAttackDamage);
             }
+            
             _attackRoutine = null;
         }
 
         private IEnumerator HeavyAttack(Vector2 dir)
         {
             float waitTime = _heavyAttackTime * 0.5f;
+            if (_hasAttackEffects) _attackEffects.AttackIndicator();
             yield return new WaitForSeconds(waitTime);
 
+            if (_hasAttackEffects) _attackEffects.HeavyAttack();
             _cancellable = false;
             yield return new WaitForSeconds(waitTime);
 
@@ -119,6 +129,7 @@ namespace Pasta
 
                 hittable.Hit(_heavyAttackDamage);
             }
+            
             _cancellable = true;
             _attackRoutine = null;
         }

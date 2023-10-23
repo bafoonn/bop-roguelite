@@ -7,6 +7,7 @@ namespace Pasta
     public class StartRoom : MonoBehaviour
     {
         private GameObject player;
+        private EndPoints endPoints;
 
         [SerializeField]
         private Transform spawnPoint;
@@ -16,6 +17,8 @@ namespace Pasta
         {
             player = GameObject.FindGameObjectWithTag("Player");
             player.transform.position = spawnPoint.transform.position;
+            endPoints = GetComponentInChildren<EndPoints>();
+            endPoints.GenerateRoomRewards();
         }
     }
 }

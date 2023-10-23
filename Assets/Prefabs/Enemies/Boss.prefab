@@ -743,6 +743,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2623111ce78da064cb5ae9023be0e09f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActivateAbilityThroughAnim: 0
+  animator: {fileID: 0}
+  animationClip: {fileID: 0}
   EnemyBody: {fileID: 394010356348426381}
   aim: 1
 --- !u!114 &8806108206215821516
@@ -763,6 +766,7 @@ MonoBehaviour:
   ability: {fileID: 0}
   CanUseAbility: 0
   UseAbility: 0
+  AnimDone: 1
 --- !u!114 &7233873362738698223
 MonoBehaviour:
   m_ObjectHideFlags: 0

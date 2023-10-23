@@ -7,12 +7,17 @@ namespace Pasta
     public class Region : MonoBehaviour
     {
         [SerializeField]
+        private Level shopRoom;
+        [SerializeField]
         private Level[] levels;
 
         private int levelNumber = 0;
 
         private LevelManager levelManager;
         private Level activeLevel;
+
+        private int[] rewardIndexes;
+        private EndPoints endPoints;
 
         // Start is called before the first frame update
         void Start()
@@ -53,6 +58,17 @@ namespace Pasta
             activeLevel = Instantiate(levels[levelIndex], transform.position, Quaternion.identity);
             activeLevel.transform.SetParent(this.gameObject.transform);
             activeLevel.PassRewardIndex(roomRewardIndex);
+        }
+
+        public void ActivateShopLevel()
+        {
+            endPoints = GetComponentInChildren<EndPoints>();
+            rewardIndexes = endPoints.GetRewardIndexes();
+            Destroy(activeLevel.gameObject);
+
+            activeLevel = Instantiate(shopRoom, transform.position, Quaternion.identity);
+            activeLevel.transform.SetParent(this.gameObject.transform);
+            activeLevel.ActivateEndPoints(rewardIndexes);
         }
     }
 }

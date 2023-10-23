@@ -8,12 +8,13 @@ namespace Pasta
     {
         [SerializeField]
         private EndPoint[] endPoints;
+        private int[] rewardIndexes;
         private int dublicateCheck;
         private int loopStopper = 10;
         private int loop;
-        // Start is called before the first frame update
-        void Start()
+        public void GenerateRoomRewards()
         {
+            rewardIndexes = new int[endPoints.Length];
             // Dublicate check for room rewards in order to have each endpoint offer a different reward
             for (int i = 0; i < endPoints.Length; i++)
             {
@@ -32,8 +33,19 @@ namespace Pasta
                         loop++;
                     }
                 }
-
+                rewardIndexes[i] = roomRewardIndex;
                 endPoints[i].GenerateRoomReward(roomRewardIndex);
+            }
+        }
+        public int[] GetRewardIndexes()
+        {
+            return rewardIndexes;
+        }
+        public void PassRewardIndexes(int[] rewardIndexes)
+        {
+            for (int i = 0; i < endPoints.Length; i++)
+            {
+                endPoints[i].GenerateRoomReward(rewardIndexes[i]);
             }
         }
     }
