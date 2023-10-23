@@ -42,6 +42,7 @@ namespace Pasta
 
         private void OnAttackSpeedChanged(float value)
         {
+            Debug.Log("asdfasdfasdfasdfasdfsadfsadfasdfsadfasdfasdfasdfsdfasfasfasdfasdfsadfasdfsadfasdfasdfasdfasdfsadfsdafasdfsadfsdfsadfdsaf");
             SetDamage(_damage.Value, value);
         }
 

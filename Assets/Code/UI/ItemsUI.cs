@@ -5,55 +5,29 @@ using UnityEngine.UI;
 
 namespace Pasta
 {
-    public class ItemsUI : MonoBehaviour
+    public class ItemsUI : Singleton<ItemsUI>
     {
-        public static ItemsUI instance;
-        public List<ItemBase> Items = new List<ItemBase> ();
+        public List<ItemBase> Items = new List<ItemBase>();
 
         public Transform ItemContent;
         public GameObject ItemHolder;
 
         public ItemInHolder[] itemsInUi;
-        private void Awake()
-        {
 
-            instance = this;
-        }
+        public override bool DoPersist => false;
 
         public void Add(ItemBase item)
         {
-            if (item.CanStack)
-            {
-                bool alreadyIn = false;
-                foreach(ItemBase Item in Items)
-                {
-                    if(Item.Name == item.Name)
-                    {
-                        item.Amount += 1;
-                        alreadyIn = true;
-                    }
-                }
-                if (!alreadyIn)
-                {
-                    Items.Add(item);
-                }
-            }
-
-            else
+            if (!Items.Contains(item))
             {
                 Items.Add(item);
             }
-            
-        }
-
-        private void Update()
-        {
             ListItems();
         }
 
         public void ListItems()
         {
-            foreach(Transform item in ItemContent)
+            foreach (Transform item in ItemContent)
             {
                 Destroy(item.gameObject);
             }
@@ -64,7 +38,7 @@ namespace Pasta
                 var ItemAmount = obj.transform.Find("ItemAmount").GetComponent<Text>();
                 itemIcon.sprite = item.Sprite;
                 ItemAmount.text = item.Amount.ToString();
-               
+
             }
             SetUIitems();
         }
@@ -73,7 +47,7 @@ namespace Pasta
         public void SetUIitems()
         {
             itemsInUi = ItemContent.GetComponentsInChildren<ItemInHolder>();
-            for(int i = 0; i < Items.Count; i++)
+            for (int i = 0; i < Items.Count; i++)
             {
                 itemsInUi[i].AddItem(Items[i]);
             }

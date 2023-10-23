@@ -19,13 +19,18 @@ public class PlayerMovement : Movement
     private void Start()
     {
         _movementSpeed = StatManager.Current.GetStat(StatType.MovementSpeed);
-        Debug.Log(_movementSpeed.Value);
+        _movementSpeed.ValueChanged += OnMovementSpeedChanged;
     }
 
-    protected override void FixedUpdate()
+    private void OnDestroy()
     {
-        BaseSpeed = _movementSpeed.Value;
-        base.FixedUpdate();
+        _movementSpeed.ValueChanged -= OnMovementSpeedChanged;
+    }
+
+    private void OnMovementSpeedChanged(float value)
+    {
+        BaseSpeed = value;
+        SetSpeed();
     }
 
     public override void Move(Vector2 dir)

@@ -7,15 +7,14 @@ namespace Pasta
     public class RoomRewardSpawner : MonoBehaviour
     {
         [SerializeField]
-        private ItemBase[] rewards;
-        [SerializeField]
         private Pickup pickupPrefab = null;
         //private bool firstRoom;
 
 
         public void InitializeRewardSpawn(int rewardIndex)
         {
-            if (rewards.Length != 0)
+            var rewards = Items.Current.GetRewards();
+            if (rewards.Count != 0)
             {
                 var pickup = Instantiate(pickupPrefab, transform.position, Quaternion.identity);
                 pickup.Setup(rewards[rewardIndex]);

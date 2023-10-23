@@ -16,12 +16,22 @@ namespace Pasta
         }
 
         [SerializeField] private bool _canStack = true;
+        private int _amount = 0;
         public bool CanStack => _canStack;
+        public bool IsLooted => _amount > 0;
+        public bool CanLoot
+        {
+            get
+            {
+                if (CanStack) return true;
+                return IsLooted;
+            }
+        }
 
         public string Name;
         public string Description;
         public Sprite Sprite;
-        public int Amount; // FOR INVENTORY
+        public int Amount => _amount;
 
         public StatEffect[] Effects;
         public EventActionContainer[] Events;
@@ -29,8 +39,15 @@ namespace Pasta
         private List<EventAction> _addedActions = new List<EventAction>();
 
 
-        public void Loot()
+        public bool Loot()
         {
+            if (!CanLoot)
+            {
+                return false;
+            }
+
+            _amount++;
+
             foreach (var effect in Effects)
             {
                 effect.Apply();
@@ -44,10 +61,17 @@ namespace Pasta
                     _addedActions.Add(newAction);
                 }
             }
+
+            return true;
         }
 
         public void Drop()
         {
+            if (Amount > 0)
+            {
+                _amount--;
+            }
+
             foreach (var effect in Effects)
             {
                 effect.Unapply();

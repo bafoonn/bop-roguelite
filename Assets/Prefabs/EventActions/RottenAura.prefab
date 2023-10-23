@@ -130,10 +130,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b703ff68029ff6438747ecb4b2792d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnInit:
+    m_PersistentCalls:
+      m_Calls: []
   OnTrigger:
     m_PersistentCalls:
       m_Calls: []
-  _damageCoefficiency: 0.3
+  _damageCoefficiency: 0.5
   _radius: 2.5
 --- !u!58 &3732000861345039163
 CircleCollider2D:

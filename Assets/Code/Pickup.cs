@@ -40,11 +40,16 @@ namespace Pasta
 
         public void Take()
         {
+            if (!Item.CanLoot)
+            {
+                return;
+            }
+
             gameObject.Deactivate();
             if (OnPickup != null)
             {
                 OnPickup.Invoke(this);
-                ItemsUI.instance.Add(Item); // FOR INVENTORY
+                ItemsUI.Current.Add(Item); // FOR INVENTORY
             }
         }
     }

@@ -7,7 +7,7 @@ namespace Pasta
     public interface IItem
     {
         public bool CanStack { get; }
-        public void Loot();
+        public bool Loot();
         public void Drop();
     }
 }
