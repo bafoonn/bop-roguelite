@@ -88,7 +88,7 @@ public class Player : MonoBehaviour, IHittable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent<Pickup>(out var pickup))
+        if (collision.TryGetComponent<ItemPickup>(out var pickup))
         {
             if (_loot.TryAdd(pickup.Item))
             {
@@ -105,6 +105,18 @@ public class Player : MonoBehaviour, IHittable
                     }
                 }
             }
+            return;
+        }
+
+        if (collision.TryGetComponent<HealthRestore>(out var restore))
+        {
+            restore.Heal(_health);
+            return;
+        }
+
+        if (collision.TryGetComponent<Coin>(out var coin))
+        {
+            return;
         }
     }
     public void AddCurrency(int addedCurrency)
