@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5aeaccb74f0994949b3d0e2f6bd29978
+guid: 04cc1557dce0f00478f1ab279353dc6f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2834823883752302594
-    second: SwirlIcon_0
+      213: -4935887729644390225
+    second: FlameIcon2_0
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: 4
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -98,12 +98,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SwirlIcon_0
+      name: FlameIcon2_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 2
         y: 0
-        width: 32
+        width: 28
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 20869df7d41575720800000000000000
-      internalID: 2834823883752302594
+      spriteID: fa83657e244308bb0800000000000000
+      internalID: -4935887729644390225
       vertices: []
       indices: 
       edges: []
@@ -129,7 +129,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      SwirlIcon_0: 2834823883752302594
+      FlameIcon2_0: -4935887729644390225
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

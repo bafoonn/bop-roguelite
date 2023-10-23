@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5aeaccb74f0994949b3d0e2f6bd29978
+guid: 7a855638ee711614280c54555105e578
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2834823883752302594
-    second: SwirlIcon_0
+      213: -2703576718235987106
+    second: HeartPickup_0
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: 4
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -98,13 +98,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SwirlIcon_0
+      name: HeartPickup_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 20869df7d41575720800000000000000
-      internalID: 2834823883752302594
+      spriteID: e5317868c47fa7ad0800000000000000
+      internalID: -2703576718235987106
       vertices: []
       indices: 
       edges: []
@@ -129,7 +129,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      SwirlIcon_0: 2834823883752302594
+      HeartPickup_0: -2703576718235987106
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

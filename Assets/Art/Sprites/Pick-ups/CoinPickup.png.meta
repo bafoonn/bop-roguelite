@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5aeaccb74f0994949b3d0e2f6bd29978
+guid: 18bdb08990f2b6e458b34398fec836d8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2834823883752302594
-    second: SwirlIcon_0
+      213: 3659599985904461297
+    second: CoinPickup_0
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: 4
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -98,13 +98,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SwirlIcon_0
+      name: CoinPickup_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 16
+        height: 15
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 20869df7d41575720800000000000000
-      internalID: 2834823883752302594
+      spriteID: 1f52cdb3cc289c230800000000000000
+      internalID: 3659599985904461297
       vertices: []
       indices: 
       edges: []
@@ -129,7 +129,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      SwirlIcon_0: 2834823883752302594
+      CoinPickup_0: 3659599985904461297
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
