@@ -18,6 +18,7 @@ public class AgentAnimations : MonoBehaviour
         //animator = GetComponent<Animator>();
         holder = GetComponent<AbilityHolder>();
         enemyAi = GetComponent<EnemyAi>();
+        
     }
 
     public void RotateToPointer(Vector2 lookDirection)

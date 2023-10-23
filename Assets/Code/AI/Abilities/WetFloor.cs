@@ -20,6 +20,7 @@ namespace Pasta
         private Vector3Int originPoint3int;
         public float spawnRadius;
         private Tilemap tileMap;
+        private DestroyAbility destroy;
         public override void Activate(GameObject parent)
         {
             originPoint = parent.transform.position;
@@ -34,6 +35,8 @@ namespace Pasta
                 if (tileMap.HasTile(originPoint3int))
                 {
                     puddleObjects[i] = Instantiate(puddleObject, originPoint, Quaternion.identity);
+                    destroy = puddleObjects[i].AddComponent<DestroyAbility>();
+                    destroy.activeTime = ActiveTime;
                 }
             }
             DeactivateAbility();

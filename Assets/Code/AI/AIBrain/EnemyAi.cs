@@ -1,6 +1,7 @@
 using Pasta;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.Events;
@@ -23,7 +24,7 @@ public class EnemyAi : MonoBehaviour, IHittable
     [SerializeField] public Vector2 movementInput;
     [SerializeField] private AISolver movementDirectionSolver;
     bool Chasing = false;
-
+    private EnemyCarrier enemySpawningCarrier; // Only used by carrier enemies
     private WeaponParent weaponParent;
     private AbilityHolder abilityHolder;
     [SerializeField] private Transform Player;
@@ -45,7 +46,10 @@ public class EnemyAi : MonoBehaviour, IHittable
         attackIndicator = weaponParent.GetComponentInChildren<Image>();
         abilityHolder = GetComponent<AbilityHolder>();
         //Detect objects
-
+        if (this.gameObject.name.Contains("Carrier"))
+        {
+            enemySpawningCarrier = GetComponent<EnemyCarrier>();
+        }
 
     }
     private void Awake()
@@ -116,6 +120,10 @@ public class EnemyAi : MonoBehaviour, IHittable
 
     protected virtual void DeathAction()
     {
+        if (this.gameObject.name.Contains("Carrier"))
+        {
+            enemySpawningCarrier.SpawnMinions();
+        }
         level.EnemyKilled();
         Destroy(gameObject);
     }
@@ -133,6 +141,7 @@ public class EnemyAi : MonoBehaviour, IHittable
         {
             movementInput = Vector2.zero;
             abilityHolder.UseAbility = true;
+           
         }
     }
 
