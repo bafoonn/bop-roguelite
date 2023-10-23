@@ -39,7 +39,14 @@ namespace Pasta
             }
             
             spawnedWall = Instantiate(MeatBallWall, positiontoSpawn, Quaternion.identity);
-            
+            DeactivateAbility();
+        }
+
+
+        private IEnumerator DeactivateAbility()
+        {
+            yield return new WaitForSeconds(coolDown + 1);
+            Destroy(spawnedWall);
         }
 
         public override void Deactivate()

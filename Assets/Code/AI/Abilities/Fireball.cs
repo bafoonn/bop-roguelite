@@ -18,7 +18,14 @@ namespace Pasta
             {
                 spawnedFireball = Instantiate(fireBall, weapon.ProjectileSpawnPoint.transform.position, weapon.ProjectileSpawnPoint.transform.rotation);
             }
-            
+            DeactivateAbility();
+        }
+
+
+        private IEnumerator DeactivateAbility()
+        {
+            yield return new WaitForSeconds(coolDown + 1);
+            Destroy(spawnedFireball);
         }
 
         public override void Deactivate()

@@ -25,7 +25,13 @@ namespace Pasta
             float directionFacing = Random.Range(0, spawnRadius);
             spawnedBeamGameBall = Instantiate(beamGameBall, originPoint, Quaternion.Euler(new Vector3(0f, directionFacing, 0f)));
 
+            DeactivateAbility();
+        }
 
+        private IEnumerator DeactivateAbility()
+        {
+            yield return new WaitForSeconds(coolDown + 1);
+            Destroy(spawnedBeamGameBall);
         }
 
         public override void Deactivate()

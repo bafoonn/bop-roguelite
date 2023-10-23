@@ -36,10 +36,18 @@ namespace Pasta
                     puddleObjects[i] = Instantiate(puddleObject, originPoint, Quaternion.identity);
                 }
             }
+            DeactivateAbility();
+        }
+
+        private IEnumerator DeactivateAbility()
+        {
+            yield return new WaitForSeconds(coolDown + 1);
+            foreach (GameObject puddle in puddleObjects)
+            {
+                Destroy(puddle);
+            }
             
         }
-        
-
         public override void Deactivate()
         {
             foreach(GameObject puddle in puddleObjects)

@@ -17,9 +17,13 @@ namespace Pasta
             player = GameObject.FindGameObjectWithTag("Player");
             originPoint = player.transform.position + Random.insideUnitSphere * spawnRadius;
             spawnedPoisonCloud = Instantiate(poisonCloudGameobject, originPoint, Quaternion.identity);
-            
+            DeactivateAbility();
         }
-
+        private IEnumerator DeactivateAbility()
+        {
+            yield return new WaitForSeconds(coolDown + 1);
+            Destroy(spawnedPoisonCloud);
+        }
 
         public override void Deactivate()
         {

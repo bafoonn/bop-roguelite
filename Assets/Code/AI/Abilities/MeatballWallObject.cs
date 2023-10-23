@@ -49,6 +49,9 @@ namespace Pasta
                 target = new Vector2(0, tileMap.cellBounds.yMax);
             }
         }
+
+
+        
         private void Update()
         {
             var distance = speed * Time.deltaTime;
