@@ -8,6 +8,7 @@ namespace Pasta
     public class ItemPickup : PickupBase
     {
         [field: SerializeField] public ItemBase Item { get; private set; }
+        private bool hasCost = false;
 
 
         private void Start()
@@ -36,18 +37,15 @@ namespace Pasta
                 return;
             }
 
+            base.Take();
+
             if (hasCost)
             {
                 ShopItemGeneration shop = GetComponentInParent<ShopItemGeneration>();
                 shop.ItemBought();
             }
 
-            gameObject.Deactivate();
-            if (OnPickup != null)
-            {
-                OnPickup.Invoke(this);
-                ItemsUI.Current.Add(Item); // FOR INVENTORY
-            }
+            ItemsUI.Current.Add(Item); // FOR INVENTORY
         }
         public bool CheckIfShopItem()
         {
