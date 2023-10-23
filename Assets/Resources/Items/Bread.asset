@@ -10,21 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f9b0d845e3f73742a1930a2cd0ed9f7, type: 3}
-  m_Name: Cup of Coffee
+  m_Name: Bread
   m_EditorClassIdentifier: 
   _canStack: 1
-  Name: Cup of Coffee
+  Name: Bread
   Description: 
-  Flavor: Black coffee. Nothing more, nothing less.
-  Sprite: {fileID: 4613932378464574621, guid: 4aa94352dc2854f4c90822b257b06c82, type: 3}
+  Flavor: It's just bread.
+  Sprite: {fileID: 1148123488233625931, guid: ad178d275ac9fc844ac08fbd19f8bbfd, type: 3}
   cost: 10
   Effects:
-  - Name: Movement Speed
-    Stat: 3
-    Value: 1
-    Type: 0
-  - Name: Attack Speed
-    Stat: 2
-    Value: 0.3
-    Type: 0
+  - Name: More health
+    Stat: 0
+    Value: 1.1
+    Type: 1
   Events: []

@@ -30,6 +30,7 @@ namespace Pasta
 
         public string Name;
         public string Description;
+        public string Flavor;
         public Sprite Sprite;
         public int Amount => _amount;
         public int cost;
