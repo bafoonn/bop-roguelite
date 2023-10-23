@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9af12d5a8eb38534bbea46a339f2774d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shopRoom: {fileID: 4454962172724761198, guid: 04937a5ad2e3ff146b5dc1caf2e2cc87, type: 3}
   levels:
   - {fileID: 4454962172724761198, guid: b1d3752f62705f7408dd910a2e622786, type: 3}
   - {fileID: 4454962172724761198, guid: 314aba6432b110e4bae8b9d78c739952, type: 3}
@@ -197,6 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9af12d5a8eb38534bbea46a339f2774d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shopRoom: {fileID: 4454962172724761198, guid: 04937a5ad2e3ff146b5dc1caf2e2cc87, type: 3}
   levels:
   - {fileID: 4454962172724761198, guid: b1d3752f62705f7408dd910a2e622786, type: 3}
   - {fileID: 4454962172724761198, guid: 314aba6432b110e4bae8b9d78c739952, type: 3}
@@ -245,6 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9af12d5a8eb38534bbea46a339f2774d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shopRoom: {fileID: 4454962172724761198, guid: 04937a5ad2e3ff146b5dc1caf2e2cc87, type: 3}
   levels:
   - {fileID: 4454962172724761198, guid: b1d3752f62705f7408dd910a2e622786, type: 3}
   - {fileID: 4454962172724761198, guid: 314aba6432b110e4bae8b9d78c739952, type: 3}
@@ -293,6 +296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9af12d5a8eb38534bbea46a339f2774d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shopRoom: {fileID: 4454962172724761198, guid: 04937a5ad2e3ff146b5dc1caf2e2cc87, type: 3}
   levels:
   - {fileID: 4454962172724761198, guid: b1d3752f62705f7408dd910a2e622786, type: 3}
   - {fileID: 4454962172724761198, guid: 314aba6432b110e4bae8b9d78c739952, type: 3}
@@ -341,6 +345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9af12d5a8eb38534bbea46a339f2774d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shopRoom: {fileID: 4454962172724761198, guid: 04937a5ad2e3ff146b5dc1caf2e2cc87, type: 3}
   levels:
   - {fileID: 4454962172724761198, guid: b1d3752f62705f7408dd910a2e622786, type: 3}
   - {fileID: 4454962172724761198, guid: 314aba6432b110e4bae8b9d78c739952, type: 3}
@@ -711,7 +716,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 11.421875
+  orthographic size: 5.625
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

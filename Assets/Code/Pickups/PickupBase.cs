@@ -27,12 +27,6 @@ namespace Pasta
             {
                 OnPickup.Invoke();
             }
-            StartCoroutine(DestroyRoutine());
-        }
-
-        protected virtual IEnumerator DestroyRoutine()
-        {
-            yield return new WaitForEndOfFrame();
             Destroy(gameObject);
         }
     }
