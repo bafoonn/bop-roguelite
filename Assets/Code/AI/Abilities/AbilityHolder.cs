@@ -15,6 +15,8 @@ namespace Pasta
         public bool CanUseAbility = false; // <- Here for testing purposes.
         public bool UseAbility = false; // <- Here for testing purposes.
         private bool ActivateAbilityThroughAnim = false;
+        private AgentAnimations abilityAnimHelper;
+        public bool AnimDone = true;
 
         private void Start()
         {
@@ -43,7 +45,11 @@ namespace Pasta
                         {
                             if (ability.AbilityWithAnim)
                             {
-                                // TODO: PLAY ANIMATION
+                                if(AnimDone)
+                                {
+                                    abilityAnimHelper = GetComponent<AgentAnimations>();
+                                    abilityAnimHelper.PlayAbilityAnim();
+                                }
                                 if (ActivateAbilityThroughAnim)
                                 {
                                     Debug.Log("Using" + ability);
@@ -70,6 +76,7 @@ namespace Pasta
                         else
                         {
                             ActivateAbilityThroughAnim = false;
+                            
                             UseAbility = false; // <- Here for testing purposes.
                             ability.Deactivate();
                             state = AbilityState.cooldown;
@@ -85,6 +92,7 @@ namespace Pasta
                         else
                         {
                             state = AbilityState.ready;
+                            AnimDone = true;
                         }
                         break;
                 }

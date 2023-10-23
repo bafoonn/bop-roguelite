@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canStack: 1
   Name: Chicken Drum Stick
+  Description: 
   Sprite: {fileID: 1373213130586829986, guid: 64faa9dc7736ee2499462153e901dd84, type: 3}
-  Amount: 4
+  Amount: 0
   Effects:
   - Name: Additional Health
     Stat: 0
@@ -25,3 +26,4 @@ MonoBehaviour:
     Stat: 3
     Value: 0.97
     Type: 1
+  Events: []

@@ -7,10 +7,27 @@ namespace Pasta
     
     public class AbilityAnimHelper : MonoBehaviour
     {
+        private AbilityHolder holder;
         public bool ActivateAbilityThroughAnim = false;
-        public void ActivateAbility()
+        [SerializeField] public Animator animator;
+        [SerializeField] private Animation animationClip;
+
+        private void Start()
         {
-            ActivateAbilityThroughAnim = true;
+            holder = GetComponent<AbilityHolder>();
+        }
+
+        public void PlayAnim()
+        {
+            holder.AnimDone = false;
+            animator.SetBool("Ability", true);
+        }
+
+
+        public void StopAnim()
+        {
+            Debug.Log("Stopping Anim");
+            animator.SetBool("Ability", false);
         }
 
 

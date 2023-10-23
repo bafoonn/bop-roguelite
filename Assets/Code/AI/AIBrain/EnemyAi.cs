@@ -126,6 +126,16 @@ public class EnemyAi : MonoBehaviour, IHittable
     //    yield return new WaitForSeconds(stunDelay);
     //}
 
+
+    public void UseAbility()
+    {
+        if (abilityHolder.ability.usableOutsideAttackRange == true)
+        {
+            movementInput = Vector2.zero;
+            abilityHolder.UseAbility = true;
+        }
+    }
+
     private IEnumerator ChaseAndAttack()
     {
         if (aiData.currentTarget == null)
@@ -165,11 +175,12 @@ public class EnemyAi : MonoBehaviour, IHittable
             else
             {
                 //Chasing
-                abilityHolder.CanUseAbility = false;
+                abilityHolder.CanUseAbility = true; // <- Here for testing purposes.
+                UseAbility();
                 timeToAttack = 0;
                 attackIndicator.fillAmount = 0;
                 movementInput = movementDirectionSolver.GetDirectionToMove(steeringBehaviours, aiData);
-                Debug.Log(movementInput);
+                //Debug.Log(movementInput);
                 yield return new WaitForSeconds(aiUpdateDelay);
                 StartCoroutine(ChaseAndAttack());
             }

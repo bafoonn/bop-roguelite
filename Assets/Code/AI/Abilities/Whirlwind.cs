@@ -22,7 +22,7 @@ namespace Pasta
             cc2d.radius = radius;
 
             cc2d.isTrigger = true;
-            GameObject weapon = p.transform.GetChild(2).gameObject.transform.GetChild(0).gameObject;
+            GameObject weapon = p.transform.GetChild(3).gameObject.transform.GetChild(0).gameObject;
             Debug.Log(weapon.name);
             weapon.transform.RotateAround(p.transform.position, new Vector3(0, 1, 0), 2f * Time.deltaTime); // TODO: TEST
             LayerMask mask = LayerMask.GetMask("Player");

@@ -1,16 +1,23 @@
+using Pasta;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AgentAnimations : MonoBehaviour
 {
-    private Animator animator;
+    private AbilityHolder holder;
+    public bool ActivateAbilityThroughAnim = false;
+    [SerializeField] public Animator animator;
+    [SerializeField] private Animation animationClip;
     [SerializeField] private GameObject EnemyBody;
     public bool aim = true;
+    private EnemyAi enemyAi;
 
     private void Awake()
     {
         //animator = GetComponent<Animator>();
+        holder = GetComponent<AbilityHolder>();
+        enemyAi = GetComponent<EnemyAi>();
     }
 
     public void RotateToPointer(Vector2 lookDirection)
@@ -29,6 +36,27 @@ public class AgentAnimations : MonoBehaviour
             EnemyBody.transform.localScale = scale;
         }
         
+    }
+
+    private void Update()
+    {
+        if (animator != null)
+        {
+            animator.SetFloat("DirX", enemyAi.movementInput.x);
+            animator.SetFloat("DirY", enemyAi.movementInput.y);
+        }
+    }
+    public void PlayAbilityAnim()
+    {
+        holder.AnimDone = false;
+        animator.SetBool("Ability", true);
+    }
+
+
+    public void StopAbilityAnim()
+    {
+        Debug.Log("Stopping Anim");
+        animator.SetBool("Ability", false);
     }
 
     //public void PlayAnimation(Vector2 movementInput)
