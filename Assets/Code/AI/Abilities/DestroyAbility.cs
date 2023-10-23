@@ -7,13 +7,13 @@ namespace Pasta
     public class DestroyAbility : MonoBehaviour
     {
         public float activeTime = 10;
-        private void Start()
+        private void Awake()
         {
-            destroy();
+            StartCoroutine("DestroyObject");
         }
 
 
-        private IEnumerator destroy()
+        private IEnumerator DestroyObject()
         {
             yield return new WaitForSeconds(activeTime);
             Destroy(gameObject);        
