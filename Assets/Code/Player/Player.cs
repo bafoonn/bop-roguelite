@@ -14,6 +14,7 @@ public class Player : MonoBehaviour, IHittable
     private Loot _loot;
     private PlayerAnimations _anim;
     private EventActions _actions;
+    public int currency = 100;
 
     public void Hit(float damage)
     {
@@ -91,8 +92,23 @@ public class Player : MonoBehaviour, IHittable
         {
             if (_loot.TryAdd(pickup.Item))
             {
-                pickup.Take();
+                if (!pickup.CheckIfShopItem())
+                {
+                    pickup.Take();
+                }
+                else
+                {
+                    if (pickup.Item.cost <= currency)
+                    {
+                        currency -= pickup.Item.cost;
+                        pickup.Take();
+                    }
+                }
             }
         }
+    }
+    public void AddCurrency(int addedCurrency)
+    {
+        currency += addedCurrency;
     }
 }

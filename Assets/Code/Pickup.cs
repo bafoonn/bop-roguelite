@@ -10,6 +10,7 @@ namespace Pasta
         [field: SerializeField] public ItemBase Item { get; private set; }
 
         public UnityEvent<Pickup> OnPickup;
+        private bool hasCost = false;
 
         private void Awake()
         {
@@ -21,17 +22,17 @@ namespace Pasta
 
         private void Start()
         {
-            Setup(Item);
+            Setup(Item, hasCost);
         }
 
-        public void Setup(ItemBase item)
+        public void Setup(ItemBase item, bool isShopItem)
         {
             if (item == null)
             {
                 gameObject.Deactivate();
                 return;
             }
-
+            hasCost = isShopItem;
             gameObject.name = item.Name;
             GetComponent<SpriteRenderer>().sprite = item.Sprite;
             Item = item;
@@ -45,12 +46,22 @@ namespace Pasta
                 return;
             }
 
+            if (hasCost)
+            {
+                ShopItemGeneration shop = GetComponentInParent<ShopItemGeneration>();
+                shop.ItemBought();
+            }
+
             gameObject.Deactivate();
             if (OnPickup != null)
             {
                 OnPickup.Invoke(this);
                 ItemsUI.Current.Add(Item); // FOR INVENTORY
             }
+        }
+        public bool CheckIfShopItem()
+        {
+            return hasCost;
         }
     }
 }

@@ -6,6 +6,9 @@ namespace Pasta
 {
     public class EndPoint : MonoBehaviour
     {
+        [SerializeField]
+        private ItemBase[] rewardList;
+
         private int roomRewardIndex;
         [SerializeField] SpriteRenderer itemDisplay;
 

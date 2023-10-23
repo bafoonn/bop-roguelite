@@ -32,7 +32,7 @@ namespace Pasta
         public string Description;
         public Sprite Sprite;
         public int Amount => _amount;
-
+        public int cost;
         public StatEffect[] Effects;
         public EventActionContainer[] Events;
 

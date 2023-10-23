@@ -17,7 +17,7 @@ namespace Pasta
             if (rewards.Count != 0)
             {
                 var pickup = Instantiate(pickupPrefab, transform.position, Quaternion.identity);
-                pickup.Setup(rewards[rewardIndex]);
+                pickup.Setup(rewards[rewardIndex], false);
                 pickup.transform.SetParent(this.gameObject.transform);
 
 
