@@ -10,7 +10,7 @@ namespace Pasta
         private void Start()
         {
             var health = GetComponent<Health>();
-            GetComponentInChildren<HealthBar>().Setup(health);
+            GetComponentInChildren<HealthBar>().SetHealth(health);
             Destroy(this);
         }
     }

@@ -35,6 +35,7 @@ public class Player : MonoBehaviour, IHittable
         _actions = GetComponentInChildren<EventActions>();
         Assert.IsNotNull(_actions);
         _actions.Setup(this);
+        GetComponentInChildren<CurrencyUI>().Setup(this);
 
         _inputReader.DodgeCallback = () =>
         {
@@ -116,6 +117,8 @@ public class Player : MonoBehaviour, IHittable
 
         if (collision.TryGetComponent<Coin>(out var coin))
         {
+            currency += coin.Value;
+            coin.Take();
             return;
         }
     }

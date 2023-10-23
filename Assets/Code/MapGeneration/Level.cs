@@ -15,6 +15,7 @@ namespace Pasta
         private bool isCombatRoom = true;
         private int[] indexes;
 
+        public int RewardIndex => rewardIndex;
 
         [SerializeField]
         private Transform spawnPoint;

@@ -6,11 +6,19 @@ namespace Pasta
 {
     public class HealthRestore : PickupBase
     {
-        public float HealPercentage = 0.1f;
+        public float HealAmount = 0.1f;
+        public bool IsPercentage = true;
 
         public void Heal(PlayerHealth playerHealth)
         {
-            playerHealth.Heal(playerHealth.MaxHealth * HealPercentage);
+            if (playerHealth.IsMaxHealth)
+            {
+                return;
+            }
+
+            float heal = IsPercentage ? playerHealth.MaxHealth * HealAmount : HealAmount;
+
+            playerHealth.Heal(heal);
             Take();
         }
     }

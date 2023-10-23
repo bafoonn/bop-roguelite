@@ -6,35 +6,49 @@ using UnityEngine.UI;
 
 namespace Pasta
 {
-    [RequireComponent(typeof(Image))]
     public class HealthBar : MonoBehaviour
     {
-        private Health _health;
         [SerializeField] private Image _image;
+        [SerializeField] private Text _text;
+
+        private Health _health;
+        private float _current = 0;
+        public float Current => _current;
+        public Health Health => _health;
 
         private void Awake()
         {
-            _image = GetComponent<Image>();
             Assert.IsNotNull(_image);
             _image.type = Image.Type.Filled;
-            _image.fillMethod = Image.FillMethod.Horizontal;
-            _image.color = Color.red;
         }
 
-        public void Setup(Health health)
+        public void SetHealth(Health health)
         {
+            if (_health != null)
+            {
+                _health.OnHealthChanged -= OnHealthChanged;
+            }
+
             _health = health;
             _health.OnHealthChanged += OnHealthChanged;
         }
 
         private void OnHealthChanged(float value)
         {
-            _image.fillAmount = value / _health.MaxHealth;
+            if (_text != null)
+            {
+                _text.text = value.ToString();
+            }
+            _current = value / _health.MaxHealth;
+            _image.fillAmount = _current;
         }
 
         private void OnDestroy()
         {
-            _health.OnHealthChanged -= OnHealthChanged;
+            if (_health != null)
+            {
+                _health.OnHealthChanged -= OnHealthChanged;
+            }
         }
     }
 }

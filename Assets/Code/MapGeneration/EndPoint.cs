@@ -6,9 +6,6 @@ namespace Pasta
 {
     public class EndPoint : MonoBehaviour
     {
-        [SerializeField]
-        private ItemBase[] rewardList;
-
         private int roomRewardIndex;
         [SerializeField] SpriteRenderer itemDisplay;
 
@@ -32,9 +29,34 @@ namespace Pasta
         // Called for an initial reward generation that has to pass a dublicate check
         public int GenerateRoomRewardIndex()
         {
+            var level = GetComponentInParent<Level>(includeInactive: true);
             var rewards = Items.Current.GetRewards();
-            int random = Random.Range(0, rewards.Count);
-            return random;
+
+            if (level == null)
+            {
+                return Random.Range(0, rewards.Count);
+            }
+
+            int index = -1;
+
+            int loop = 0;
+            while (index < 0)
+            {
+                int random = Random.Range(0, rewards.Count);
+
+                if (random != level.RewardIndex)
+                {
+                    index = random;
+                }
+
+                loop++;
+                if (loop >= rewards.Count)
+                {
+                    index = 0;
+                }
+            }
+
+            return index;
         }
 
         // Called when the index has passed the dublicate check and will be assigned as the reward for the next room if the player activates this endpoint
