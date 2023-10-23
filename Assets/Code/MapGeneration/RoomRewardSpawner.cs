@@ -7,7 +7,7 @@ namespace Pasta
     public class RoomRewardSpawner : MonoBehaviour
     {
         [SerializeField]
-        private Pickup pickupPrefab = null;
+        private ItemPickup pickupPrefab = null;
         //private bool firstRoom;
 
 

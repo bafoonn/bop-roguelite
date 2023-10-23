@@ -5,19 +5,10 @@ using UnityEngine.Events;
 
 namespace Pasta
 {
-    public class Pickup : MonoBehaviour
+    public class ItemPickup : PickupBase
     {
         [field: SerializeField] public ItemBase Item { get; private set; }
 
-        public UnityEvent<Pickup> OnPickup;
-
-        private void Awake()
-        {
-            var rigidbody = this.AddOrGetComponent<Rigidbody2D>();
-            rigidbody.isKinematic = true;
-            var collider = this.AddOrGetComponent<Collider2D>();
-            collider.isTrigger = true;
-        }
 
         private void Start()
         {
@@ -38,19 +29,14 @@ namespace Pasta
             gameObject.Activate();
         }
 
-        public void Take()
+        public override void Take()
         {
             if (!Item.CanLoot)
             {
                 return;
             }
-
-            gameObject.Deactivate();
-            if (OnPickup != null)
-            {
-                OnPickup.Invoke(this);
-                ItemsUI.Current.Add(Item); // FOR INVENTORY
-            }
+            base.Take();
+            ItemsUI.Current.Add(Item); // FOR INVENTORY
         }
     }
 }

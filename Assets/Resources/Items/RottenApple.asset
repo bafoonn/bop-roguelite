@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f9b0d845e3f73742a1930a2cd0ed9f7, type: 3}
   m_Name: RottenApple
   m_EditorClassIdentifier: 
-  _canStack: 1
+  _canStack: 0
   Name: Rotten Apple
   Description: 
   Sprite: {fileID: -1608413829978786433, guid: d160d2fe1d320d34ab45ccec0fd5e376, type: 3}
-  Amount: 0
   Effects:
   - Name: Less Health
     Stat: 0

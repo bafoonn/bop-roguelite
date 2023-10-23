@@ -7,5 +7,7 @@ namespace Pasta
 {
     public interface IPickup
     {
+        public UnityEvent OnPickup { get; }
+        public void Take();
     }
 }

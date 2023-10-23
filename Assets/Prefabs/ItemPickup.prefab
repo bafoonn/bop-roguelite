@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4979519577439161877}
   - component: {fileID: 4586789034936862344}
   m_Layer: 0
-  m_Name: Pickup
+  m_Name: ItemPickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,10 +99,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 454e9ee3b66aed543ac0a4bc4e05dbc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Item: {fileID: 0}
-  OnPickup:
+  _onPickup:
     m_PersistentCalls:
       m_Calls: []
+  <Item>k__BackingField: {fileID: 0}
 --- !u!50 &4979519577439161877
 Rigidbody2D:
   serializedVersion: 4
