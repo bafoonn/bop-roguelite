@@ -27,9 +27,9 @@ public class WeaponParent : MonoBehaviour
     public bool Aim = true;
     private void Start()
     {
-        AttackIndicatorImage = gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject;
+        //AttackIndicatorImage = gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject;
         aidata = GetComponentInParent<AIData>();
-        spriteRend = GetComponent<SpriteRenderer>();
+        spriteRend = GetComponentInChildren<SpriteRenderer>();
         animations = GetComponentInParent<AgentAnimations>();
     }
 
@@ -88,7 +88,7 @@ public class WeaponParent : MonoBehaviour
     {
         attackCollider.enabled = true;
         StartCoroutine(StopAttack());
-        
+
     }
     private IEnumerator StopAttack() // TEST STUFF
     {

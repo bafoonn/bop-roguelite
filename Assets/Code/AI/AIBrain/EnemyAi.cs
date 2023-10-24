@@ -37,20 +37,24 @@ public class EnemyAi : MonoBehaviour, IHittable
     //[SerializeField] private float chaseDistanceThershold = 3, attackDistanceThershold = 0.8f;
     //private float passedTime = 1;
 
+    private AttackEffects attackEffect;
+    private bool hasAttackEffect;
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         Player = player.transform;
         level = FindFirstObjectByType<Level>();
         weaponParent = GetComponentInChildren<WeaponParent>();
-        attackIndicator = weaponParent.GetComponentInChildren<Image>();
+        //attackIndicator = weaponParent.GetComponentInChildren<Image>();
         abilityHolder = GetComponent<AbilityHolder>();
         //Detect objects
         if (this.gameObject.name.Contains("Carrier"))
         {
             enemySpawningCarrier = GetComponent<EnemyCarrier>();
         }
-
+        attackEffect = GetComponentInChildren<AttackEffects>();
+        hasAttackEffect = attackEffect != null;
     }
     private void Awake()
     {
@@ -90,9 +94,9 @@ public class EnemyAi : MonoBehaviour, IHittable
             float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
             if (distance < attackDistance)
             {
-                attackIndicator.enabled = true;
+                //attackIndicator.enabled = true;
                 timeToAttack += Time.deltaTime;
-                attackIndicator.fillAmount = timeToAttack / defaultTimeToAttack;
+                //attackIndicator.fillAmount = timeToAttack / defaultTimeToAttack;
             }
         }
         else if (aiData.GetTargetsCount() > 0)
@@ -115,6 +119,8 @@ public class EnemyAi : MonoBehaviour, IHittable
         {
             weaponParent.Attack();
             abilityHolder.UseAbility = true;
+            if (hasAttackEffect) attackEffect.CancelAttack();
+            if (hasAttackEffect) attackEffect.HeavyAttack();
         }
     }
 
@@ -152,7 +158,8 @@ public class EnemyAi : MonoBehaviour, IHittable
             abilityHolder.CanUseAbility = false;
             movementInput = Vector2.zero;
             timeToAttack = 0;
-            attackIndicator.fillAmount = 0;
+            //if (hasAttackEffect) attackEffect.CancelAttack();
+            //attackIndicator.fillAmount = 0;
             Chasing = false;
             yield break;
         }
@@ -172,11 +179,12 @@ public class EnemyAi : MonoBehaviour, IHittable
                 abilityHolder.CanUseAbility = true;
                 movementInput = Vector2.zero;
                 OnAttackPressed?.Invoke();
+                if (hasAttackEffect) attackEffect.AttackIndicator();
                 if (timeToAttack >= defaultTimeToAttack) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
                 {
                     Attack(); // Attack method
                     timeToAttack = 0;
-                    attackIndicator.fillAmount = 0;
+                    //attackIndicator.fillAmount = 0;
                 }
                 yield return new WaitForSeconds(attackDelay);
                 StartCoroutine(ChaseAndAttack());
@@ -187,7 +195,8 @@ public class EnemyAi : MonoBehaviour, IHittable
                 abilityHolder.CanUseAbility = true; // <- Here for testing purposes.
                 UseAbility();
                 timeToAttack = 0;
-                attackIndicator.fillAmount = 0;
+                //if (hasAttackEffect) attackEffect.CancelAttack();
+                //attackIndicator.fillAmount = 0;
                 movementInput = movementDirectionSolver.GetDirectionToMove(steeringBehaviours, aiData);
                 //Debug.Log(movementInput);
                 yield return new WaitForSeconds(aiUpdateDelay);
