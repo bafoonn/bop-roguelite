@@ -25,12 +25,15 @@ public class WeaponParent : MonoBehaviour
     [SerializeField] private GameObject attackColliderHolder;
     [SerializeField] private Collider2D attackCollider;
     public bool Aim = true;
+    [SerializeField] private Transform spriteTransform;
+    private Vector2 weaponScale;
     private void Start()
     {
         //AttackIndicatorImage = gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject;
         aidata = GetComponentInParent<AIData>();
         spriteRend = GetComponentInChildren<SpriteRenderer>();
         animations = GetComponentInParent<AgentAnimations>();
+        weaponScale = transform.localScale;
     }
 
     private void Update()
@@ -64,18 +67,26 @@ public class WeaponParent : MonoBehaviour
             if (enemyDirectionLocal.x < 0)
             {
 
-                //Debug.Log("LEFT");
+                Debug.Log("LEFT");
                 scale.x = -1f;
+                weaponScale.x = -1f;
+                weaponScale.y = 0f;
+                //weaponSpriteTrans.position = new Vector3(-1, 0, 0);
                 spriteRend.flipY = true;
+                spriteTransform.localPosition = weaponScale;
                 attackColliderHolder.transform.localScale = scale; // Changing child since editing parents scale fucks direction check
             }
             else if (enemyDirectionLocal.x > 0)
             {
 
 
-                //Debug.Log("RIGHT");
+                Debug.Log("RIGHT");
                 scale.x = 1f;
+                weaponScale.x = 1f;
+                weaponScale.y = 0f;
+                //weaponSpriteTrans.position = new Vector3(1, 0, 0);
                 spriteRend.flipY = false;
+                spriteTransform.localPosition = weaponScale;
                 attackColliderHolder.transform.localScale = scale; // Changing child since editing parents scale fucks direction check
             }
         }

@@ -13,13 +13,15 @@ namespace Pasta
         public float spawnRadius = 2f;
         private GameObject player;
         private DestroyAbility destroyAbility;
+        private float Activetime;
         public override void Activate(GameObject parent)
         {
             player = GameObject.FindGameObjectWithTag("Player");
             originPoint = player.transform.position + Random.insideUnitSphere * spawnRadius;
             spawnedPoisonCloud = Instantiate(poisonCloudGameobject, originPoint, Quaternion.identity);
+            Activetime = ActiveTime;
             destroyAbility = spawnedPoisonCloud.AddComponent<DestroyAbility>();
-            destroyAbility.activeTime = ActiveTime;
+            destroyAbility.activeTime = Activetime;
             DeactivateAbility();
         }
         private IEnumerator DeactivateAbility()

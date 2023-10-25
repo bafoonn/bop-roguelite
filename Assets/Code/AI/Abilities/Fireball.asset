@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3c5b2c5b817994ea59222c1868e238, type: 3}
   m_Name: Fireball
   m_EditorClassIdentifier: 
-  AbilityName: 
-  coolDown: 0
-  ActiveTime: 0
-  damage: 1
-  usableOutsideAttackRange: 0
+  AbilityName: Fireball
+  coolDown: 10
+  ActiveTime: 4
+  damage: 20
+  usableOutsideAttackRange: 1
   fireBall: {fileID: 0}
