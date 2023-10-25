@@ -37,7 +37,7 @@ namespace Pasta
                 var itemIcon = obj.transform.Find("ItemImage").GetComponent<Image>();
                 var ItemAmount = obj.transform.Find("ItemAmount").GetComponent<Text>();
                 itemIcon.sprite = item.Sprite;
-                ItemAmount.text = item.Amount.ToString();
+                ItemAmount.text = item.Amount.ToString(); 
 
             }
             SetUIitems();
