@@ -73,7 +73,11 @@ public class WeaponParent : MonoBehaviour
                 weaponScale.y = 0f;
                 //weaponSpriteTrans.position = new Vector3(-1, 0, 0);
                 spriteRend.flipY = true;
-                spriteTransform.localPosition = weaponScale;
+                if(spriteTransform != null) // TEMP FOR ERROR MANAGEMENT
+                {
+                    spriteTransform.localPosition = weaponScale;
+                }
+                
                 attackColliderHolder.transform.localScale = scale; // Changing child since editing parents scale fucks direction check
             }
             else if (enemyDirectionLocal.x > 0)
@@ -86,7 +90,10 @@ public class WeaponParent : MonoBehaviour
                 weaponScale.y = 0f;
                 //weaponSpriteTrans.position = new Vector3(1, 0, 0);
                 spriteRend.flipY = false;
-                spriteTransform.localPosition = weaponScale;
+                if (spriteTransform != null) // TEMP FOR ERROR MANAGEMENT
+                {
+                    spriteTransform.localPosition = weaponScale;
+                }
                 attackColliderHolder.transform.localScale = scale; // Changing child since editing parents scale fucks direction check
             }
         }

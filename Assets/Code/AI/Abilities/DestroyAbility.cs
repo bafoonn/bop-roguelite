@@ -15,7 +15,7 @@ namespace Pasta
 
         private IEnumerator DestroyObject()
         {
-            yield return new WaitForSeconds(activeTime);
+            yield return new WaitForSeconds(activeTime); // Destroy after active time
             Destroy(gameObject);        
         }
     }
