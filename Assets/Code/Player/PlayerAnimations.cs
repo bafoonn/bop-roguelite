@@ -34,9 +34,10 @@ namespace Pasta
         {
             _facingDir = _movement.IsRolling ? _movement._currentDir : _input.Aim;
             _facingDir.Normalize();
-            _renderer.flipX = (_movement.IsRolling || _movement._currentDir.sqrMagnitude < Mathf.Epsilon) && Vector2.Dot(Vector2.right, _facingDir) < 0;
-            _animator.SetFloat(MoveX, _input.Movement.x);
-            _animator.SetFloat(MoveY, _input.Movement.y);
+            _renderer.flipX = DoFlip();
+            var dir = _attackHandler.IsAttacking ? _input.Aim : _input.Movement;
+            _animator.SetFloat(MoveX, dir.x);
+            _animator.SetFloat(MoveY, dir.y);
 
             int state = FindState();
             if (state == _current) return;
@@ -49,7 +50,16 @@ namespace Pasta
         {
             if (_movement.IsRolling) return Roll;
             if (_movement._currentDir.sqrMagnitude > Mathf.Epsilon) return Run;
+            if (_attackHandler.IsAttacking) return Run;
             return Idle;
+        }
+
+        private bool DoFlip()
+        {
+            bool flip = Vector2.Dot(Vector2.right, _facingDir) < 0;
+            if (_current == Idle) return flip;
+            if (_current == Roll) return flip;
+            return false;
         }
 
         public void Setup(PlayerMovement movement, PlayerAttackHandler attackHandler, InputReader input)

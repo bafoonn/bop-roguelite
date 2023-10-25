@@ -78,6 +78,13 @@ namespace Pasta
                 return false;
             }
 
+            Attack(dir, type);
+
+            return true;
+        }
+
+        public void Attack(Vector2 dir, AttackType type = AttackType.Quick)
+        {
             switch (type)
             {
                 case AttackType.Quick:
@@ -88,7 +95,6 @@ namespace Pasta
                     _attackRoutine = StartCoroutine(HeavyAttack(dir));
                     break;
             }
-            return true;
         }
 
         private IEnumerator QuickAttack(Vector2 dir)
@@ -105,7 +111,7 @@ namespace Pasta
 
                 hittable.Hit(_quickAttackDamage);
             }
-            
+
             _attackRoutine = null;
         }
 
@@ -129,7 +135,7 @@ namespace Pasta
 
                 hittable.Hit(_heavyAttackDamage);
             }
-            
+
             _cancellable = true;
             _attackRoutine = null;
         }
