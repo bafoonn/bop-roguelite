@@ -109,6 +109,7 @@ namespace Pasta
                     continue;
                 }
 
+                EventActions.InvokeEvent(EventActionType.OnHit);
                 hittable.Hit(_quickAttackDamage);
             }
 
@@ -133,6 +134,7 @@ namespace Pasta
                     continue;
                 }
 
+                EventActions.InvokeEvent(EventActionType.OnHit);
                 hittable.Hit(_heavyAttackDamage);
             }
 
