@@ -11,6 +11,7 @@ namespace Pasta
         [SerializeField] private int _chains = 3;
         [SerializeField] private float _chainTime = 0.5f;
         [SerializeField] private float _damageCoefficiency = 0.8f;
+        [SerializeField] private ParticleSystem _particles = null;
         private Stat _damage = null;
         private int _enemyLayer;
 
@@ -19,6 +20,7 @@ namespace Pasta
             base.Init();
             _enemyLayer = 1 << LayerMask.NameToLayer("Enemy");
             _damage = StatManager.Current.GetStat(StatType.Damage);
+            _particles = GetComponentInChildren<ParticleSystem>();
         }
 
         protected override void Trigger(EventContext context)
@@ -64,6 +66,13 @@ namespace Pasta
                         }
 
                         point = enemies[random].transform.position;
+
+                        var emitParams = new ParticleSystem.EmitParams();
+                        if (_particles != null)
+                        {
+                            _particles.transform.position = point;
+                            _particles.Play();
+                        }
                         hits.Add(hittable);
                         hittable.Hit(_damage.Value * _damageCoefficiency);
                         targetFound = true;
