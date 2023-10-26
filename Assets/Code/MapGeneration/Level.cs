@@ -14,6 +14,7 @@ namespace Pasta
         private int rewardIndex;
         private bool isCombatRoom = true;
         private int[] indexes;
+        private GameObject[] abilities;
 
         public int RewardIndex => rewardIndex;
 
@@ -55,6 +56,11 @@ namespace Pasta
             enemiesLeft--;
             if (enemiesLeft <= 0)
             {
+                abilities = GameObject.FindGameObjectsWithTag("Ability");
+                foreach (var ability in abilities)
+                {
+                    Destroy(ability.gameObject);
+                }
                 endPoints.gameObject.SetActive(true);
                 endPoints.GenerateRoomRewards();
                 rewardSpawner.gameObject.SetActive(true);

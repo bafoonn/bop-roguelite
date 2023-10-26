@@ -118,6 +118,7 @@ public class WeaponParent : MonoBehaviour
     public void RangedAttack()
     {
         Instantiate(projectile, ProjectileSpawnPoint.transform.position, ProjectileSpawnPoint.transform.rotation);
+        StartCoroutine(StopAttack());
     }
 
 
