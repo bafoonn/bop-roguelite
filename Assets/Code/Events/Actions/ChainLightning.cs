@@ -8,7 +8,7 @@ namespace Pasta
     {
         [SerializeField] private float _procChance = 0.3f;
         [SerializeField] private float _radius = 5f;
-        [SerializeField] private int _chainCount = 3;
+        [SerializeField] private int _chains = 3;
         [SerializeField] private float _chainTime = 0.5f;
         [SerializeField] private float _damageCoefficiency = 0.8f;
         private Stat _damage = null;
@@ -21,36 +21,57 @@ namespace Pasta
             _damage = StatManager.Current.GetStat(StatType.Damage);
         }
 
-        protected override void Trigger()
+        protected override void Trigger(EventContext context)
         {
-            base.Trigger();
+            base.Trigger(context);
+            IHittable firstTarget = null;
+            if (context.GetType() == typeof(HitContext))
+            {
+                var hitContext = (HitContext)context;
+                firstTarget = hitContext.Target;
+            }
             if (Random.value < _procChance)
             {
-                StartCoroutine(SpawnLightning());
+                StartCoroutine(SpawnLightning(firstTarget));
             }
         }
 
-        private IEnumerator SpawnLightning()
+        private IEnumerator SpawnLightning(IHittable first)
         {
-            int chains = 0;
+            int chainCount = 0;
             List<IHittable> hits = new List<IHittable>();
-            Vector2 point = transform.position;
-            while (chains < _chainCount)
+            Vector2 point = first != null ? first.Mono.transform.position : _player.transform.position;
+            while (chainCount < _chains)
             {
-                var enemyColliders = Physics2D.OverlapCircleAll(point, _radius, _enemyLayer);
-                for (int i = 0; i < enemyColliders.Length; i++)
-                {
-                    if (enemyColliders[i].TryGetComponent<IHittable>(out var hittable))
-                    {
-                        if (hits.Contains(hittable)) continue;
+                var enemies = new List<Collider2D>(Physics2D.OverlapCircleAll(point, _radius, _enemyLayer));
+                bool targetFound = false;
 
-                        point = enemyColliders[i].transform.position;
-                        hits.Add(hittable);
-                        hittable.Hit(_damage.Value * _damageCoefficiency);
-                    }
+                if (chainCount == 0 && first != null)
+                {
+                    hits.Add(first);
+                    first.Hit(_damage.Value * _damageCoefficiency);
                 }
 
-                chains++;
+                while (enemies.Count > 0 && !targetFound)
+                {
+                    int random = Random.Range(0, enemies.Count);
+                    if (enemies[random].TryGetComponent<IHittable>(out var hittable))
+                    {
+                        if (hits.Contains(hittable))
+                        {
+                            enemies.RemoveAt(random);
+                            continue;
+                        }
+
+                        point = enemies[random].transform.position;
+                        hits.Add(hittable);
+                        hittable.Hit(_damage.Value * _damageCoefficiency);
+                        targetFound = true;
+                    }
+                    enemies.RemoveAt(random);
+                }
+
+                chainCount++;
                 yield return new WaitForSeconds(_chainTime);
             }
         }

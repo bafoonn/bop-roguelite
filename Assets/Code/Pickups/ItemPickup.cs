@@ -32,11 +32,6 @@ namespace Pasta
 
         public override void Take()
         {
-            if (!Item.CanLoot)
-            {
-                return;
-            }
-
             base.Take();
 
             if (hasCost)

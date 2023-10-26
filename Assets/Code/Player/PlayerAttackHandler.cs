@@ -31,6 +31,7 @@ namespace Pasta
         private void Awake()
         {
             _sensor = GetComponentInChildren<AttackArea>();
+            _attackEffects = GetComponentInChildren<AttackEffects>();
         }
 
         private void Start()
@@ -42,7 +43,6 @@ namespace Pasta
             _attackSpeed.ValueChanged += OnAttackSpeedChanged;
             SetDamage(_damage.Value, _attackSpeed.Value);
 
-            _attackEffects = GetComponentInChildren<AttackEffects>();
             _hasAttackEffects = _attackEffects != null;
         }
 
@@ -60,6 +60,7 @@ namespace Pasta
         {
             _quickAttackTime = 1f / attackSpeed;
             _heavyAttackTime = _quickAttackTime * _heavyAttackTimeMultiplier;
+            _attackEffects.SetIndicatorLifetime(_heavyAttackTime);
 
             _quickAttackDamage = damage;
             _heavyAttackDamage = _quickAttackDamage * (_heavyAttackTime / _quickAttackTime) + 1;
@@ -81,6 +82,7 @@ namespace Pasta
             Attack(dir, type);
 
             return true;
+
         }
 
         public void Attack(Vector2 dir, AttackType type = AttackType.Quick)
@@ -109,7 +111,8 @@ namespace Pasta
                     continue;
                 }
 
-                EventActions.InvokeEvent(EventActionType.OnHit);
+
+                EventActions.InvokeEvent(new HitContext(hittable));
                 hittable.Hit(_quickAttackDamage);
             }
 
@@ -122,9 +125,9 @@ namespace Pasta
             if (_hasAttackEffects) _attackEffects.AttackIndicator();
             yield return new WaitForSeconds(waitTime);
 
-            if (_hasAttackEffects) _attackEffects.HeavyAttack();
             _cancellable = false;
             yield return new WaitForSeconds(waitTime);
+            if (_hasAttackEffects) _attackEffects.HeavyAttack();
 
             for (int i = 0; i < _sensor.Objects.Count; i++)
             {
@@ -134,7 +137,7 @@ namespace Pasta
                     continue;
                 }
 
-                EventActions.InvokeEvent(EventActionType.OnHit);
+                EventActions.InvokeEvent(new HitContext(hittable));
                 hittable.Hit(_heavyAttackDamage);
             }
 
@@ -151,6 +154,7 @@ namespace Pasta
 
             if (_attackRoutine != null)
             {
+                _attackEffects.CancelAttack();
                 StopCoroutine(_attackRoutine);
                 _attackRoutine = null;
             }

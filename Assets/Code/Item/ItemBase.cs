@@ -16,15 +16,15 @@ namespace Pasta
         }
 
         [SerializeField] private bool _canStack = true;
-        private int _amount = 0;
+        [SerializeField, ReadOnly] private int _amount = 0;
         public bool CanStack => _canStack;
         public bool IsLooted => _amount > 0;
         public bool CanLoot
         {
             get
             {
-                if (CanStack) return true;
-                return IsLooted;
+                if (!CanStack && IsLooted) return false;
+                return true;
             }
         }
 

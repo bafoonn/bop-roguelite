@@ -15,7 +15,7 @@ namespace Pasta
             _health = _player.GetComponent<PlayerHealth>();
         }
 
-        protected override void Trigger()
+        protected override void Trigger(EventContext context)
         {
             _health.Heal(_isPercentage ? _health.MaxHealth * _healAmount : _healAmount);
         }

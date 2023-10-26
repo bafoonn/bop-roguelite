@@ -1,12 +1,9 @@
 using Pasta;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using static UnityEngine.GraphicsBuffer;
 
 public class EnemyAi : MonoBehaviour, IHittable
 {
@@ -17,6 +14,8 @@ public class EnemyAi : MonoBehaviour, IHittable
     [SerializeField] private float attackDistance = 0.5f;
     [SerializeField] private List<SteeringBehaviour> steeringBehaviours;
     #endregion
+
+    public MonoBehaviour Mono => this;
     public Health Health { get; protected set; }
     public static event System.Action<EnemyAi> OnDeath;
     private Level level;
@@ -156,7 +155,7 @@ public class EnemyAi : MonoBehaviour, IHittable
         {
             movementInput = Vector2.zero;
             abilityHolder.UseAbility = true;
-           
+
         }
     }
 

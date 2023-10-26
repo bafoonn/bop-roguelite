@@ -1,11 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using static UnityEngine.GraphicsBuffer;
 using Pasta;
 
 public class BossAI : MonoBehaviour, IHittable
@@ -15,6 +13,8 @@ public class BossAI : MonoBehaviour, IHittable
     [SerializeField] private float detectionDelay = 0.05f, aiUpdateDelay = 0.06f, attackDelay = 2f;
     [SerializeField] public float attackDistance = 0.5f;
     [SerializeField] private List<SteeringBehaviour> steeringBehaviours;
+
+    public MonoBehaviour Mono => this;
 
     public UnityEvent OnAttackPressed;
     public UnityEvent<Vector2> OnMovementInput, OnPointerInput;
@@ -124,7 +124,7 @@ public class BossAI : MonoBehaviour, IHittable
     }
     public void UseAbility()
     {
-        if(abilityHolder.ability.usableOutsideAttackRange == true)
+        if (abilityHolder.ability.usableOutsideAttackRange == true)
         {
             abilityHolder.UseAbility = true;
         }

@@ -10,7 +10,7 @@ namespace Pasta
         private static EventActions _actions = null;
         private Player _player = null;
 
-        public static event Action<EventActionType> OnEvent;
+        public static event Action<EventContext> OnEvent;
 
         private void Awake()
         {
@@ -45,9 +45,14 @@ namespace Pasta
             return action;
         }
 
+        public static void InvokeEvent(EventContext context)
+        {
+            if (OnEvent != null) OnEvent(context);
+        }
+
         public static void InvokeEvent(EventActionType type)
         {
-            if (OnEvent != null) OnEvent(type);
+            InvokeEvent(new EventContext(type));
         }
     }
 }

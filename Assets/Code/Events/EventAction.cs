@@ -24,16 +24,16 @@ namespace Pasta
             EventActions.OnEvent -= OnEvent;
         }
 
-        private void OnEvent(EventActionType type)
+        private void OnEvent(EventContext context)
         {
-            if (type == _actionType)
+            if (context.EventType == _actionType)
             {
                 if (OnTrigger != null)
                 {
                     OnTrigger.Invoke();
                 }
 
-                Trigger();
+                Trigger(context);
             }
         }
 
@@ -57,7 +57,7 @@ namespace Pasta
         {
         }
 
-        protected virtual void Trigger()
+        protected virtual void Trigger(EventContext context)
         {
         }
     }

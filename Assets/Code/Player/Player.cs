@@ -27,6 +27,8 @@ public class Player : MonoBehaviour, IHittable
     private PlayerAction _quickAttackAction = null;
     private PlayerAction _heavyAttackAction = null;
 
+    public MonoBehaviour Mono => this;
+
     private void Awake()
     {
         _input = this.AddOrGetComponent<InputReader>();
