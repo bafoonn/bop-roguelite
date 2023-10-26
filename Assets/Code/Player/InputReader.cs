@@ -14,7 +14,9 @@ public class InputReader : MonoBehaviour
     public Action QuickAttackCallback;
     public Action HeavyAttackCallback;
     public Action HookCallback;
-    private bool mouseAim = true;
+    private bool _isMouseAim = true;
+
+    public bool IsMouseAim => _isMouseAim;
 
     private void Awake()
     {
@@ -50,12 +52,12 @@ public class InputReader : MonoBehaviour
 
     private void OnAim(InputAction.CallbackContext obj)
     {
-        mouseAim = false;
+        _isMouseAim = false;
     }
 
     private void OnMousePos(InputAction.CallbackContext obj)
     {
-        mouseAim = true;
+        _isMouseAim = true;
     }
 
     private void Update()
@@ -63,7 +65,7 @@ public class InputReader : MonoBehaviour
         Movement = _controls.Player.Movement.ReadValue<Vector2>();
         MousePos = _controls.Player.MousePos.ReadValue<Vector2>();
 
-        if (mouseAim)
+        if (_isMouseAim)
         {
             Vector2 target = _camera.ScreenToWorldPoint(MousePos);
             Aim = (target - (Vector2)transform.position).normalized;

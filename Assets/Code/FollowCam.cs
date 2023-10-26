@@ -21,7 +21,10 @@ namespace Pasta
             if (_player == null || _reader == null) return;
 
             Vector2 targetPos = _player.position;
-            targetPos += _reader.Movement * MoveOffset;
+            Vector2 offset = Vector2.zero;
+            if (_reader.IsMouseAim) offset += _reader.Movement * MoveOffset;
+            offset += _reader.Aim * AimOffset;
+            targetPos += offset;
             Vector3 newPos = Vector2.Lerp(transform.position, targetPos, Speed * Time.fixedDeltaTime);
             newPos.z = -10;
             transform.position = newPos;

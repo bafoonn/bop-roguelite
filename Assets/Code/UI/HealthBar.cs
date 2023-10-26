@@ -37,7 +37,7 @@ namespace Pasta
         {
             if (_text != null)
             {
-                _text.text = value.ToString();
+                _text.text = Mathf.RoundToInt(value).ToString();
             }
             _current = value / _health.MaxHealth;
             _image.fillAmount = _current;

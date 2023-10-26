@@ -102,7 +102,6 @@ namespace Pasta
         private IEnumerator QuickAttack(Vector2 dir)
         {
             if (_hasAttackEffects) _attackEffects.QuickAttack();
-            yield return new WaitForSeconds(_quickAttackTime);
             for (int i = 0; i < _sensor.Objects.Count; i++)
             {
                 var hittable = _sensor.Objects[i];
@@ -115,7 +114,7 @@ namespace Pasta
                 EventActions.InvokeEvent(new HitContext(hittable));
                 hittable.Hit(_quickAttackDamage);
             }
-
+            yield return new WaitForSeconds(_quickAttackTime);
             _attackRoutine = null;
         }
 
