@@ -67,5 +67,20 @@ namespace Pasta
         {
             effect.SetFloat("Ind Lifetime", lifetime);
         }
+
+        public void SetQuickAttackScale(float scaleX, float scaleY)
+        {
+            effect.SetVector2("QA Scale", new Vector2(scaleX, scaleY));
+        }
+
+        public void SetHeavyAttackScale(float scaleX, float scaleY)
+        {
+            effect.SetVector2("HA Scale", new Vector2(scaleX, scaleY));
+        }
+
+        public void SetIndicatorScale(float scaleX, float scaleY)
+        {
+            effect.SetVector2("Ind Scale", new Vector2(scaleX, scaleY));
+        }
     }
 }
