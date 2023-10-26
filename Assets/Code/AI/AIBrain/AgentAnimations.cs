@@ -47,7 +47,7 @@ public class AgentAnimations : MonoBehaviour
             animator.SetFloat("DirY", enemyAi.movementInput.y);
         }
     }
-    public void PlayAbilityAnim()
+    public void PlayAbilityAnim() // For playing enemy ability anims.
     {
         holder.AnimDone = false;
         animator.SetBool("Ability", true);

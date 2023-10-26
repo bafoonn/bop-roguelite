@@ -204,6 +204,7 @@ public class EnemyAi : MonoBehaviour, IHittable
                 animations.aim = true;
                 //Chasing
                 abilityHolder.CanUseAbility = true; // <- Here for testing purposes.
+                if(hasAttackEffect) attackEffect.CancelAttack();
                 UseAbility();
                 timeToAttack = 0;
                 //if (hasAttackEffect) attackEffect.CancelAttack();

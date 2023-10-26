@@ -59,7 +59,7 @@ public class WeaponParent : MonoBehaviour
             direction = new Vector2(weaponPos.x - transform.position.x, weaponPos.y - transform.position.y);
             if (aidata.currentTarget != null)
             {
-                enemyDirectionLocal = transform.InverseTransformPoint(aidata.currentTarget.transform.position);
+                enemyDirectionLocal = transform.InverseTransformPoint(aidata.currentTarget.transform.position); // Gets players position from aidata script.
             }
 
             Vector2 scale = attackColliderHolder.transform.localScale;
@@ -75,7 +75,7 @@ public class WeaponParent : MonoBehaviour
                 spriteRend.flipY = true;
                 if(spriteTransform != null) // TEMP FOR ERROR MANAGEMENT
                 {
-                    spriteTransform.localPosition = weaponScale;
+                    spriteTransform.localPosition = weaponScale; // Changes weapon sprites "side"
                 }
                 
                 attackColliderHolder.transform.localScale = scale; // Changing child since editing parents scale fucks direction check
@@ -92,7 +92,7 @@ public class WeaponParent : MonoBehaviour
                 spriteRend.flipY = false;
                 if (spriteTransform != null) // TEMP FOR ERROR MANAGEMENT
                 {
-                    spriteTransform.localPosition = weaponScale;
+                    spriteTransform.localPosition = weaponScale; // Changes weapon sprites "side"
                 }
                 attackColliderHolder.transform.localScale = scale; // Changing child since editing parents scale fucks direction check
             }
