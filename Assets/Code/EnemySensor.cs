@@ -11,5 +11,10 @@ namespace Pasta
             base.Awake();
             SensedLayers = 1 << LayerMask.NameToLayer("Enemy");
         }
+
+        private void OnValidate()
+        {
+            SensedLayers = 1 << LayerMask.NameToLayer("Enemy");
+        }
     }
 }

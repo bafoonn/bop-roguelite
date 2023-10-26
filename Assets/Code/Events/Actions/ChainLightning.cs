@@ -67,7 +67,6 @@ namespace Pasta
 
                         point = enemies[random].transform.position;
 
-                        var emitParams = new ParticleSystem.EmitParams();
                         if (_particles != null)
                         {
                             _particles.transform.position = point;

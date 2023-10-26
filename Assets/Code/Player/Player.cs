@@ -15,6 +15,7 @@ public class Player : MonoBehaviour, IHittable
     private Loot _loot;
     private PlayerAnimations _anim;
     private EventActions _actions;
+    private AutoAim _autoAim;
     public int currency = 10;
 
     public InputReader Input => _input;
@@ -43,6 +44,7 @@ public class Player : MonoBehaviour, IHittable
         _actions = GetComponentInChildren<EventActions>();
         Assert.IsNotNull(_actions);
         _actions.Setup(this);
+
         GetComponentInChildren<CurrencyUI>().Setup(this);
 
         _dodgeAction = new PlayerAction(Dodge, () => _attackHandler.Cancel());
@@ -69,6 +71,7 @@ public class Player : MonoBehaviour, IHittable
         //{
         //    _attackHandler.transform.right = _inputReader.Aim;
         //}
+
         _attackHandler.transform.right = _input.Aim;
         _movement.Move(movement);
     }
