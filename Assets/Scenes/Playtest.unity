@@ -401,6 +401,7 @@ MonoBehaviour:
   - {fileID: 902248934}
   - {fileID: 444588615}
   - {fileID: 407110014}
+  shopKeeper: {fileID: 0}
 --- !u!4 &903007412
 Transform:
   m_ObjectHideFlags: 0
@@ -545,6 +546,30 @@ PrefabInstance:
       propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7072379940904196245, guid: e00fefb25f6277148ba6da547bf7b734, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7072379940904196245, guid: e00fefb25f6277148ba6da547bf7b734, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7072379940904196245, guid: e00fefb25f6277148ba6da547bf7b734, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7072379940904196245, guid: e00fefb25f6277148ba6da547bf7b734, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7072379940904196245, guid: e00fefb25f6277148ba6da547bf7b734, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7072379940904196245, guid: e00fefb25f6277148ba6da547bf7b734, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9123537838714305643, guid: e00fefb25f6277148ba6da547bf7b734, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -576,6 +601,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 7731740648844650481, guid: e00fefb25f6277148ba6da547bf7b734, type: 3}
+    - {fileID: 5393658925634488193, guid: e00fefb25f6277148ba6da547bf7b734, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4972293733407261722, guid: e00fefb25f6277148ba6da547bf7b734, type: 3}
@@ -716,7 +742,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.625
+  orthographic size: 11.421875
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

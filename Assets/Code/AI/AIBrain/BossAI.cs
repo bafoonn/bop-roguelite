@@ -34,6 +34,9 @@ public class BossAI : MonoBehaviour, IHittable
     public float defaultTimeToAttack = 2; //Increase this if you want to make ai take longer
     public float stunTimer = 1; // Will be used or replaced when adding stagger
     private AgentAnimations animations;
+    private AttackEffects attackEffect;
+    private bool hasAttackEffect;
+
 
     //[SerializeField] private float chaseDistanceThershold = 3, attackDistanceThershold = 0.8f;
     //private float passedTime = 1;
@@ -45,10 +48,12 @@ public class BossAI : MonoBehaviour, IHittable
         Player = player.transform;
         level = FindFirstObjectByType<Level>();
         weaponParent = GetComponentInChildren<WeaponParent>();
-        attackIndicator = weaponParent.GetComponentInChildren<Image>();
+        //attackIndicator = weaponParent.GetComponentInChildren<Image>();
         abilityHolder = GetComponent<AbilityHolder>();
         animations = GetComponent<AgentAnimations>();
         //Detect objects
+        attackEffect = GetComponentInChildren<AttackEffects>();
+        hasAttackEffect = attackEffect != null;
 
 
     }
@@ -88,7 +93,7 @@ public class BossAI : MonoBehaviour, IHittable
             float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
             if (distance < attackDistance)
             {
-                attackIndicator.enabled = true;
+                //attackIndicator.enabled = true;
                 timeToAttack += Time.deltaTime;
                 if (timeToAttack >= defaultTimeToAttack / 1.5)
                 {
@@ -96,7 +101,7 @@ public class BossAI : MonoBehaviour, IHittable
                     animations.aim = false;
                     Debug.Log("Stopping Aiming");
                 }
-                attackIndicator.fillAmount = timeToAttack / defaultTimeToAttack;
+                //attackIndicator.fillAmount = timeToAttack / defaultTimeToAttack;
             }
         }
         else if (aiData.GetTargetsCount() > 0)
@@ -114,6 +119,8 @@ public class BossAI : MonoBehaviour, IHittable
         Debug.Log("Swing");
         abilityHolder.UseAbility = true; // <- Here for testing purposes.
         weaponParent.Attack();
+        if (hasAttackEffect) attackEffect.CancelAttack();
+        if (hasAttackEffect) attackEffect.HeavyAttack();
     }
     public void UseAbility()
     {
@@ -136,7 +143,7 @@ public class BossAI : MonoBehaviour, IHittable
             abilityHolder.CanUseAbility = false; // <- Here for testing purposes.
             movementInput = Vector2.zero;
             timeToAttack = 0;
-            attackIndicator.fillAmount = 0;
+            //attackIndicator.fillAmount = 0;
             Chasing = false;
             yield break;
         }
@@ -158,7 +165,7 @@ public class BossAI : MonoBehaviour, IHittable
                 {
                     Attack(); // Attack method
                     timeToAttack = 0;
-                    attackIndicator.fillAmount = 0;
+                    //attackIndicator.fillAmount = 0;
 
                 }
                 yield return new WaitForSeconds(attackDelay);
@@ -173,7 +180,7 @@ public class BossAI : MonoBehaviour, IHittable
                 abilityHolder.CanUseAbility = true; // <- Here for testing purposes.
                 UseAbility();
                 timeToAttack = 0;
-                attackIndicator.fillAmount = 0;
+                //attackIndicator.fillAmount = 0;
                 movementInput = movementDirectionSolver.GetDirectionToMove(steeringBehaviours, aiData);
                 yield return new WaitForSeconds(aiUpdateDelay);
                 StartCoroutine(ChaseAndAttack());

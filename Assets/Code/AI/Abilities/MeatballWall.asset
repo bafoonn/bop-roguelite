@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityName: MeatballWall
   coolDown: 60
-  ActiveTime: 40
+  ActiveTime: 25
   damage: 1
   usableOutsideAttackRange: 1
+  AbilityWithAnim: 0
   tileMap: {fileID: 0}
   MeatBallWall: {fileID: 5387847651493385125, guid: da85fb2bd18e18247aaa11788541e26f, type: 3}
-  RandomPos: 1
+  RandomPos: 3
   beamBall: {fileID: 11400000, guid: 550776ba1b730e141816c0f814c36784, type: 2}
