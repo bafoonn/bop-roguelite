@@ -167,6 +167,15 @@ public class Player : MonoBehaviour, IHittable
     {
         currency += addedCurrency;
     }
+    public bool TryTakeCurrency(int cost)
+    {
+        if (cost <= currency)
+        {
+            currency -= cost;
+            return true;
+        }
+        return false;
+    }
 
     public void Hit(float damage)
     {

@@ -13,10 +13,12 @@ namespace Pasta
         private Region[] regions;
         private int regionIndex = -1;
         private int startIndex;
-
+        [SerializeField]
+        private Shopkeeper shopKeeper;
         // Start is called before the first frame update
         void Start()
         {
+            shopKeeper.gameObject.SetActive(false);
             for (int i = 0; i < regions.Length; i++)
             {
                 regions[i].gameObject.SetActive(false);
@@ -53,6 +55,14 @@ namespace Pasta
         public void GameOver(bool win)
         {
             Debug.Log("Game over");
+        }
+        public void ActivateShopKeeper()
+        {
+            shopKeeper.gameObject.SetActive(true);
+        }
+        public void DisableShopKeeper()
+        {
+            shopKeeper.gameObject.SetActive(false);
         }
     }
 }

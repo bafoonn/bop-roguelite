@@ -72,6 +72,7 @@ namespace Pasta
         {
             if (col.gameObject.CompareTag("Player") && isActive)
             {
+                LevelManager levelManager = GetComponentInParent<LevelManager>();
                 if (GetComponentInParent<Region>())
                 {
                     Region region = GetComponentInParent<Region>();
@@ -79,9 +80,9 @@ namespace Pasta
                 }
                 else
                 {
-                    LevelManager levelManager = GetComponentInParent<LevelManager>();
                     levelManager.ChangeRegion(roomRewardIndex);
                 }
+                levelManager.DisableShopKeeper();
             }
         }
 

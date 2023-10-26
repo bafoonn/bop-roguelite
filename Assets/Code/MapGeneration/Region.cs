@@ -69,6 +69,8 @@ namespace Pasta
             activeLevel = Instantiate(shopRoom, transform.position, Quaternion.identity);
             activeLevel.transform.SetParent(this.gameObject.transform);
             activeLevel.ActivateEndPoints(rewardIndexes);
+
+            levelManager.ActivateShopKeeper();
         }
     }
 }
