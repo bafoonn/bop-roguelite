@@ -53,5 +53,19 @@ namespace Pasta
         {
             effect.SetBool("Indicator Alive", false);
         }
+
+        public void SetQuickAttackLifetime(float lifetime)
+        {
+            effect.SetFloat("QA Lifetime", lifetime);
+        }
+        public void SetHeavyAttackLifetime(float lifetime)
+        {
+            effect.SetFloat("HA Lifetime", lifetime);
+        }
+
+        public void SetIndicatorLifetime(float lifetime)
+        {
+            effect.SetFloat("Ind Lifetime", lifetime);
+        }
     }
 }
