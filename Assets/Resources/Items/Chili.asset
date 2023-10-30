@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Chili
   m_EditorClassIdentifier: 
   _canStack: 1
+  _amount: 0
   Name: Chili
   Description: 
   Flavor: Blazing hot.
@@ -21,10 +22,10 @@ MonoBehaviour:
   Effects:
   - Name: Reduced damage
     Stat: 1
-    Value: -1
-    Type: 0
+    Value: 0.95
+    Type: 1
   - Name: Additional Movement Speed
     Stat: 3
-    Value: 1
-    Type: 0
+    Value: 1.2
+    Type: 1
   Events: []

@@ -41,6 +41,8 @@ public class EnemyAi : MonoBehaviour, IHittable
     private AttackEffects attackEffect;
     private bool hasAttackEffect;
 
+    public bool IsIdle = true;
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -163,6 +165,7 @@ public class EnemyAi : MonoBehaviour, IHittable
     {
         if (aiData.currentTarget == null)
         {
+            IsIdle = true;
             abilityHolder.CanUseAbility = false;
             movementInput = Vector2.zero;
             timeToAttack = 0;
@@ -173,6 +176,7 @@ public class EnemyAi : MonoBehaviour, IHittable
         }
         else
         {
+            IsIdle = false;
             float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
             //if (stunned)
             //{
@@ -203,7 +207,7 @@ public class EnemyAi : MonoBehaviour, IHittable
                 animations.aim = true;
                 //Chasing
                 abilityHolder.CanUseAbility = true; // <- Here for testing purposes.
-                if(hasAttackEffect) attackEffect.CancelAttack();
+                if (hasAttackEffect) attackEffect.CancelAttack();
                 UseAbility();
                 timeToAttack = 0;
                 //if (hasAttackEffect) attackEffect.CancelAttack();

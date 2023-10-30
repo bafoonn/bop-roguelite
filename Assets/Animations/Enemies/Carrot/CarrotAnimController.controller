@@ -14,7 +14,7 @@ AnimatorStateMachine:
     m_Position: {x: 451.46442, y: 42.33258, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7629095592061881275}
-    m_Position: {x: 388.9921, y: 161.99197, z: 0}
+    m_Position: {x: 390, y: 160, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -108,7 +108,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Carrot_0
+  m_Name: CarrotAnimController
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Ability
@@ -116,13 +116,13 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Spawn
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -143,7 +143,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New State 0
+  m_Name: Spawn
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -157,7 +157,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 0}
+  m_Motion: {fileID: 7400000, guid: e1290edb2fc92b144bbe3573f2806218, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
