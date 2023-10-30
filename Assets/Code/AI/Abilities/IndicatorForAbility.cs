@@ -10,12 +10,14 @@ namespace Pasta
         public float IndicatorAliveTimer = 2f;
         //public GameObject abilityGameobject;
         private Color abilitySprite;
+        private SpriteRenderer abilitySpriteRend;
         private DamageArea damageArea;
 		// Start is called before the first frame update
 
 		private void Start()
 		{
             abilitySprite = GetComponent<SpriteRenderer>().color;
+            abilitySpriteRend = GetComponent<SpriteRenderer>();
             damageArea = GetComponent<DamageArea>();
             if(damageArea != null)
 			{
@@ -25,14 +27,17 @@ namespace Pasta
 		}
 		public void AbilityIndicator()
 		{
-            abilitySprite.a = 55f;
-            StartCoroutine("DestroyObject", IndicatorAliveTimer);
+            //abilitySprite.a = 0.25f;
+            abilitySprite = new Color(1, 1, 1, 0.25f);
+            abilitySpriteRend.color = abilitySprite;
+            StartCoroutine("ActivateAbility", IndicatorAliveTimer);
         }
 
         private IEnumerator ActivateAbility(float time)
 		{
             yield return new WaitForSeconds(time);
-            abilitySprite.a = 255f;
+            abilitySprite = new Color(1, 1, 1, 1);
+            abilitySpriteRend.color = abilitySprite;
             if (damageArea != null)
             {
                 damageArea.enabled = true;

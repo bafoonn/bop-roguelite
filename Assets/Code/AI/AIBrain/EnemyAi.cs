@@ -42,9 +42,18 @@ public class EnemyAi : MonoBehaviour, IHittable
     private bool hasAttackEffect;
 
     public bool IsIdle = true;
+    private SpriteRenderer spriteRenderer; // TAKE DAMAGE STUFF
+    private Color defaultColor; // TAKE DAMAGE STUFF
+    private ParticleSystem m_particleSystem; // TAKE DAMAGE STUFF
+    [SerializeField] private GameObject ParticleSystemHolder;
+    
 
     private void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>(); // TAKE DAMAGE STUFF
+        defaultColor = spriteRenderer.color; // TAKE DAMAGE STUFF
+        m_particleSystem = GetComponentInChildren<ParticleSystem>(); // TAKE DAMAGE STUFF
+       
         player = GameObject.FindGameObjectWithTag("Player");
         Player = player.transform;
         level = FindFirstObjectByType<Level>();
@@ -227,5 +236,23 @@ public class EnemyAi : MonoBehaviour, IHittable
             OnDeath(this);
         }
         Health.TakeDamage(damage);
+        spriteRenderer.color = Color.red;
+        if(m_particleSystem != null)
+        {
+            m_particleSystem.Play();
+            //Vector3 direction = transform.position - aiData.currentTarget.transform.position;
+            //direction.Normalize();
+            //ParticleSystemHolder.transform.rotation.z = aiData.currentTarget.Find("AttackHandler").transform.rotation.z;
+            //ParticleSystemHolder.transform.rotation = Quaternion.Euler(0, 0, aiData.currentTarget.Find("AttackHandler").transform.rotation.z);
+            //ParticleSystemHolder.transform.rotation = Quaternion.Euler(direction);
+        }
+        StartCoroutine(TakingDamage());
+    }
+
+
+    private IEnumerator TakingDamage() // TAKE DAMAGE STUFF
+    {
+        yield return new WaitForSeconds(0.2f);
+        spriteRenderer.color = defaultColor;
     }
 }

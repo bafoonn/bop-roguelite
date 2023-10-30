@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -2954524579071965059}
   - component: {fileID: -7896449570540660046}
   - component: {fileID: 1994644184700219194}
+  - component: {fileID: 5579770885411391092}
   m_Layer: 0
   m_Name: PoisonCloud
   m_TagString: Ability
@@ -238,7 +239,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 2834823883752302594, guid: 5aeaccb74f0994949b3d0e2f6bd29978, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -250,3 +251,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5579770885411391092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3940570847118249537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79e16c5b9f00d9840b5171fec2808f39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IndicatorAliveTimer: 2

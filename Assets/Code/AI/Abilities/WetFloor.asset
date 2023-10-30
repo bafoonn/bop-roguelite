@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityName: WetFloor
   coolDown: 7
-  ActiveTime: 10
+  ActiveTime: 12
   damage: 2
   usableOutsideAttackRange: 1
+  AbilityWithAnim: 0
   maxHowManyPuddles: 30
   SpawnRadius: 5
   puddleObject: {fileID: 780448993893128306, guid: b5e00bbe589d8b74a9df488d05e686b6, type: 3}

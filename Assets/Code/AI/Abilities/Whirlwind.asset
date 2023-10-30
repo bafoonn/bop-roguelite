@@ -15,5 +15,7 @@ MonoBehaviour:
   AbilityName: Whirlwind
   coolDown: 5
   ActiveTime: 2
-  damage: 1
-  radius: 2.5
+  damage: 15
+  usableOutsideAttackRange: 0
+  AbilityWithAnim: 0
+  radius: 4

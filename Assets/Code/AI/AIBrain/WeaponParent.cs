@@ -67,7 +67,7 @@ public class WeaponParent : MonoBehaviour
             if (enemyDirectionLocal.x < 0)
             {
 
-                Debug.Log("LEFT");
+                //Debug.Log("LEFT");
                 scale.x = -1f;
                 weaponScale.x = -1f;
                 weaponScale.y = 0f;
@@ -84,7 +84,7 @@ public class WeaponParent : MonoBehaviour
             {
 
 
-                Debug.Log("RIGHT");
+                //Debug.Log("RIGHT");
                 scale.x = 1f;
                 weaponScale.x = 1f;
                 weaponScale.y = 0f;

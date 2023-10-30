@@ -36,6 +36,7 @@ public class BossAI : MonoBehaviour, IHittable
     private AgentAnimations animations;
     private AttackEffects attackEffect;
     private bool hasAttackEffect;
+    private AbilityHolder[] abilityHolders;
 
 
     //[SerializeField] private float chaseDistanceThershold = 3, attackDistanceThershold = 0.8f;
@@ -50,6 +51,7 @@ public class BossAI : MonoBehaviour, IHittable
         weaponParent = GetComponentInChildren<WeaponParent>();
         //attackIndicator = weaponParent.GetComponentInChildren<Image>();
         abilityHolder = GetComponent<AbilityHolder>();
+        abilityHolders = GetComponents<AbilityHolder>(); // Boss usually has more than one ability so added more abilityholders to gameobject.
         animations = GetComponent<AgentAnimations>();
         //Detect objects
         attackEffect = GetComponentInChildren<AttackEffects>();
@@ -117,17 +119,34 @@ public class BossAI : MonoBehaviour, IHittable
     public void Attack()
     {
         Debug.Log("Swing");
-        abilityHolder.UseAbility = true; // <- Here for testing purposes.
+        //abilityHolder.UseAbility = true; // <- Here for testing purposes.
+        for(int i = 0; i < abilityHolders.Length; i++)
+        {
+            if (abilityHolders[i] != null)
+            {
+                abilityHolders[i].UseAbility = true;
+            }
+        }
         weaponParent.Attack();
         if (hasAttackEffect) attackEffect.CancelAttack();
         if (hasAttackEffect) attackEffect.HeavyAttack();
     }
     public void UseAbility()
     {
-        if (abilityHolder.ability.usableOutsideAttackRange == true)
+        for (int i = 0; i < abilityHolders.Length; i++)
         {
-            abilityHolder.UseAbility = true;
+            if (abilityHolders[i] != null)
+            {
+                if(abilityHolders[i].ability.usableOutsideAttackRange == true)
+                {
+                    abilityHolders[i].UseAbility = true;
+                }
+            }
         }
+        //if (abilityHolder.ability.usableOutsideAttackRange == true)
+        //{
+        //    abilityHolder.UseAbility = true;
+        //}
     }
 
     protected virtual void DeathAction()
@@ -140,7 +159,14 @@ public class BossAI : MonoBehaviour, IHittable
     {
         if (aiData.currentTarget == null)
         {
-            abilityHolder.CanUseAbility = false; // <- Here for testing purposes.
+            //abilityHolder.CanUseAbility = false; // <- Here for testing purposes.
+            for (int i = 0; i < abilityHolders.Length; i++)
+            {
+                if (abilityHolders[i] != null)
+                {
+                    abilityHolders[i].CanUseAbility = false;
+                }
+            }
             movementInput = Vector2.zero;
             timeToAttack = 0;
             //attackIndicator.fillAmount = 0;
@@ -155,11 +181,28 @@ public class BossAI : MonoBehaviour, IHittable
                 movementInput = Vector2.zero;
                 Debug.Log("Attacking");
                 //Attacking 
-                abilityHolder.CanUseAbility = true; // <- Here for testing purposes.
-                if (abilityHolder.UseAbility == false)
+                //abilityHolder.CanUseAbility = true; // <- Here for testing purposes.
+                for (int i = 0; i < abilityHolders.Length; i++)
                 {
-                    movementInput = Vector2.zero;
+                    if (abilityHolders[i] != null)
+                    {
+                        abilityHolders[i].CanUseAbility = true;
+                    }
                 }
+                //if (abilityHolder.UseAbility == false)
+                //{
+                //    movementInput = Vector2.zero;
+                    for (int i = 0; i < abilityHolders.Length; i++)
+                    {
+                        if (abilityHolders[i] != null)
+                        {
+                            if (abilityHolders[i].UseAbility == false)
+                            {
+                                movementInput = Vector2.zero;
+                            }
+                        }
+                    }
+                //}
                 OnAttackPressed?.Invoke();
                 if (timeToAttack >= defaultTimeToAttack) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
                 {
@@ -177,7 +220,14 @@ public class BossAI : MonoBehaviour, IHittable
                 animations.aim = true;
                 Debug.Log("Chasing");
                 //Chasing
-                abilityHolder.CanUseAbility = true; // <- Here for testing purposes.
+                //abilityHolder.CanUseAbility = true; // <- Here for testing purposes.
+                for (int i = 0; i < abilityHolders.Length; i++)
+                {
+                    if (abilityHolders[i] != null)
+                    {
+                        abilityHolders[i].CanUseAbility = true;
+                    }
+                }
                 UseAbility();
                 timeToAttack = 0;
                 //attackIndicator.fillAmount = 0;
