@@ -24,7 +24,7 @@ namespace Pasta
                 }
             }
         }
-        public bool IsMaxHealth => CurrentHealth == MaxHealth;
+        public bool IsMaxHealth => CurrentHealth >= MaxHealth;
         public event Action OnDeath;
         public event Action<float> OnHealthChanged;
 
@@ -45,11 +45,11 @@ namespace Pasta
             if (IsDead) return;
 
             CurrentHealth -= damage;
-            Vector3 Position = transform.position;
+            Vector2 Position = (Vector2)transform.position + Vector2.up + UnityEngine.Random.insideUnitCircle;
             if (damageText != null)
             {
                 GameObject DamageTextSpawned = Instantiate(damageText, Position, transform.localRotation);
-                DamageTextSpawned.transform.GetChild(0).GetComponent<Text>().text = damage.ToString();
+                DamageTextSpawned.GetComponentInChildren<Text>().text = damage.ToString("#.##");
             }
 
             if (CurrentHealth <= 0)
