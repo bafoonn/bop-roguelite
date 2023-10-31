@@ -239,11 +239,12 @@ public class EnemyAi : MonoBehaviour, IHittable
         spriteRenderer.color = Color.red;
         if(m_particleSystem != null)
         {
+            ParticleSystemHolder.transform.rotation = Quaternion.Euler(0, 0, player.transform.Find("AttackHandler").transform.localEulerAngles.z);
             m_particleSystem.Play();
             //Vector3 direction = transform.position - aiData.currentTarget.transform.position;
             //direction.Normalize();
-            //ParticleSystemHolder.transform.rotation.z = aiData.currentTarget.Find("AttackHandler").transform.rotation.z;
-            //ParticleSystemHolder.transform.rotation = Quaternion.Euler(0, 0, aiData.currentTarget.Find("AttackHandler").transform.rotation.z);
+            //ParticleSystemHolder.transform.rotation.z = player.transform.Find("AttackHandler").transform.rotation.z;
+            
             //ParticleSystemHolder.transform.rotation = Quaternion.Euler(direction);
         }
         StartCoroutine(TakingDamage());
