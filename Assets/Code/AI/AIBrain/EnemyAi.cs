@@ -42,11 +42,13 @@ public class EnemyAi : MonoBehaviour, IHittable
     private bool hasAttackEffect;
 
     public bool IsIdle = true;
+    #region Damage taking effects
     private SpriteRenderer spriteRenderer; // TAKE DAMAGE STUFF
     private Color defaultColor; // TAKE DAMAGE STUFF
     private ParticleSystem m_particleSystem; // TAKE DAMAGE STUFF
     [SerializeField] private GameObject ParticleSystemHolder;
-    
+    #endregion
+
 
     private void Start()
     {
@@ -241,11 +243,6 @@ public class EnemyAi : MonoBehaviour, IHittable
         {
             ParticleSystemHolder.transform.rotation = Quaternion.Euler(0, 0, player.transform.Find("AttackHandler").transform.localEulerAngles.z);
             m_particleSystem.Play();
-            //Vector3 direction = transform.position - aiData.currentTarget.transform.position;
-            //direction.Normalize();
-            //ParticleSystemHolder.transform.rotation.z = player.transform.Find("AttackHandler").transform.rotation.z;
-            
-            //ParticleSystemHolder.transform.rotation = Quaternion.Euler(direction);
         }
         StartCoroutine(TakingDamage());
     }
