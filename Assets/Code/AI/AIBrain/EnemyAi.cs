@@ -138,7 +138,6 @@ public class EnemyAi : MonoBehaviour, IHittable
                 {
                     weaponParent.Aim = false;
                     animations.aim = false;
-                    Debug.Log("Stopping Aiming");
                 }
                 //attackIndicator.fillAmount = timeToAttack / defaultTimeToAttack;
             }
