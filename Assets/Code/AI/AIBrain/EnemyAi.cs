@@ -18,7 +18,6 @@ public class EnemyAi : MonoBehaviour, IHittable
 
     public MonoBehaviour Mono => this;
     public Health Health { get; protected set; }
-    public static event System.Action<EnemyAi> OnDeath;
     private Level level;
     public float damage = 5;
     public UnityEvent OnAttackPressed;
@@ -131,7 +130,7 @@ public class EnemyAi : MonoBehaviour, IHittable
             float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
             if (distance < attackDistance)
             {
-                
+
                 //attackIndicator.enabled = true;
                 timeToAttack += Time.deltaTime;
                 if (timeToAttack >= defaultTimeToAttack / 1.5)
@@ -197,7 +196,7 @@ public class EnemyAi : MonoBehaviour, IHittable
 
     private IEnumerator ChaseAndAttack()
     {
-        
+
         if (aiData.currentTarget == null)
         {
             isAttacking = false; // FOR ANIMATOR

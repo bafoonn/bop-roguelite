@@ -9,7 +9,7 @@ namespace Pasta
     {
         private static readonly int Idle = Animator.StringToHash("Idle");
         private static readonly int Run = Animator.StringToHash("Run");
-        private static readonly int Roll = Animator.StringToHash("Roll");
+        private static readonly int Dodge = Animator.StringToHash("Dodge");
         private static readonly int MoveX = Animator.StringToHash("MoveX");
         private static readonly int MoveY = Animator.StringToHash("MoveY");
 
@@ -48,7 +48,7 @@ namespace Pasta
 
         private int FindState()
         {
-            if (_movement.IsRolling) return Roll;
+            if (_movement.IsRolling) return Dodge;
             if (_movement._currentDir.sqrMagnitude > Mathf.Epsilon) return Run;
             if (_attackHandler.IsAttacking) return Run;
             return Idle;
@@ -58,7 +58,7 @@ namespace Pasta
         {
             bool flip = Vector2.Dot(Vector2.right, _facingDir) < 0;
             if (_current == Idle) return flip;
-            if (_current == Roll) return flip;
+            if (_current == Dodge) return flip;
             return false;
         }
 

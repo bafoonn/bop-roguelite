@@ -76,7 +76,7 @@ public class InputReader : MonoBehaviour
         if (_isMouseAim)
         {
             Vector2 target = _camera.ScreenToWorldPoint(MousePos);
-            Aim = (target - (Vector2)transform.position).normalized;
+            Aim = (target - (Vector2)transform.position);
         }
         else
         {
@@ -92,20 +92,21 @@ public class InputReader : MonoBehaviour
 
         if (Aim == Vector2.zero)
         {
-            Aim = Movement.normalized;
+            Aim = Movement;
         }
+        Aim.Normalize();
 
         Debug.DrawLine(transform.position, transform.position + (Vector3)Aim, Color.green);
     }
 
-    private void OnDodge(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    private void OnDodge(InputAction.CallbackContext obj)
     {
         if (DodgeCallback != null)
         {
             DodgeCallback();
         }
     }
-    private void OnHook(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    private void OnHook(InputAction.CallbackContext obj)
     {
         if (HookCallback != null)
         {
@@ -113,7 +114,7 @@ public class InputReader : MonoBehaviour
         }
     }
 
-    private void OnHeavyAttack(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    private void OnHeavyAttack(InputAction.CallbackContext obj)
     {
         if (HeavyAttackCallback != null)
         {
@@ -121,7 +122,7 @@ public class InputReader : MonoBehaviour
         }
     }
 
-    private void OnQuickAttack(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    private void OnQuickAttack(InputAction.CallbackContext obj)
     {
         if (QuickAttackCallback != null)
         {
@@ -129,7 +130,7 @@ public class InputReader : MonoBehaviour
         }
     }
 
-    private void OnInteract(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    private void OnInteract(InputAction.CallbackContext obj)
     {
         if (InteractCallback != null)
         {

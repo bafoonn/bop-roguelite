@@ -34,7 +34,7 @@ namespace Pasta
                 }
             }
 
-            return (closest - (Vector2)transform.position).normalized;
+            return (closest - (Vector2)transform.position);
         }
     }
 }
