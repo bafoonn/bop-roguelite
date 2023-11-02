@@ -1,6 +1,7 @@
 using Pasta;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -37,11 +38,13 @@ public class EnemyAi : MonoBehaviour, IHittable
     private AgentAnimations animations;
     //[SerializeField] private float chaseDistanceThershold = 3, attackDistanceThershold = 0.8f;
     //private float passedTime = 1;
-
+    private AgentMover agentMover;
+    private float defaultMaxSpeed;
     private AttackEffects attackEffect;
     private bool hasAttackEffect;
 
     public bool IsIdle = true;
+    public bool isAttacking = false;
     #region Damage taking effects
     private SpriteRenderer spriteRenderer; // TAKE DAMAGE STUFF
     private Color defaultColor; // TAKE DAMAGE STUFF
@@ -55,7 +58,8 @@ public class EnemyAi : MonoBehaviour, IHittable
         spriteRenderer = GetComponent<SpriteRenderer>(); // TAKE DAMAGE STUFF
         defaultColor = spriteRenderer.color; // TAKE DAMAGE STUFF
         m_particleSystem = GetComponentInChildren<ParticleSystem>(); // TAKE DAMAGE STUFF
-       
+        agentMover = GetComponent<AgentMover>();
+        defaultMaxSpeed = agentMover.maxSpeed;
         player = GameObject.FindGameObjectWithTag("Player");
         Player = player.transform;
         level = FindFirstObjectByType<Level>();
@@ -94,7 +98,6 @@ public class EnemyAi : MonoBehaviour, IHittable
     }
     private void Update()
     {
-
         if (aiData.currentTarget != null)
         {
 
@@ -109,6 +112,7 @@ public class EnemyAi : MonoBehaviour, IHittable
             float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
             if (distance < attackDistance)
             {
+                
                 //attackIndicator.enabled = true;
                 timeToAttack += Time.deltaTime;
                 if (timeToAttack >= defaultTimeToAttack / 1.5)
@@ -174,8 +178,10 @@ public class EnemyAi : MonoBehaviour, IHittable
 
     private IEnumerator ChaseAndAttack()
     {
+        
         if (aiData.currentTarget == null)
         {
+            isAttacking = false; // FOR ANIMATOR
             IsIdle = true;
             abilityHolder.CanUseAbility = false;
             movementInput = Vector2.zero;
@@ -198,6 +204,7 @@ public class EnemyAi : MonoBehaviour, IHittable
             //}
             if (distance < attackDistance)
             {
+                isAttacking = true; // FOR ANIMATOR
                 //Attacking 
                 abilityHolder.CanUseAbility = true;
                 movementInput = Vector2.zero;
@@ -216,6 +223,7 @@ public class EnemyAi : MonoBehaviour, IHittable
             {
                 weaponParent.Aim = true;
                 animations.aim = true;
+                isAttacking = false; // FOR ANIMATOR
                 //Chasing
                 abilityHolder.CanUseAbility = true; // <- Here for testing purposes.
                 if (hasAttackEffect) attackEffect.CancelAttack();

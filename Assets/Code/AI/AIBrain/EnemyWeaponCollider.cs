@@ -10,6 +10,7 @@ namespace Pasta
         [SerializeField] private bool isNormalEnemy = true;
         public BossAI bossAI;
         private float damage = 2f;
+        private WeaponParent weaponParent;
         private void Start()
         {
             if (isNormalEnemy)
@@ -22,7 +23,7 @@ namespace Pasta
                 bossAI = GetComponentInParent<BossAI>();
                 damage = bossAI.damage;
             }
-            
+            weaponParent = GetComponentInParent<WeaponParent>();
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
@@ -30,7 +31,10 @@ namespace Pasta
             {
                 if (collision.TryGetComponent<IHittable>(out var hittable))
                 {
-                    hittable.Hit(damage); 
+                    if(!weaponParent.Aim)
+                    {
+                        hittable.Hit(damage);
+                    }
                 }
             }
         }

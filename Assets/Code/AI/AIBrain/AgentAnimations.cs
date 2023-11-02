@@ -1,6 +1,7 @@
 using Pasta;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AgentAnimations : MonoBehaviour
@@ -11,13 +12,15 @@ public class AgentAnimations : MonoBehaviour
     [SerializeField] private GameObject EnemyBody;
     public bool aim = true;
     private EnemyAi enemyAi;
-
+    private AgentMover agentMover;
+    private float defaultSpeed;
     private void Awake()
     {
         //animator = GetComponent<Animator>();
         holder = GetComponent<AbilityHolder>();
         enemyAi = GetComponent<EnemyAi>();
-
+        agentMover = GetComponent<AgentMover>();
+        defaultSpeed = agentMover.maxSpeed;
     }
 
     public void RotateToPointer(Vector2 lookDirection)
@@ -42,13 +45,18 @@ public class AgentAnimations : MonoBehaviour
     {
         if (animator != null)
         {
+            animator.SetBool("isAttacking", enemyAi.isAttacking);
             animator.SetBool("IsIdle", enemyAi.IsIdle);
-            animator.SetFloat("DirX", enemyAi.movementInput.x);
-            animator.SetFloat("DirY", enemyAi.movementInput.y);
+            if (!enemyAi.isAttacking) // Keeps the most current anim "direction" when attacking.
+            {
+                animator.SetFloat("DirX", enemyAi.movementInput.x);
+                animator.SetFloat("DirY", enemyAi.movementInput.y);
+            }
         }
     }
     public void PlayAbilityAnim() // For playing enemy ability anims.
     {
+        agentMover.maxSpeed = 0f;
         holder.AnimDone = false;
         animator.SetBool("Ability", true);
     }
@@ -56,6 +64,7 @@ public class AgentAnimations : MonoBehaviour
 
     public void StopAbilityAnim()
     {
+        agentMover.maxSpeed = defaultSpeed;
         animator.SetBool("Ability", false);
     }
 

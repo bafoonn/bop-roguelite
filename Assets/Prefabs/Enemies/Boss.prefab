@@ -136,7 +136,7 @@ MonoBehaviour:
   ProjectileSpawnPoint: {fileID: 3133258198617102649}
   direction: {x: 0, y: 0}
   radius: 0.6
-  detectors: {fileID: 0}
+  detectors: {fileID: 9148602724626180542}
   attackColliderHolder: {fileID: 9015611344867938955}
   attackCollider: {fileID: 774084253549515728}
   Aim: 1
@@ -845,7 +845,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActivateAbilityThroughAnim: 0
   animator: {fileID: 0}
-  animationClip: {fileID: 0}
   EnemyBody: {fileID: 394010356348426381}
   aim: 1
 --- !u!114 &8806108206215821516
@@ -1230,7 +1229,7 @@ PolygonCollider2D:
       - {x: 0.483707, y: -0.47372013}
       - {x: 1.7477167, y: -1.1670145}
       - {x: 3.4352317, y: -1.1369523}
-      - {x: 5.152093, y: -1.595442}
+      - {x: 5.152093, y: -1.2329321}
       - {x: 5.976723, y: 0.00496006}
   m_UseDelaunayMesh: 0
 --- !u!61 &970546593959107088

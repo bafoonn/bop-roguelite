@@ -27,6 +27,9 @@ public class WeaponParent : MonoBehaviour
     public bool Aim = true;
     [SerializeField] private Transform spriteTransform;
     private Vector2 weaponScale;
+    private Projectile projectileScript;
+    private EnemyAi enemyAI;
+    
     private void Start()
     {
         //AttackIndicatorImage = gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject;
@@ -34,25 +37,12 @@ public class WeaponParent : MonoBehaviour
         spriteRend = GetComponentInChildren<SpriteRenderer>();
         animations = GetComponentInParent<AgentAnimations>();
         weaponScale = transform.localScale;
+        enemyAI = GetComponentInParent<EnemyAi>();
     }
 
     private void Update()
     {
-
-        //direction = (EnemyWeaponPos - (Vector2)transform.position);
-        //transform.right = direction;
-        //Vector2 scale = transform.localScale;
-        //if (direction.x <= 0)
-        //{
-
-        //    scale.x = -0.2f;
-        //}
-        //else if (direction.x >= 0)
-        //{
-        //    scale.x = 0.2f; // chabged to x from y
-
-        //}
-        //transform.localScale = scale;
+        
         if (Aim)
         {
             Vector3 weaponPos = EnemyWeaponPos; // THIS WHOLE THING IS A SHITSHOW BUT IT WORKS!
@@ -105,12 +95,12 @@ public class WeaponParent : MonoBehaviour
     public void Attack()
     {
         attackCollider.enabled = true;
+        
         StartCoroutine(StopAttack());
-
     }
     private IEnumerator StopAttack() // TEST STUFF
     {
-        yield return new WaitForSeconds(0.06f);
+        yield return new WaitForSeconds(0.01f);
         attackCollider.enabled = false;
         Aim = true;
         animations.aim = true;
@@ -118,16 +108,11 @@ public class WeaponParent : MonoBehaviour
     public void RangedAttack()
     {
         Instantiate(projectile, ProjectileSpawnPoint.transform.position, ProjectileSpawnPoint.transform.rotation);
+        projectileScript = projectile.GetComponent<Projectile>();
+        projectileScript.damage = enemyAI.damage; // Get projectiles damage from enemyscript so no need to change damage on multiple places.
         StartCoroutine(StopAttack());
     }
 
-
-    private void OnDrawGizmosSelected()
-    {
-        //Gizmos.color = Color.blue;
-        //Vector3 position = circleOrigin == null ? Vector3.zero : circleOrigin.position;
-        //Gizmos.DrawWireSphere(position, radius);
-    }
 
 
 }
