@@ -9,7 +9,8 @@ namespace Pasta
         private CircleCollider2D cc2d;
         private Whirlwind whirlWind;
         private IndicatorForAbility indicator;
-        [SerializeField] private float damage;
+        [SerializeField] public float damage;
+        public float radius;
         // Start is called before the first frame update
         void Start()
         {
@@ -17,7 +18,7 @@ namespace Pasta
             whirlWind = FindFirstObjectByType<Whirlwind>();
             cc2d = gameObject.AddComponent<CircleCollider2D>();
             cc2d.enabled = false;
-            damage = whirlWind.damage;
+            
             StartCoroutine("DoAbility");
         }
 
@@ -28,6 +29,7 @@ namespace Pasta
             yield return new WaitForSeconds(indicator.IndicatorAliveTimer);
             cc2d.enabled=true;
             cc2d.isTrigger = true;
+            cc2d.radius = radius;
             LayerMask mask = LayerMask.GetMask("Player");
             Collider2D[] collider = Physics2D.OverlapCircleAll(gameObject.transform.position, cc2d.radius, mask);
 
@@ -36,10 +38,9 @@ namespace Pasta
             {
                 if (collider2D.TryGetComponent(out IHittable hittable))
                 {
-                    if(whirlWind != null)
-                    {
+                    
                         hittable.Hit(damage);// DO DAMAGE!
-                    }
+                    
                     
                 }
             }

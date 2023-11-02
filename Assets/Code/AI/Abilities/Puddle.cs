@@ -7,11 +7,10 @@ namespace Pasta
 {
     public class Puddle : MonoBehaviour
     {
-        private WetFloor wetFloor;
+        public float damage;
         // Start is called before the first frame update
         void Start()
         {
-            wetFloor = FindFirstObjectByType<WetFloor>();
         }
 
 
@@ -24,10 +23,9 @@ namespace Pasta
             DamageArea[] area = gameObject.GetComponentsInChildren<DamageArea>();
             foreach (DamageArea damagearea in area)
             {
-                if (wetFloor != null)
-                {
-                    damagearea.Damage = wetFloor.damage;
-                }
+                
+                damagearea.Damage = damage;
+                
 
             }
         }

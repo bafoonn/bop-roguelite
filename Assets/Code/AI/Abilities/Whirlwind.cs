@@ -24,6 +24,8 @@ namespace Pasta
             //Debug.Log(weapon.name);
             //weapon.transform.RotateAround(p.transform.position, new Vector3(0, 1, 0), 2f * Time.deltaTime); // TODO: TEST
             spawnedWhirlwind = Instantiate(whirlWindObj, p.transform);
+            spawnedWhirlwind.GetComponent<WhirlwindObj>().damage = damage;
+            spawnedWhirlwind.GetComponent<WhirlwindObj>().radius = radius;
             
             
         }

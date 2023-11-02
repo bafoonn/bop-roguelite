@@ -35,6 +35,7 @@ namespace Pasta
                 if (tileMap.HasTile(originPoint3int))
                 {
                     puddleObjects[i] = Instantiate(puddleObject, originPoint, Quaternion.identity);
+                    puddleObjects[i].GetComponent<Puddle>().damage = damage;
                     destroy = puddleObjects[i].AddComponent<DestroyAbility>();
                     destroy.activeTime = ActiveTime;
                 }
