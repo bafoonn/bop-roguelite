@@ -9,7 +9,7 @@ namespace Pasta
     {
         [field: SerializeField] public ItemBase Item { get; private set; }
         private bool hasCost = false;
-
+        private Level level;
 
         private void Start()
         {
@@ -27,6 +27,7 @@ namespace Pasta
             gameObject.name = item.Name;
             GetComponent<SpriteRenderer>().sprite = item.Sprite;
             Item = item;
+            level = GetComponentInParent<Level>();
             gameObject.Activate();
         }
 
@@ -39,7 +40,10 @@ namespace Pasta
                 ShopItemGeneration shop = GetComponentInParent<ShopItemGeneration>();
                 shop.ItemBought();
             }
-
+            else
+            {
+                level.PickedUpReward();
+            }
             ItemsUI.Current.Add(Item); // FOR INVENTORY
         }
         public bool CheckIfShopItem()

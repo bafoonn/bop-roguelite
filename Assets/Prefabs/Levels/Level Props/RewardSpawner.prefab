@@ -44,8 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 056b5402509e21b4d9d7fd861becffe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rewards:
-  - {fileID: 11400000, guid: 62d04dd1457c3284bb508411b001c032, type: 2}
-  - {fileID: 11400000, guid: 5f41ed4eca717fb459581999581746e1, type: 2}
-  - {fileID: 11400000, guid: bb50c646451767142adf93cb01b95362, type: 2}
   pickupPrefab: {fileID: 9192325325120207732, guid: 4fa313cf89162df488191642daa89edf, type: 3}
+  roomRewards:
+  - {fileID: 9192325325120207732, guid: 4fa313cf89162df488191642daa89edf, type: 3}

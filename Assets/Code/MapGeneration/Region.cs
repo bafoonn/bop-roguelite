@@ -16,7 +16,7 @@ namespace Pasta
         private LevelManager levelManager;
         private Level activeLevel;
 
-        private int[] rewardIndexes;
+        private ItemBase[] rewards;
         private EndPoints endPoints;
 
         // Start is called before the first frame update
@@ -24,7 +24,7 @@ namespace Pasta
         {
             levelManager = GetComponentInParent<LevelManager>();
         }
-        public void GenerateLevel(int roomRewardIndex)
+        public void GenerateLevel(ItemBase roomReward)
         {
             if (levelNumber != 0)
             {
@@ -35,25 +35,26 @@ namespace Pasta
             // Change region if level limit per region is reached
             if (levelNumber == 6)
             {
-                levelManager.ChangeRegion(roomRewardIndex);
+                levelManager.ChangeRegion(roomReward);
                 levelNumber = 0;
             }
 
             // Instantiate boss level if last level for the region is reached, boss level is always the last level in the levels list
             else if (levelNumber == 5)
             {
-                InstantiateLevel(levels.Length - 1, roomRewardIndex);
+                InstantiateLevel(levels.Length - 1, roomReward);
             }
 
             // Instantiate random level from levels list
             else
             {
+                var rewards = Items.Current.GetRewards();
                 int random = Random.Range(0, levels.Length - 1);
-                InstantiateLevel(random, roomRewardIndex);
+                InstantiateLevel(random, roomReward);
             }
         }
 
-        private void InstantiateLevel(int levelIndex, int roomRewardIndex)
+        private void InstantiateLevel(int levelIndex, ItemBase roomRewardIndex)
         {
             activeLevel = Instantiate(levels[levelIndex], transform.position, Quaternion.identity);
             activeLevel.transform.SetParent(this.gameObject.transform);
@@ -63,12 +64,12 @@ namespace Pasta
         public void ActivateShopLevel()
         {
             endPoints = GetComponentInChildren<EndPoints>();
-            rewardIndexes = endPoints.GetRewardIndexes();
+            rewards = endPoints.GetRewards();
             Destroy(activeLevel.gameObject);
 
             activeLevel = Instantiate(shopRoom, transform.position, Quaternion.identity);
             activeLevel.transform.SetParent(this.gameObject.transform);
-            activeLevel.ActivateEndPoints(rewardIndexes);
+            activeLevel.ActivateEndPoints(rewards);
 
             levelManager.ActivateShopKeeper();
         }

@@ -80,15 +80,18 @@ public class Player : MonoBehaviour, IHittable
     {
         if (collision.TryGetComponent<ItemPickup>(out var pickup))
         {
-            if (_loot.TryAdd(pickup.Item))
+            if (!pickup.CheckIfShopItem())
             {
-                if (!pickup.CheckIfShopItem())
+                if (_loot.TryAdd(pickup.Item))
                 {
                     pickup.Take();
                 }
-                else
+            }
+            else
+            {
+                if (pickup.Item.cost <= currency)
                 {
-                    if (pickup.Item.cost <= currency)
+                    if (_loot.TryAdd(pickup.Item))
                     {
                         currency -= pickup.Item.cost;
                         pickup.Take();

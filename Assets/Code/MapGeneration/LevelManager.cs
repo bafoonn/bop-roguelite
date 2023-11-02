@@ -28,7 +28,7 @@ namespace Pasta
             room.transform.SetParent(this.gameObject.transform);
         }
 
-        public void ChangeRegion(int roomRewardIndex)
+        public void ChangeRegion(ItemBase roomReward)
         {
             if (regionIndex != regions.Length)
             {
@@ -44,7 +44,7 @@ namespace Pasta
                 regionIndex++;
 
                 regions[regionIndex].gameObject.SetActive(true);
-                regions[regionIndex].GenerateLevel(roomRewardIndex);
+                regions[regionIndex].GenerateLevel(roomReward);
             }
             else
             {

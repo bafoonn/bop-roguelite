@@ -11,12 +11,12 @@ namespace Pasta
         private RoomRewardSpawner rewardSpawner;
         private GameObject player;
         private int enemiesLeft;
-        private int rewardIndex;
+        private ItemBase reward;
         private bool isCombatRoom = true;
-        private int[] indexes;
+        private ItemBase[] indexes;
         private GameObject[] abilities;
 
-        public int RewardIndex => rewardIndex;
+        public ItemBase Reward => reward;
 
         [SerializeField]
         private Transform spawnPoint;
@@ -41,9 +41,9 @@ namespace Pasta
             CheckIfNonCombatRoom();
         }
 
-        public void PassRewardIndex(int index)
+        public void PassRewardIndex(ItemBase passedReward)
         {
-            rewardIndex = index;
+            reward = passedReward;
         }
         // Each enemy spawner passes the value of the number of enemies it will spawn, which is then added to the total sum
         public void AddToEnemyCount(int addedEnemyCount)
@@ -61,14 +61,17 @@ namespace Pasta
                 {
                     Destroy(ability.gameObject);
                 }
-                endPoints.gameObject.SetActive(true);
-                endPoints.GenerateRoomRewards();
                 rewardSpawner.gameObject.SetActive(true);
-                rewardSpawner.InitializeRewardSpawn(rewardIndex);
-                shopPortal.gameObject.SetActive(true);
+                rewardSpawner.InitializeRewardSpawn(reward);
             }
         }
-        public void ActivateEndPoints(int[] rewardIndexes)
+        public void PickedUpReward()
+        {
+            endPoints.gameObject.SetActive(true);
+            endPoints.GenerateRoomRewards();
+            shopPortal.gameObject.SetActive(true);
+        }
+        public void ActivateEndPoints(ItemBase[] rewardIndexes)
         {
             indexes = rewardIndexes;
             isCombatRoom = false;
@@ -78,7 +81,7 @@ namespace Pasta
             if (!isCombatRoom)
             {
                 endPoints.gameObject.SetActive(true);
-                endPoints.PassRewardIndexes(indexes);
+                endPoints.PassRewards(indexes);
             }
         }
     }

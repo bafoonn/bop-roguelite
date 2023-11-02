@@ -6,7 +6,8 @@ namespace Pasta
 {
     public class EndPoint : MonoBehaviour
     {
-        private int roomRewardIndex;
+        private ItemBase roomReward;
+        private ItemBase returnedItem;
         [SerializeField] SpriteRenderer itemDisplay;
 
         private bool isActive = false;
@@ -27,14 +28,15 @@ namespace Pasta
         }
 
         // Called for an initial reward generation that has to pass a dublicate check
-        public int GenerateRoomRewardIndex()
+        public ItemBase GenerateRoomRewardIndex()
         {
             var level = GetComponentInParent<Level>(includeInactive: true);
             var rewards = Items.Current.GetRewards();
 
             if (level == null)
             {
-                return Random.Range(0, rewards.Count);
+                int random = Random.Range(0, rewards.Count);
+                return rewards[random];
             }
 
             int index = -1;
@@ -43,10 +45,11 @@ namespace Pasta
             while (index < 0)
             {
                 int random = Random.Range(0, rewards.Count);
+                ItemBase randomItem = rewards[random];
 
-                if (random != level.RewardIndex)
+                if (randomItem != level.Reward)
                 {
-                    index = random;
+                    returnedItem = randomItem;
                 }
 
                 loop++;
@@ -56,18 +59,18 @@ namespace Pasta
                 }
             }
 
-            return index;
+            return returnedItem;
         }
 
-        // Called when the index has passed the dublicate check and will be assigned as the reward for the next room if the player activates this endpoint
-        public void GenerateRoomReward(int index)
+        // Called when the reward has passed the dublicate check and will be assigned as the reward for the next room if the player activates this endpoint
+        public void GenerateRoomReward(ItemBase reward)
         {
             var rewards = Items.Current.GetRewards();
-            roomRewardIndex = index;
-            itemDisplay.sprite = rewards[index].Sprite;
+            roomReward = reward;
+            itemDisplay.sprite = reward.Sprite;
         }
 
-        // When player collides with an endpoint, level generation is called and the reward index for this endpoint is passed to the next level as its reward
+        // When player collides with an endpoint, level generation is called and the reward for this endpoint is passed to the next level as its reward
         private void OnTriggerEnter2D(Collider2D col)
         {
             if (col.gameObject.CompareTag("Player") && isActive)
@@ -76,11 +79,11 @@ namespace Pasta
                 if (GetComponentInParent<Region>())
                 {
                     Region region = GetComponentInParent<Region>();
-                    region.GenerateLevel(roomRewardIndex);
+                    region.GenerateLevel(roomReward);
                 }
                 else
                 {
-                    levelManager.ChangeRegion(roomRewardIndex);
+                    levelManager.ChangeRegion(roomReward);
                 }
                 levelManager.DisableShopKeeper();
             }

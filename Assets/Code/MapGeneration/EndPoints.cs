@@ -8,44 +8,45 @@ namespace Pasta
     {
         [SerializeField]
         private EndPoint[] endPoints;
-        private int[] rewardIndexes;
-        private int dublicateCheck;
+        private ItemBase[] rewards;
+        private ItemBase dublicateCheck;
         private int loopStopper = 10;
         private int loop;
         public void GenerateRoomRewards()
         {
-            rewardIndexes = new int[endPoints.Length];
+            rewards = new ItemBase[endPoints.Length];
             // Dublicate check for room rewards in order to have each endpoint offer a different reward
             for (int i = 0; i < endPoints.Length; i++)
             {
-                int roomRewardIndex = endPoints[i].GenerateRoomRewardIndex();
+                ItemBase roomReward = endPoints[i].GenerateRoomRewardIndex();
 
                 if (i == 0)
                 {
-                    dublicateCheck = roomRewardIndex;
+                    dublicateCheck = roomReward;
                 }
                 else
                 {
                     // Loops until a non dublicate reward is found. 'Or' statement is there to prevent infinite loops
-                    while (roomRewardIndex == dublicateCheck || loop < loopStopper)
+                    while (roomReward == dublicateCheck || loop < loopStopper)
                     {
-                        roomRewardIndex = endPoints[i].GenerateRoomRewardIndex();
+                        roomReward = endPoints[i].GenerateRoomRewardIndex();
                         loop++;
                     }
+                    loop = 0;
                 }
-                rewardIndexes[i] = roomRewardIndex;
-                endPoints[i].GenerateRoomReward(roomRewardIndex);
+                rewards[i] = roomReward;
+                endPoints[i].GenerateRoomReward(roomReward);
             }
         }
-        public int[] GetRewardIndexes()
+        public ItemBase[] GetRewards()
         {
-            return rewardIndexes;
+            return rewards;
         }
-        public void PassRewardIndexes(int[] rewardIndexes)
+        public void PassRewards(ItemBase[] rewards)
         {
             for (int i = 0; i < endPoints.Length; i++)
             {
-                endPoints[i].GenerateRoomReward(rewardIndexes[i]);
+                endPoints[i].GenerateRoomReward(rewards[i]);
             }
         }
     }

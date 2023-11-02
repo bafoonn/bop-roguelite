@@ -7,8 +7,6 @@ namespace Pasta
     public class ShopItemGeneration : MonoBehaviour
     {
         [SerializeField]
-        private ItemBase[] items;
-        [SerializeField]
         private ItemPickup pickupPrefab = null;
         private GameObject item;
         //private bool isActive = false;
@@ -54,9 +52,10 @@ namespace Pasta
                 Destroy(item);
             }
 
+            var rewards = Items.Current.GetRewards();
             var pickup = Instantiate(pickupPrefab, transform.position, Quaternion.identity);
-            int random = Random.Range(0, items.Length);
-            pickup.Setup(items[random], true);
+            int random = Random.Range(0, rewards.Count);
+            pickup.Setup(rewards[random], true);
             pickup.transform.SetParent(this.gameObject.transform);
             cost = pickup.Item.cost.ToString();
 
