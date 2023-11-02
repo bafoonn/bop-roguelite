@@ -10,10 +10,10 @@ public class PlayerMovement : Movement
     [SerializeField] private float _dodgeDuration = 0.5f;
     [SerializeField] private float _dodgeSpeed = 10f;
 
-    private Coroutine _rollRoutine = null;
-    private bool _isRolling = false;
-    public bool IsRolling => _isRolling;
-    public bool CanRoll => (_rollRoutine == null && _isRolling == false);
+    private Coroutine _dodgeRoutine = null;
+    private bool _isDodging = false;
+    public bool IsRolling => _isDodging;
+    public bool CanDodge => (_dodgeRoutine == null && _isDodging == false);
     public Stat _movementSpeed;
 
     private void Start()
@@ -35,7 +35,7 @@ public class PlayerMovement : Movement
 
     public override void Move(Vector2 dir)
     {
-        if (_isRolling)
+        if (_isDodging)
         {
             return;
         }
@@ -43,9 +43,9 @@ public class PlayerMovement : Movement
         base.Move(dir);
     }
 
-    public bool TryRoll(Vector2 dir)
+    public bool TryDodge(Vector2 dir)
     {
-        if (!CanRoll)
+        if (!CanDodge)
         {
             return false;
         }
@@ -55,13 +55,13 @@ public class PlayerMovement : Movement
             return false;
         }
 
-        _rollRoutine = StartCoroutine(Roll(dir));
+        _dodgeRoutine = StartCoroutine(Dodge(dir));
         return true;
     }
 
-    private IEnumerator Roll(Vector2 dir)
+    private IEnumerator Dodge(Vector2 dir)
     {
-        _isRolling = true;
+        _isDodging = true;
         dir.Normalize();
         _currentDir = dir;
         _targetDir = dir;
@@ -82,10 +82,10 @@ public class PlayerMovement : Movement
             yield return null;
         }
 
-        _isRolling = false;
+        _isDodging = false;
         SetSpeed();
 
         yield return new WaitForSeconds(_dodgeCooldown);
-        _rollRoutine = null;
+        _dodgeRoutine = null;
     }
 }

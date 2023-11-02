@@ -26,6 +26,8 @@ namespace Pasta
         }
         public bool IsMaxHealth => CurrentHealth >= MaxHealth;
         public event Action OnDeath;
+        public event Action OnDamaged;
+        public event Action OnHealed;
         public event Action<float> OnHealthChanged;
 
         public void SetMax(float value)
@@ -52,6 +54,8 @@ namespace Pasta
                 DamageTextSpawned.GetComponentInChildren<Text>().text = damage.ToString("#.##");
             }
 
+            if (OnDamaged != null) OnDamaged();
+
             if (CurrentHealth <= 0)
             {
                 if (OnDeath != null)
@@ -63,6 +67,7 @@ namespace Pasta
         {
             if (IsMaxHealth) return;
             CurrentHealth += amount;
+            if (OnHealed != null) OnHealed();
         }
     }
 }

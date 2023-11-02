@@ -58,8 +58,7 @@ public class EnemyAi : MonoBehaviour, IHittable
         spriteRenderer = GetComponent<SpriteRenderer>(); // TAKE DAMAGE STUFF
         defaultColor = spriteRenderer.color; // TAKE DAMAGE STUFF
         m_particleSystem = GetComponentInChildren<ParticleSystem>(); // TAKE DAMAGE STUFF
-        agentMover = GetComponent<AgentMover>();
-        defaultMaxSpeed = agentMover.maxSpeed;
+
         player = GameObject.FindGameObjectWithTag("Player");
         Player = player.transform;
         level = FindFirstObjectByType<Level>();
@@ -86,6 +85,24 @@ public class EnemyAi : MonoBehaviour, IHittable
     protected virtual void OnEnable()
     {
         Health.OnDeath += DeathAction;
+        Health.OnDamaged += OnDamaged;
+    }
+
+    private void OnDisable()
+    {
+        Health.OnDeath -= DeathAction;
+        Health.OnDamaged -= OnDamaged;
+    }
+
+    private void OnDamaged()
+    {
+        spriteRenderer.color = Color.red;
+        if (m_particleSystem != null)
+        {
+            ParticleSystemHolder.transform.rotation = Quaternion.Euler(0, 0, player.transform.Find("AttackHandler").transform.localEulerAngles.z);
+            m_particleSystem.Play();
+        }
+        StartCoroutine(TakingDamage());
     }
 
     private void PerformDetection()
@@ -241,18 +258,7 @@ public class EnemyAi : MonoBehaviour, IHittable
 
     public void Hit(float damage)
     {
-        if (OnDeath != null)
-        {
-            OnDeath(this);
-        }
         Health.TakeDamage(damage);
-        spriteRenderer.color = Color.red;
-        if(m_particleSystem != null)
-        {
-            ParticleSystemHolder.transform.rotation = Quaternion.Euler(0, 0, player.transform.Find("AttackHandler").transform.localEulerAngles.z);
-            m_particleSystem.Play();
-        }
-        StartCoroutine(TakingDamage());
     }
 
 

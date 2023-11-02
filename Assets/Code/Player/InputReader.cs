@@ -40,7 +40,6 @@ public class InputReader : MonoBehaviour
         _controls.Player.HeavyAttack.performed += OnHeavyAttack;
         _controls.Player.Hook.performed += OnHook;
         _controls.Player.Aim.performed += OnAim;
-        _controls.Player.Aim.canceled += OnAimCancelled;
         _controls.Player.MousePos.performed += OnMousePos;
     }
 
@@ -54,20 +53,13 @@ public class InputReader : MonoBehaviour
         _controls.Player.HeavyAttack.performed -= OnHeavyAttack;
         _controls.Player.Hook.performed -= OnHook;
         _controls.Player.Aim.performed -= OnAim;
-        _controls.Player.Aim.canceled -= OnAimCancelled;
         _controls.Player.MousePos.performed -= OnMousePos;
         Movement = Vector2.zero;
     }
 
     private void OnAim(InputAction.CallbackContext obj)
     {
-        _isAiming = true;
         _isMouseAim = false;
-    }
-
-    private void OnAimCancelled(InputAction.CallbackContext obj)
-    {
-        _isAiming = false;
     }
 
     private void OnMousePos(InputAction.CallbackContext obj)
@@ -79,6 +71,7 @@ public class InputReader : MonoBehaviour
     {
         Movement = _controls.Player.Movement.ReadValue<Vector2>();
         MousePos = _controls.Player.MousePos.ReadValue<Vector2>();
+        _isAiming = _controls.Player.Aim.ReadValue<Vector2>() != Vector2.zero;
 
         if (_isMouseAim)
         {

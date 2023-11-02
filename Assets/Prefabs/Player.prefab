@@ -229,6 +229,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currency: 100
+  _hitFrames: 0.66
+  _dodgeFrames: 0.33
+  _iFrameColor: {r: 1, g: 1, b: 1, a: 0.5}
 --- !u!114 &4928316304019425267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -626,7 +629,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6414224967576391055}
   - component: {fileID: 8711532398240425144}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: EventActions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1027,7 +1030,7 @@ GameObject:
   - component: {fileID: 125702589344931609}
   - component: {fileID: 1250601102786834111}
   - component: {fileID: 4771297336993528430}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: AutoAim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
