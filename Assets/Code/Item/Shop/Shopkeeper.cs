@@ -8,6 +8,8 @@ namespace Pasta
     {
         [SerializeField]
         private ShopItemGeneration[] itemGenerators;
+        [SerializeField]
+        private HealShop healShop;
         // Start is called before the first frame update
         void Start()
         {
@@ -20,6 +22,8 @@ namespace Pasta
             {
                 itemGenerators[i].GenerateItem();
             }
+
+            healShop.gameObject.SetActive(true);
         }
     }
 }

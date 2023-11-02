@@ -36,6 +36,7 @@ public class EnemyAi : MonoBehaviour, IHittable
     public float defaultTimeToAttack = 2; //Increase this if you want to make ai take longer
     public float stunTimer = 1; // Will be used or replaced when adding stagger
     private AgentAnimations animations;
+    [SerializeField] private Drop drop;
     //[SerializeField] private float chaseDistanceThershold = 3, attackDistanceThershold = 0.8f;
     //private float passedTime = 1;
     private AgentMover agentMover;
@@ -73,6 +74,7 @@ public class EnemyAi : MonoBehaviour, IHittable
         }
         attackEffect = GetComponentInChildren<AttackEffects>();
         hasAttackEffect = attackEffect != null;
+        drop = GetComponent<Drop>();
     }
     private void Awake()
     {
@@ -172,6 +174,7 @@ public class EnemyAi : MonoBehaviour, IHittable
         {
             enemySpawningCarrier.SpawnMinions();
         }
+        drop.RollDrop();
         level.EnemyKilled();
         Destroy(gameObject);
     }

@@ -9,7 +9,7 @@ namespace Pasta
     {
         private Shopkeeper shopKeeper;
         [SerializeField]
-        private int cost;
+        public int cost;
         private string costString;
         private TMP_Text costDisplay;
         // Start is called before the first frame update
@@ -21,7 +21,7 @@ namespace Pasta
             costDisplay.text = costString;
         }
 
-        private void OnTriggerEnter2D(Collider2D col)
+        public virtual void OnTriggerEnter2D(Collider2D col)
         {
             if (col.TryGetComponent<Player>(out var player))
             {

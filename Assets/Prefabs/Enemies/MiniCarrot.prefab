@@ -141,6 +141,7 @@ MonoBehaviour:
   attackColliderHolder: {fileID: 2213565969705757107}
   attackCollider: {fileID: 3046122872119725462}
   Aim: 1
+  spriteTransform: {fileID: 0}
 --- !u!1 &2170883253053186688
 GameObject:
   m_ObjectHideFlags: 0
@@ -760,6 +761,7 @@ GameObject:
   - component: {fileID: 6108016260075237872}
   - component: {fileID: 8908609173488409884}
   - component: {fileID: 3484794404798182496}
+  - component: {fileID: 5808078046574415292}
   m_Layer: 7
   m_Name: MiniCarrot
   m_TagString: Enemy
@@ -1001,6 +1003,10 @@ MonoBehaviour:
   timeToAttack: 0
   defaultTimeToAttack: 1
   stunTimer: 1
+  drop: {fileID: 0}
+  IsIdle: 1
+  isAttacking: 0
+  ParticleSystemHolder: {fileID: 0}
 --- !u!114 &5018959942009198676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1043,7 +1049,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActivateAbilityThroughAnim: 0
   animator: {fileID: 8908609173488409884}
-  animationClip: {fileID: 3484794404798182496}
   EnemyBody: {fileID: 6721311283363056939}
   aim: 1
 --- !u!114 &69885865199376009
@@ -1130,6 +1135,21 @@ Animation:
   m_AnimatePhysics: 0
   m_UpdateMode: 0
   m_CullingType: 0
+--- !u!114 &5808078046574415292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6992705672734178762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89e7d1ab3c6997b4285c0dfa5f8e14a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coin: {fileID: 1116788276701670648, guid: 3b7b86d3e93d70940bffedecb3cc93b5, type: 3}
+  value: 10
+  dropChance: 50
 --- !u!1 &7024768928966453706
 GameObject:
   m_ObjectHideFlags: 0

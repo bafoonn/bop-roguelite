@@ -13,5 +13,10 @@ namespace Pasta
             currency += Value;
             Take();
         }
+        
+        public void SetValue(int value)
+        {
+            Value = value;
+        }
     }
 }

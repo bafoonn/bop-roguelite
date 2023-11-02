@@ -48,7 +48,8 @@ namespace Pasta
             }
 
             int random = Random.Range(0, enemies.Length);
-            Instantiate(enemies[random], transform.position, Quaternion.identity);
+            GameObject enemy = Instantiate(enemies[random], transform.position, Quaternion.identity);
+            enemy.transform.SetParent(level.gameObject.transform);
             enemiesToSpawn--;
 
             if (enemiesToSpawn == 0)
