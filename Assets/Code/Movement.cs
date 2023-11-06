@@ -1,20 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Pasta
 {
     public class Movement : MonoBehaviour
     {
+        private const float MINIMUM_SLOW = 0.1f;
 
         protected Rigidbody2D _rigidbody = null;
         public float BaseSpeed = 5.0f, Speed = 0f;
         public float Lerp = 15f;
         public Vector2 _currentDir, _targetDir;
+        private float _slow = 0f;
 
-        private void Awake()
+        public bool IsSlowed => _slow > 0f;
+        public bool IsMoving => _currentDir != Vector2.zero;
+
+        protected virtual void Awake()
         {
-            SetSpeed();
+            UpdateSpeed();
         }
 
         protected virtual void FixedUpdate()
@@ -30,14 +36,29 @@ namespace Pasta
             _rigidbody = rigidbody;
         }
 
-        public void SetSpeed(float flatIncrease = 0, float percentIncrease = 0)
+        public void UpdateSpeed()
         {
-            Speed = (BaseSpeed + flatIncrease) * (1 + percentIncrease);
+            Speed = BaseSpeed - Mathf.Clamp(_slow, 0f, BaseSpeed - BaseSpeed * MINIMUM_SLOW);
         }
 
         public virtual void Move(Vector2 dir)
         {
             _targetDir = dir;
+        }
+
+        public virtual void Slow(float percentage, float duration)
+        {
+            float slow = BaseSpeed * Mathf.Clamp01(percentage);
+            StartCoroutine(SlowRoutine(slow, duration));
+        }
+
+        private IEnumerator SlowRoutine(float slowAmount, float duration)
+        {
+            _slow += slowAmount;
+            UpdateSpeed();
+            yield return new WaitForSeconds(duration);
+            _slow -= slowAmount;
+            UpdateSpeed();
         }
 
         public virtual void Stop()

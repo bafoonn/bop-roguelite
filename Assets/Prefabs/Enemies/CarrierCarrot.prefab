@@ -971,9 +971,9 @@ MonoBehaviour:
   OnMovementInput:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5018959942009198676}
-        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
-        m_MethodName: set_MovementInput
+      - m_Target: {fileID: 2565745539531763249}
+        m_TargetAssemblyTypeName: Pasta.Movement, Assembly-CSharp
+        m_MethodName: Move
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1005,8 +1005,11 @@ MonoBehaviour:
   defaultTimeToAttack: 1
   stunTimer: 1
   drop: {fileID: 0}
+  hasDeathAnim: 0
+  Corpse: {fileID: 0}
   IsIdle: 1
   isAttacking: 0
+  Death: 0
   ParticleSystemHolder: {fileID: 0}
 --- !u!114 &5018959942009198676
 MonoBehaviour:
@@ -1032,6 +1035,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ef204d4855b2c242a3d67ffb388fc3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BaseSpeed: 5
+  Speed: 0
+  Lerp: 15
+  _currentDir: {x: 0, y: 0}
+  _targetDir: {x: 0, y: 0}
   maxSpeed: 3
   acceleration: 50
   deacceleration: 100

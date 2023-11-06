@@ -1,11 +1,11 @@
+using Pasta;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AgentMover : MonoBehaviour
+public class AgentMover : Movement
 {
-    private Rigidbody2D rb2d;
 
     [SerializeField]
     public float maxSpeed = 2, acceleration = 50, deacceleration = 100;
@@ -14,26 +14,28 @@ public class AgentMover : MonoBehaviour
     private Vector2 oldMovementInput;
     public Vector2 MovementInput { get; set; }
 
-    private void Awake()
+    protected override void Awake()
     {
-        rb2d = GetComponent<Rigidbody2D>();
+        Setup(GetComponent<Rigidbody2D>());
+        base.Awake();
     }
 
-    private void FixedUpdate()
-    {
-        if (MovementInput.magnitude > 0 && currentSpeed >= 0)
-        {
-            oldMovementInput = MovementInput;
-            currentSpeed += acceleration * maxSpeed * Time.deltaTime;
-        }
-        else
-        {
-            currentSpeed -= deacceleration * maxSpeed * Time.deltaTime;
-        }
-        currentSpeed = Mathf.Clamp(currentSpeed, 0, maxSpeed);
-        rb2d.velocity = oldMovementInput * currentSpeed;
 
-    }
+    //protected override void FixedUpdate()
+    //{
+    //    if (MovementInput.magnitude > 0 && currentSpeed >= 0)
+    //    {
+    //        oldMovementInput = MovementInput;
+    //        currentSpeed += acceleration * maxSpeed * Time.deltaTime;
+    //    }
+    //    else
+    //    {
+    //        currentSpeed -= deacceleration * maxSpeed * Time.deltaTime;
+    //    }
+    //    currentSpeed = Mathf.Clamp(currentSpeed, 0, maxSpeed);
+    //    _rigidbody.velocity = oldMovementInput * currentSpeed;
+
+    //}
 
 
 }

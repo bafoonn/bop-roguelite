@@ -6,10 +6,12 @@ namespace Pasta
 {
     public class HitContext : EventContext
     {
-        public IHittable Target = null;
-        public HitContext(IHittable target) : base(EventActionType.OnHit)
+        public readonly IHittable Target = null;
+        public readonly float Damage;
+        public HitContext(IHittable target, float damage) : base(EventActionType.OnHit)
         {
             Target = target;
+            Damage = damage;
         }
     }
 }

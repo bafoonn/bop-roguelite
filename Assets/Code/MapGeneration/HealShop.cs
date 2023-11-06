@@ -14,7 +14,7 @@ namespace Pasta
             {
                 if (player.TryTakeCurrency(cost))
                 {
-                    player.Health.Heal(healAmount);
+                    player.PlayerHealth.Heal(healAmount);
                     gameObject.SetActive(false);
                 }
             }

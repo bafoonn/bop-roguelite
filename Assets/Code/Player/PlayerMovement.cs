@@ -30,7 +30,7 @@ public class PlayerMovement : Movement
     private void OnMovementSpeedChanged(float value)
     {
         BaseSpeed = value;
-        SetSpeed();
+        UpdateSpeed();
     }
 
     public override void Move(Vector2 dir)
@@ -83,7 +83,7 @@ public class PlayerMovement : Movement
         }
 
         _isDodging = false;
-        SetSpeed();
+        UpdateSpeed();
 
         yield return new WaitForSeconds(_dodgeCooldown);
         _dodgeRoutine = null;

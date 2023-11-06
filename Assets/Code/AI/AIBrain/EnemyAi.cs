@@ -7,7 +7,7 @@ using UnityEngine.Events;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
-public class EnemyAi : MonoBehaviour, IHittable
+public class EnemyAi : MonoBehaviour, IEnemy
 {
     #region detector stuff
     [SerializeField] private List<Detector> detectors;
@@ -19,6 +19,9 @@ public class EnemyAi : MonoBehaviour, IHittable
 
     public MonoBehaviour Mono => this;
     public Health Health { get; protected set; }
+    public Movement Movement => agentMover;
+    public StatusHandler Status { get; private set; }
+
     private Level level;
     public float damage = 5;
     public UnityEvent OnAttackPressed;
@@ -60,6 +63,10 @@ public class EnemyAi : MonoBehaviour, IHittable
 
     private void Start()
     {
+        Status = this.AddOrGetComponent<StatusHandler>();
+        Status.Setup(this);
+
+        agentMover = GetComponent<AgentMover>();
         spriteRenderer = GetComponent<SpriteRenderer>(); // TAKE DAMAGE STUFF
         defaultColor = spriteRenderer.color; // TAKE DAMAGE STUFF
         m_particleSystem = GetComponentInChildren<ParticleSystem>(); // TAKE DAMAGE STUFF
@@ -177,10 +184,10 @@ public class EnemyAi : MonoBehaviour, IHittable
         {
             enemySpawningCarrier.SpawnMinions();
         }
-        
+
         Death = true;
-        
-        
+
+
         level.EnemyKilled();
         if (!hasDeathAnim)
         {
@@ -194,7 +201,7 @@ public class EnemyAi : MonoBehaviour, IHittable
             Destroy(gameObject);
             Instantiate(Corpse, transform.position, transform.rotation);
         }
-        
+
     }
 
     //private IEnumerator UnStun()

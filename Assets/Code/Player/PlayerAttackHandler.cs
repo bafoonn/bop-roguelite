@@ -102,18 +102,7 @@ namespace Pasta
         private IEnumerator QuickAttack(Vector2 dir)
         {
             if (_hasAttackEffects) _attackEffects.QuickAttack();
-            for (int i = 0; i < _sensor.Objects.Count; i++)
-            {
-                var hittable = _sensor.Objects[i];
-                if (hittable == null)
-                {
-                    continue;
-                }
-
-
-                EventActions.InvokeEvent(new HitContext(hittable));
-                hittable.Hit(_quickAttackDamage);
-            }
+            HitObjects(_quickAttackDamage);
             yield return new WaitForSeconds(_quickAttackTime);
             _attackRoutine = null;
         }
@@ -128,6 +117,15 @@ namespace Pasta
             yield return new WaitForSeconds(waitTime);
             if (_hasAttackEffects) _attackEffects.HeavyAttack();
 
+            HitObjects(_heavyAttackDamage);
+
+            _cancellable = true;
+            _attackRoutine = null;
+        }
+
+        private void HitObjects(float damage)
+        {
+
             for (int i = 0; i < _sensor.Objects.Count; i++)
             {
                 var hittable = _sensor.Objects[i];
@@ -136,12 +134,9 @@ namespace Pasta
                     continue;
                 }
 
-                EventActions.InvokeEvent(new HitContext(hittable));
-                hittable.Hit(_heavyAttackDamage);
+                EventActions.InvokeEvent(new HitContext(hittable, damage));
+                hittable.Hit(damage);
             }
-
-            _cancellable = true;
-            _attackRoutine = null;
         }
 
         public bool Cancel()

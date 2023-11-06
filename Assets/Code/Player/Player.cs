@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-public class Player : MonoBehaviour, IHittable
+public class Player : MonoBehaviour, IPlayer
 {
     private InputReader _input;
     private Rigidbody2D _rigidbody;
@@ -16,10 +16,11 @@ public class Player : MonoBehaviour, IHittable
     private PlayerAnimations _anim;
     private EventActions _actions;
     private SpriteRenderer _sprite;
+    private StatusHandler _statusHandler;
     public int currency = 10;
 
     public InputReader Input => _input;
-    public PlayerHealth Health => _health;
+    public PlayerHealth PlayerHealth => _health;
     public Loot Loot => _loot;
 
     private float _iframes = 0;
@@ -39,6 +40,10 @@ public class Player : MonoBehaviour, IHittable
 
     public MonoBehaviour Mono => this;
 
+    public Health Health => _health;
+    public Movement Movement => _movement;
+    public StatusHandler Status => _statusHandler;
+
     private void Awake()
     {
         _input = this.AddOrGetComponent<InputReader>();
@@ -54,6 +59,8 @@ public class Player : MonoBehaviour, IHittable
         Assert.IsNotNull(_actions);
         _actions.Setup(this);
         _sprite = GetComponent<SpriteRenderer>();
+        _statusHandler = this.AddOrGetComponent<StatusHandler>();
+        _statusHandler.Setup(this);
 
         GetComponentInChildren<CurrencyUI>().Setup(this);
 
