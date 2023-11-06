@@ -17,8 +17,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -5859083586626064994, guid: a17e7d17ee9cbeb4d9e26f3dbd891e6c, type: 3}
     - target: {fileID: 1259514723982879070, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1259514723982879070, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 1.3125
+      objectReference: {fileID: 0}
+    - target: {fileID: 1933818565137598220, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4148447015453757000, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -59,6 +67,10 @@ PrefabInstance:
     - target: {fileID: 4148447015453757000, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5277808143831146011, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6992705672734178762, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
       propertyPath: m_Name
