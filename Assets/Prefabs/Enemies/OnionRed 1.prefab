@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 69304483446141424, guid: 631cd80d3effb1d49bd2ca3f19d12c6c, type: 3}
+    - target: {fileID: 1021474887807162252, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
+      propertyPath: Corpse
+      value: 
+      objectReference: {fileID: 6992705672734178762, guid: 0106dc9eec1d7214893b9c84728aa103, type: 3}
     - target: {fileID: 1259514723982879070, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 1.5

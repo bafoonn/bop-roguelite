@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class EnemyAi : MonoBehaviour, IHittable
@@ -42,9 +43,13 @@ public class EnemyAi : MonoBehaviour, IHittable
     private float defaultMaxSpeed;
     private AttackEffects attackEffect;
     private bool hasAttackEffect;
+    [SerializeField] private bool hasDeathAnim = false;
+    private EnemyDeath enemyDeathScript;
+    [SerializeField] private GameObject Corpse;
 
     public bool IsIdle = true;
     public bool isAttacking = false;
+    public bool Death = false;
     #region Damage taking effects
     private SpriteRenderer spriteRenderer; // TAKE DAMAGE STUFF
     private Color defaultColor; // TAKE DAMAGE STUFF
@@ -58,7 +63,7 @@ public class EnemyAi : MonoBehaviour, IHittable
         spriteRenderer = GetComponent<SpriteRenderer>(); // TAKE DAMAGE STUFF
         defaultColor = spriteRenderer.color; // TAKE DAMAGE STUFF
         m_particleSystem = GetComponentInChildren<ParticleSystem>(); // TAKE DAMAGE STUFF
-
+        enemyDeathScript = GetComponent<EnemyDeath>();
         player = GameObject.FindGameObjectWithTag("Player");
         Player = player.transform;
         level = FindFirstObjectByType<Level>();
@@ -172,9 +177,24 @@ public class EnemyAi : MonoBehaviour, IHittable
         {
             enemySpawningCarrier.SpawnMinions();
         }
-        drop.RollDrop();
+        
+        Death = true;
+        
+        
         level.EnemyKilled();
-        Destroy(gameObject);
+        if (!hasDeathAnim)
+        {
+            Destroy(gameObject);
+            drop.RollDrop();
+        }
+        else
+        {
+            drop.RollDrop();
+            Vector3 position = transform.position;
+            Destroy(gameObject);
+            Instantiate(Corpse, transform.position, transform.rotation);
+        }
+        
     }
 
     //private IEnumerator UnStun()
@@ -199,11 +219,12 @@ public class EnemyAi : MonoBehaviour, IHittable
 
         if (aiData.currentTarget == null)
         {
+
             isAttacking = false; // FOR ANIMATOR
             IsIdle = true;
             abilityHolder.CanUseAbility = false;
-            movementInput = Vector2.zero;
             timeToAttack = 0;
+            movementInput = Vector2.zero;
             //if (hasAttackEffect) attackEffect.CancelAttack();
             //attackIndicator.fillAmount = 0;
             Chasing = false;

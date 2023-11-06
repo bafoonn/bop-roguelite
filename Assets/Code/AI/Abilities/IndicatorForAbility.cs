@@ -12,6 +12,7 @@ namespace Pasta
         private Color abilitySprite;
         private SpriteRenderer abilitySpriteRend;
         private DamageArea damageArea;
+        [SerializeField] private GameObject ActivateAbilityObj;
 		// Start is called before the first frame update
 
 		private void Start()
@@ -23,6 +24,10 @@ namespace Pasta
 			{
                 damageArea.enabled = false;
 			}
+            if(ActivateAbilityObj != null)
+            {
+                ActivateAbilityObj.SetActive(false);
+            }
             AbilityIndicator();
 		}
 		public void AbilityIndicator()
@@ -38,6 +43,11 @@ namespace Pasta
             yield return new WaitForSeconds(time);
             abilitySprite = new Color(1, 1, 1, 1);
             abilitySpriteRend.color = abilitySprite;
+            if(ActivateAbilityObj != null)
+            {
+                ActivateAbilityObj.SetActive(true);
+            }
+            
             if (damageArea != null)
             {
                 damageArea.enabled = true;

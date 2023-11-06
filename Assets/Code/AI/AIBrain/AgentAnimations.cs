@@ -47,6 +47,7 @@ public class AgentAnimations : MonoBehaviour
         {
             animator.SetBool("isAttacking", enemyAi.isAttacking);
             animator.SetBool("IsIdle", enemyAi.IsIdle);
+            animator.SetBool("Death", enemyAi.Death);
             if (!enemyAi.isAttacking) // Keeps the most current anim "direction" when attacking.
             {
                 animator.SetFloat("DirX", enemyAi.movementInput.x);
