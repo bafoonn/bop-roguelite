@@ -636,6 +636,7 @@ GameObject:
   - component: {fileID: 3680416250225216278}
   - component: {fileID: 892363581336020446}
   - component: {fileID: 4575330927495091659}
+  - component: {fileID: 3944359658029738373}
   m_Layer: 7
   m_Name: Boss
   m_TagString: Boss
@@ -987,6 +988,21 @@ MonoBehaviour:
   CanUseAbility: 0
   UseAbility: 0
   AnimDone: 1
+--- !u!114 &3944359658029738373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7141955673082789303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89e7d1ab3c6997b4285c0dfa5f8e14a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coin: {fileID: 1116788276701670648, guid: 3b7b86d3e93d70940bffedecb3cc93b5, type: 3}
+  value: 100
+  dropChance: 100
 --- !u!1 &7888501175237090382
 GameObject:
   m_ObjectHideFlags: 0

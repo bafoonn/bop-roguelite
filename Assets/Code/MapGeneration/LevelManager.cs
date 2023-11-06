@@ -11,18 +11,17 @@ namespace Pasta
         private StartRoom room;
         [SerializeField]
         private Region[] regions;
+        private Region activeRegion;
         private int regionIndex = -1;
         private int startIndex;
         [SerializeField]
         private Shopkeeper shopKeeper;
+        private Shopkeeper activeShopKeeper;
         // Start is called before the first frame update
         void Start()
         {
-            shopKeeper.gameObject.SetActive(false);
-            for (int i = 0; i < regions.Length; i++)
-            {
-                regions[i].gameObject.SetActive(false);
-            }
+            activeShopKeeper = Instantiate(shopKeeper, transform.position, Quaternion.identity);
+            activeShopKeeper.gameObject.SetActive(false);
             startIndex = regionIndex;
             room = Instantiate(startRoom, transform.position, Quaternion.identity);
             room.transform.SetParent(this.gameObject.transform);
@@ -34,7 +33,7 @@ namespace Pasta
             {
                 if (regionIndex != startIndex)
                 {
-                    regions[regionIndex].gameObject.SetActive(false);
+                    Destroy(activeRegion.gameObject);
                 }
                 else
                 {
@@ -43,8 +42,9 @@ namespace Pasta
 
                 regionIndex++;
 
-                regions[regionIndex].gameObject.SetActive(true);
-                regions[regionIndex].GenerateLevel(roomReward);
+                activeRegion = Instantiate(regions[regionIndex], transform.position, Quaternion.identity);
+                activeRegion.transform.SetParent(this.gameObject.transform);
+                activeRegion.GenerateLevel(roomReward);
             }
             else
             {
@@ -54,15 +54,22 @@ namespace Pasta
 
         public void GameOver(bool win)
         {
-            Debug.Log("Game over");
+            if (win)
+            {
+                Debug.Log("Game over! You win!");
+            }
+            else
+            {
+                Debug.Log("Game over! You lose!");
+            }
         }
         public void ActivateShopKeeper()
         {
-            shopKeeper.gameObject.SetActive(true);
+            activeShopKeeper.gameObject.SetActive(true);
         }
         public void DisableShopKeeper()
         {
-            shopKeeper.gameObject.SetActive(false);
+            activeShopKeeper.gameObject.SetActive(false);
         }
     }
 }

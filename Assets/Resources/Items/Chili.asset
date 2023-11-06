@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: Chili
   m_EditorClassIdentifier: 
   _canStack: 1
-  _amount: 0
   Name: Chili
   Description: 
   Flavor: Blazing hot.
   Sprite: {fileID: -4849407820689032084, guid: 0f404a812f7f46948b4793e8e73980ed, type: 3}
-  cost: 0
+  cost: 10
   Effects:
   - Name: Reduced damage
     Stat: 1

@@ -37,6 +37,7 @@ public class BossAI : MonoBehaviour, IHittable
     private AttackEffects attackEffect;
     private bool hasAttackEffect;
     private AbilityHolder[] abilityHolders;
+    private Drop drop;
 
 
     //[SerializeField] private float chaseDistanceThershold = 3, attackDistanceThershold = 0.8f;
@@ -56,6 +57,7 @@ public class BossAI : MonoBehaviour, IHittable
         //Detect objects
         attackEffect = GetComponentInChildren<AttackEffects>();
         hasAttackEffect = attackEffect != null;
+        drop = GetComponent<Drop>();
 
 
     }
@@ -152,6 +154,7 @@ public class BossAI : MonoBehaviour, IHittable
     protected virtual void DeathAction()
     {
         level.EnemyKilled();
+        drop.RollDrop();
         Destroy(gameObject);
     }
 
