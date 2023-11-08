@@ -13,14 +13,9 @@ namespace Pasta
 
         public void InitializeRewardSpawn(ItemBase reward)
         {
-            var rewards = Items.Current.GetRewards();
-            if (rewards.Count != 0)
-            {
-                var pickup = Instantiate(pickupPrefab, transform.position, Quaternion.identity);
-                pickup.Setup(reward, false);
-                pickup.transform.SetParent(this.gameObject.transform);
-
-            }
+            var pickup = Instantiate(pickupPrefab, transform.position, Quaternion.identity);
+            pickup.Setup(reward, false);
+            pickup.transform.SetParent(this.gameObject.transform);
         }
     }
 }

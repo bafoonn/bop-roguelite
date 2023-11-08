@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Pasta
@@ -47,12 +48,14 @@ namespace Pasta
             {
                 case StatEffectType.Additive:
                     {
-                        string effect = Value > 0 ? "Additional" : "Reduced";
-                        return $"{Value} {effect} {Stat}";
+                        char character = Value > 0 ? '+' : '-';
+                        return $"{character}{Mathf.Abs(Value)} {Stat}";
                     }
                 case StatEffectType.Multiplicative:
                     {
-                        return $"{Stat} Multiplied by {Value}";
+                        string effect = Value > 1 ? "increased" : "reduced";
+                        string value = Mathf.Abs(Mathf.RoundToInt((Value - 1) * 100)).ToString() + "%";
+                        return $"{value} {effect} {Stat}";
                     }
                 default: return "";
             }

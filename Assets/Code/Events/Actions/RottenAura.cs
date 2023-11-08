@@ -19,12 +19,13 @@ namespace Pasta
         {
             base.Init();
             _damageStat = StatManager.Current.GetStat(StatType.Damage);
-            _attackSpeedStat = StatManager.Current.GetStat(StatType.AttackSpeed);
+            _attackSpeedStat = StatManager.Current.GetStat(StatType.Attackspeed);
             _collider = this.AddOrGetComponent<CircleCollider2D>();
             _collider.radius = _radius;
             _damageArea = this.AddOrGetComponent<DamageArea>();
-            _damageArea.Damage = _damageStat.Value * _damageCoefficiency;
-            _damageArea.Interval = 1 / (_attackSpeedStat.Value * _damageCoefficiency);
+
+            OnDamageChanged(0);
+
             _damageArea.SensedLayers = 1 << LayerMask.NameToLayer("Enemy");
             var sprite = GetComponentInChildren<SpriteRenderer>();
             if (sprite != null)
@@ -33,23 +34,21 @@ namespace Pasta
             }
 
             _damageStat.ValueChanged += OnDamageChanged;
-            _attackSpeedStat.ValueChanged += OnAttackSpeedChanged;
+            _attackSpeedStat.ValueChanged += OnDamageChanged;
         }
 
 
         private void OnDestroy()
         {
             _damageStat.ValueChanged -= OnDamageChanged;
+            _attackSpeedStat.ValueChanged -= OnDamageChanged;
         }
 
-        private void OnDamageChanged(float value)
+        private void OnDamageChanged(float _)
         {
-            _damageArea.Damage = value * _damageCoefficiency;
-        }
-
-        private void OnAttackSpeedChanged(float value)
-        {
-            _damageArea.Interval = 1 / (value * _damageCoefficiency);
+            StatManager.Current.Stats.GetDPS(_damageCoefficiency, out float damage, out float hitRate);
+            _damageArea.Interval = hitRate;
+            _damageArea.Damage = damage;
         }
     }
 }

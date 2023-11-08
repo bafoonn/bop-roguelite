@@ -6,5 +6,6 @@
         Slow,
         Burn,
         Poison,
+        Slippery
     }
 }

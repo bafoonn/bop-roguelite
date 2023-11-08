@@ -11,9 +11,11 @@ namespace Pasta
 
         protected Rigidbody2D _rigidbody = null;
         public float BaseSpeed = 5.0f, Speed = 0f;
-        public float Lerp = 15f;
+        public float Acceleration = 15f;
+        public float SlipperyAcceleration = 1f;
         public Vector2 _currentDir, _targetDir;
         private float _slow = 0f;
+        private int _slipperyCount = 0;
 
         public bool IsSlowed => _slow > 0f;
         public bool IsMoving => _currentDir != Vector2.zero;
@@ -25,7 +27,8 @@ namespace Pasta
 
         protected virtual void FixedUpdate()
         {
-            _currentDir = Vector2.Lerp(_currentDir, _targetDir * Speed, Lerp * Time.fixedDeltaTime);
+            float acceleration = _slipperyCount > 0 ? SlipperyAcceleration : Acceleration;
+            _currentDir = Vector2.Lerp(_currentDir, _targetDir * Speed, acceleration * Time.fixedDeltaTime);
             if (_currentDir.sqrMagnitude - _targetDir.sqrMagnitude < Vector2.kEpsilon) { _currentDir = _targetDir; }
             _rigidbody.MovePosition(_rigidbody.position + _currentDir * Time.fixedDeltaTime);
         }
@@ -59,6 +62,16 @@ namespace Pasta
             yield return new WaitForSeconds(duration);
             _slow -= slowAmount;
             UpdateSpeed();
+        }
+
+        public virtual void MakeSlippery()
+        {
+            _slipperyCount++;
+        }
+
+        public virtual void Unslip()
+        {
+            if (_slipperyCount > 0) _slipperyCount--;
         }
 
         public virtual void Stop()

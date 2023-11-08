@@ -39,7 +39,6 @@ namespace Pasta
 
         private List<EventAction> _addedActions = new List<EventAction>();
 
-
         public bool Loot()
         {
             if (!CanLoot)
@@ -52,6 +51,7 @@ namespace Pasta
             foreach (var effect in Effects)
             {
                 effect.Apply();
+                Debug.Log(effect);
             }
 
             foreach (var container in Events)

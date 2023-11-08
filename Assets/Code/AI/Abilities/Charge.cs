@@ -21,12 +21,13 @@ namespace Pasta
         {
             AIData aiData = parent.GetComponent<AIData>();
             //BossAI bossAi = parent.GetComponent<BossAI>();
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            
+            //GameObject player = GameObject.FindGameObjectWithTag("Player");
+
             rigidbody = parent.GetComponent<Rigidbody2D>();
             BoxCollider2d = parent.GetComponent<BoxCollider2D>();
             Vector2 TargetPos = aiData.currentTarget.position + Random.insideUnitSphere;
-            rigidbody.MovePosition(TargetPos * speed);
+            //rigidbody.MovePosition(TargetPos * speed);
+            rigidbody.position = TargetPos;
             bC2D = parent.AddComponent<BoxCollider2D>();
             BoxCollider2d.isTrigger = true;
             bC2D.isTrigger = true;
@@ -40,7 +41,7 @@ namespace Pasta
                 if (collider2D.TryGetComponent(out IHittable hittable))
                 {
                     //bossAi.movementInput = Vector2.zero;
-                    
+
                     hittable.Hit(damage);// DO DAMAGE!
                 }
             }
@@ -53,7 +54,7 @@ namespace Pasta
             Destroy(bC2D);
             rigidbody.velocity = Vector2.zero;
             BoxCollider2d.isTrigger = false;
-            
+
         }
     }
 }

@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace Pasta
 {
+    /// <summary>
+    /// Does damage in intervals. Won't work properly if the same instance is applied to multiple StatusHandlers.
+    /// </summary>
     public class BurnStatus : IStatusEffect
     {
         public float Damage;
@@ -22,7 +25,7 @@ namespace Pasta
             Interval = inteval;
         }
 
-        public void Apply(ICharacter character)
+        public void Apply(ICharacter character, float duration)
         {
             _current = character;
         }
@@ -38,7 +41,7 @@ namespace Pasta
             }
         }
 
-        public void UnApply()
+        public void UnApply(ICharacter character)
         {
             _current = null;
         }

@@ -12,6 +12,7 @@ namespace Pasta
         private Stats _currentStats;
 
         public override bool DoPersist => false;
+        public Stats Stats => _currentStats;
 
         protected override void Init()
         {
@@ -35,10 +36,10 @@ namespace Pasta
                 case StatType.Damage:
                     stat = _currentStats.Damage;
                     break;
-                case StatType.AttackSpeed:
+                case StatType.Attackspeed:
                     stat = _currentStats.AttackSpeed;
                     break;
-                case StatType.MovementSpeed:
+                case StatType.Movementspeed:
                     stat = _currentStats.MovementSpeed;
                     break;
                 default:
@@ -57,11 +58,6 @@ namespace Pasta
         {
             var stat = GetStat(effect.Stat);
             return stat.RemoveEffect(effect);
-        }
-
-        private void OnApplicationQuit()
-        {
-
         }
     }
 }

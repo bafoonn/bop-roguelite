@@ -18,7 +18,7 @@ public class PlayerMovement : Movement
 
     private void Start()
     {
-        _movementSpeed = StatManager.Current.GetStat(StatType.MovementSpeed);
+        _movementSpeed = StatManager.Current.GetStat(StatType.Movementspeed);
         _movementSpeed.ValueChanged += OnMovementSpeedChanged;
     }
 

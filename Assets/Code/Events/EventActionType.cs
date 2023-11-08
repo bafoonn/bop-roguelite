@@ -8,6 +8,8 @@ namespace Pasta
     {
         None,
         OnHit,
+        OnQuickHit,
+        OnHeavyHit,
         OnKill,
         OnDodge,
         OnRoomEnter,

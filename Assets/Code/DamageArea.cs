@@ -18,7 +18,6 @@ namespace Pasta
                 for (int i = 0; i < _objects.Count; i++)
                 {
                     var hittable = _objects[i];
-                    Debug.Log(hittable);
                     if (hittable == null)
                     {
                         continue;

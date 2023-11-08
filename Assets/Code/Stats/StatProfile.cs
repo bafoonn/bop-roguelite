@@ -8,8 +8,11 @@ namespace Pasta
     public class StatProfile : ScriptableObject
     {
         public float Health;
-        public float Damage;
-        public float MovementSpeed;
-        public float AttackSpeed;
+        [Tooltip("Damage per hit")]
+        public float Damage = 10;
+        public float MovementSpeed = 5;
+        public float MaximumMovementSpeed = 15f;
+        [Tooltip("Attacks per second")]
+        public float AttackSpeed = 3;
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Pasta
 {
-    public class EventContext : MonoBehaviour
+    public class EventContext
     {
         public EventActionType EventType;
         public EventContext(EventActionType eventType)

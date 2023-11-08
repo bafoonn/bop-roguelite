@@ -4,7 +4,7 @@ namespace Pasta
     {
         Health,
         Damage,
-        AttackSpeed,
-        MovementSpeed
+        Attackspeed,
+        Movementspeed
     }
 }

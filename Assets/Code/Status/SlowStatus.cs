@@ -4,28 +4,26 @@ using UnityEngine;
 
 namespace Pasta
 {
-    public class StatusSlow : IStatusEffect
+    public class SlowStatus : IStatusEffect
     {
         public float SlowPercentage;
-        public float Duration;
         public StatusType Type => StatusType.Slow;
 
-        public StatusSlow(float percentage, float duration)
+        public SlowStatus(float percentage)
         {
             SlowPercentage = percentage;
-            Duration = duration;
         }
 
-        public void Apply(ICharacter character)
+        public void Apply(ICharacter character, float duration)
         {
-            character.Movement.Slow(SlowPercentage, Duration);
+            character.Movement.Slow(SlowPercentage, duration);
         }
 
         public void Update(float deltaTime)
         {
         }
 
-        public void UnApply()
+        public void UnApply(ICharacter character)
         {
         }
     }

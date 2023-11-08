@@ -511,6 +511,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -8
       objectReference: {fileID: 0}
+    - target: {fileID: 7512909240117967985, guid: dcabfba1a1c5cc14caaa87d00026cabc, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8689150871632713109, guid: dcabfba1a1c5cc14caaa87d00026cabc, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -584,7 +588,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.09375
+  orthographic size: 5.625
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

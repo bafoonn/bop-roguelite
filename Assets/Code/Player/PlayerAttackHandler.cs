@@ -39,7 +39,7 @@ namespace Pasta
             _damage = StatManager.Current.GetStat(StatType.Damage);
             _damage.ValueChanged += OnDamageChanged;
 
-            _attackSpeed = StatManager.Current.GetStat(StatType.AttackSpeed);
+            _attackSpeed = StatManager.Current.GetStat(StatType.Attackspeed);
             _attackSpeed.ValueChanged += OnAttackSpeedChanged;
             SetDamage(_damage.Value, _attackSpeed.Value);
 
@@ -90,24 +90,24 @@ namespace Pasta
             switch (type)
             {
                 case AttackType.Quick:
-                    _attackRoutine = StartCoroutine(QuickAttack(dir));
+                    _attackRoutine = StartCoroutine(QuickAttack());
                     break;
 
                 case AttackType.Heavy:
-                    _attackRoutine = StartCoroutine(HeavyAttack(dir));
+                    _attackRoutine = StartCoroutine(HeavyAttack());
                     break;
             }
         }
 
-        private IEnumerator QuickAttack(Vector2 dir)
+        private IEnumerator QuickAttack()
         {
             if (_hasAttackEffects) _attackEffects.QuickAttack();
-            HitObjects(_quickAttackDamage);
+            HitObjects(AttackType.Quick);
             yield return new WaitForSeconds(_quickAttackTime);
             _attackRoutine = null;
         }
 
-        private IEnumerator HeavyAttack(Vector2 dir)
+        private IEnumerator HeavyAttack()
         {
             float waitTime = _heavyAttackTime * 0.5f;
             if (_hasAttackEffects) _attackEffects.AttackIndicator();
@@ -117,13 +117,13 @@ namespace Pasta
             yield return new WaitForSeconds(waitTime);
             if (_hasAttackEffects) _attackEffects.HeavyAttack();
 
-            HitObjects(_heavyAttackDamage);
+            HitObjects(AttackType.Heavy);
 
             _cancellable = true;
             _attackRoutine = null;
         }
 
-        private void HitObjects(float damage)
+        private void HitObjects(AttackType type)
         {
 
             for (int i = 0; i < _sensor.Objects.Count; i++)
@@ -134,7 +134,24 @@ namespace Pasta
                     continue;
                 }
 
-                EventActions.InvokeEvent(new HitContext(hittable, damage));
+                float damage = 0;
+                switch (type)
+                {
+                    case AttackType.Quick:
+                        damage = _quickAttackDamage;
+                        EventActions.InvokeEvent(new HitContext(hittable, damage, EventActionType.OnQuickHit));
+                        break;
+                    case AttackType.Heavy:
+                        damage = _heavyAttackDamage;
+                        EventActions.InvokeEvent(new HitContext(hittable, damage, EventActionType.OnHeavyHit));
+                        break;
+                }
+
+                EventActions.InvokeEvent(new HitContext(hittable, damage, EventActionType.OnHit));
+                if (hittable is ICharacter character)
+                {
+                    character.Status.ApplyStatus(new SlipperyStatus(), 5f);
+                }
                 hittable.Hit(damage);
             }
         }

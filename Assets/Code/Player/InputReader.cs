@@ -10,7 +10,8 @@ public class InputReader : MonoBehaviour
     private Controls _controls;
     public Vector2 Movement;
     public Vector2 Aim;
-    public Vector2 MousePos;
+    public Vector2 MouseScreenPos;
+    public Vector2 MouseWorldPos;
     public Action DodgeCallback;
     public Action InteractCallback;
     public Action QuickAttackCallback;
@@ -21,7 +22,11 @@ public class InputReader : MonoBehaviour
 
     private AutoAim _autoAim = null;
 
+    private float _lastAttackTime = 0;
+    public bool HasRecentlyAttacked => Time.timeSinceLevelLoad - _lastAttackTime < 5f;
+
     public bool IsMouseAim => _isMouseAim;
+    public bool IsAiming => _isAiming;
 
     private void Awake()
     {
@@ -70,13 +75,13 @@ public class InputReader : MonoBehaviour
     private void Update()
     {
         Movement = _controls.Player.Movement.ReadValue<Vector2>();
-        MousePos = _controls.Player.MousePos.ReadValue<Vector2>();
+        MouseScreenPos = _controls.Player.MousePos.ReadValue<Vector2>();
+        MouseWorldPos = _camera.ScreenToWorldPoint(MouseScreenPos);
         _isAiming = _controls.Player.Aim.ReadValue<Vector2>() != Vector2.zero;
 
         if (_isMouseAim)
         {
-            Vector2 target = _camera.ScreenToWorldPoint(MousePos);
-            Aim = (target - (Vector2)transform.position);
+            Aim = MouseWorldPos - (Vector2)transform.position;
         }
         else
         {
@@ -120,6 +125,7 @@ public class InputReader : MonoBehaviour
         {
             HeavyAttackCallback();
         }
+        _lastAttackTime = Time.time;
     }
 
     private void OnQuickAttack(InputAction.CallbackContext obj)
@@ -128,6 +134,7 @@ public class InputReader : MonoBehaviour
         {
             QuickAttackCallback();
         }
+        _lastAttackTime = Time.time;
     }
 
     private void OnInteract(InputAction.CallbackContext obj)

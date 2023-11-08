@@ -52,6 +52,8 @@ namespace Pasta
                 {
                     hits.Add(first);
                     first.Hit(_damage.Value * _damageCoefficiency);
+
+                    PlayParticles();
                 }
 
                 while (enemies.Count > 0 && !targetFound)
@@ -67,11 +69,7 @@ namespace Pasta
 
                         point = enemies[random].transform.position;
 
-                        if (_particles != null)
-                        {
-                            _particles.transform.position = point;
-                            _particles.Play();
-                        }
+                        PlayParticles();
                         hits.Add(hittable);
                         hittable.Hit(_damage.Value * _damageCoefficiency);
                         targetFound = true;
@@ -79,8 +77,18 @@ namespace Pasta
                     enemies.RemoveAt(random);
                 }
 
+                if (!targetFound) break;
                 chainCount++;
                 yield return new WaitForSeconds(_chainTime);
+            }
+
+            void PlayParticles()
+            {
+                if (_particles != null)
+                {
+                    _particles.transform.position = point;
+                    _particles.Play();
+                }
             }
         }
 
