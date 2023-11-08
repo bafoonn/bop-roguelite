@@ -676,8 +676,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 3
-  AimOffset: 2
-  MoveOffset: 1
+  OffsetSpeed: 5
+  MaxDistanceFromPlayer: 4
+  ControllerAimOffset: 2
+  ControllerMoveOffset: 2
+  MouseAimOffset: 2
+  MouseMoveOffset: 2
+  OffsetMultiplier: 0.5
 --- !u!114 &1585949256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -692,10 +697,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ComponentVersion: 1
   m_AssetsPPU: 32
-  m_RefResolutionX: 635
-  m_RefResolutionY: 320
+  m_RefResolutionX: 480
+  m_RefResolutionY: 270
   m_CropFrame: 0
-  m_GridSnapping: 2
+  m_GridSnapping: 0
   m_FilterMode: 0
   m_UpscaleRT: 0
   m_PixelSnapping: 0
