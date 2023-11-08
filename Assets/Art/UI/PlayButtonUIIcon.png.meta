@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 0d6a6c59cc8d6be4db5d7c6a77f63ad8
+guid: 9226061705678414f87276e4d1ad02a8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8535918955725401547
-    second: Checkboxx64_0
+      213: -2986262473060159017
+    second: PlayButtonUIIcon_0
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -98,13 +98,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Checkboxx64_0
+      name: PlayButtonUIIcon_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 1
         y: 0
-        width: 57
-        height: 57
+        width: 31
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bcd2983a01da57670800000000000000
-      internalID: 8535918955725401547
+      spriteID: 7d17b274a1aae86d0800000000000000
+      internalID: -2986262473060159017
       vertices: []
       indices: 
       edges: []
@@ -129,7 +129,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Checkboxx64_0: 8535918955725401547
+      PlayButtonUIIcon_0: -2986262473060159017
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
