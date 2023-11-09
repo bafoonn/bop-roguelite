@@ -23,8 +23,7 @@ namespace Pasta
             activeShopKeeper = Instantiate(shopKeeper, transform.position, Quaternion.identity);
             activeShopKeeper.gameObject.SetActive(false);
             startIndex = regionIndex;
-            room = Instantiate(startRoom, transform.position, Quaternion.identity);
-            room.transform.SetParent(this.gameObject.transform);
+            room = Instantiate(startRoom, transform.position, Quaternion.identity, transform);
         }
 
         public void ChangeRegion(ItemBase roomReward)
@@ -42,8 +41,7 @@ namespace Pasta
 
                 regionIndex++;
 
-                activeRegion = Instantiate(regions[regionIndex], transform.position, Quaternion.identity);
-                activeRegion.transform.SetParent(this.gameObject.transform);
+                activeRegion = Instantiate(regions[regionIndex], transform.position, Quaternion.identity, transform);
                 activeRegion.GenerateLevel(roomReward);
             }
             else
@@ -60,7 +58,7 @@ namespace Pasta
             }
             else
             {
-                Debug.Log("Game over! You lose!");
+                Debug.Log("Game over! You lose!p");
             }
         }
         public void ActivateShopKeeper()

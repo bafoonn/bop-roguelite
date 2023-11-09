@@ -13,7 +13,7 @@ namespace Pasta
         private int enemiesLeft;
         private ItemBase reward;
         private bool isCombatRoom = true;
-        private ItemBase[] indexes;
+        private ItemBase[] rewards;
         private GameObject[] abilities;
 
         public ItemBase Reward => reward;
@@ -71,9 +71,9 @@ namespace Pasta
             endPoints.GenerateRoomRewards();
             shopPortal.gameObject.SetActive(true);
         }
-        public void ActivateEndPoints(ItemBase[] rewardIndexes)
+        public void ActivateEndPoints(ItemBase[] passedRewards)
         {
-            indexes = rewardIndexes;
+            rewards = passedRewards;
             isCombatRoom = false;
         }
         private void CheckIfNonCombatRoom()
@@ -81,7 +81,7 @@ namespace Pasta
             if (!isCombatRoom)
             {
                 endPoints.gameObject.SetActive(true);
-                endPoints.PassRewards(indexes);
+                endPoints.PassRewards(rewards);
             }
         }
     }

@@ -56,8 +56,7 @@ namespace Pasta
 
         private void InstantiateLevel(int levelIndex, ItemBase roomRewardIndex)
         {
-            activeLevel = Instantiate(levels[levelIndex], transform.position, Quaternion.identity);
-            activeLevel.transform.SetParent(this.gameObject.transform);
+            activeLevel = Instantiate(levels[levelIndex], transform.position, Quaternion.identity, transform);
             activeLevel.PassRewardIndex(roomRewardIndex);
         }
 
@@ -67,8 +66,7 @@ namespace Pasta
             rewards = endPoints.GetRewards();
             Destroy(activeLevel.gameObject);
 
-            activeLevel = Instantiate(shopRoom, transform.position, Quaternion.identity);
-            activeLevel.transform.SetParent(this.gameObject.transform);
+            activeLevel = Instantiate(shopRoom, transform.position, Quaternion.identity, transform);
             activeLevel.ActivateEndPoints(rewards);
 
             levelManager.ActivateShopKeeper();
