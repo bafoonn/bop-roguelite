@@ -182,7 +182,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2213565969705757107}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -221,15 +221,15 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 4.442418, y: 0.8127173}
-      - {x: 3.4727597, y: 1.0636227}
-      - {x: 1.720219, y: 1.0656016}
-      - {x: 0.49217814, y: 0.48395446}
-      - {x: 0.483707, y: -0.47372013}
-      - {x: 1.7477167, y: -1.1670145}
-      - {x: 3.4352317, y: -1.1369523}
-      - {x: 4.3757105, y: -0.96021926}
-      - {x: 4.7141194, y: -0.057778}
+    - - {x: 3.795487, y: 0.9881563}
+      - {x: 2.54074, y: 1.1294123}
+      - {x: 0.9965334, y: 0.999812}
+      - {x: -0.5030544, y: 0.33500805}
+      - {x: -0.50475526, y: -0.31123313}
+      - {x: 1.0240309, y: -0.9915755}
+      - {x: 2.514177, y: -1.1917769}
+      - {x: 3.8603585, y: -1.0369738}
+      - {x: 4.0013986, y: -0.013918266}
   m_UseDelaunayMesh: 0
 --- !u!61 &3046122872119725462
 BoxCollider2D:
@@ -380,13 +380,13 @@ VisualEffect:
         m_Overridden: 1
     m_Vector2f:
       m_Array:
-      - m_Value: {x: 2.5, y: 2}
+      - m_Value: {x: 4, y: 3}
         m_Name: QA Scale
         m_Overridden: 1
-      - m_Value: {x: 2.5, y: 2}
+      - m_Value: {x: 4, y: 3}
         m_Name: HA Scale
         m_Overridden: 1
-      - m_Value: {x: 2.5, y: 2}
+      - m_Value: {x: 4, y: 3}
         m_Name: Ind Scale
         m_Overridden: 1
     m_Vector3f:

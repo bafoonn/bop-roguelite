@@ -28,6 +28,10 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2160224316264161601, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
+      propertyPath: m_PropertySheet.m_Vector2f.m_Array.Array.data[2].m_Value.x
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4148447015453757000, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
