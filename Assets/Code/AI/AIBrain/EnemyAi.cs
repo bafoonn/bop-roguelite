@@ -23,6 +23,8 @@ public class EnemyAi : MonoBehaviour, IEnemy
     public Movement Movement => agentMover;
     public StatusHandler Status { get; private set; }
 
+    public Rigidbody2D Rigidbody { get; private set; }
+
     private Level level;
     public float damage = 5;
     private Separation seperation;
@@ -67,6 +69,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
     {
         Status = this.AddOrGetComponent<StatusHandler>();
         Status.Setup(this);
+        Rigidbody = GetComponent<Rigidbody2D>();
         attackDefaultDist = attackDistance;
         agentMover = GetComponent<AgentMover>();
         spriteRenderer = GetComponent<SpriteRenderer>(); // TAKE DAMAGE STUFF
@@ -270,7 +273,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
             //    attackIndicator.fillAmount = 0;
             //    // StartCourotine(UnStun());
             //}
-            // ALOITA HYÖKKÄYS X DISTANCELLA JA LOPETA X * 2 
+            // ALOITA HYï¿½KKï¿½YS X DISTANCELLA JA LOPETA X * 2 
             if (distance < attackDistance)
             {
 

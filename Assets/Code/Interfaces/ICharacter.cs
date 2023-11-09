@@ -8,6 +8,7 @@ namespace Pasta
     {
         public Health Health { get; }
         public Movement Movement { get; }
+        public Rigidbody2D Rigidbody { get; }
         public StatusHandler Status { get; }
     }
 }

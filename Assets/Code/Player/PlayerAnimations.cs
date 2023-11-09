@@ -19,7 +19,7 @@ namespace Pasta
         private Animator _animator = null;
         private PlayerMovement _movement = null;
         private PlayerAttackHandler _attackHandler = null;
-        private InputReader _input = null;
+        private PlayerInput _input = null;
 
         private Vector2 _facingDir = Vector2.zero;
 
@@ -62,7 +62,7 @@ namespace Pasta
             return false;
         }
 
-        public void Setup(PlayerMovement movement, PlayerAttackHandler attackHandler, InputReader input)
+        public void Setup(PlayerMovement movement, PlayerAttackHandler attackHandler, PlayerInput input)
         {
             _movement = movement;
             _attackHandler = attackHandler;

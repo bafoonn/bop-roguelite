@@ -8,7 +8,7 @@ namespace Pasta
     public class FollowCam : MonoBehaviour
     {
         private Player _player = null;
-        private InputReader _reader = null;
+        private PlayerInput _reader = null;
         public float Speed = 5f;
         public float OffsetSpeed = 5f;
         public float MaxDistanceFromPlayer = 4f;
@@ -78,7 +78,7 @@ namespace Pasta
             }
 
             _player = player;
-            _reader = player.GetComponent<InputReader>();
+            _reader = player.GetComponent<PlayerInput>();
         }
     }
 }

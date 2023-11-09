@@ -7,7 +7,7 @@ using UnityEngine.Assertions;
 
 public class Player : MonoBehaviour, IPlayer
 {
-    private InputReader _input;
+    private PlayerInput _input;
     private Rigidbody2D _rigidbody;
     private PlayerMovement _movement;
     private PlayerAttackHandler _attackHandler;
@@ -19,7 +19,7 @@ public class Player : MonoBehaviour, IPlayer
     private StatusHandler _statusHandler;
     public int currency = 10;
 
-    public InputReader Input => _input;
+    public PlayerInput Input => _input;
     public PlayerHealth PlayerHealth => _health;
     public Loot Loot => _loot;
 
@@ -43,10 +43,13 @@ public class Player : MonoBehaviour, IPlayer
     public Health Health => _health;
     public Movement Movement => _movement;
     public StatusHandler Status => _statusHandler;
+    public Rigidbody2D Rigidbody => _rigidbody;
+
+    public static event Action OnPlayerDeath;
 
     private void Awake()
     {
-        _input = this.AddOrGetComponent<InputReader>();
+        _input = this.AddOrGetComponent<PlayerInput>();
         _movement = this.AddOrGetComponent<PlayerMovement>();
         _attackHandler = GetComponentInChildren<PlayerAttackHandler>();
         Assert.IsNotNull(_attackHandler, "Player has no PlayerAttackHandler component in children.");
@@ -96,6 +99,36 @@ public class Player : MonoBehaviour, IPlayer
     private void Update()
     {
         _sprite.color = _hasIframes ? _iFrameColor : _baseColor;
+    }
+
+    private void OnEnable()
+    {
+        _health.OnDeath += OnDeath;
+        GameManager.OnPause += OnPause;
+        GameManager.OnUnpause += OnUnpause;
+    }
+
+    private void OnDisable()
+    {
+        _health.OnDeath -= OnDeath;
+        GameManager.OnPause -= OnPause;
+        GameManager.OnUnpause -= OnUnpause;
+    }
+
+    private void OnPause()
+    {
+        _input.enabled = false;
+    }
+
+    private void OnUnpause()
+    {
+        _input.enabled = true;
+    }
+
+    private void OnDeath()
+    {
+        if (OnPlayerDeath != null) OnPlayerDeath();
+        _input.enabled = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

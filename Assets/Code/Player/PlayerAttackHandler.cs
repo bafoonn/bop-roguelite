@@ -148,10 +148,6 @@ namespace Pasta
                 }
 
                 EventActions.InvokeEvent(new HitContext(hittable, damage, EventActionType.OnHit));
-                if (hittable is ICharacter character)
-                {
-                    character.Status.ApplyStatus(new SlipperyStatus(), 5f);
-                }
                 hittable.Hit(damage);
             }
         }

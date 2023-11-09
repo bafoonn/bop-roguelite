@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 
-public class InputReader : MonoBehaviour
+public class PlayerInput : MonoBehaviour
 {
     private Camera _camera;
-    private Controls _controls;
+    private Controls.PlayerActions _actions;
     public Vector2 Movement;
     public Vector2 Aim;
     public Vector2 MouseScreenPos;
@@ -30,7 +30,7 @@ public class InputReader : MonoBehaviour
 
     private void Awake()
     {
-        _controls = new Controls();
+        _actions = InputReader.Current.GetPlayerActions();
         _camera = Camera.main;
         _autoAim = GetComponentInChildren<AutoAim>();
         Assert.IsNotNull(_autoAim);
@@ -38,27 +38,25 @@ public class InputReader : MonoBehaviour
 
     private void OnEnable()
     {
-        _controls.Enable();
-        _controls.Player.Dodge.performed += OnDodge;
-        _controls.Player.Interact.performed += OnInteract;
-        _controls.Player.QuickAttack.performed += OnQuickAttack;
-        _controls.Player.HeavyAttack.performed += OnHeavyAttack;
-        _controls.Player.Hook.performed += OnHook;
-        _controls.Player.Aim.performed += OnAim;
-        _controls.Player.MousePos.performed += OnMousePos;
+        _actions.Enable();
+        _actions.Dodge.performed += OnDodge;
+        _actions.QuickAttack.performed += OnQuickAttack;
+        _actions.Interact.performed += OnInteract;
+        _actions.HeavyAttack.performed += OnHeavyAttack;
+        _actions.Aim.performed += OnAim;
+        _actions.MousePos.performed += OnMousePos;
     }
 
 
     private void OnDisable()
     {
-        _controls.Disable();
-        _controls.Player.Dodge.performed -= OnDodge;
-        _controls.Player.Interact.performed -= OnInteract;
-        _controls.Player.QuickAttack.performed -= OnQuickAttack;
-        _controls.Player.HeavyAttack.performed -= OnHeavyAttack;
-        _controls.Player.Hook.performed -= OnHook;
-        _controls.Player.Aim.performed -= OnAim;
-        _controls.Player.MousePos.performed -= OnMousePos;
+        _actions.Disable();
+        _actions.Dodge.performed -= OnDodge;
+        _actions.Interact.performed -= OnInteract;
+        _actions.QuickAttack.performed -= OnQuickAttack;
+        _actions.HeavyAttack.performed -= OnHeavyAttack;
+        _actions.Aim.performed -= OnAim;
+        _actions.MousePos.performed -= OnMousePos;
         Movement = Vector2.zero;
     }
 
@@ -74,10 +72,10 @@ public class InputReader : MonoBehaviour
 
     private void Update()
     {
-        Movement = _controls.Player.Movement.ReadValue<Vector2>();
-        MouseScreenPos = _controls.Player.MousePos.ReadValue<Vector2>();
+        Movement = _actions.Movement.ReadValue<Vector2>();
+        MouseScreenPos = _actions.MousePos.ReadValue<Vector2>();
         MouseWorldPos = _camera.ScreenToWorldPoint(MouseScreenPos);
-        _isAiming = _controls.Player.Aim.ReadValue<Vector2>() != Vector2.zero;
+        _isAiming = _actions.Aim.ReadValue<Vector2>() != Vector2.zero;
 
         if (_isMouseAim)
         {
@@ -91,7 +89,7 @@ public class InputReader : MonoBehaviour
             }
             else
             {
-                Aim = _controls.Player.Aim.ReadValue<Vector2>();
+                Aim = _actions.Aim.ReadValue<Vector2>();
             }
         }
 
