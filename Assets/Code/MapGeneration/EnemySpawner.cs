@@ -18,6 +18,7 @@ namespace Pasta
         private Level level;
         private bool isSpawning;
         private bool enemiesSpawned = false;
+        private bool firstSpawn = false;
         // Start is called before the first frame update
         void Start()
         {
@@ -42,7 +43,7 @@ namespace Pasta
                 yield return new WaitForSeconds(startDelay);
             }
 
-            else if (enemiesToSpawn != totalEnemiesToSpawn && spawnDelay != 0)
+            else if (enemiesToSpawn != totalEnemiesToSpawn && spawnDelay != 0 && firstSpawn)
             {
                 yield return new WaitForSeconds(spawnDelay);
             }
@@ -51,6 +52,10 @@ namespace Pasta
             GameObject enemy = Instantiate(enemies[random], transform.position, Quaternion.identity);
             enemy.transform.SetParent(level.gameObject.transform);
             enemiesToSpawn--;
+            if (!firstSpawn)
+            {
+                firstSpawn = true;
+            }
 
             if (enemiesToSpawn == 0)
             {
