@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 288557622701945295}
   - component: {fileID: 4928316304019425267}
   - component: {fileID: 4366640371036032285}
-  - component: {fileID: 5931432911772769512}
+  - component: {fileID: 973878993686469967}
   - component: {fileID: 7696243814693494855}
   - component: {fileID: 5005341813217243479}
   - component: {fileID: 2403863716485791647}
@@ -280,8 +280,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!61 &5931432911772769512
-BoxCollider2D:
+--- !u!58 &973878993686469967
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -315,17 +315,7 @@ BoxCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Radius: 0.35
 --- !u!114 &7696243814693494855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -434,7 +424,7 @@ VisualEffect:
         m_Overridden: 1
     m_Vector2f:
       m_Array:
-      - m_Value: {x: 2, y: 3.2}
+      - m_Value: {x: 2.5, y: 3.2}
         m_Name: QA Scale
         m_Overridden: 1
       - m_Value: {x: 3, y: 3.5}
@@ -746,15 +736,15 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 1.3772539, y: 0.6082298}
-      - {x: 0.9977194, y: 1.0251591}
-      - {x: 0.4856946, y: 1.27548}
+    - - {x: 1.872641, y: 0.62916166}
+      - {x: 1.4512427, y: 1.0600456}
+      - {x: 1.0089908, y: 1.2336164}
       - {x: -0.6480914, y: 0.20450503}
       - {x: -0.6463434, y: -0.104221046}
-      - {x: 0.49986267, y: -1.258643}
-      - {x: 1.0238144, y: -1.0462798}
-      - {x: 1.3761728, y: -0.63176864}
-      - {x: 1.5066028, y: -0.0034831166}
+      - {x: 0.9952497, y: -1.1749157}
+      - {x: 1.4633832, y: -1.0602343}
+      - {x: 1.8506279, y: -0.5968823}
+      - {x: 1.9950128, y: -0.010460407}
   m_UseDelaunayMesh: 0
 --- !u!50 &6031660500929394911
 Rigidbody2D:
