@@ -10,6 +10,7 @@ namespace Pasta
         private Whirlwind whirlWind;
         private IndicatorForAbility indicator;
         [SerializeField] public float damage;
+        public float activetime;
         public float radius;
         // Start is called before the first frame update
         void Start()
@@ -20,6 +21,7 @@ namespace Pasta
             cc2d.enabled = false;
             
             StartCoroutine("DoAbility");
+            StartCoroutine("Desstroy");
         }
 
 
@@ -44,6 +46,12 @@ namespace Pasta
                     
                 }
             }
+        }
+
+        IEnumerator Desstroy()
+        {
+            yield return new WaitForSeconds(activetime + 1);
+            Destroy(gameObject);
         }
 
         // Update is called once per frame

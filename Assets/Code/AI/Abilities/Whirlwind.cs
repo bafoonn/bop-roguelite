@@ -26,7 +26,7 @@ namespace Pasta
             spawnedWhirlwind = Instantiate(whirlWindObj, p.transform);
             spawnedWhirlwind.GetComponent<WhirlwindObj>().damage = damage;
             spawnedWhirlwind.GetComponent<WhirlwindObj>().radius = radius;
-            
+            spawnedWhirlwind.GetComponent<WhirlwindObj>().activetime = ActiveTime;
             
         }
 

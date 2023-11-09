@@ -783,6 +783,7 @@ GameObject:
   - component: {fileID: 8908609173488409884}
   - component: {fileID: 3484794404798182496}
   - component: {fileID: -3095021058567522117}
+  - component: {fileID: 147801897069958910}
   m_Layer: 7
   m_Name: Carrot
   m_TagString: Enemy
@@ -1057,7 +1058,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BaseSpeed: 5
   Speed: 0
-  Lerp: 15
+  Acceleration: 15
+  SlipperyAcceleration: 1
   _currentDir: {x: 0, y: 0}
   _targetDir: {x: 0, y: 0}
   maxSpeed: 3
@@ -1179,6 +1181,21 @@ MonoBehaviour:
   coin: {fileID: 1116788276701670648, guid: 3b7b86d3e93d70940bffedecb3cc93b5, type: 3}
   value: 10
   dropChance: 50
+--- !u!114 &147801897069958910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6992705672734178762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80ec345ebfb6c00458cf9d0427a5ebee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  neighbors: []
+  tooClose: 0
+  direction: {x: 0, y: 0, z: 0}
 --- !u!1 &7024768928966453706
 GameObject:
   m_ObjectHideFlags: 0

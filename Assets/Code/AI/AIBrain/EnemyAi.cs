@@ -24,6 +24,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
 
     private Level level;
     public float damage = 5;
+    private Separation seperation;
     public UnityEvent OnAttackPressed;
     public UnityEvent<Vector2> OnMovementInput, PointerEnemy;
     [SerializeField] public Vector2 movementInput;
@@ -86,6 +87,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
         attackEffect = GetComponentInChildren<AttackEffects>();
         hasAttackEffect = attackEffect != null;
         drop = GetComponent<Drop>();
+        seperation = GetComponent<Separation>();
     }
     private void Awake()
     {
@@ -130,7 +132,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
     {
         if (aiData.currentTarget != null)
         {
-
+          
             //Looking at target.
             PointerEnemy?.Invoke(aiData.currentTarget.position);
 
@@ -152,6 +154,8 @@ public class EnemyAi : MonoBehaviour, IEnemy
                 }
                 //attackIndicator.fillAmount = timeToAttack / defaultTimeToAttack;
             }
+            
+           
         }
         else if (aiData.GetTargetsCount() > 0)
         {
@@ -250,37 +254,55 @@ public class EnemyAi : MonoBehaviour, IEnemy
             //}
             if (distance < attackDistance)
             {
-                isAttacking = true; // FOR ANIMATOR
-                //Attacking 
-                abilityHolder.CanUseAbility = true;
-                movementInput = Vector2.zero;
-                OnAttackPressed?.Invoke();
-                if (hasAttackEffect) attackEffect.AttackIndicator();
-                if (timeToAttack >= defaultTimeToAttack) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
+                
+                if (!seperation.tooClose)
                 {
-                    Attack(); // Attack method
-                    timeToAttack = 0;
-                    //attackIndicator.fillAmount = 0;
+                    isAttacking = true; // FOR ANIMATOR
+                                        //Attacking 
+                    abilityHolder.CanUseAbility = true;
+                    movementInput = Vector2.zero;
+                    OnAttackPressed?.Invoke();
+                    if (hasAttackEffect) attackEffect.AttackIndicator();
+                    if (timeToAttack >= defaultTimeToAttack) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
+                    {
+                        Attack(); // Attack method
+                        timeToAttack = 0;
+                        //attackIndicator.fillAmount = 0;
+                    }
+                    yield return new WaitForSeconds(attackDelay);
+                    StartCoroutine(ChaseAndAttack());
                 }
-                yield return new WaitForSeconds(attackDelay);
-                StartCoroutine(ChaseAndAttack());
+                else
+                {
+                    Debug.Log("Separating");
+                    movementInput = seperation.direction;
+                }
             }
             else
             {
-                weaponParent.Aim = true;
-                animations.aim = true;
-                isAttacking = false; // FOR ANIMATOR
-                //Chasing
-                abilityHolder.CanUseAbility = true; // <- Here for testing purposes.
-                if (hasAttackEffect) attackEffect.CancelAttack();
-                UseAbility();
-                timeToAttack = 0;
-                //if (hasAttackEffect) attackEffect.CancelAttack();
-                //attackIndicator.fillAmount = 0;
-                movementInput = movementDirectionSolver.GetDirectionToMove(steeringBehaviours, aiData);
-                //Debug.Log(movementInput);
-                yield return new WaitForSeconds(aiUpdateDelay);
-                StartCoroutine(ChaseAndAttack());
+                
+                if (!seperation.tooClose)
+                {
+                    weaponParent.Aim = true;
+                    animations.aim = true;
+                    isAttacking = false; // FOR ANIMATOR
+                                         //Chasing
+                    abilityHolder.CanUseAbility = true; // <- Here for testing purposes.
+                    if (hasAttackEffect) attackEffect.CancelAttack();
+                    UseAbility();
+                    timeToAttack = 0;
+                    //if (hasAttackEffect) attackEffect.CancelAttack();
+                    //attackIndicator.fillAmount = 0;
+                    movementInput = movementDirectionSolver.GetDirectionToMove(steeringBehaviours, aiData);
+                    //Debug.Log(movementInput);
+                    yield return new WaitForSeconds(aiUpdateDelay);
+                    StartCoroutine(ChaseAndAttack());
+                }
+                else
+                {
+                    Debug.Log("Separating");
+                    movementInput = seperation.direction;
+                }
             }
         }
     }

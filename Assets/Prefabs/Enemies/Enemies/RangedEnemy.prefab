@@ -1128,8 +1128,11 @@ MonoBehaviour:
   defaultTimeToAttack: 2
   stunTimer: 1
   drop: {fileID: 0}
+  hasDeathAnim: 0
+  Corpse: {fileID: 0}
   IsIdle: 1
   isAttacking: 0
+  Death: 0
   ParticleSystemHolder: {fileID: 0}
 --- !u!114 &5018959942009198676
 MonoBehaviour:
@@ -1155,6 +1158,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ef204d4855b2c242a3d67ffb388fc3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BaseSpeed: 5
+  Speed: 0
+  Acceleration: 15
+  SlipperyAcceleration: 1
+  _currentDir: {x: 0, y: 0}
+  _targetDir: {x: 0, y: 0}
   maxSpeed: 2
   acceleration: 50
   deacceleration: 100

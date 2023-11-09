@@ -57,7 +57,7 @@ public class AgentAnimations : MonoBehaviour
     }
     public void PlayAbilityAnim() // For playing enemy ability anims.
     {
-        agentMover.maxSpeed = 0f;
+        agentMover.Speed = 0f;
         holder.AnimDone = false;
         animator.SetBool("Ability", true);
     }
@@ -65,7 +65,7 @@ public class AgentAnimations : MonoBehaviour
 
     public void StopAbilityAnim()
     {
-        agentMover.maxSpeed = defaultSpeed;
+        agentMover.Speed = agentMover.BaseSpeed;
         animator.SetBool("Ability", false);
     }
 

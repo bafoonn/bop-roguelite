@@ -42,6 +42,11 @@ namespace Pasta
                     }
                     else
                     {
+                        Vector3 direction = transform.position - player.transform.position;
+                        direction.y = 0;
+                        direction = Vector3.Normalize(direction);
+                        transform.rotation = Quaternion.Euler(direction);
+                        rbd2d.AddForce(direction);
                         // TODO: ROLL HERE
                         rbd2d.velocity = new Vector2(0, 2); // TODO: FIX THIS TO BE NOT INSTANT & MAKE CHECK WHERE PLAYER IS AND ROLL ACCORDINGLY
                         Debug.Log("DASHING");
