@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 500d5988b6aff634f992784a65c4f052
+guid: 383411e61c96b104ab5e17f32f641e89
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4406255688827870208
-    second: AudioUIIcon_0
+      213: -7361742238898408705
+    second: UISliderOn_0
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -98,13 +98,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AudioUIIcon_0
+      name: UISliderOn_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 32
-        width: 32
-        height: 32
+        y: 0
+        width: 124
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,71 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 00c1122243a262d30800000000000000
-      internalID: 4406255688827870208
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AudioUIIcon_1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3469bbf9697d5034885f072d7a332bea
-      internalID: -1685264618
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AudioUIIcon_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bf94c7fa24d845543a50c078cca6e03a
-      internalID: 1975310590
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AudioUIIcon_3
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ea2cffbeda34c214980db1838e6a2cec
-      internalID: 737119062
+      spriteID: ff2b87a1076d5d990800000000000000
+      internalID: -7361742238898408705
       vertices: []
       indices: 
       edges: []
@@ -184,7 +121,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 3a754a86c2547754082dcdfd75e88da9
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -192,10 +129,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      AudioUIIcon_0: 4406255688827870208
-      AudioUIIcon_1: -1685264618
-      AudioUIIcon_2: 1975310590
-      AudioUIIcon_3: 737119062
+      UISliderOn_0: -7361742238898408705
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

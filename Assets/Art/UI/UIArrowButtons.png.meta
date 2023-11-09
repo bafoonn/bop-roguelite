@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 500d5988b6aff634f992784a65c4f052
+guid: fb7183544ed4f9d4b9ceeb2a2f649dd9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4406255688827870208
-    second: AudioUIIcon_0
+      213: 6664274929264985461
+    second: UIArrowButtons_0
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -98,11 +98,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AudioUIIcon_0
+      name: UIArrowButtons_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 32
+        y: 0
         width: 32
         height: 32
       alignment: 0
@@ -112,56 +112,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 00c1122243a262d30800000000000000
-      internalID: 4406255688827870208
+      spriteID: 57581644db24c7c50800000000000000
+      internalID: 6664274929264985461
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AudioUIIcon_1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3469bbf9697d5034885f072d7a332bea
-      internalID: -1685264618
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AudioUIIcon_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bf94c7fa24d845543a50c078cca6e03a
-      internalID: 1975310590
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AudioUIIcon_3
+      name: UIArrowButtons_1
       rect:
         serializedVersion: 2
         x: 32
@@ -175,8 +133,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ea2cffbeda34c214980db1838e6a2cec
-      internalID: 737119062
+      spriteID: 507ac272013716447ab05049a9c4eac5
+      internalID: 25194216
       vertices: []
       indices: 
       edges: []
@@ -184,7 +142,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 3a754a86c2547754082dcdfd75e88da9
+    spriteID: bcaaf00bf1bdef24a86f88e8929be7bc
     internalID: 0
     vertices: []
     indices: 
@@ -192,10 +150,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      AudioUIIcon_0: 4406255688827870208
-      AudioUIIcon_1: -1685264618
-      AudioUIIcon_2: 1975310590
-      AudioUIIcon_3: 737119062
+      UIArrowButtons_0: 6664274929264985461
+      UIArrowButtons_1: 25194216
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
