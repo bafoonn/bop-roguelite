@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Tilemaps;
+using UnityEngine.U2D.IK;
 using UnityEngine.UI;
 
 public class EnemyAi : MonoBehaviour, IEnemy
@@ -141,21 +142,38 @@ public class EnemyAi : MonoBehaviour, IEnemy
                 Chasing = true;
                 StartCoroutine(ChaseAndAttack());
             }
-            float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
-            if (distance < attackDistance)
+            if(aiData.currentTarget != null)
             {
-
-                //attackIndicator.enabled = true;
-                timeToAttack += Time.deltaTime;
-                if (timeToAttack >= defaultTimeToAttack / 1.5)
+                float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
+                if (distance < attackDistance)
                 {
-                    weaponParent.Aim = false;
-                    animations.aim = false;
+                    if (weaponParent.Scoot && transform.gameObject.name.Contains("Ranged"))
+                    {
+                        if ((player.transform.position - transform.position).magnitude < 5.0f)
+                        {
+                            Vector3 direction = transform.position - player.transform.position;
+                            //direction.y = 0;
+                            direction = Vector3.Normalize(direction);
+                            transform.rotation = Quaternion.Euler(direction);
+                            movementInput = direction;
+
+                        }
+                        else
+                        {
+                            weaponParent.Scoot = false;
+                        }
+                    }
+                    
+                    //attackIndicator.enabled = true;
+                    timeToAttack += Time.deltaTime;
+                    if (timeToAttack >= defaultTimeToAttack / 1.5)
+                    {
+                        weaponParent.Aim = false;
+                        animations.aim = false;
+                    }
+                    //attackIndicator.fillAmount = timeToAttack / defaultTimeToAttack;
                 }
-                //attackIndicator.fillAmount = timeToAttack / defaultTimeToAttack;
             }
-            
-           
         }
         else if (aiData.GetTargetsCount() > 0)
         {
@@ -254,9 +272,8 @@ public class EnemyAi : MonoBehaviour, IEnemy
             //}
             if (distance < attackDistance)
             {
-                
-                if (!seperation.tooClose)
-                {
+
+               
                     isAttacking = true; // FOR ANIMATOR
                                         //Attacking 
                     abilityHolder.CanUseAbility = true;
@@ -271,18 +288,14 @@ public class EnemyAi : MonoBehaviour, IEnemy
                     }
                     yield return new WaitForSeconds(attackDelay);
                     StartCoroutine(ChaseAndAttack());
-                }
-                else
-                {
-                    Debug.Log("Separating");
-                    movementInput = seperation.direction;
-                }
+                
+                
+
             }
             else
             {
                 
-                if (!seperation.tooClose)
-                {
+               
                     weaponParent.Aim = true;
                     animations.aim = true;
                     isAttacking = false; // FOR ANIMATOR
@@ -297,12 +310,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
                     //Debug.Log(movementInput);
                     yield return new WaitForSeconds(aiUpdateDelay);
                     StartCoroutine(ChaseAndAttack());
-                }
-                else
-                {
-                    Debug.Log("Separating");
-                    movementInput = seperation.direction;
-                }
+                
             }
         }
     }

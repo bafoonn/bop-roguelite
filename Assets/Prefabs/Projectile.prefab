@@ -100,6 +100,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 4
   damage: 5
+  WhatLayerDestroysThis:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!58 &4613956587462123746
 CircleCollider2D:
   m_ObjectHideFlags: 0

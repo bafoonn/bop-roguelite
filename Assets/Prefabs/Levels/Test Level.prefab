@@ -5251,7 +5251,6 @@ MonoBehaviour:
   endPoints:
   - {fileID: 8992051224751279601}
   - {fileID: 3645359006056336076}
-  rewardIndexes: 
 --- !u!1001 &1327584745638422747
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5574,11 +5573,11 @@ PrefabInstance:
     - target: {fileID: 6509901214721368227, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
       propertyPath: 'enemies.Array.data[2]'
       value: 
-      objectReference: {fileID: 6992705672734178762, guid: 720acabbfe3d84b47b2c00a825ea0500, type: 3}
+      objectReference: {fileID: 6983709454110088221, guid: bed12d4534daf2c469aacd0a60e207a6, type: 3}
     - target: {fileID: 6509901214721368227, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
       propertyPath: 'enemies.Array.data[3]'
       value: 
-      objectReference: {fileID: 6992705672734178762, guid: 42b107772c9ab4b458b6cf6e90351eb7, type: 3}
+      objectReference: {fileID: 6992705672734178762, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5729,11 +5728,11 @@ PrefabInstance:
     - target: {fileID: 6509901214721368227, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
       propertyPath: 'enemies.Array.data[2]'
       value: 
-      objectReference: {fileID: 6992705672734178762, guid: 720acabbfe3d84b47b2c00a825ea0500, type: 3}
+      objectReference: {fileID: 6992705672734178762, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
     - target: {fileID: 6509901214721368227, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
       propertyPath: 'enemies.Array.data[3]'
       value: 
-      objectReference: {fileID: 6992705672734178762, guid: 42b107772c9ab4b458b6cf6e90351eb7, type: 3}
+      objectReference: {fileID: 6983709454110088221, guid: bed12d4534daf2c469aacd0a60e207a6, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -29,7 +29,7 @@ public class WeaponParent : MonoBehaviour
     private Vector2 weaponScale;
     private Projectile projectileScript;
     private EnemyAi enemyAI;
-    
+    public bool Scoot = false;
     private void Start()
     {
         //AttackIndicatorImage = gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject;
@@ -111,6 +111,7 @@ public class WeaponParent : MonoBehaviour
         projectileScript = projectile.GetComponent<Projectile>();
         projectileScript.damage = enemyAI.damage; // Get projectiles damage from enemyscript so no need to change damage on multiple places.
         StartCoroutine(StopAttack());
+        Scoot = true;
     }
 
 

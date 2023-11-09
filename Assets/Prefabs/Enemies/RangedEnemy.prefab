@@ -936,7 +936,6 @@ GameObject:
   - component: {fileID: 9121187411147353774}
   - component: {fileID: -1332757763819382833}
   - component: {fileID: 3480801368215820829}
-  - component: {fileID: 2408683516387958673}
   m_Layer: 7
   m_Name: RangedEnemy
   m_TagString: Ranged Enemy
@@ -971,7 +970,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6992705672734178762}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -1310,21 +1309,6 @@ MonoBehaviour:
   coin: {fileID: 1116788276701670648, guid: 3b7b86d3e93d70940bffedecb3cc93b5, type: 3}
   value: 10
   dropChance: 50
---- !u!114 &2408683516387958673
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6992705672734178762}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80ec345ebfb6c00458cf9d0427a5ebee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  neighbors: []
-  tooClose: 0
-  direction: {x: 0, y: 0, z: 0}
 --- !u!1 &7024768928966453706
 GameObject:
   m_ObjectHideFlags: 0

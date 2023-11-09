@@ -20,13 +20,15 @@ namespace Pasta
         }
         public void OnCollisionEnter2D(Collision2D collision)
         {
-            neighbors.Add(collision.gameObject);
+            Debug.Log("Collision detected");
+            if (collision.gameObject.TryGetComponent<ICharacter>(out var character))
+            {
+                neighbors.Add(collision.gameObject);
+            }
+            
         }
 
-        private void OnCollisionStay2D(Collision2D collision)
-        {
-            neighbors.Add(collision.gameObject);
-        }
+       
 
         private void OnCollisionExit2D(Collision2D collision)
         {
