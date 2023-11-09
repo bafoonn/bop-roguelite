@@ -91,6 +91,7 @@ MonoBehaviour:
   attackCollider: {fileID: 6504483448576875965}
   Aim: 1
   spriteTransform: {fileID: 6849813446868152126}
+  Scoot: 0
 --- !u!1 &2170883253053186688
 GameObject:
   m_ObjectHideFlags: 0
@@ -5895,7 +5896,8 @@ MonoBehaviour:
   detectionDelay: 0.01
   aiUpdateDelay: 0.01
   attackDelay: 1
-  attackDistance: 3
+  attackDistance: 2
+  attackStopDistance: 4
   steeringBehaviours:
   - {fileID: 3838692728030095157}
   - {fileID: 3029777545630577490}

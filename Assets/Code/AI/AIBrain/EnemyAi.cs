@@ -14,10 +14,10 @@ public class EnemyAi : MonoBehaviour, IEnemy
     [SerializeField] private List<Detector> detectors;
     [SerializeField] private AIData aiData;
     [SerializeField] private float detectionDelay = 0.05f, aiUpdateDelay = 0.06f, attackDelay = 2f;
-    [SerializeField] private float attackDistance = 0.5f;
+    [SerializeField] private float attackDistance = 0.5f, attackStopDistance = 1f;
     [SerializeField] private List<SteeringBehaviour> steeringBehaviours;
     #endregion
-
+    private float attackDefaultDist;
     public MonoBehaviour Mono => this;
     public Health Health { get; protected set; }
     public Movement Movement => agentMover;
@@ -67,7 +67,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
     {
         Status = this.AddOrGetComponent<StatusHandler>();
         Status.Setup(this);
-
+        attackDefaultDist = attackDistance;
         agentMover = GetComponent<AgentMover>();
         spriteRenderer = GetComponent<SpriteRenderer>(); // TAKE DAMAGE STUFF
         defaultColor = spriteRenderer.color; // TAKE DAMAGE STUFF
@@ -133,7 +133,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
     {
         if (aiData.currentTarget != null)
         {
-          
+
             //Looking at target.
             PointerEnemy?.Invoke(aiData.currentTarget.position);
 
@@ -142,7 +142,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
                 Chasing = true;
                 StartCoroutine(ChaseAndAttack());
             }
-            if(aiData.currentTarget != null)
+            if (aiData.currentTarget != null)
             {
                 float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
                 if (distance < attackDistance)
@@ -163,7 +163,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
                             weaponParent.Scoot = false;
                         }
                     }
-                    
+
                     //attackIndicator.enabled = true;
                     timeToAttack += Time.deltaTime;
                     if (timeToAttack >= defaultTimeToAttack / 1.5)
@@ -248,7 +248,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
 
         if (aiData.currentTarget == null)
         {
-
+            attackDistance = attackDefaultDist;
             isAttacking = false; // FOR ANIMATOR
             IsIdle = true;
             abilityHolder.CanUseAbility = false;
@@ -270,47 +270,50 @@ public class EnemyAi : MonoBehaviour, IEnemy
             //    attackIndicator.fillAmount = 0;
             //    // StartCourotine(UnStun());
             //}
+            // ALOITA HYÖKKÄYS X DISTANCELLA JA LOPETA X * 2 
             if (distance < attackDistance)
             {
 
-               
-                    isAttacking = true; // FOR ANIMATOR
-                                        //Attacking 
-                    abilityHolder.CanUseAbility = true;
-                    movementInput = Vector2.zero;
-                    OnAttackPressed?.Invoke();
-                    if (hasAttackEffect) attackEffect.AttackIndicator();
-                    if (timeToAttack >= defaultTimeToAttack) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
-                    {
-                        Attack(); // Attack method
-                        timeToAttack = 0;
-                        //attackIndicator.fillAmount = 0;
-                    }
-                    yield return new WaitForSeconds(attackDelay);
-                    StartCoroutine(ChaseAndAttack());
-                
-                
+
+                isAttacking = true; // FOR ANIMATOR
+                                    //Attacking 
+                abilityHolder.CanUseAbility = true;
+                movementInput = Vector2.zero;
+                OnAttackPressed?.Invoke();
+                if (hasAttackEffect) attackEffect.AttackIndicator();
+                if (timeToAttack >= defaultTimeToAttack) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
+                {
+                    Attack(); // Attack method
+                    timeToAttack = 0;
+                    //attackIndicator.fillAmount = 0;
+                }
+                attackDistance = attackStopDistance;
+                yield return new WaitForSeconds(attackDelay);
+
+                StartCoroutine(ChaseAndAttack());
+
+
 
             }
             else
             {
-                
-               
-                    weaponParent.Aim = true;
-                    animations.aim = true;
-                    isAttacking = false; // FOR ANIMATOR
-                                         //Chasing
-                    abilityHolder.CanUseAbility = true; // <- Here for testing purposes.
-                    if (hasAttackEffect) attackEffect.CancelAttack();
-                    UseAbility();
-                    timeToAttack = 0;
-                    //if (hasAttackEffect) attackEffect.CancelAttack();
-                    //attackIndicator.fillAmount = 0;
-                    movementInput = movementDirectionSolver.GetDirectionToMove(steeringBehaviours, aiData);
-                    //Debug.Log(movementInput);
-                    yield return new WaitForSeconds(aiUpdateDelay);
-                    StartCoroutine(ChaseAndAttack());
-                
+
+                attackDistance = attackDefaultDist;
+                weaponParent.Aim = true;
+                animations.aim = true;
+                isAttacking = false; // FOR ANIMATOR
+                                     //Chasing
+                abilityHolder.CanUseAbility = true; // <- Here for testing purposes.
+                if (hasAttackEffect) attackEffect.CancelAttack();
+                UseAbility();
+                timeToAttack = 0;
+                //if (hasAttackEffect) attackEffect.CancelAttack();
+                //attackIndicator.fillAmount = 0;
+                movementInput = movementDirectionSolver.GetDirectionToMove(steeringBehaviours, aiData);
+                //Debug.Log(movementInput);
+                yield return new WaitForSeconds(aiUpdateDelay);
+                StartCoroutine(ChaseAndAttack());
+
             }
         }
     }
