@@ -38,19 +38,16 @@ namespace Pasta
                     hittable.Hit(damage);
                 }
             }
-        }
-
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            if (collision.gameObject.layer == layer)
-            {
-                //TODO: ADD SOME ANIM HERE OR SOMETHING :)
+            else if(collision.gameObject.layer == WhatLayerDestroysThis)
+			{
                 Destroy(gameObject);
-            }
+			}
         }
 
+		
 
-        private void OnDestroy()
+
+		private void OnDestroy()
         {
             Destroy(gameObject);
         }

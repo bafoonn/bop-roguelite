@@ -31,12 +31,15 @@ namespace Pasta
             {
                 if (collision.TryGetComponent<IHittable>(out var hittable))
                 {
-                    if(!weaponParent.Aim)
+                    hittable.Hit(damage);
+                    Debug.Log("Do damage");
+                    if (!weaponParent.Aim)
                     {
-                        hittable.Hit(damage);
+                        Debug.Log("Do damage when not aiming");
+                        //hittable.Hit(damage);
                     }
                 }
-            }
+			}
         }
     }
 }

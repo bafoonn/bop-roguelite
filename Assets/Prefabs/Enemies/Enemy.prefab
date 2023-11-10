@@ -182,7 +182,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2213565969705757107}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -727,6 +727,7 @@ MonoBehaviour:
     m_Bits: 64
   ShowGizmos: 1
   colliders: []
+  SeesPlayer: 0
 --- !u!1 &5054991355917479003
 GameObject:
   m_ObjectHideFlags: 0

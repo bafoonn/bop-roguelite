@@ -232,6 +232,7 @@ MonoBehaviour:
   attackCollider: {fileID: 1046829583925605275}
   Aim: 1
   spriteTransform: {fileID: 6014129982491094532}
+  Scoot: 0
 --- !u!1 &2170883253053186688
 GameObject:
   m_ObjectHideFlags: 0
@@ -1122,6 +1123,7 @@ MonoBehaviour:
   aiUpdateDelay: 0.01
   attackDelay: 1
   attackDistance: 13
+  attackStopDistance: 16
   steeringBehaviours:
   - {fileID: 3838692728030095157}
   - {fileID: 3029777545630577490}
@@ -1353,7 +1355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac645b9282d68274d9f527221479be0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetReachedThershold: 0.5
+  targetReachedThershold: 2
   ShowGizmos: 1
 --- !u!1 &7518006742336827222
 GameObject:

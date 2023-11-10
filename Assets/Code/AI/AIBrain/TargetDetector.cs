@@ -14,7 +14,7 @@ public class TargetDetector : Detector
     [SerializeField] private bool ShowGizmos = true;
 
     public List<Transform> colliders;
-
+    public bool SeesPlayer = false;
     public override void Detect(AIData aiData)
     {
         // If player is near.
@@ -27,12 +27,12 @@ public class TargetDetector : Detector
             Vector2 direction = (playerCollider.transform.position - transform.position).normalized;
             RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, targetDetectionRange, obstacleLayerMask);
             Debug.DrawRay(transform.position, direction, Color.green);
-
             //Check if the collider hit is on the player layermask.
             if (hit.collider != null && (playerLayerMask & (1 << hit.collider.gameObject.layer)) != 0)
             {
                 Debug.DrawRay(transform.position, direction * targetDetectionRange, Color.magenta);
                 colliders = new List<Transform>() { playerCollider.transform };
+                
             }
             else
             {
@@ -41,8 +41,10 @@ public class TargetDetector : Detector
         }
         else
         {
+            
             // Dosen't see player.
             colliders = null;
+            
         }
         aiData.targets = colliders;
     }

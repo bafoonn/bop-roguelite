@@ -42,7 +42,7 @@ public class WeaponParent : MonoBehaviour
 
     private void Update()
     {
-        
+		
         if (Aim)
         {
             Vector3 weaponPos = EnemyWeaponPos; // THIS WHOLE THING IS A SHITSHOW BUT IT WORKS!
@@ -95,12 +95,12 @@ public class WeaponParent : MonoBehaviour
     public void Attack()
     {
         attackCollider.enabled = true;
-        
+        Debug.Log("Activating collider", gameObject);
         StartCoroutine(StopAttack());
     }
     private IEnumerator StopAttack() // TEST STUFF
     {
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitForSeconds(0.1f);
         attackCollider.enabled = false;
         Aim = true;
         animations.aim = true;

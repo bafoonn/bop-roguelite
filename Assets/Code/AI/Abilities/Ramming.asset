@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5b76cbc79e00a8409f78b0c0e91f53d, type: 3}
+  m_Name: Ramming
+  m_EditorClassIdentifier: 
+  AbilityName: Ramming
+  coolDown: 20
+  ActiveTime: 4
+  damage: 10
+  usableOutsideAttackRange: 1
+  AbilityWithAnim: 1
+  rammingGObj: {fileID: 1673208719730585805, guid: a7d08b75983700445bdb9ac652f96be7, type: 3}

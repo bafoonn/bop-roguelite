@@ -17,6 +17,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
     [SerializeField] private float detectionDelay = 0.05f, aiUpdateDelay = 0.06f, attackDelay = 2f;
     [SerializeField] private float attackDistance = 0.5f, attackStopDistance = 1f;
     [SerializeField] private List<SteeringBehaviour> steeringBehaviours;
+    private TargetDetector targetDetector;
     #endregion
     private float attackDefaultDist;
     public MonoBehaviour Mono => this;
@@ -86,6 +87,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
         //attackIndicator = weaponParent.GetComponentInChildren<Image>();
         animations = GetComponent<AgentAnimations>();
         abilityHolder = GetComponent<AbilityHolder>();
+        targetDetector = GetComponentInChildren<TargetDetector>();
         //Detect objects
         if (this.gameObject.name.Contains("Carrier"))
         {
@@ -155,13 +157,16 @@ public class EnemyAi : MonoBehaviour, IEnemy
             }
             if (aiData.currentTarget != null)
             {
+                
                 float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
                 if (distance < attackDistance)
                 {
+
                     if (weaponParent.Scoot && transform.gameObject.name.Contains("Ranged"))
                     {
                         if ((player.transform.position - transform.position).magnitude < 5.0f)
                         {
+
                             Vector3 direction = transform.position - player.transform.position;
                             //direction.y = 0;
                             direction = Vector3.Normalize(direction);
@@ -183,6 +188,10 @@ public class EnemyAi : MonoBehaviour, IEnemy
                         animations.aim = false;
                     }
                     //attackIndicator.fillAmount = timeToAttack / defaultTimeToAttack;
+                    if (targetDetector.colliders == null && gameObject.tag.Contains("Ranged"))
+                    {
+                        aiData.currentTarget = null;
+                    }
                 }
             }
         }
@@ -201,6 +210,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
         if (gameObject.tag.Contains("Ranged"))
         {
             weaponParent.RangedAttack();
+            
         }
         else
         {
@@ -281,10 +291,9 @@ public class EnemyAi : MonoBehaviour, IEnemy
             //    attackIndicator.fillAmount = 0;
             //    // StartCourotine(UnStun());
             //}
-            // ALOITA HY�KK�YS X DISTANCELLA JA LOPETA X * 2 
+            // ALOITA HY�KK�YS X DISTANCELLA JA LOPETA Y 
             if (distance < attackDistance)
             {
-
 
                 isAttacking = true; // FOR ANIMATOR
                                     //Attacking 
