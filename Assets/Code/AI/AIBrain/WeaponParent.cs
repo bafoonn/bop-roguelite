@@ -95,7 +95,6 @@ public class WeaponParent : MonoBehaviour
     public void Attack()
     {
         attackCollider.enabled = true;
-        Debug.Log("Activating collider", gameObject);
         StartCoroutine(StopAttack());
     }
     private IEnumerator StopAttack() // TEST STUFF

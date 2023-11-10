@@ -32,10 +32,8 @@ namespace Pasta
                 if (collision.TryGetComponent<IHittable>(out var hittable))
                 {
                     hittable.Hit(damage);
-                    Debug.Log("Do damage");
                     if (!weaponParent.Aim)
                     {
-                        Debug.Log("Do damage when not aiming");
                         //hittable.Hit(damage);
                     }
                 }
