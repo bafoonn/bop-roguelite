@@ -1,43 +1,25 @@
 fileFormatVersion: 2
-guid: 1ade99fc5c1ca0642bbc8ccd850f11df
+guid: d6cad7209a6ee444c9a4164c7d5f9286
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7967122285516565453
-    second: KnifeHitVFXBig_0
+      213: 972436002096170070
+    second: PlayerAttack1Test_0
   - first:
-      213: -6985126143617217026
-    second: KnifeHitVFXBig_1
+      213: 2581380919315154060
+    second: PlayerAttack1Test_1
   - first:
-      213: 5276671564390867046
-    second: KnifeHitVFXBig_2
+      213: -4828923228529509126
+    second: PlayerAttack1Test_2
   - first:
-      213: -8556564510037684961
-    second: KnifeHitVFXBig_3
+      213: -4766832006692635201
+    second: PlayerAttack1Test_3
   - first:
-      213: 432309946867103442
-    second: KnifeHitVFXBig_4
+      213: 100240660596687346
+    second: PlayerAttack1Test_4
   - first:
-      213: -4522081530854558268
-    second: KnifeHitVFXBig_5
-  - first:
-      213: -1224164370463356282
-    second: KnifeHitVFXBig_6
-  - first:
-      213: 49374371170080925
-    second: KnifeHitVFXBig_7
-  - first:
-      213: 4208102355588366401
-    second: KnifeHitVFXBig_8
-  - first:
-      213: -4772527083448627010
-    second: KnifeHitVFXBig_9
-  - first:
-      213: 314841699324627133
-    second: KnifeHitVFXBig_10
-  - first:
-      213: 3369633148959604426
-    second: KnifeHitVFXBig_11
+      213: 7941565462394983397
+    second: PlayerAttack1Test_5
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -131,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: KnifeHitVFXBig_0
+      name: PlayerAttack1Test_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 48
-        height: 48
+        x: 2
+        y: 6
+        width: 79
+        height: 34
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +127,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 334dfa13e781f6190800000000000000
-      internalID: -7967122285516565453
+      spriteID: 6544eb74469ce7d00800000000000000
+      internalID: 972436002096170070
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnifeHitVFXBig_1
+      name: PlayerAttack1Test_1
       rect:
         serializedVersion: 2
-        x: 48
-        y: 0
-        width: 48
-        height: 48
+        x: 83
+        y: 7
+        width: 78
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +148,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: efdc66af7c8df0f90800000000000000
-      internalID: -6985126143617217026
+      spriteID: c8440c5f448e2d320800000000000000
+      internalID: 2581380919315154060
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnifeHitVFXBig_2
+      name: PlayerAttack1Test_2
       rect:
         serializedVersion: 2
-        x: 96
-        y: 0
-        width: 48
-        height: 48
+        x: 164
+        y: 8
+        width: 77
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,20 +169,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6602cefa4d08a3940800000000000000
-      internalID: 5276671564390867046
+      spriteID: afcbddb88e73cfcb0800000000000000
+      internalID: -4828923228529509126
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnifeHitVFXBig_3
+      name: PlayerAttack1Test_3
       rect:
         serializedVersion: 2
-        x: 144
-        y: 0
-        width: 48
-        height: 48
+        x: 244
+        y: 30
+        width: 76
+        height: 42
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,20 +190,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f1d4d79a9e9f04980800000000000000
-      internalID: -8556564510037684961
+      spriteID: fbd7f11bb8fc8ddb0800000000000000
+      internalID: -4766832006692635201
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnifeHitVFXBig_4
+      name: PlayerAttack1Test_4
       rect:
         serializedVersion: 2
-        x: 192
-        y: 0
-        width: 48
-        height: 48
+        x: 324
+        y: 38
+        width: 66
+        height: 34
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -229,20 +211,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2d6b1ef2b9fdff500800000000000000
-      internalID: 432309946867103442
+      spriteID: 2f18ae68950246100800000000000000
+      internalID: 100240660596687346
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnifeHitVFXBig_5
+      name: PlayerAttack1Test_5
       rect:
         serializedVersion: 2
-        x: 240
-        y: 0
-        width: 48
-        height: 48
+        x: 405
+        y: 39
+        width: 57
+        height: 33
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -250,8 +232,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4c53f048ec65e31c0800000000000000
-      internalID: -4522081530854558268
+      spriteID: 5e3509a36bb163e60800000000000000
+      internalID: 7941565462394983397
       vertices: []
       indices: 
       edges: []
@@ -259,7 +241,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -267,12 +249,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      KnifeHitVFXBig_0: -7967122285516565453
-      KnifeHitVFXBig_1: -6985126143617217026
-      KnifeHitVFXBig_2: 5276671564390867046
-      KnifeHitVFXBig_3: -8556564510037684961
-      KnifeHitVFXBig_4: 432309946867103442
-      KnifeHitVFXBig_5: -4522081530854558268
+      PlayerAttack1Test_0: 972436002096170070
+      PlayerAttack1Test_1: 2581380919315154060
+      PlayerAttack1Test_2: -4828923228529509126
+      PlayerAttack1Test_3: -4766832006692635201
+      PlayerAttack1Test_4: 100240660596687346
+      PlayerAttack1Test_5: 7941565462394983397
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

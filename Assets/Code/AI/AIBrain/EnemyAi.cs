@@ -7,6 +7,7 @@ using UnityEngine.Events;
 using UnityEngine.Tilemaps;
 using UnityEngine.U2D.IK;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 
 public class EnemyAi : MonoBehaviour, IEnemy
 {
@@ -61,6 +62,8 @@ public class EnemyAi : MonoBehaviour, IEnemy
     private SpriteRenderer spriteRenderer; // TAKE DAMAGE STUFF
     private Color defaultColor; // TAKE DAMAGE STUFF
     private ParticleSystem m_particleSystem; // TAKE DAMAGE STUFF
+    [SerializeField] private VisualEffect takeDamageEffects;
+    private bool hasDamageEffects;
     [SerializeField] private GameObject ParticleSystemHolder;
     #endregion
 
@@ -90,6 +93,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
         }
         attackEffect = GetComponentInChildren<AttackEffects>();
         hasAttackEffect = attackEffect != null;
+        hasDamageEffects = takeDamageEffects != null;
         drop = GetComponent<Drop>();
         seperation = GetComponent<Separation>();
     }
@@ -120,6 +124,10 @@ public class EnemyAi : MonoBehaviour, IEnemy
         {
             ParticleSystemHolder.transform.rotation = Quaternion.Euler(0, 0, player.transform.Find("AttackHandler").transform.localEulerAngles.z);
             m_particleSystem.Play();
+        }
+        if (hasDamageEffects)
+        {
+            takeDamageEffects.SendEvent("Hit");
         }
         StartCoroutine(TakingDamage());
     }
