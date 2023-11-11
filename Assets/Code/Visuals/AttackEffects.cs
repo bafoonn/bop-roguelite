@@ -16,7 +16,7 @@ namespace Pasta
 
         private bool _isFlipped = true;
 
-        void Start()
+        void Awake()
         {
             effect = GetComponent<VisualEffect>();
         }

@@ -6,19 +6,24 @@ namespace Pasta
 {
     public class Navigate : MonoBehaviour
     {
-        public void Restart()
+        public void Game()
         {
-            GameManager.Current.Game();
+            GameManager.Current.GoTo(GameStateType.Game);
+        }
+
+        public void ReloadGame()
+        {
+            GameManager.Current.GoTo(GameStateType.Game, forceLoad: true);
         }
 
         public void MainMenu()
         {
-            GameManager.Current.MainMenu();
+            GameManager.Current.GoTo(GameStateType.MainMenu);
         }
 
         public void Pause()
         {
-            GameManager.Current.Pause();
+            GameManager.Current.OnPaused();
         }
 
         public void Exit()

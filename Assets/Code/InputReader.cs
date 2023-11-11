@@ -18,7 +18,6 @@ namespace Pasta
             _controls.Enable();
             _controls.Function.Pause.performed += (context) =>
             {
-                Debug.Log("Pause pressed");
                 if (OnPause != null) OnPause();
             };
         }
