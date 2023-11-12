@@ -25,11 +25,6 @@ namespace Pasta
 
         private int _current;
 
-        private void Awake()
-        {
-            enabled = false;
-        }
-
         private void Update()
         {
             _facingDir = _movement.IsRolling ? _movement._currentDir : _input.Aim;
@@ -67,7 +62,6 @@ namespace Pasta
             _movement = movement;
             _attackHandler = attackHandler;
             _input = input;
-            enabled = true;
         }
     }
 }
