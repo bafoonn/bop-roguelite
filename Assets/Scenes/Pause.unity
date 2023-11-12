@@ -983,7 +983,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1067513143}
         m_TargetAssemblyTypeName: Pasta.Navigate, Assembly-CSharp
-        m_MethodName: Restart
+        m_MethodName: ReloadGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

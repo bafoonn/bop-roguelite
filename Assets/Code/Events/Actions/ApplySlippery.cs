@@ -6,7 +6,7 @@ namespace Pasta
 {
     public class ApplySlippery : EventAction
     {
-        private SlipperyStatus status;
+        private SlipperyStatus status = new();
         public float Duration = 5f;
 
         protected override void Trigger(EventContext context)

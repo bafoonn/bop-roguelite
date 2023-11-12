@@ -20,6 +20,7 @@ public class PlayerMovement : Movement
     {
         _movementSpeed = StatManager.Current.GetStat(StatType.Movementspeed);
         _movementSpeed.ValueChanged += OnMovementSpeedChanged;
+        OnMovementSpeedChanged(_movementSpeed.Value);
     }
 
     private void OnDestroy()
