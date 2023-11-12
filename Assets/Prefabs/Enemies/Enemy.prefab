@@ -182,7 +182,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2213565969705757107}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -221,14 +221,14 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 3.795487, y: 0.9881563}
-      - {x: 2.54074, y: 1.1294123}
+    - - {x: 3.7030737, y: 0.930398}
+      - {x: 2.5176368, y: 1.2795835}
       - {x: 0.9965334, y: 0.999812}
       - {x: -0.5030544, y: 0.33500805}
       - {x: -0.50475526, y: -0.31123313}
       - {x: 1.0240309, y: -0.9915755}
-      - {x: 2.514177, y: -1.1917769}
-      - {x: 3.8603585, y: -1.0369738}
+      - {x: 2.5026257, y: -1.2957416}
+      - {x: 3.721739, y: -0.97921574}
       - {x: 4.0013986, y: -0.013918266}
   m_UseDelaunayMesh: 0
 --- !u!61 &3046122872119725462
@@ -497,7 +497,7 @@ VisualEffect:
       - m_Value: {x: 4, y: 3}
         m_Name: QA Scale
         m_Overridden: 1
-      - m_Value: {x: 4, y: 3}
+      - m_Value: {x: 4, y: 2.8}
         m_Name: HA Scale
         m_Overridden: 1
       - m_Value: {x: 4, y: 3}
@@ -510,7 +510,10 @@ VisualEffect:
     m_Uint:
       m_Array: []
     m_Int:
-      m_Array: []
+      m_Array:
+      - m_Value: 9
+        m_Name: HA Animation Frames
+        m_Overridden: 1
     m_Matrix4x4f:
       m_Array: []
     m_AnimationCurve:
@@ -518,7 +521,10 @@ VisualEffect:
     m_Gradient:
       m_Array: []
     m_NamedObject:
-      m_Array: []
+      m_Array:
+      - m_Value: {fileID: 2800000, guid: 1c8a8ac9dffa83d4586f9e371c95ba60, type: 3}
+        m_Name: HA Sprite
+        m_Overridden: 1
     m_Bool:
       m_Array: []
 --- !u!73398921 &5277808143831146011
