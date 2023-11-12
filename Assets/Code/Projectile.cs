@@ -1,9 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Rendering;
 using UnityEngine;
-using UnityEngine.SocialPlatforms;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace Pasta
 {
@@ -24,30 +21,30 @@ namespace Pasta
         // Update is called once per frame
         void Update()
         {
-            
+
             transform.Translate(Vector3.right * speed * Time.deltaTime);
 
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if(collision.gameObject.tag == "Player")
+            if (collision.gameObject.tag == "Player")
             {
                 if (collision.TryGetComponent<IHittable>(out var hittable))
                 {
                     hittable.Hit(damage);
                 }
             }
-            else if(collision.gameObject.layer == WhatLayerDestroysThis)
-			{
+            else if (collision.gameObject.layer == WhatLayerDestroysThis)
+            {
                 Destroy(gameObject);
-			}
+            }
         }
 
-		
 
 
-		private void OnDestroy()
+
+        private void OnDestroy()
         {
             Destroy(gameObject);
         }

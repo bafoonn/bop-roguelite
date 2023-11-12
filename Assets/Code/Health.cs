@@ -10,7 +10,7 @@ namespace Pasta
     {
         public bool IsDead => CurrentHealth <= 0;
         [field: SerializeField] public float MaxHealth { get; private set; } = 100;
-        [SerializeField, ReadOnly] private float _currentHealth = 0;
+        [SerializeField] private float _currentHealth = 0;
         [SerializeField] private GameObject damageText;
         public float CurrentHealth
         {

@@ -7,9 +7,9 @@ namespace Pasta
     public class PlayerAttackHandler : MonoBehaviour
     {
         [SerializeField] private float _heavyAttackTimeMultiplier = 3.5f;
-        [ReadOnly, SerializeField]
+        [SerializeField]
         private float _quickAttackTime = 0.2f;
-        [ReadOnly, SerializeField]
+        [SerializeField]
         private float _heavyAttackTime = 0.8f;
 
         private Coroutine _attackRoutine;
