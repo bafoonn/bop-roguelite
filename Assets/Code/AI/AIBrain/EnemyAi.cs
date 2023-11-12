@@ -45,6 +45,8 @@ public class EnemyAi : MonoBehaviour, IEnemy
     public float defaultTimeToAttack = 2; //Increase this if you want to make ai take longer
     private float defaultTimeToAttackWorkAround = 0; // TODO: DELETE THIS AT SOME POINT ONLY A WORKAROUND
     private float workaroundTimeToAttack = 0; // TODO: DELETE THIS AT SOME POINT ONLY A WORKAROUND
+    private bool canAttack = false;
+    private bool firstAttack = true;
     public float stunTimer = 1; // Will be used or replaced when adding stagger
     private AgentAnimations animations;
     [SerializeField] private Drop drop;
@@ -164,7 +166,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
             {
                 
                 float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
-                if (distance < attackDistance + 0.01f)
+                if (distance < attackDistance)
                 {
 
                     if (weaponParent.Scoot && transform.gameObject.name.Contains("Ranged"))
@@ -186,26 +188,27 @@ public class EnemyAi : MonoBehaviour, IEnemy
                     }
 
                     //attackIndicator.enabled = true;
-                    timeToAttack += Time.deltaTime;
+                    if (isAttacking == true)
+					{
+                        timeToAttack += Time.deltaTime;
+                    }
+                    
 
                     if (timeToAttack >= defaultTimeToAttack / 1.5)
                     {
                         weaponParent.Aim = false;
                         animations.aim = false;
                     }
-                    if (hasAttackEffect) attackEffect.SetIndicatorLifetime(defaultTimeToAttack);
-                    if (timeToAttack >= defaultTimeToAttack) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
-                    {
-                        Attack(); // Attack method
-                        timeToAttack = 0;
-                        //attackIndicator.fillAmount = 0;
-                    }
+                    
+
+
                     //attackIndicator.fillAmount = timeToAttack / defaultTimeToAttack;
                     if (targetDetector.colliders == null && gameObject.tag.Contains("Ranged"))
                     {
                         aiData.currentTarget = null;
                     }
                 }
+                
             }
         }
         else if (aiData.GetTargetsCount() > 0)
@@ -307,20 +310,33 @@ public class EnemyAi : MonoBehaviour, IEnemy
             // ALOITA HY�KK�YS X DISTANCELLA JA LOPETA Y 
             if (distance < attackDistance)
             {
-
                 isAttacking = true; // FOR ANIMATOR
                                     //Attacking 
                 abilityHolder.CanUseAbility = true;
                 movementInput = Vector2.zero;
                 OnAttackPressed?.Invoke();
+                if (hasAttackEffect) attackEffect.SetIndicatorLifetime(defaultTimeToAttack);
                 if (hasAttackEffect) attackEffect.AttackIndicator();
+                if (timeToAttack >= defaultTimeToAttack) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
+                {
+                    Attack(); // Attack method
+                    timeToAttack = 0;
+                    //attackIndicator.fillAmount = 0;
+                    isAttacking = false;
+                }
                 attackDistance = attackStopDistance;
-                defaultTimeToAttack = defaultTimeToAttackWorkAround;
-                           
-                yield return new WaitForSeconds(defaultTimeToAttack);
-
+				if (firstAttack)
+				{
+                    timeToAttack = 0;
+                    yield return new WaitForSeconds(0);
+                }
+				else
+				{
+                    yield return new WaitForSeconds(defaultTimeToAttack);
+                }
+                firstAttack = false;
                 StartCoroutine(ChaseAndAttack());
-
+                
 
 
             }
