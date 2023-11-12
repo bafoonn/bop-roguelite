@@ -22,6 +22,7 @@ public class BossAI : MonoBehaviour, IHittable
     [SerializeField] private AISolver movementDirectionSolver;
     bool Chasing = false;
     public float damage = 10f;
+    public bool isAttacking = false;
     [SerializeField] private AbilityHolder abilityHolder;
     private WeaponParent weaponParent;
     public Health Health { get; protected set; }
@@ -34,8 +35,8 @@ public class BossAI : MonoBehaviour, IHittable
     public float defaultTimeToAttack = 2; //Increase this if you want to make ai take longer
     public float stunTimer = 1; // Will be used or replaced when adding stagger
     private AgentAnimations animations;
-    private AttackEffects attackEffect;
-    private bool hasAttackEffect;
+    [SerializeField]private AttackEffects attackEffect;
+    public bool hasAttackEffect;
     private AbilityHolder[] abilityHolders;
     private Drop drop;
 
@@ -58,7 +59,7 @@ public class BossAI : MonoBehaviour, IHittable
         attackEffect = GetComponentInChildren<AttackEffects>();
         hasAttackEffect = attackEffect != null;
         drop = GetComponent<Drop>();
-
+        
 
     }
     private void Awake()
@@ -98,7 +99,11 @@ public class BossAI : MonoBehaviour, IHittable
             if (distance < attackDistance)
             {
                 //attackIndicator.enabled = true;
-                timeToAttack += Time.deltaTime;
+                if (isAttacking == true)
+                {
+                    timeToAttack += Time.deltaTime;
+                }
+                
                 if (timeToAttack >= defaultTimeToAttack / 1.5)
                 {
                     weaponParent.Aim = false;
@@ -170,6 +175,7 @@ public class BossAI : MonoBehaviour, IHittable
                     abilityHolders[i].CanUseAbility = false;
                 }
             }
+            isAttacking = false;
             movementInput = Vector2.zero;
             timeToAttack = 0;
             //attackIndicator.fillAmount = 0;
@@ -183,6 +189,7 @@ public class BossAI : MonoBehaviour, IHittable
             {
                 movementInput = Vector2.zero;
                 Debug.Log("Attacking");
+                isAttacking = true;
                 //Attacking 
                 //abilityHolder.CanUseAbility = true; // <- Here for testing purposes.
                 for (int i = 0; i < abilityHolders.Length; i++)
@@ -207,20 +214,22 @@ public class BossAI : MonoBehaviour, IHittable
                     }
                 //}
                 OnAttackPressed?.Invoke();
-                if (hasAttackEffect) attackEffect.SetIndicatorLifetime(timeToAttack);
+
                 if (hasAttackEffect) attackEffect.AttackIndicator();
+                if (hasAttackEffect) attackEffect.SetIndicatorLifetime(attackDelay);
                 if (timeToAttack >= defaultTimeToAttack) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
                 {
                     Attack(); // Attack method
                     timeToAttack = 0;
                     //attackIndicator.fillAmount = 0;
-
+                    isAttacking = false;
                 }
                 yield return new WaitForSeconds(attackDelay);
                 StartCoroutine(ChaseAndAttack());
             }
             else
             {
+                isAttacking = false;
                 weaponParent.Aim = true;
                 animations.aim = true;
                 Debug.Log("Chasing");

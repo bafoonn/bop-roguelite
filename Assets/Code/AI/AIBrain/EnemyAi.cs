@@ -208,7 +208,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
                         aiData.currentTarget = null;
                     }
                 }
-				else
+		        if(distance > attackDistance + 0.5f) // TEMP SOLUTION 
 				{
                     if (hasAttackEffect) attackEffect.CancelAttack();
                 }
