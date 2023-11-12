@@ -208,6 +208,10 @@ public class EnemyAi : MonoBehaviour, IEnemy
                         aiData.currentTarget = null;
                     }
                 }
+				else
+				{
+                    if (hasAttackEffect) attackEffect.CancelAttack();
+                }
                 
             }
         }
@@ -286,6 +290,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
         if (aiData.currentTarget == null)
         {
             attackDistance = attackDefaultDist;
+            if (hasAttackEffect) attackEffect.CancelAttack();
             isAttacking = false; // FOR ANIMATOR
             IsIdle = true;
             abilityHolder.CanUseAbility = false;
@@ -319,13 +324,14 @@ public class EnemyAi : MonoBehaviour, IEnemy
                 if (hasAttackEffect) attackEffect.AttackIndicator();
                 if (timeToAttack >= defaultTimeToAttack) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
                 {
+                    Debug.Log("Attacking");
                     Attack(); // Attack method
                     timeToAttack = 0;
                     //attackIndicator.fillAmount = 0;
                     isAttacking = false;
                 }
                 attackDistance = attackStopDistance;
-				if (firstAttack)
+				if (firstAttack) // TODO: FIX THIS IF TIME
 				{
                     timeToAttack = 0;
                     yield return new WaitForSeconds(0);
@@ -349,6 +355,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
                 isAttacking = false; // FOR ANIMATOR
                                      //Chasing
                 abilityHolder.CanUseAbility = true; // <- Here for testing purposes.
+                if (hasAttackEffect) attackEffect.SetIndicatorLifetime(0);
                 if (hasAttackEffect) attackEffect.CancelAttack();
                 UseAbility();
                 timeToAttack = 0;
