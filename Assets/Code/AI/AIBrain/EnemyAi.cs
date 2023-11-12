@@ -124,11 +124,12 @@ public class EnemyAi : MonoBehaviour, IEnemy
         spriteRenderer.color = Color.red;
         if (m_particleSystem != null)
         {
-            ParticleSystemHolder.transform.rotation = Quaternion.Euler(0, 0, player.transform.Find("AttackHandler").transform.localEulerAngles.z);
-            m_particleSystem.Play();
+            //ParticleSystemHolder.transform.rotation = Quaternion.Euler(0, 0, player.transform.Find("AttackHandler").transform.localEulerAngles.z);
+            //m_particleSystem.Play();
         }
         if (hasDamageEffects)
         {
+            takeDamageEffects.SetFloat("Rotation", player.transform.Find("AttackHandler").transform.localEulerAngles.z);
             takeDamageEffects.SendEvent("Hit");
         }
         StartCoroutine(TakingDamage());

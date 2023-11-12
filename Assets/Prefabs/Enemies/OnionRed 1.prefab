@@ -24,6 +24,18 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3246212096596688428, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.x
+      value: 0.49056602
+      objectReference: {fileID: 0}
+    - target: {fileID: 3246212096596688428, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3246212096596688428, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.z
+      value: 0.20458582
+      objectReference: {fileID: 0}
     - target: {fileID: 4148447015453757000, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -67,6 +79,14 @@ PrefabInstance:
     - target: {fileID: 6992705672734178762, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
       propertyPath: m_Name
       value: OnionRed 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7393290221110373181, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7393290221110373181, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.35
       objectReference: {fileID: 0}
     - target: {fileID: 8022384325164921756, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
       propertyPath: m_Controller
