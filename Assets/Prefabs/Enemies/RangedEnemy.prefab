@@ -486,6 +486,7 @@ MonoBehaviour:
     m_Bits: 64
   ShowGizmos: 1
   colliders: []
+  SeesPlayer: 0
 --- !u!1 &5002543978065745369
 GameObject:
   m_ObjectHideFlags: 0
@@ -1176,7 +1177,7 @@ MonoBehaviour:
   movementInput: {x: 0, y: 0}
   movementDirectionSolver: {fileID: 8370257820556550191}
   Player: {fileID: 0}
-  timeToAttack: 0
+  timeToAttack: 0.2
   defaultTimeToAttack: 2
   stunTimer: 1
   drop: {fileID: 0}
@@ -1185,6 +1186,7 @@ MonoBehaviour:
   IsIdle: 1
   isAttacking: 0
   Death: 0
+  takeDamageEffects: {fileID: 0}
   ParticleSystemHolder: {fileID: 0}
 --- !u!114 &5018959942009198676
 MonoBehaviour:
