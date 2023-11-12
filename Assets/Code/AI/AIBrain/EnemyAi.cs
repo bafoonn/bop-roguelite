@@ -164,7 +164,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
             {
                 
                 float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
-                if (distance < attackDistance)
+                if (distance < attackDistance + 0.01f)
                 {
 
                     if (weaponParent.Scoot && transform.gameObject.name.Contains("Ranged"))
@@ -316,8 +316,8 @@ public class EnemyAi : MonoBehaviour, IEnemy
                 if (hasAttackEffect) attackEffect.AttackIndicator();
                 attackDistance = attackStopDistance;
                 defaultTimeToAttack = defaultTimeToAttackWorkAround;
-               
-                yield return new WaitForSeconds(attackDelay);
+                           
+                yield return new WaitForSeconds(defaultTimeToAttack);
 
                 StartCoroutine(ChaseAndAttack());
 
