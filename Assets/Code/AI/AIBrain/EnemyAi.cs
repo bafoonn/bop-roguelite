@@ -93,7 +93,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
         animations = GetComponent<AgentAnimations>();
         abilityHolder = GetComponent<AbilityHolder>();
         targetDetector = GetComponentInChildren<TargetDetector>();
-        
+
         //Detect objects
         if (this.gameObject.name.Contains("Carrier"))
         {
@@ -164,7 +164,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
             }
             if (aiData.currentTarget != null)
             {
-                
+
                 float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
                 if (distance < attackDistance)
                 {
@@ -189,17 +189,17 @@ public class EnemyAi : MonoBehaviour, IEnemy
 
                     //attackIndicator.enabled = true;
                     if (isAttacking == true)
-					{
+                    {
                         timeToAttack += Time.deltaTime;
                     }
-                    
+
 
                     if (timeToAttack >= defaultTimeToAttack / 1.5)
                     {
                         weaponParent.Aim = false;
                         animations.aim = false;
                     }
-                    
+
 
 
                     //attackIndicator.fillAmount = timeToAttack / defaultTimeToAttack;
@@ -208,11 +208,11 @@ public class EnemyAi : MonoBehaviour, IEnemy
                         aiData.currentTarget = null;
                     }
                 }
-		        if(distance > attackDistance + 0.5f) // TEMP SOLUTION 
-				{
+                if (distance > attackDistance + 0.5f) // TEMP SOLUTION 
+                {
                     if (hasAttackEffect) attackEffect.CancelAttack();
                 }
-                
+
             }
         }
         else if (aiData.GetTargetsCount() > 0)
@@ -249,7 +249,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
         }
 
         Death = true;
-
+        EventActions.InvokeEvent(EventActionType.OnKill);
 
         level.EnemyKilled();
         if (!hasDeathAnim)
@@ -331,18 +331,18 @@ public class EnemyAi : MonoBehaviour, IEnemy
                     isAttacking = false;
                 }
                 attackDistance = attackStopDistance;
-				if (firstAttack) // TODO: FIX THIS IF TIME
-				{
+                if (firstAttack) // TODO: FIX THIS IF TIME
+                {
                     timeToAttack = 0;
                     yield return new WaitForSeconds(0);
                 }
-				else
-				{
+                else
+                {
                     yield return new WaitForSeconds(defaultTimeToAttack);
                 }
                 firstAttack = false;
                 StartCoroutine(ChaseAndAttack());
-                
+
 
 
             }

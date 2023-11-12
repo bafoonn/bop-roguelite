@@ -81,7 +81,7 @@ namespace Pasta
 
             while (_addedActions.Count > 0)
             {
-                _addedActions[0].Remove();
+                if (_addedActions[0] != null) _addedActions[0].Remove();
                 _addedActions.RemoveAt(0);
             }
         }

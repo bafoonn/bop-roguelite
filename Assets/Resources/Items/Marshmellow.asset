@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canStack: 1
   Name: Burning Marshmellow
-  Description: 
+  Description: One in five chance to apply burning to hit targets.
   Flavor: 
   Sprite: {fileID: -2345176947539042805, guid: 0f2b921156c37c74a9927d5ea2b3a55a, type: 3}
   cost: 20
@@ -23,4 +23,4 @@ MonoBehaviour:
   - Name: Burn on hit
     EventActionPrefab: {fileID: 8613175926356625417, guid: 9104f281544d7d74392c1d1e82f73947, type: 3}
     ActionType: 1
-    ProcChance: 1
+    ProcChance: 0.2

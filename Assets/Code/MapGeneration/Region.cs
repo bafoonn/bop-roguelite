@@ -56,6 +56,7 @@ namespace Pasta
 
         private void InstantiateLevel(int levelIndex, ItemBase roomRewardIndex)
         {
+            EventActions.InvokeEvent(EventActionType.OnRoomEnter);
             activeLevel = Instantiate(levels[levelIndex], transform.position, Quaternion.identity, transform);
             activeLevel.PassRewardIndex(roomRewardIndex);
         }
