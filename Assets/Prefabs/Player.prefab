@@ -444,6 +444,9 @@ VisualEffect:
       - m_Value: 9
         m_Name: QA Animation Frames
         m_Overridden: 1
+      - m_Value: 9
+        m_Name: HA Animation Frames
+        m_Overridden: 1
     m_Matrix4x4f:
       m_Array: []
     m_AnimationCurve:
@@ -454,6 +457,9 @@ VisualEffect:
       m_Array:
       - m_Value: {fileID: 2800000, guid: 1c8a8ac9dffa83d4586f9e371c95ba60, type: 3}
         m_Name: QA Sprite
+        m_Overridden: 1
+      - m_Value: {fileID: 2800000, guid: 1c8a8ac9dffa83d4586f9e371c95ba60, type: 3}
+        m_Name: HA Sprite
         m_Overridden: 1
     m_Bool:
       m_Array: []
