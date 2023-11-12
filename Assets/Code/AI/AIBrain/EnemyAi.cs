@@ -43,6 +43,8 @@ public class EnemyAi : MonoBehaviour, IEnemy
     private Image attackIndicator;
     public float timeToAttack = 0; // When this reaches defaultTimeToAttack enemy will attack
     public float defaultTimeToAttack = 2; //Increase this if you want to make ai take longer
+    private float defaultTimeToAttackWorkAround = 0; // TODO: DELETE THIS AT SOME POINT ONLY A WORKAROUND
+    private float workaroundTimeToAttack = 0; // TODO: DELETE THIS AT SOME POINT ONLY A WORKAROUND
     public float stunTimer = 1; // Will be used or replaced when adding stagger
     private AgentAnimations animations;
     [SerializeField] private Drop drop;
@@ -82,12 +84,14 @@ public class EnemyAi : MonoBehaviour, IEnemy
         enemyDeathScript = GetComponent<EnemyDeath>();
         player = GameObject.FindGameObjectWithTag("Player");
         Player = player.transform;
+        defaultTimeToAttackWorkAround = defaultTimeToAttack;
         level = FindFirstObjectByType<Level>();
         weaponParent = GetComponentInChildren<WeaponParent>();
         //attackIndicator = weaponParent.GetComponentInChildren<Image>();
         animations = GetComponent<AgentAnimations>();
         abilityHolder = GetComponent<AbilityHolder>();
         targetDetector = GetComponentInChildren<TargetDetector>();
+        
         //Detect objects
         if (this.gameObject.name.Contains("Carrier"))
         {
@@ -183,10 +187,18 @@ public class EnemyAi : MonoBehaviour, IEnemy
 
                     //attackIndicator.enabled = true;
                     timeToAttack += Time.deltaTime;
+
                     if (timeToAttack >= defaultTimeToAttack / 1.5)
                     {
                         weaponParent.Aim = false;
                         animations.aim = false;
+                    }
+                    if (hasAttackEffect) attackEffect.SetIndicatorLifetime(defaultTimeToAttack);
+                    if (timeToAttack >= defaultTimeToAttack) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
+                    {
+                        Attack(); // Attack method
+                        timeToAttack = 0;
+                        //attackIndicator.fillAmount = 0;
                     }
                     //attackIndicator.fillAmount = timeToAttack / defaultTimeToAttack;
                     if (targetDetector.colliders == null && gameObject.tag.Contains("Ranged"))
@@ -211,7 +223,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
         if (gameObject.tag.Contains("Ranged"))
         {
             weaponParent.RangedAttack();
-            
+            if (hasAttackEffect) attackEffect.CancelAttack();
         }
         else
         {
@@ -301,15 +313,10 @@ public class EnemyAi : MonoBehaviour, IEnemy
                 abilityHolder.CanUseAbility = true;
                 movementInput = Vector2.zero;
                 OnAttackPressed?.Invoke();
-                if (hasAttackEffect) attackEffect.SetIndicatorLifetime(timeToAttack);
                 if (hasAttackEffect) attackEffect.AttackIndicator();
-                if (timeToAttack >= defaultTimeToAttack) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
-                {
-                    Attack(); // Attack method
-                    timeToAttack = 0;
-                    //attackIndicator.fillAmount = 0;
-                }
                 attackDistance = attackStopDistance;
+                defaultTimeToAttack = defaultTimeToAttackWorkAround;
+               
                 yield return new WaitForSeconds(attackDelay);
 
                 StartCoroutine(ChaseAndAttack());

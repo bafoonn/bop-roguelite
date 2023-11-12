@@ -120,7 +120,10 @@ VisualEffect:
         m_Name: Ind Sprite
         m_Overridden: 1
     m_Bool:
-      m_Array: []
+      m_Array:
+      - m_Value: 0
+        m_Name: Indicator Alive
+        m_Overridden: 0
 --- !u!73398921 &2937072211603012866
 VFXRenderer:
   serializedVersion: 1
@@ -1292,7 +1295,7 @@ MonoBehaviour:
   movementInput: {x: 0, y: 0}
   movementDirectionSolver: {fileID: 8370257820556550191}
   Player: {fileID: 0}
-  timeToAttack: 0.2
+  timeToAttack: 0
   defaultTimeToAttack: 2
   stunTimer: 1
   drop: {fileID: 0}

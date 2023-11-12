@@ -207,6 +207,8 @@ public class BossAI : MonoBehaviour, IHittable
                     }
                 //}
                 OnAttackPressed?.Invoke();
+                if (hasAttackEffect) attackEffect.SetIndicatorLifetime(timeToAttack);
+                if (hasAttackEffect) attackEffect.AttackIndicator();
                 if (timeToAttack >= defaultTimeToAttack) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
                 {
                     Attack(); // Attack method
