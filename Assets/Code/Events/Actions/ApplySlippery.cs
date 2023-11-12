@@ -6,7 +6,6 @@ namespace Pasta
 {
     public class ApplySlippery : EventAction
     {
-        private SlipperyStatus status = new();
         public float Duration = 5f;
 
         protected override void Trigger(EventContext context)
@@ -19,7 +18,7 @@ namespace Pasta
             var hitContext = (HitContext)context;
             if (hitContext.Target is ICharacter character)
             {
-                character.Status.ApplyStatus(status, Duration);
+                character.Status.ApplyStatus(new SlipperyStatus(), Duration); ;
             }
         }
     }

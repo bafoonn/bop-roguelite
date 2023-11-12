@@ -10,6 +10,7 @@ namespace Pasta
     {
         protected Player _player = null;
         protected EventActionType _actionType = EventActionType.None;
+        protected float _procChance = 1;
 
         public UnityEvent OnInit;
         public UnityEvent OnTrigger;
@@ -26,21 +27,22 @@ namespace Pasta
 
         private void OnEvent(EventContext context)
         {
-            if (context.EventType == _actionType)
-            {
-                if (OnTrigger != null)
-                {
-                    OnTrigger.Invoke();
-                }
+            if (context.EventType != _actionType) return;
+            if (UnityEngine.Random.value > _procChance) return;
 
-                Trigger(context);
+            if (OnTrigger != null)
+            {
+                OnTrigger.Invoke();
             }
+
+            Trigger(context);
         }
 
-        public virtual void Setup(Player player, EventActionType type)
+        public virtual void Setup(Player player, EventActionType type, float procChance)
         {
             _player = player;
             _actionType = type;
+            _procChance = Mathf.Clamp01(procChance);
             Init();
             if (OnInit != null)
             {

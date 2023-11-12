@@ -22,7 +22,7 @@ namespace Pasta
             _player = player;
         }
 
-        public static EventAction Create(EventAction actionPrefab, EventActionType type)
+        public static EventAction Create(EventAction actionPrefab, EventActionType type, float procChance)
         {
             if (_actions == null)
             {
@@ -41,7 +41,7 @@ namespace Pasta
 
             var action = Instantiate(actionPrefab, _actions.transform);
             action.gameObject.name = $"{type} - {actionPrefab.name}";
-            action.Setup(_actions._player, type);
+            action.Setup(_actions._player, type, procChance);
             return action;
         }
 

@@ -13,6 +13,7 @@ namespace Pasta
             public string Name;
             public EventAction EventActionPrefab;
             public EventActionType ActionType;
+            [Range(0f, 1f)] public float ProcChance = 1;
         }
 
         [SerializeField] private bool _canStack = true;
@@ -56,7 +57,7 @@ namespace Pasta
 
             foreach (var container in Events)
             {
-                var newAction = EventActions.Create(container.EventActionPrefab, container.ActionType);
+                var newAction = EventActions.Create(container.EventActionPrefab, container.ActionType, container.ProcChance);
                 if (newAction != null)
                 {
                     _addedActions.Add(newAction);

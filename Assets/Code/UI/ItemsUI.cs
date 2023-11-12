@@ -27,6 +27,7 @@ namespace Pasta
 
         public void ListItems()
         {
+            if (ItemContent == null) return;
             foreach (Transform item in ItemContent)
             {
                 Destroy(item.gameObject);
@@ -37,13 +38,13 @@ namespace Pasta
                 var itemIcon = obj.transform.Find("ItemImage").GetComponent<Image>();
                 var ItemAmount = obj.transform.Find("ItemAmount").GetComponent<Text>();
                 itemIcon.sprite = item.Sprite;
-                ItemAmount.text = item.Amount.ToString(); 
+                ItemAmount.text = item.Amount.ToString();
 
             }
             SetUIitems();
         }
 
-        
+
 
 
         public void SetUIitems()

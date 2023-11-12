@@ -10,21 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f9b0d845e3f73742a1930a2cd0ed9f7, type: 3}
-  m_Name: Fish
+  m_Name: Marshmellow
   m_EditorClassIdentifier: 
   _canStack: 1
-  Name: Fish
+  Name: Burning Marshmellow
   Description: 
-  Flavor: It's slippery.
-  Sprite: {fileID: 6361611475456273693, guid: 68ce878d0714c7e4cb3e873d0aff8d1a, type: 3}
-  cost: 10
-  Effects:
-  - Name: More damage
-    Stat: 1
-    Value: 1
-    Type: 0
+  Flavor: 
+  Sprite: {fileID: -2345176947539042805, guid: 0f2b921156c37c74a9927d5ea2b3a55a, type: 3}
+  cost: 20
+  Effects: []
   Events:
-  - Name: Apply slippery
-    EventActionPrefab: {fileID: 5696246142650556881, guid: 07b969bcab17eec4fbfb3e8c13af0268, type: 3}
+  - Name: Burn on hit
+    EventActionPrefab: {fileID: 8613175926356625417, guid: 9104f281544d7d74392c1d1e82f73947, type: 3}
     ActionType: 1
-    ProcChance: 0.5
+    ProcChance: 1

@@ -21,7 +21,8 @@ namespace Pasta
             {
                 if (hitContext.Target is ICharacter character)
                 {
-                    character.Status.ApplyStatus(new BurnStatus(_damage.Value, 1f));
+                    Debug.Log("Apply burn");
+                    character.Status.ApplyStatus(new BurnStatus(_damage.Value, 1f), 5);
                 }
             }
         }

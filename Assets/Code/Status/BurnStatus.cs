@@ -38,6 +38,7 @@ namespace Pasta
             if (timer > Interval)
             {
                 _current.Hit(Damage);
+                timer = 0;
             }
         }
 

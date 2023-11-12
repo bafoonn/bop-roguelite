@@ -6,7 +6,6 @@ namespace Pasta
 {
     public class ChainLightning : EventAction
     {
-        [SerializeField] private float _procChance = 0.3f;
         [SerializeField] private float _radius = 5f;
         [SerializeField] private int _chains = 3;
         [SerializeField] private float _chainTime = 0.5f;
@@ -27,15 +26,11 @@ namespace Pasta
         {
             base.Trigger(context);
             IHittable firstTarget = null;
-            if (context.GetType() == typeof(HitContext))
+            if (context is HitContext hitContext)
             {
-                var hitContext = (HitContext)context;
                 firstTarget = hitContext.Target;
             }
-            if (Random.value < _procChance)
-            {
-                StartCoroutine(SpawnLightning(firstTarget));
-            }
+            StartCoroutine(SpawnLightning(firstTarget));
         }
 
         private IEnumerator SpawnLightning(IHittable first)

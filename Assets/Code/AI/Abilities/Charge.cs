@@ -51,8 +51,13 @@ namespace Pasta
 
         public override void Deactivate()
         {
+            if (bC2D == null) return;
+            if (rigidbody == null) return;
+            if (BoxCollider2d == null) return;
+
             Destroy(bC2D);
-            //rigidbody.velocity = Vector2.zero;
+
+            rigidbody.velocity = Vector2.zero;
             BoxCollider2d.isTrigger = false;
 
         }

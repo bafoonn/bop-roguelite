@@ -9,18 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5495daeefb1d7e4296b49fae089e765, type: 3}
-  m_Name: Cheese
+  m_Script: {fileID: 11500000, guid: 5f9b0d845e3f73742a1930a2cd0ed9f7, type: 3}
+  m_Name: Banana
   m_EditorClassIdentifier: 
   _canStack: 1
-  Name: Cheese
+  Name: 
   Description: 
-  Flavor: Gives you strength.
-  Sprite: {fileID: -2098588154144839390, guid: f1e5810c9a83e214c8afdf006b1d7fb2, type: 3}
-  cost: 20
-  Effects:
-  - Name: Additional Damage
-    Stat: 1
-    Value: 2
-    Type: 0
+  Flavor: 
+  Sprite: {fileID: 0}
+  cost: 0
+  Effects: []
   Events: []
