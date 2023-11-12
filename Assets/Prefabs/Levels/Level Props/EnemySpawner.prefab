@@ -14,7 +14,7 @@ GameObject:
   m_Layer: 0
   m_Name: EnemySpawner
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -48,6 +48,9 @@ MonoBehaviour:
   enemies:
   - {fileID: 6992705672734178762, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
   - {fileID: 6992705672734178762, guid: c1446a4a995152b4d95797a5c61c8ce6, type: 3}
+  totalEnemiesToSpawn: 1
+  startDelay: 0
+  spawnDelay: 0
 --- !u!212 &2088972526318840247
 SpriteRenderer:
   m_ObjectHideFlags: 0
