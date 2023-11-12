@@ -17,6 +17,8 @@ namespace Pasta
         [SerializeField] private string _gameScene = "Playtest";
         [SerializeField] private string _gameOverScene = "GameOver";
 
+        [SerializeField] private string _currentStateName = "";
+
         private GameState _currentState = null;
         private GameState _prevState = null;
 
@@ -66,6 +68,7 @@ namespace Pasta
                 {
                     _currentState = state;
                     _currentState.Activate();
+                    _currentStateName = _currentState.Type.ToString();
                     break;
                 }
             }
@@ -119,6 +122,7 @@ namespace Pasta
             _prevState = _currentState;
             target.Activate(forceLoad);
             _currentState = target;
+            _currentStateName = _currentState.Type.ToString();
 
             return true;
         }
