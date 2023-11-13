@@ -370,7 +370,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
         }
     }
 
-    public void Hit(float damage)
+    public void Hit(float damage, ICharacter source = null)
     {
         Health.TakeDamage(damage);
     }

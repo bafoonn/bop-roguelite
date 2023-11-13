@@ -248,7 +248,7 @@ public class Player : MonoBehaviour, IPlayer
         return false;
     }
 
-    public void Hit(float damage)
+    public void Hit(float damage, ICharacter source = null)
     {
         if (_hasIframes) return;
         _health.TakeDamage(damage);

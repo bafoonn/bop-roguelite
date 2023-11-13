@@ -56,7 +56,7 @@ namespace Pasta
             if (damageText != null)
             {
                 GameObject DamageTextSpawned = Instantiate(damageText, Position, transform.localRotation);
-                DamageTextSpawned.GetComponentInChildren<Text>().text = damage.ToString("#.##");
+                DamageTextSpawned.GetComponentInChildren<Text>().text = damage.ToString("#");
             }
 
             if (OnDamaged != null) OnDamaged();

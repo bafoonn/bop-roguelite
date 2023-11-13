@@ -9,6 +9,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 8136634457532562364, guid: c2012a0c23ca7cc4d8e53444d8442521, type: 3}
+      propertyPath: _healAmount
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8136634457532562364, guid: c2012a0c23ca7cc4d8e53444d8442521, type: 3}
       propertyPath: _isPercentage
       value: 1
       objectReference: {fileID: 0}

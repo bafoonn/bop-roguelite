@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Pasta
 {
-    public class TargetDummy : MonoBehaviour, ICharacter
+    public class TargetDummy : MonoBehaviour, IEnemy
     {
         public Health Health { get; private set; }
         public Movement Movement { get; private set; }
@@ -12,7 +12,7 @@ namespace Pasta
         public StatusHandler Status { get; private set; }
         public MonoBehaviour Mono => this;
 
-        public void Hit(float damage)
+        public void Hit(float damage, ICharacter source = null)
         {
             Health.TakeDamage(damage);
         }

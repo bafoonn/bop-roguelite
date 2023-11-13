@@ -28,6 +28,8 @@ namespace Pasta
         private AttackEffects _attackEffects;
         private bool _hasAttackEffects = false;
 
+        private ICharacter _player = null;
+
         private void Awake()
         {
             _sensor = GetComponentInChildren<AttackArea>();
@@ -44,6 +46,7 @@ namespace Pasta
             SetDamage(_damage.Value, _attackSpeed.Value);
 
             _hasAttackEffects = _attackEffects != null;
+            _player = GetComponentInParent<Player>();
         }
 
         private void OnAttackSpeedChanged(float value)
@@ -148,7 +151,7 @@ namespace Pasta
                 }
 
                 EventActions.InvokeEvent(new HitContext(hittable, damage, EventActionType.OnHit));
-                hittable.Hit(damage);
+                hittable.Hit(damage, _player);
             }
         }
 

@@ -9,13 +9,11 @@ namespace Pasta
         [SerializeField] private float speed = 5f;
         public float damage = 2f;
         public LayerMask WhatLayerDestroysThis;
-        int layer;
 
         // Start is called before the first frame update
         void Start()
         {
             Invoke("OnDestroy", 4f);
-            layer = WhatLayerDestroysThis;
         }
 
         // Update is called once per frame
@@ -35,14 +33,11 @@ namespace Pasta
                     hittable.Hit(damage);
                 }
             }
-            else if (collision.gameObject.layer == WhatLayerDestroysThis)
+            else if (WhatLayerDestroysThis.Includes(collision.gameObject.layer))
             {
                 Destroy(gameObject);
             }
         }
-
-
-
 
         private void OnDestroy()
         {

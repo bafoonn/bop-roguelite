@@ -19,5 +19,13 @@ namespace Pasta
         {
             _health.Heal(_isPercentage ? _health.MaxHealth * _healAmount : _healAmount);
         }
+
+        private void OnValidate()
+        {
+            if (_isPercentage)
+            {
+                _healAmount = Mathf.Clamp01(_healAmount);
+            }
+        }
     }
 }

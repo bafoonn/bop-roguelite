@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using Pasta;
 
-public class BossAI : MonoBehaviour, IHittable
+public class BossAI : MonoBehaviour, IEnemy
 {
     [SerializeField] private List<Detector> detectors;
     [SerializeField] private AIData aiData;
@@ -26,6 +26,10 @@ public class BossAI : MonoBehaviour, IHittable
     [SerializeField] private AbilityHolder abilityHolder;
     private WeaponParent weaponParent;
     public Health Health { get; protected set; }
+    public Movement Movement { get; private set; }
+    public Rigidbody2D Rigidbody { get; private set; }
+    public StatusHandler Status { get; private set; }
+
     public static event System.Action<BossAI> OnDeath;
     private Level level;
     [SerializeField] private Transform Player;
@@ -35,7 +39,7 @@ public class BossAI : MonoBehaviour, IHittable
     public float defaultTimeToAttack = 2; //Increase this if you want to make ai take longer
     public float stunTimer = 1; // Will be used or replaced when adding stagger
     private AgentAnimations animations;
-    [SerializeField]private AttackEffects attackEffect;
+    [SerializeField] private AttackEffects attackEffect;
     public bool hasAttackEffect;
     private AbilityHolder[] abilityHolders;
     private Drop drop;
@@ -59,7 +63,7 @@ public class BossAI : MonoBehaviour, IHittable
         attackEffect = GetComponentInChildren<AttackEffects>();
         hasAttackEffect = attackEffect != null;
         drop = GetComponent<Drop>();
-        
+
 
     }
     private void Awake()
@@ -68,6 +72,10 @@ public class BossAI : MonoBehaviour, IHittable
         Health = GetComponent<Health>();
         Debug.Assert(Health != null);
         Health.Reset();
+        Status = this.AddOrGetComponent<StatusHandler>();
+        Status.Setup(this);
+        Movement = GetComponent<Movement>();
+        Rigidbody = GetComponent<Rigidbody2D>();
     }
     protected virtual void OnEnable()
     {
@@ -103,7 +111,7 @@ public class BossAI : MonoBehaviour, IHittable
                 {
                     timeToAttack += Time.deltaTime;
                 }
-                
+
                 if (timeToAttack >= defaultTimeToAttack / 1.5)
                 {
                     weaponParent.Aim = false;
@@ -127,7 +135,7 @@ public class BossAI : MonoBehaviour, IHittable
     {
         Debug.Log("Swing");
         //abilityHolder.UseAbility = true; // <- Here for testing purposes.
-        for(int i = 0; i < abilityHolders.Length; i++)
+        for (int i = 0; i < abilityHolders.Length; i++)
         {
             if (abilityHolders[i] != null)
             {
@@ -144,7 +152,7 @@ public class BossAI : MonoBehaviour, IHittable
         {
             if (abilityHolders[i] != null)
             {
-                if(abilityHolders[i].ability.usableOutsideAttackRange == true)
+                if (abilityHolders[i].ability.usableOutsideAttackRange == true)
                 {
                     abilityHolders[i].UseAbility = true;
                 }
@@ -202,16 +210,16 @@ public class BossAI : MonoBehaviour, IHittable
                 //if (abilityHolder.UseAbility == false)
                 //{
                 //    movementInput = Vector2.zero;
-                    for (int i = 0; i < abilityHolders.Length; i++)
+                for (int i = 0; i < abilityHolders.Length; i++)
+                {
+                    if (abilityHolders[i] != null)
                     {
-                        if (abilityHolders[i] != null)
+                        if (abilityHolders[i].UseAbility == false)
                         {
-                            if (abilityHolders[i].UseAbility == false)
-                            {
-                                movementInput = Vector2.zero;
-                            }
+                            movementInput = Vector2.zero;
                         }
                     }
+                }
                 //}
                 OnAttackPressed?.Invoke();
 
@@ -252,7 +260,7 @@ public class BossAI : MonoBehaviour, IHittable
         }
     }
 
-    public void Hit(float damage)
+    public void Hit(float damage, ICharacter source = null)
     {
         if (OnDeath != null)
         {

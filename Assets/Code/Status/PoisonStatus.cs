@@ -1,27 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Pasta
 {
-    /// <summary>
-    /// Does damage in intervals. Won't work properly if the same instance is applied to multiple StatusHandlers.
-    /// </summary>
-    public class BurnStatus : IStatusEffect
+    public class PoisonStatus : IStatusEffect
     {
         public float Damage;
         public readonly float Interval = 1f;
 
-        public StatusType Type => StatusType.Burn;
-
-        public bool CanStack => false;
-
         private IHittable _current = null;
         private float timer = 0;
 
-        public BurnStatus(float damage)
+        public StatusType Type => StatusType.Poison;
+        public bool CanStack => true;
+
+        public PoisonStatus(float damage)
         {
             Damage = damage;
         }

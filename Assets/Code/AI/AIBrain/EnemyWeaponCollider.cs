@@ -31,7 +31,7 @@ namespace Pasta
             {
                 if (collision.TryGetComponent<IHittable>(out var hittable))
                 {
-                    hittable.Hit(damage);
+                    hittable.Hit(damage, isNormalEnemy ? m_Ai : bossAI );
                     if (!weaponParent.Aim)
                     {
                         //hittable.Hit(damage);

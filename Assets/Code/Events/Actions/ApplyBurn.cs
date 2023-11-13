@@ -22,7 +22,7 @@ namespace Pasta
                 if (hitContext.Target is ICharacter character)
                 {
                     Debug.Log("Apply burn");
-                    character.Status.ApplyStatus(new BurnStatus(_damage.Value, 1f), 5);
+                    character.Status.ApplyStatus(new BurnStatus(_damage.Value), 5);
                 }
             }
         }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Pasta
 {
-    public class EnemySensor : Sensor<IHittable>
+    public class EnemySensor : Sensor<IEnemy>
     {
         protected override void Awake()
         {

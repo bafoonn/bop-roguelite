@@ -10,5 +10,6 @@ namespace Pasta
         public void Update(float deltaTime);
         public void UnApply(ICharacter character);
         public StatusType Type { get; }
+        public bool CanStack { get; }
     }
 }

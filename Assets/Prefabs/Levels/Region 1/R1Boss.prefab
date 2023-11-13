@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 4548128803007433834}
   - component: {fileID: 8031091802855721599}
   - component: {fileID: 9010727968646058703}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BaseMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5000881451297607792
 Transform:
@@ -5235,7 +5235,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &56527913285822007
 Transform:
@@ -5602,12 +5602,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2343466151031837025}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tilemaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2343466151031837025
 Transform:
