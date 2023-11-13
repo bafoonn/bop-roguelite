@@ -33,7 +33,7 @@ namespace Pasta
                     hittable.Hit(damage);
                 }
             }
-            else if (WhatLayerDestroysThis.Includes(collision.gameObject.layer))
+            else if (WhatLayerDestroysThis.Includes(collision.gameObject.layer) && collision.gameObject.tag != "Enemy")
             {
                 Destroy(gameObject);
             }

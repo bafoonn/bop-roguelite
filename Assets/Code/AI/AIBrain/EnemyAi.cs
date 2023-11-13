@@ -45,7 +45,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
     public float defaultTimeToAttack = 2; //Increase this if you want to make ai take longer
     private float defaultTimeToAttackWorkAround = 0; // TODO: DELETE THIS AT SOME POINT ONLY A WORKAROUND
     private float workaroundTimeToAttack = 0; // TODO: DELETE THIS AT SOME POINT ONLY A WORKAROUND
-    private bool canAttack = false;
+    public bool canAttack = false;
     private bool firstAttack = true;
     public float stunTimer = 1; // Will be used or replaced when adding stagger
     private AgentAnimations animations;
@@ -59,7 +59,6 @@ public class EnemyAi : MonoBehaviour, IEnemy
     [SerializeField] private bool hasDeathAnim = false;
     private EnemyDeath enemyDeathScript;
     [SerializeField] private GameObject Corpse;
-
     public bool IsIdle = true;
     public bool isAttacking = false;
     public bool Death = false;
