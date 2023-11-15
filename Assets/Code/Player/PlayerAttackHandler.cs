@@ -105,8 +105,14 @@ namespace Pasta
         private IEnumerator QuickAttack()
         {
             if (_hasAttackEffects) _attackEffects.QuickAttack();
-            HitObjects(AttackType.Quick);
-            yield return new WaitForSeconds(_quickAttackTime);
+            int hitCount = HitObjects(AttackType.Quick);
+            float timer = 0;
+            //if (hitCount > 0) HitStopper.Stop(0.1f);
+            while (timer < _quickAttackTime)
+            {
+                timer += Time.deltaTime;
+                yield return null;
+            }
             _attackRoutine = null;
         }
 
@@ -126,9 +132,9 @@ namespace Pasta
             _attackRoutine = null;
         }
 
-        private void HitObjects(AttackType type)
+        private int HitObjects(AttackType type)
         {
-
+            int hitCount = 0;
             for (int i = 0; i < _sensor.Objects.Count; i++)
             {
                 var hittable = _sensor.Objects[i];
@@ -151,8 +157,10 @@ namespace Pasta
                 }
 
                 EventActions.InvokeEvent(new HitContext(hittable, damage, EventActionType.OnHit));
-                hittable.Hit(damage, _player);
+                hittable.Hit(damage, HitType.Hit, _player);
+                hitCount++;
             }
+            return hitCount;
         }
 
         public bool Cancel()
@@ -166,6 +174,7 @@ namespace Pasta
             {
                 _attackEffects.CancelAttack();
                 StopCoroutine(_attackRoutine);
+                Time.timeScale = 1;
                 _attackRoutine = null;
             }
 

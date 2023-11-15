@@ -139,6 +139,7 @@ namespace Pasta
         {
             GoTo(GameStateType.GameOver);
         }
+
         public void OnPaused()
         {
             if (!_isPaused)
@@ -150,5 +151,7 @@ namespace Pasta
                 GoBack();
             }
         }
+
+
     }
 }

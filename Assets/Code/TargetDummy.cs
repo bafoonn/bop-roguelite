@@ -12,7 +12,7 @@ namespace Pasta
         public StatusHandler Status { get; private set; }
         public MonoBehaviour Mono => this;
 
-        public void Hit(float damage, ICharacter source = null)
+        public void Hit(float damage, HitType type, ICharacter source = null)
         {
             Health.TakeDamage(damage);
         }

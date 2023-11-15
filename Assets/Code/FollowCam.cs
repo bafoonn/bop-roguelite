@@ -52,14 +52,14 @@ namespace Pasta
                 moveOffset += _reader.Movement * ControllerMoveOffset;
             }
 
-            _currentAim = Vector2.Lerp(_currentAim, aimOffset, OffsetSpeed * Time.fixedDeltaTime);
-            _currentMove = Vector2.Lerp(_currentMove, moveOffset, OffsetSpeed * Time.fixedDeltaTime);
+            _currentAim = Vector2.Lerp(_currentAim, aimOffset, OffsetSpeed * Time.fixedDeltaTime * Time.timeScale);
+            _currentMove = Vector2.Lerp(_currentMove, moveOffset, OffsetSpeed * Time.fixedDeltaTime * Time.timeScale);
 
             Vector2 offset = _currentAim + _currentMove;
             offset = Vector2.ClampMagnitude(offset, MaxDistanceFromPlayer);
             var targetPos = playerPos + offset;
 
-            Vector3 newPos = Vector2.Lerp(transform.position, targetPos, Speed * Time.fixedDeltaTime);
+            Vector3 newPos = Vector2.Lerp(transform.position, targetPos, Speed * Time.fixedDeltaTime * Time.timeScale);
             newPos.z = -10;
             transform.position = newPos;
         }

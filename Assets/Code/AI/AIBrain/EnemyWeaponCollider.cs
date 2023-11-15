@@ -31,13 +31,13 @@ namespace Pasta
             {
                 if (collision.TryGetComponent<IHittable>(out var hittable))
                 {
-                    hittable.Hit(damage, isNormalEnemy ? m_Ai : bossAI );
+                    hittable.Hit(damage, source: isNormalEnemy ? m_Ai : bossAI);
                     if (!weaponParent.Aim)
                     {
                         //hittable.Hit(damage);
                     }
                 }
-			}
+            }
         }
     }
 }

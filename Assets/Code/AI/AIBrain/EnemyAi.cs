@@ -1,11 +1,8 @@
 using Pasta;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Tilemaps;
-using UnityEngine.U2D.IK;
 using UnityEngine.UI;
 using UnityEngine.VFX;
 
@@ -63,6 +60,9 @@ public class EnemyAi : MonoBehaviour, IEnemy
     public bool isAttacking = false;
     public bool stunned = false;
     public bool Death = false;
+
+    private Material _defaultMaterial = null;
+    [SerializeField] private Material _damagedMaterial = null;
     #region Damage taking effects
     private SpriteRenderer spriteRenderer; // TAKE DAMAGE STUFF
     private Color defaultColor; // TAKE DAMAGE STUFF
@@ -81,6 +81,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
         attackDefaultDist = attackDistance;
         agentMover = GetComponent<AgentMover>();
         spriteRenderer = GetComponent<SpriteRenderer>(); // TAKE DAMAGE STUFF
+        _defaultMaterial = spriteRenderer.material;
         defaultColor = spriteRenderer.color; // TAKE DAMAGE STUFF
         m_particleSystem = GetComponentInChildren<ParticleSystem>(); // TAKE DAMAGE STUFF
         enemyDeathScript = GetComponent<EnemyDeath>();
@@ -127,7 +128,6 @@ public class EnemyAi : MonoBehaviour, IEnemy
 
     private void OnDamaged()
     {
-        spriteRenderer.color = Color.red;
         if (m_particleSystem != null)
         {
             //ParticleSystemHolder.transform.rotation = Quaternion.Euler(0, 0, player.transform.Find("AttackHandler").transform.localEulerAngles.z);
@@ -374,15 +374,24 @@ public class EnemyAi : MonoBehaviour, IEnemy
         }
     }
 
-    public void Hit(float damage, ICharacter source = null)
+    public void Hit(float damage, HitType type, ICharacter source = null)
     {
         Health.TakeDamage(damage);
+        if (type == HitType.Hit && source != null)
+        {
+            Vector2 direction = transform.position - source.Mono.transform.position;
+            direction.Normalize();
+            Rigidbody.position = Rigidbody.position + direction * 0.33f;
+        }
     }
 
 
     private IEnumerator TakingDamage() // TAKE DAMAGE STUFF
     {
+        if (_damagedMaterial != null) spriteRenderer.material = _damagedMaterial;
+        else spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(0.2f);
-        spriteRenderer.color = defaultColor;
+        spriteRenderer.material = _defaultMaterial;
+        spriteRenderer.color = Color.white;
     }
 }

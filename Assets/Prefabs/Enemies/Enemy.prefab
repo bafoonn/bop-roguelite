@@ -6074,13 +6074,16 @@ MonoBehaviour:
   Player: {fileID: 0}
   timeToAttack: 0
   defaultTimeToAttack: 1.5
+  canAttack: 0
   stunTimer: 1
   drop: {fileID: 0}
   hasDeathAnim: 1
   Corpse: {fileID: 6992705672734178762, guid: 0bd6a8d9d9f054945bcfe81a42ba2fc6, type: 3}
   IsIdle: 1
   isAttacking: 0
+  stunned: 0
   Death: 0
+  _damagedMaterial: {fileID: 2100000, guid: e38b85b99faeab94bb79fd7af982aff5, type: 2}
   takeDamageEffects: {fileID: 3246212096596688428}
   ParticleSystemHolder: {fileID: 6295415784206921337}
 --- !u!114 &5018959942009198676

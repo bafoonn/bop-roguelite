@@ -260,7 +260,7 @@ public class BossAI : MonoBehaviour, IEnemy
         }
     }
 
-    public void Hit(float damage, ICharacter source = null)
+    public void Hit(float damage, HitType type, ICharacter source = null)
     {
         if (OnDeath != null)
         {
