@@ -48,9 +48,11 @@ MonoBehaviour:
   enemies:
   - {fileID: 6992705672734178762, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
   - {fileID: 6992705672734178762, guid: c1446a4a995152b4d95797a5c61c8ce6, type: 3}
-  totalEnemiesToSpawn: 1
+  totalEnemiesToSpawnPerWave: 1
+  waves: 1
   startDelay: 0
   spawnDelay: 0
+  randomSpawn: 1
 --- !u!212 &2088972526318840247
 SpriteRenderer:
   m_ObjectHideFlags: 0

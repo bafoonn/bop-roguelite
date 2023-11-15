@@ -15,6 +15,8 @@ namespace Pasta
         private bool isCombatRoom = true;
         private ItemBase[] rewards;
         private GameObject[] abilities;
+        private EnemySpawner[] enemySpawners;
+        private bool allWavesSpawned;
 
         public ItemBase Reward => reward;
 
@@ -56,13 +58,32 @@ namespace Pasta
             enemiesLeft--;
             if (enemiesLeft <= 0)
             {
-                abilities = GameObject.FindGameObjectsWithTag("Ability");
-                foreach (var ability in abilities)
+                allWavesSpawned = true;
+                enemySpawners = GetComponentsInChildren<EnemySpawner>();
+                for (int i = 0; i < enemySpawners.Length; i++)
                 {
-                    Destroy(ability.gameObject);
+                    if (enemySpawners[i].wavesCheck() != 0)
+                    {
+                        allWavesSpawned = false;
+                    }
                 }
-                rewardSpawner.gameObject.SetActive(true);
-                rewardSpawner.InitializeRewardSpawn(reward);
+                if (!allWavesSpawned)
+                {
+                    for (int i = 0; i < enemySpawners.Length; i++)
+                    {
+                        enemySpawners[i].startNewWave();
+                    }
+                }
+                else
+                {
+                    abilities = GameObject.FindGameObjectsWithTag("Ability");
+                    foreach (var ability in abilities)
+                    {
+                        Destroy(ability.gameObject);
+                    }
+                    rewardSpawner.gameObject.SetActive(true);
+                    rewardSpawner.InitializeRewardSpawn(reward);
+                }
             }
         }
         public void PickedUpReward()

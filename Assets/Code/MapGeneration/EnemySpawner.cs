@@ -9,27 +9,33 @@ namespace Pasta
         [SerializeField]
         private GameObject[] enemies;
         [SerializeField]
-        private int totalEnemiesToSpawn = 1;
+        private int totalEnemiesToSpawnPerWave = 1;
+        [SerializeField]
+        private int waves = 1;
         [SerializeField]
         private float startDelay;
         [SerializeField]
         private float spawnDelay;
+        [SerializeField]
+        private bool randomSpawn = true;
         private int enemiesToSpawn;
         private Level level;
         private bool isSpawning;
-        private bool enemiesSpawned = false;
+        private bool allEnemiesSpawned = false;
+        private bool spawnWave = true;
         private bool firstSpawn = false;
+        private int enemyIndex = 0;
         // Start is called before the first frame update
         void Start()
         {
-            enemiesToSpawn = totalEnemiesToSpawn;
+            enemiesToSpawn = totalEnemiesToSpawnPerWave;
             level = GetComponentInParent<Level>();
-            level.AddToEnemyCount(totalEnemiesToSpawn);
+            level.AddToEnemyCount(totalEnemiesToSpawnPerWave);
             isSpawning = false;
         }
         void Update()
         {
-            if (isSpawning == false && enemiesSpawned == false)
+            if (isSpawning == false && allEnemiesSpawned == false && spawnWave == true)
             {
                 StartCoroutine(SpawnRoutine());
             }
@@ -38,31 +44,58 @@ namespace Pasta
         private IEnumerator SpawnRoutine()
         {
             isSpawning = true;
-            if (enemiesToSpawn == totalEnemiesToSpawn && startDelay != 0)
+            if (enemiesToSpawn == totalEnemiesToSpawnPerWave && startDelay != 0)
             {
                 yield return new WaitForSeconds(startDelay);
             }
 
-            else if (enemiesToSpawn != totalEnemiesToSpawn && spawnDelay != 0 && firstSpawn)
+            else if (enemiesToSpawn != totalEnemiesToSpawnPerWave && spawnDelay != 0 && firstSpawn)
             {
                 yield return new WaitForSeconds(spawnDelay);
             }
 
-            int random = Random.Range(0, enemies.Length);
-            GameObject enemy = Instantiate(enemies[random], transform.position, Quaternion.identity);
-            enemy.transform.SetParent(level.gameObject.transform);
-            enemiesToSpawn--;
+            if (randomSpawn)
+            {
+                int random = Random.Range(0, enemies.Length);
+                GameObject enemy = Instantiate(enemies[random], transform.position, Quaternion.identity);
+                enemy.transform.SetParent(level.gameObject.transform);
+                enemiesToSpawn--;
+            }
+            else
+            {
+                GameObject enemy = Instantiate(enemies[enemyIndex], transform.position, Quaternion.identity);
+                enemy.transform.SetParent(level.gameObject.transform);
+                enemiesToSpawn--;
+                enemyIndex++;
+            }
             if (!firstSpawn)
             {
                 firstSpawn = true;
             }
-
             if (enemiesToSpawn == 0)
             {
-                enemiesSpawned = true;
+                waves--;
+                firstSpawn = false;
+                spawnWave = false;
+                if (waves == 0)
+                {
+                    allEnemiesSpawned = true;
+                }
             }
 
             isSpawning = false;
+        }
+
+        public int wavesCheck()
+        {
+            return waves;
+        }
+        public void startNewWave()
+        {
+            if (waves != 0)
+            {
+                spawnWave = true;
+            }
         }
     }
 }
