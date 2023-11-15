@@ -594,7 +594,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3420b309b6a6b8f49b8b8fb6d3db88e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetDetectionRange: 15
+  targetDetectionRange: 20
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 320
@@ -1297,6 +1297,7 @@ MonoBehaviour:
   Player: {fileID: 0}
   timeToAttack: 0
   defaultTimeToAttack: 2
+  canAttack: 0
   stunTimer: 1
   drop: {fileID: 0}
   hasDeathAnim: 0

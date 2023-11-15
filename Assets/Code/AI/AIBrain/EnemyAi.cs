@@ -61,6 +61,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
     [SerializeField] private GameObject Corpse;
     public bool IsIdle = true;
     public bool isAttacking = false;
+    public bool stunned = false;
     public bool Death = false;
     #region Damage taking effects
     private SpriteRenderer spriteRenderer; // TAKE DAMAGE STUFF
@@ -150,6 +151,10 @@ public class EnemyAi : MonoBehaviour, IEnemy
     }
     private void Update()
     {
+        //if(canAttack == false)
+        //{
+        //    aiData.currentTarget = null; // REMEMBER TO DO SOMETHING WITH THIS
+        //}
         if (aiData.currentTarget != null)
         {
 
@@ -312,7 +317,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
             //    // StartCourotine(UnStun());
             //}
             // ALOITA HY�KK�YS X DISTANCELLA JA LOPETA Y 
-            if (distance < attackDistance)
+            if (distance < attackDistance /*&& canAttack*/)  // REMEMBER TO DO SOMETHING WITH THIS
             {
                 isAttacking = true; // FOR ANIMATOR
                                     //Attacking 

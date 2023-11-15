@@ -24,15 +24,21 @@ namespace Pasta
         {
             Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, radius);
             result = hitColliders.Length - (hitColliders.Length * precentageSubtract);
-            for(int i = 0; i < hitColliders.Length; i++)
+            result = Mathf.Max(result, 1); // Ensure result is at least 1 
+            for (int i = 0; i < hitColliders.Length; i++)
 			{
-                if(i < result) // Check if the current hitcollider is inside the result
+                if(i < Mathf.RoundToInt(result)) // Check if the current hitcollider is inside the result
                 {
                     if(hitColliders[i].gameObject.GetComponent<EnemyAi>() != null)
 					{
                         enemyai = hitColliders[i].gameObject.GetComponent<EnemyAi>();
+                        enemyai.canAttack = true;
                     }
 				}
+                else
+                {
+                    continue;
+                }
 			}
         }
     }
