@@ -94,6 +94,7 @@ namespace Pasta
         {
             if (waves != 0)
             {
+                enemiesToSpawn = totalEnemiesToSpawnPerWave;
                 spawnWave = true;
             }
         }
