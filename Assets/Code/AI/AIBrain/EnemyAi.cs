@@ -43,6 +43,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
     private float defaultTimeToAttackWorkAround = 0; // TODO: DELETE THIS AT SOME POINT ONLY A WORKAROUND
     private float workaroundTimeToAttack = 0; // TODO: DELETE THIS AT SOME POINT ONLY A WORKAROUND
     public bool canAttack = true;
+    private bool canAttackAnim = true;
     private bool firstAttack = true;
     public float stunTimer = 1; // Will be used or replaced when adding stagger
     private AgentAnimations animations;
@@ -284,8 +285,16 @@ public class EnemyAi : MonoBehaviour, IEnemy
         {
             movementInput = Vector2.zero;
             abilityHolder.UseAbility = true;
-
+            canAttackAnim = false;
+            if (hasAttackEffect) attackEffect.CancelAttack();
+            StartCoroutine(CanAttack());
         }
+    }
+
+    IEnumerator CanAttack()
+    {
+        yield return new WaitForSeconds(1);
+        canAttackAnim = true;
     }
 
     private IEnumerator ChaseAndAttack()
@@ -316,7 +325,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
             //    // StartCourotine(UnStun());
             //}
             // ALOITA HY�KK�YS X DISTANCELLA JA LOPETA Y 
-            if (distance < attackDistance && canAttack)  // REMEMBER TO DO SOMETHING WITH THIS
+            if (distance < attackDistance && canAttack && canAttackAnim)  // REMEMBER TO DO SOMETHING WITH THIS
             {
                 isAttacking = true; // FOR ANIMATOR
                                     //Attacking 

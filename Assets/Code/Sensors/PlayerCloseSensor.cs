@@ -26,7 +26,7 @@ namespace Pasta
         // Update is called once per frame
         void Update()
         {
-            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, radius, layermask);
+            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, radius, layermask); // TODO: Only affect the X Closest
             result = Mathf.Max(result, 1); // Ensure result is at least 1 
             for (int i = 0; i < hitColliders.Length; i++)
 			{

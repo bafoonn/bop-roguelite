@@ -500,7 +500,7 @@ VisualEffect:
       - m_Value: {x: 4, y: 2.8}
         m_Name: HA Scale
         m_Overridden: 1
-      - m_Value: {x: 4, y: 3}
+      - m_Value: {x: 3, y: 3}
         m_Name: Ind Scale
         m_Overridden: 1
     m_Vector3f:
@@ -6018,8 +6018,8 @@ MonoBehaviour:
   detectionDelay: 0.01
   aiUpdateDelay: 0.01
   attackDelay: 1
-  attackDistance: 4
-  attackStopDistance: 7
+  attackDistance: 3
+  attackStopDistance: 4
   steeringBehaviours:
   - {fileID: 3838692728030095157}
   - {fileID: 3029777545630577490}
