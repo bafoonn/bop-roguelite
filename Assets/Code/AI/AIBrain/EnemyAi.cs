@@ -42,7 +42,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
     public float defaultTimeToAttack = 2; //Increase this if you want to make ai take longer
     private float defaultTimeToAttackWorkAround = 0; // TODO: DELETE THIS AT SOME POINT ONLY A WORKAROUND
     private float workaroundTimeToAttack = 0; // TODO: DELETE THIS AT SOME POINT ONLY A WORKAROUND
-    public bool canAttack = false;
+    public bool canAttack = true;
     private bool firstAttack = true;
     public float stunTimer = 1; // Will be used or replaced when adding stagger
     private AgentAnimations animations;
@@ -299,7 +299,6 @@ public class EnemyAi : MonoBehaviour, IEnemy
             IsIdle = true;
             abilityHolder.CanUseAbility = false;
             timeToAttack = 0;
-            movementInput = Vector2.zero;
             //if (hasAttackEffect) attackEffect.CancelAttack();
             //attackIndicator.fillAmount = 0;
             Chasing = false;
@@ -317,7 +316,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
             //    // StartCourotine(UnStun());
             //}
             // ALOITA HY�KK�YS X DISTANCELLA JA LOPETA Y 
-            if (distance < attackDistance /*&& canAttack*/)  // REMEMBER TO DO SOMETHING WITH THIS
+            if (distance < attackDistance && canAttack)  // REMEMBER TO DO SOMETHING WITH THIS
             {
                 isAttacking = true; // FOR ANIMATOR
                                     //Attacking 

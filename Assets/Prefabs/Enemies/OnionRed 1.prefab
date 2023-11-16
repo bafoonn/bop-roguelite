@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: 'abilities.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: 330a6064f2eabc84b97c4b45b8920831, type: 2}
+    - target: {fileID: 69885865199376009, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
+      propertyPath: <MaxHealth>k__BackingField
+      value: 70
+      objectReference: {fileID: 0}
     - target: {fileID: 1006995971007075442, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -20,9 +24,21 @@ PrefabInstance:
       propertyPath: Corpse
       value: 
       objectReference: {fileID: 6992705672734178762, guid: 0106dc9eec1d7214893b9c84728aa103, type: 3}
+    - target: {fileID: 1021474887807162252, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
+      propertyPath: damage
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1021474887807162252, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
+      propertyPath: defaultTimeToAttack
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1259514723982879070, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2565745539531763249, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
+      propertyPath: BaseSpeed
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3246212096596688428, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.x

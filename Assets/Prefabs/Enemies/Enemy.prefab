@@ -6018,8 +6018,8 @@ MonoBehaviour:
   detectionDelay: 0.01
   aiUpdateDelay: 0.01
   attackDelay: 1
-  attackDistance: 2
-  attackStopDistance: 4
+  attackDistance: 4
+  attackStopDistance: 7
   steeringBehaviours:
   - {fileID: 3838692728030095157}
   - {fileID: 3029777545630577490}
@@ -6274,7 +6274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac645b9282d68274d9f527221479be0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetReachedThershold: 0.5
+  targetReachedThershold: 2
   ShowGizmos: 1
 --- !u!1 &7518006742336827222
 GameObject:
