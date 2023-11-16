@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Pasta
 {
@@ -32,6 +33,10 @@ namespace Pasta
         [SerializeField] private float _heavyAttackHitStop = 0.06f;
 
         private ICharacter _player = null;
+
+        public UnityEvent OnQuickHit;
+        public UnityEvent OnHeavyHit;
+        public UnityEvent OnMiss;
 
         private void Awake()
         {
@@ -109,7 +114,12 @@ namespace Pasta
         {
             if (_hasAttackEffects) _attackEffects.QuickAttack();
             int hitCount = HitObjects(AttackType.Quick);
-            if (hitCount > 0) HitStopper.Stop(_quickAttackHitStop);
+            if (hitCount == 0 && OnMiss != null) OnMiss.Invoke();
+            if (hitCount > 0)
+            {
+                if (OnQuickHit != null) OnQuickHit.Invoke();
+                HitStopper.Stop(_quickAttackHitStop);
+            }
             yield return new WaitForSeconds(_quickAttackTime);
             _attackRoutine = null;
         }
@@ -122,10 +132,16 @@ namespace Pasta
 
             _cancellable = false;
             yield return new WaitForSeconds(waitTime);
-            if (_hasAttackEffects) _attackEffects.HeavyAttack();
-
             float hitCount = HitObjects(AttackType.Heavy);
-            if (hitCount > 0) HitStopper.Stop(_heavyAttackHitStop);
+
+            if (_hasAttackEffects) _attackEffects.HeavyAttack();
+            if (hitCount == 0 && OnMiss != null) OnMiss.Invoke();
+
+            if (hitCount > 0)
+            {
+                if (OnHeavyHit != null) OnHeavyHit.Invoke();
+                HitStopper.Stop(_heavyAttackHitStop);
+            }
 
             _cancellable = true;
             _attackRoutine = null;

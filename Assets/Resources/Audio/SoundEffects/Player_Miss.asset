@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49809bf1e7342644fa74e4a5d7c3f597, type: 3}
+  m_Name: Player_Miss
+  m_EditorClassIdentifier: 
+  <Clips>k__BackingField:
+  - {fileID: 8300000, guid: 6c08e9a50754d394baed5df1e6e49e38, type: 3}
+  - {fileID: 8300000, guid: fa488745d876b4c4189c1dc9d277cb34, type: 3}
+  - {fileID: 8300000, guid: c848fa3ed83f6c74fbf697afc32b7774, type: 3}
+  - {fileID: 8300000, guid: 93673c91ce8ab4c4c808d1473020a463, type: 3}
+  - {fileID: 8300000, guid: 2f26d0a7b56bd7540844d80d64a7459d, type: 3}
+  - {fileID: 8300000, guid: 54cb568e34482624abb272abc167cd6c, type: 3}
+  - {fileID: 8300000, guid: fb785fdc5408c7e498bdfaa7da5a77cc, type: 3}
+  - {fileID: 8300000, guid: c19bf363be87c3d4e8ffad818d906bb4, type: 3}
+  - {fileID: 8300000, guid: b5e85d249780dde42a05dccec2d54877, type: 3}
+  - {fileID: 8300000, guid: dec72c32df273d443b371fdc8e0e31d5, type: 3}
+  - {fileID: 8300000, guid: 1025c41645e839745b0dd66a2b9df2cc, type: 3}
+  - {fileID: 8300000, guid: e2fd29c6c8271794ba5c20aa8ba3670e, type: 3}
+  - {fileID: 8300000, guid: a26f6c4741c90494694b0d80c9b355d6, type: 3}
+  soundName: Player_Miss

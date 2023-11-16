@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Pasta
 {
-    public static class Extensions
+    public static partial class Extensions
     {
         public static T AddOrGetComponent<T>(this Component component) where T : Component
         {
