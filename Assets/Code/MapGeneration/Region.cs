@@ -58,17 +58,28 @@ namespace Pasta
         {
             EventActions.InvokeEvent(EventActionType.OnRoomEnter);
             activeLevel = Instantiate(levels[levelIndex], transform.position, Quaternion.identity, transform);
-            activeLevel.PassRewardIndex(roomRewardIndex);
+            activeLevel.PassRewardIndex(roomRewardIndex, levelNumber);
         }
 
         public void ActivateShopLevel()
         {
             endPoints = GetComponentInChildren<EndPoints>();
-            rewards = endPoints.GetRewards();
+            if (levelNumber != 4)
+            {
+                rewards = endPoints.GetRewards();
+            }
             Destroy(activeLevel.gameObject);
 
             activeLevel = Instantiate(shopRoom, transform.position, Quaternion.identity, transform);
-            activeLevel.ActivateEndPoints(rewards);
+
+            if (levelNumber != 4)
+            {
+                activeLevel.ActivateEndPoints(rewards);
+            }
+            else
+            {
+                activeLevel.ActivateBossPortal();
+            }
 
             levelManager.ActivateShopKeeper();
         }

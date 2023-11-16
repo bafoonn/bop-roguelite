@@ -44,16 +44,18 @@ namespace Pasta
         private IEnumerator SpawnRoutine()
         {
             isSpawning = true;
+            //Delay at the start of the spawn routine
             if (enemiesToSpawn == totalEnemiesToSpawnPerWave && startDelay != 0)
             {
                 yield return new WaitForSeconds(startDelay);
             }
-
+            //Delay between each spawn
             else if (enemiesToSpawn != totalEnemiesToSpawnPerWave && spawnDelay != 0 && firstSpawn)
             {
                 yield return new WaitForSeconds(spawnDelay);
             }
 
+            //Spawn a random enemy from the list if randomSpawn is checked
             if (randomSpawn)
             {
                 int random = Random.Range(0, enemies.Length);
@@ -61,6 +63,7 @@ namespace Pasta
                 enemy.transform.SetParent(level.gameObject.transform);
                 enemiesToSpawn--;
             }
+            //Spawn enemies in order from the list
             else
             {
                 GameObject enemy = Instantiate(enemies[enemyIndex], transform.position, Quaternion.identity);
@@ -72,6 +75,7 @@ namespace Pasta
             {
                 firstSpawn = true;
             }
+            //Reset the routine for new wave or end the routine if no waves left
             if (enemiesToSpawn == 0)
             {
                 waves--;

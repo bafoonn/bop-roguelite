@@ -20,7 +20,7 @@ namespace Pasta
         {
             precentageSubtract = precentage / 100;
             layer = layermask;
-            
+               
         }
 
         // Update is called once per frame
