@@ -208,7 +208,7 @@ VisualEffect:
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 507e4b7d771d4ba4aaba547410ceb89b, type: 3}
   m_InitialEventName: OnPlay
-  m_InitialEventNameOverriden: 0
+  m_InitialEventNameOverriden: 1
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_AllowInstancing: 1
@@ -222,7 +222,7 @@ VisualEffect:
       m_Array: []
     m_Vector4f:
       m_Array:
-      - m_Value: {x: 0.41509432, y: 0, z: 0.022079358, w: 0}
+      - m_Value: {x: 1.5589384, y: 0.08088832, z: 0.08088832, w: 0}
         m_Name: Color
         m_Overridden: 1
     m_Uint:
