@@ -17,6 +17,9 @@ namespace Pasta
         private GameObject[] abilities;
         private EnemySpawner[] enemySpawners;
         private bool allWavesSpawned;
+        private BossPortal bossPortal;
+        private bool nextRoomBoss = false;
+        private int levelNumber;
 
         public ItemBase Reward => reward;
 
@@ -38,14 +41,23 @@ namespace Pasta
                 rewardSpawner = GetComponentInChildren<RoomRewardSpawner>();
                 rewardSpawner.gameObject.SetActive(false);
             }
+            if (GetComponentInChildren<BossPortal>())
+            {
+                bossPortal = GetComponentInChildren<BossPortal>();
+                if (!nextRoomBoss)
+                {
+                    bossPortal.gameObject.SetActive(false);
+                }
+            }
             player = GameObject.FindGameObjectWithTag("Player");
             player.transform.position = spawnPoint.transform.position;
             CheckIfNonCombatRoom();
         }
 
-        public void PassRewardIndex(ItemBase passedReward)
+        public void PassRewardIndex(ItemBase passedReward, int passedLevelNumber)
         {
             reward = passedReward;
+            levelNumber = passedLevelNumber;
         }
         // Each enemy spawner passes the value of the number of enemies it will spawn, which is then added to the total sum
         public void AddToEnemyCount(int addedEnemyCount)
@@ -88,9 +100,16 @@ namespace Pasta
         }
         public void PickedUpReward()
         {
-            endPoints.gameObject.SetActive(true);
-            endPoints.GenerateRoomRewards();
-            shopPortal.gameObject.SetActive(true);
+            if (levelNumber != 4)
+            {
+                endPoints.gameObject.SetActive(true);
+                endPoints.GenerateRoomRewards();
+                shopPortal.gameObject.SetActive(true);
+            }
+            else
+            {
+                shopPortal.gameObject.SetActive(true);
+            }
         }
         public void ActivateEndPoints(ItemBase[] passedRewards)
         {
@@ -104,6 +123,10 @@ namespace Pasta
                 endPoints.gameObject.SetActive(true);
                 endPoints.PassRewards(rewards);
             }
+        }
+        public void ActivateBossPortal()
+        {
+            nextRoomBoss = true;
         }
     }
 }
