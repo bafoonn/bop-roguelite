@@ -12,10 +12,22 @@ PrefabInstance:
       propertyPath: 'abilities.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: ffb93609bd506ac45919e53433719486, type: 2}
+    - target: {fileID: 69885865199376009, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
+      propertyPath: <MaxHealth>k__BackingField
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 1006995971007075442, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -5859083586626064994, guid: a17e7d17ee9cbeb4d9e26f3dbd891e6c, type: 3}
+    - target: {fileID: 1021474887807162252, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
+      propertyPath: attackDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1021474887807162252, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
+      propertyPath: attackStopDistance
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1259514723982879070, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
       value: 1
@@ -24,6 +36,10 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 1.3125
       objectReference: {fileID: 0}
+    - target: {fileID: 1333527582292187005, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
+      propertyPath: targetDetectionRange
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 1933818565137598220, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
       propertyPath: m_IsTrigger
       value: 1
@@ -31,6 +47,14 @@ PrefabInstance:
     - target: {fileID: 2160224316264161601, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
       propertyPath: m_PropertySheet.m_Vector2f.m_Array.Array.data[2].m_Value.x
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2565745539531763249, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
+      propertyPath: BaseSpeed
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3029777545630577490, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
+      propertyPath: targetReachedThershold
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3246212096596688428, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.size

@@ -1242,7 +1242,7 @@ MonoBehaviour:
   aiUpdateDelay: 0.01
   attackDelay: 1
   attackDistance: 13
-  attackStopDistance: 16
+  attackStopDistance: 17
   steeringBehaviours:
   - {fileID: 3838692728030095157}
   - {fileID: 3029777545630577490}
@@ -1304,7 +1304,9 @@ MonoBehaviour:
   Corpse: {fileID: 0}
   IsIdle: 1
   isAttacking: 0
+  stunned: 0
   Death: 0
+  _damagedMaterial: {fileID: 0}
   takeDamageEffects: {fileID: 9091335694339236151}
   ParticleSystemHolder: {fileID: 0}
 --- !u!114 &5018959942009198676
