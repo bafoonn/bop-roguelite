@@ -12,6 +12,8 @@ namespace Pasta
         public override bool DoPersist => true;
         private bool _isPaused = false;
 
+        public bool IsPaused => _isPaused;
+
         [SerializeField] private string _mainMenuScene = "MainMenu";
         [SerializeField] private string _pauseScene = "Pause";
         [SerializeField] private string _gameScene = "Playtest";

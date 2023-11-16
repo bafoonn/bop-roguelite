@@ -28,6 +28,9 @@ namespace Pasta
         private AttackEffects _attackEffects;
         private bool _hasAttackEffects = false;
 
+        [SerializeField] private float _quickAttackHitStop = 0.03f;
+        [SerializeField] private float _heavyAttackHitStop = 0.06f;
+
         private ICharacter _player = null;
 
         private void Awake()
@@ -106,13 +109,8 @@ namespace Pasta
         {
             if (_hasAttackEffects) _attackEffects.QuickAttack();
             int hitCount = HitObjects(AttackType.Quick);
-            float timer = 0;
-            //if (hitCount > 0) HitStopper.Stop(0.1f);
-            while (timer < _quickAttackTime)
-            {
-                timer += Time.deltaTime;
-                yield return null;
-            }
+            if (hitCount > 0) HitStopper.Stop(_quickAttackHitStop);
+            yield return new WaitForSeconds(_quickAttackTime);
             _attackRoutine = null;
         }
 
@@ -126,7 +124,8 @@ namespace Pasta
             yield return new WaitForSeconds(waitTime);
             if (_hasAttackEffects) _attackEffects.HeavyAttack();
 
-            HitObjects(AttackType.Heavy);
+            float hitCount = HitObjects(AttackType.Heavy);
+            if (hitCount > 0) HitStopper.Stop(_heavyAttackHitStop);
 
             _cancellable = true;
             _attackRoutine = null;
@@ -174,7 +173,6 @@ namespace Pasta
             {
                 _attackEffects.CancelAttack();
                 StopCoroutine(_attackRoutine);
-                Time.timeScale = 1;
                 _attackRoutine = null;
             }
 

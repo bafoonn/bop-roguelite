@@ -24,7 +24,7 @@ namespace Pasta
             _collider = this.AddOrGetComponent<CircleCollider2D>();
             _collider.radius = _radius;
 
-            OnDamageChanged(0);
+            OnDamageChanged(_damageStat.Value);
 
             var sprite = GetComponentInChildren<SpriteRenderer>();
             if (sprite != null)

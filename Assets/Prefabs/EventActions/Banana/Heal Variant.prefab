@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8136634457532562364, guid: c2012a0c23ca7cc4d8e53444d8442521, type: 3}
       propertyPath: _healAmount
-      value: 0.1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8136634457532562364, guid: c2012a0c23ca7cc4d8e53444d8442521, type: 3}
       propertyPath: _isPercentage
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8367826657766364561, guid: c2012a0c23ca7cc4d8e53444d8442521, type: 3}
       propertyPath: m_Name

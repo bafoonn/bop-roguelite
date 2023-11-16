@@ -27,10 +27,5 @@ namespace Pasta
                 }
             }
         }
-
-        protected override void OnEnter(IHittable hittable)
-        {
-            hittable.Hit(Damage);
-        }
     }
 }

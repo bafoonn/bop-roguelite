@@ -29,7 +29,7 @@ namespace Pasta
             await FindPlayer();
         }
 
-        private void FixedUpdate()
+        private void LateUpdate()
         {
             if (_player == null || _reader == null) return;
             Vector2 screenCenter = transform.position;
@@ -52,14 +52,15 @@ namespace Pasta
                 moveOffset += _reader.Movement * ControllerMoveOffset;
             }
 
-            _currentAim = Vector2.Lerp(_currentAim, aimOffset, OffsetSpeed * Time.fixedDeltaTime * Time.timeScale);
-            _currentMove = Vector2.Lerp(_currentMove, moveOffset, OffsetSpeed * Time.fixedDeltaTime * Time.timeScale);
+            float deltaTime = Time.unscaledDeltaTime;
+            _currentAim = Vector2.Lerp(_currentAim, aimOffset, OffsetSpeed * deltaTime);
+            _currentMove = Vector2.Lerp(_currentMove, moveOffset, OffsetSpeed * deltaTime);
 
             Vector2 offset = _currentAim + _currentMove;
             offset = Vector2.ClampMagnitude(offset, MaxDistanceFromPlayer);
             var targetPos = playerPos + offset;
 
-            Vector3 newPos = Vector2.Lerp(transform.position, targetPos, Speed * Time.fixedDeltaTime * Time.timeScale);
+            Vector3 newPos = Vector2.Lerp(transform.position, targetPos, Speed * deltaTime);
             newPos.z = -10;
             transform.position = newPos;
         }

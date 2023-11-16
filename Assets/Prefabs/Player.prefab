@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 7696243814693494855}
   - component: {fileID: 5005341813217243479}
   - component: {fileID: 2403863716485791647}
+  - component: {fileID: 7931643258982378263}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -232,6 +233,9 @@ MonoBehaviour:
   _hitFrames: 0.66
   _dodgeFrames: 0.33
   _iFrameColor: {r: 1, g: 1, b: 1, a: 0.5}
+  _damagedMaterial: {fileID: 2100000, guid: e38b85b99faeab94bb79fd7af982aff5, type: 2}
+  _hitStopTime: 0.3
+  _movementMultiplierWhileAttacking: 0.36
 --- !u!114 &4928316304019425267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,7 +280,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
@@ -364,6 +368,25 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7931643258982378263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076966697667818739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9651e9ee345be854eb1cc8a95024b9bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 3
+  precentage: 30
+  result: 0
+  layermask:
+    serializedVersion: 2
+    m_Bits: 128
+  maxEnemiesThatcanAttack: 4
 --- !u!1 &2672405732682329564
 GameObject:
   m_ObjectHideFlags: 0
@@ -1279,6 +1302,8 @@ MonoBehaviour:
   _heavyAttackTime: 0.8
   _quickAttackDamage: 10
   _heavyAttackDamage: 20
+  _quickAttackHitStop: 0.03
+  _heavyAttackHitStop: 0.06
 --- !u!1 &7088350133060946999
 GameObject:
   m_ObjectHideFlags: 0
@@ -1609,10 +1634,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: StatUI
       objectReference: {fileID: 0}
+    - target: {fileID: 7188305295595865124, guid: 013beb55e75818f4b80745aa93ee3830, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7188305295595865124, guid: 013beb55e75818f4b80745aa93ee3830, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -8
+      objectReference: {fileID: 0}
     - target: {fileID: 9204873063355989426, guid: 013beb55e75818f4b80745aa93ee3830, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 5712978051868336661, guid: 09e870dcf89952e4f9d80b5b2a3ae1ec, type: 3}
+      objectReference: {fileID: -6799637688695467347, guid: 9db5ae1d9cb9b324eb0cda208a4c6388, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1719,10 +1752,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: StatUI (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7188305295595865124, guid: 013beb55e75818f4b80745aa93ee3830, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7188305295595865124, guid: 013beb55e75818f4b80745aa93ee3830, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -8
+      objectReference: {fileID: 0}
     - target: {fileID: 9204873063355989426, guid: 013beb55e75818f4b80745aa93ee3830, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -8584562636705595363, guid: 298676584b7999447a3546b741009574, type: 3}
+      objectReference: {fileID: 5462491220751129457, guid: 326111461a4f91c42b60ef54c9592cf5, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1829,10 +1870,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: StatUI (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7188305295595865124, guid: 013beb55e75818f4b80745aa93ee3830, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7188305295595865124, guid: 013beb55e75818f4b80745aa93ee3830, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -8
+      objectReference: {fileID: 0}
     - target: {fileID: 9204873063355989426, guid: 013beb55e75818f4b80745aa93ee3830, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 7746310468709954608, guid: 5dd9ec5b1c784fc46a2bc77896303faf, type: 3}
+      objectReference: {fileID: -7909161065004961426, guid: 12435301e90a78a42850db2451220dbd, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

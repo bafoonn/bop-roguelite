@@ -45,6 +45,11 @@ namespace Pasta
 
         private void OnTriggerStay2D(Collider2D collision)
         {
+            if (!SensedLayers.Includes(collision.gameObject.layer))
+            {
+                return;
+            }
+
             if (collision.TryGetComponent<T>(out var obj))
             {
                 OnStay(obj);

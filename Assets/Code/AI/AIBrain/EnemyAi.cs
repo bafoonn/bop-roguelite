@@ -257,6 +257,9 @@ public class EnemyAi : MonoBehaviour, IEnemy
         EventActions.InvokeEvent(EventActionType.OnKill);
 
         level.EnemyKilled();
+
+        //HitStopper.Stop(0.2f);
+
         if (!hasDeathAnim)
         {
             Destroy(gameObject);
@@ -269,7 +272,6 @@ public class EnemyAi : MonoBehaviour, IEnemy
             Destroy(gameObject);
             Instantiate(Corpse, transform.position, transform.rotation);
         }
-
     }
 
     //private IEnumerator UnStun()

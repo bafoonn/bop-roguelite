@@ -47,6 +47,10 @@ public class Player : MonoBehaviour, IPlayer
     public Rigidbody2D Rigidbody => _rigidbody;
 
     public static event Action OnPlayerDeath;
+    [SerializeField] private Material _damagedMaterial = null;
+    private Material _defaultMaterial = null;
+    [SerializeField] private float _hitStopTime = 0.3f;
+    [SerializeField] private float _movementMultiplierWhileAttacking = 0.36f;
 
     private void Awake()
     {
@@ -63,6 +67,7 @@ public class Player : MonoBehaviour, IPlayer
         Assert.IsNotNull(_actions);
         _actions.Setup(this);
         _sprite = GetComponent<SpriteRenderer>();
+        _defaultMaterial = _sprite.material;
         _statusHandler = this.AddOrGetComponent<StatusHandler>();
         _statusHandler.Setup(this);
 
@@ -85,7 +90,7 @@ public class Player : MonoBehaviour, IPlayer
 
         if (_attackHandler.IsAttacking)
         {
-            movement *= 0.3f;
+            movement *= _movementMultiplierWhileAttacking;
         }
 
         //if (!_attackHandler.IsAttacking)
@@ -95,11 +100,6 @@ public class Player : MonoBehaviour, IPlayer
 
         _attackHandler.transform.right = _input.Aim;
         _movement.Move(movement);
-    }
-
-    private void Update()
-    {
-        _sprite.color = _hasIframes ? _iFrameColor : _baseColor;
     }
 
     private void OnEnable()
@@ -254,5 +254,15 @@ public class Player : MonoBehaviour, IPlayer
         if (_hasIframes) return;
         _health.TakeDamage(damage);
         AddIframes(_hitFrames);
+        StartCoroutine(HitRoutine());
+    }
+
+    private IEnumerator HitRoutine()
+    {
+        _sprite.color = Color.white;
+        if (_damagedMaterial != null) _sprite.material = _damagedMaterial;
+        HitStopper.Stop(_hitStopTime);
+        yield return new WaitForSeconds(0.2f);
+        _sprite.material = _defaultMaterial;
     }
 }
