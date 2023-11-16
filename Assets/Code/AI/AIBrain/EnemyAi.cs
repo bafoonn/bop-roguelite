@@ -293,7 +293,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
 
     IEnumerator CanAttack()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1.5f);
         canAttackAnim = true;
     }
 
