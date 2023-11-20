@@ -163,6 +163,9 @@ public class EnemyAi : MonoBehaviour, IEnemy
         }
 
     }
+
+    
+
     private void Update()
     {
         #region supportenemy stuff
@@ -179,6 +182,12 @@ public class EnemyAi : MonoBehaviour, IEnemy
                 positions[0] = gameObject.transform.position;
                 positions[1] = supportEnemyTarger.position;
                 lineRenderer.SetPositions(positions);
+                //MeshCollider meshCollider = lineRenderer.AddComponent<MeshCollider>();
+                //Mesh mesh = new Mesh();
+                //lineRenderer.BakeMesh(mesh, true);
+                //meshCollider.sharedMesh = mesh;
+                //meshCollider.isTrigger = true;
+                
             }
            
             if ((player.transform.position - transform.position).magnitude < 15.0f && canTarget) // If player is close support enemy gets random enemy closeby to buff

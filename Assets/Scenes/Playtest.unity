@@ -859,11 +859,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 957332437762638172, guid: b9643de2ac887e5408e851d5c4b317a1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.9589386
+      value: -4.2089386
       objectReference: {fileID: 0}
     - target: {fileID: 957332437762638172, guid: b9643de2ac887e5408e851d5c4b317a1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.2825546
+      value: -2.0325546
       objectReference: {fileID: 0}
     - target: {fileID: 957332437762638172, guid: b9643de2ac887e5408e851d5c4b317a1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -896,10 +896,6 @@ PrefabInstance:
     - target: {fileID: 957332437762638172, guid: b9643de2ac887e5408e851d5c4b317a1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2763725925968091241, guid: b9643de2ac887e5408e851d5c4b317a1, type: 3}
-      propertyPath: playerLayerMask.m_Bits
-      value: 128
       objectReference: {fileID: 0}
     - target: {fileID: 6183453909542400734, guid: b9643de2ac887e5408e851d5c4b317a1, type: 3}
       propertyPath: m_Name

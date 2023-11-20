@@ -9,8 +9,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1021474887807162252, guid: c1446a4a995152b4d95797a5c61c8ce6, type: 3}
+      propertyPath: Corpse
+      value: 
+      objectReference: {fileID: 6992705672734178762, guid: 0106dc9eec1d7214893b9c84728aa103, type: 3}
+    - target: {fileID: 1021474887807162252, guid: c1446a4a995152b4d95797a5c61c8ce6, type: 3}
       propertyPath: radius
-      value: 5
+      value: 8.53
       objectReference: {fileID: 0}
     - target: {fileID: 1021474887807162252, guid: c1446a4a995152b4d95797a5c61c8ce6, type: 3}
       propertyPath: layermask.m_Bits
