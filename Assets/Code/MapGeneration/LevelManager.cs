@@ -58,7 +58,7 @@ namespace Pasta
             }
             else
             {
-                Debug.Log("Game over! You lose!p");
+                Debug.Log("Game over! You lose!");
             }
         }
         public void ActivateShopKeeper()
