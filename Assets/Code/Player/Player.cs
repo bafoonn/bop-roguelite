@@ -52,6 +52,9 @@ public class Player : MonoBehaviour, IPlayer
     [SerializeField] private float _hitStopTime = 0.3f;
     [SerializeField] private float _movementMultiplierWhileAttacking = 0.36f;
 
+    [SerializeField] private PlayerUIAnimationController _playerUI;
+    private bool _havePlayerUI;
+
     private void Awake()
     {
         _input = this.AddOrGetComponent<PlayerInput>();
@@ -82,6 +85,8 @@ public class Player : MonoBehaviour, IPlayer
         _input.HeavyAttackCallback = () => AddAction(_heavyAttackAction);
 
         _movement.Setup(_rigidbody);
+
+        _havePlayerUI = _playerUI != null;
     }
 
     private void FixedUpdate()
@@ -166,6 +171,7 @@ public class Player : MonoBehaviour, IPlayer
         if (collision.TryGetComponent<Coin>(out var coin))
         {
             coin.Take(ref currency);
+            if (_havePlayerUI) _playerUI.CoinPickup();
             return;
         }
     }

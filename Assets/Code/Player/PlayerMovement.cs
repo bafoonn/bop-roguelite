@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class PlayerMovement : Movement
 {
@@ -16,11 +17,16 @@ public class PlayerMovement : Movement
     public bool CanDodge => (_dodgeRoutine == null && _isDodging == false);
     public Stat _movementSpeed;
 
+    private VisualEffect dodgeEffect;
+    private bool _haveDodgeEffect;
+
     private void Start()
     {
         _movementSpeed = StatManager.Current.GetStat(StatType.Movementspeed);
         _movementSpeed.ValueChanged += OnMovementSpeedChanged;
         OnMovementSpeedChanged(_movementSpeed.Value);
+        dodgeEffect = this.transform.Find("DodgeRollEffect").GetComponent<VisualEffect>();
+        _haveDodgeEffect = dodgeEffect != null;
     }
 
     private void OnDestroy()
@@ -66,6 +72,7 @@ public class PlayerMovement : Movement
         dir.Normalize();
         _currentDir = dir;
         _targetDir = dir;
+        if (_haveDodgeEffect) dodgeEffect.SendEvent("Dodge");
 
         float timer = 0;
         float baseSpeed = _dodgeSpeed;
@@ -85,6 +92,7 @@ public class PlayerMovement : Movement
 
         _isDodging = false;
         UpdateSpeed();
+        if (_haveDodgeEffect) dodgeEffect.SendEvent("Stop");
 
         yield return new WaitForSeconds(_dodgeCooldown);
         _dodgeRoutine = null;

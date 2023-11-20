@@ -32,7 +32,7 @@ namespace Pasta
             {
                 if (i < maxEnemiesThatcanAttack) // Check if the current hitcollider is inside the result
                 {
-                    Debug.Log(i);
+                    //Debug.Log(i);
                     if (hitColliders[i].gameObject.TryGetComponent(out EnemyAi enemyAi))
                     {
                         enemyai = hitColliders[i].gameObject.GetComponent<EnemyAi>();

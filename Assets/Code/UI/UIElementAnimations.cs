@@ -37,6 +37,15 @@ namespace Pasta
         private float shakeSpeed = 1f;
         private float shakeTime = 0f;
 
+        private float rotationShakeDuration = 0.5f;
+        private float rotationShakeIntensity = 1f;
+        private float rotationShakeSpeed = 1f;
+        private float rotationShakeTime = 0f;
+
+        private float popIntensity = 1.5f;
+        private float popDuration = 1f;
+        private float popTime = 1f;
+
         private float currentRotation;
         private float currentScale = 1f;
         private float currentXOffset;
@@ -49,11 +58,13 @@ namespace Pasta
 
         private bool shouldUpdate = true;
         private bool shouldShake = false;
+        private bool shouldRotationShake = false;
+        private bool shouldPop = false;
 
 
         void Start()
         {
-            rectTransform = gameObject.transform.GetChild(0).GetComponent<RectTransform>();
+            //rectTransform = gameObject.transform.GetChild(0).GetComponent<RectTransform>();
         }
 
         void Update()
@@ -69,6 +80,33 @@ namespace Pasta
                     UpdateShake();
                 }
             }
+            if (shouldRotationShake)
+            {
+                if (rotationShakeTime >= rotationShakeDuration)
+                {
+                    shouldRotationShake = false;
+                    rotationShakeTime = 0f;
+                }
+                else
+                {
+                    UpdateRotationShake();
+                }
+            }
+            if (shouldPop)
+            {
+                if (popTime >= popDuration)
+                {
+                    shouldPop = false;
+                    popTime = 0f;
+                    targetScale = 1f;
+                }
+                else
+                {
+                    UpdatePop();
+                }
+            }
+
+            //TODO: Change certain effects to not use lerp
 
             currentRotation = Mathf.Lerp(currentRotation, targetRotation, rotationSpeed * Time.deltaTime);
             currentScale = Mathf.Lerp(currentScale, targetScale, scaleSpeed * Time.deltaTime);
@@ -80,9 +118,14 @@ namespace Pasta
             rectTransform.localScale = new Vector3(currentScale, currentScale, 1f);
         }
 
+        public void SetRectTransform(RectTransform rectTransform)
+        {
+            this.rectTransform = rectTransform;
+        }
+
         public void Highlight()
         {
-            Debug.Log("Highlight");
+            //Debug.Log("Highlight");
             Highlight(highlightScale, highlightScaleSpeed);
         }
 
@@ -93,6 +136,17 @@ namespace Pasta
 
             ShakeSmooth(highlightShakeIntensityX, highlightShakeIntensityY, highlightShakeDuration, highlightShakeSpeed);
         }
+
+        public void Shake(float xIntensity)
+        {
+
+        }
+
+        public void PickUp()
+        {
+
+        }
+
 
         private void ShakeSmooth(float xIntensity, float yIntensity, float duration, float shakeSpeed)
         {
@@ -107,6 +161,27 @@ namespace Pasta
             yOffsetSpeed = 1000f;
         }
 
+        private void RotationShake(float intensity, float duration, float shakeSpeed)
+        {
+            shouldRotationShake = true;
+            rotationShakeDuration = duration;
+            rotationShakeTime = 0f;
+            rotationShakeSpeed = shakeSpeed;
+            rotationShakeIntensity = intensity;
+
+            rotationSpeed = 1000f;
+        }
+
+        public void Pop(float intensity, float duration)
+        {
+            shouldPop = true;
+            popDuration = duration;
+            popIntensity = intensity;
+            popTime = 0f;
+
+            scaleSpeed = 1000f;
+        }
+
         private void UpdateShake()
         {
             shakeTime += Time.deltaTime;
@@ -115,25 +190,42 @@ namespace Pasta
             float xValue = sine * shakeXIntensity * timeIntensity;
             float yValue = sine * shakeYIntensity * timeIntensity;
 
-            Debug.Log(timeIntensity);
-
-            
-
             targetXOffset = xValue;
             targetYOffset = yValue;
+        }
+        private void UpdateRotationShake()
+        {
+            rotationShakeTime += Time.deltaTime;
+            float timeIntensity = (1 + Mathf.Cos((rotationShakeTime / rotationShakeDuration) * Mathf.PI)) / 2;
+            float sine = Mathf.Sin(rotationShakeTime * rotationShakeSpeed);
+            float rotation = sine * rotationShakeIntensity * timeIntensity;
+
+            targetRotation = rotation;
+        }
+
+        private void UpdatePop()
+        {
+            popTime += Time.deltaTime;
+            float sine = Mathf.Sin((popTime / popDuration) * (Mathf.PI));
+            float scale = 1f + (sine * popIntensity);
+            Debug.Log(sine);
+
+            targetScale = scale;
         }
 
         public void SoftReset()
         {
             scaleSpeed = scaleResetSpeed;
-            Debug.Log("Soft Reset");
+            //Debug.Log("Soft Reset");
             targetRotation = 0f;
             targetScale = 1f;
             targetXOffset = 0f;
             targetYOffset = 0f;
 
             shouldShake = false;
+            shouldRotationShake = false;
             shakeTime = 0f;
+            rotationShakeTime = 0f;
         }
 
         public void HardReset()
@@ -149,7 +241,9 @@ namespace Pasta
             currentYOffset = 0f;
 
             shouldShake = false;
+            shouldRotationShake = false;
             shakeTime = 0f;
+            rotationShakeTime = 0f;
         }
     }
 }
