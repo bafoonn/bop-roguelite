@@ -13,6 +13,7 @@ namespace Pasta
         [SerializeField] private float _currentHealth = 0;
         [SerializeField] private GameObject damageText;
         public bool immune = false;
+        private bool trapDamageTaken;
         public float CurrentHealth
         {
             get => _currentHealth;
@@ -74,6 +75,20 @@ namespace Pasta
             if (IsMaxHealth) return;
             CurrentHealth += amount;
             if (OnHealed != null) OnHealed();
+        }
+        public bool CheckIfTakenTrapDamage()
+        {
+            return trapDamageTaken;
+        }
+        public void TrapDamageTaken()
+        {
+            trapDamageTaken = true;
+            StartCoroutine(trapDamageInterval());
+        }
+        IEnumerator trapDamageInterval()
+        {
+            yield return new WaitForSeconds(1f);
+            trapDamageTaken = false;
         }
     }
 }
