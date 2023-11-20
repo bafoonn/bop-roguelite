@@ -12,6 +12,7 @@ namespace Pasta
         [field: SerializeField] public float MaxHealth { get; private set; } = 100;
         [SerializeField] private float _currentHealth = 0;
         [SerializeField] private GameObject damageText;
+        public bool immune = false;
         public float CurrentHealth
         {
             get => _currentHealth;
@@ -50,7 +51,7 @@ namespace Pasta
         public virtual void TakeDamage(float damage)
         {
             if (IsDead) return;
-
+            if (immune) return;
             CurrentHealth -= damage;
             Vector2 Position = (Vector2)transform.position + Vector2.up + UnityEngine.Random.insideUnitCircle;
             if (damageText != null)

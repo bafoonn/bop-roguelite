@@ -1,6 +1,7 @@
 using Pasta;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -24,6 +25,13 @@ public class EnemyAi : MonoBehaviour, IEnemy
 
     public Rigidbody2D Rigidbody { get; private set; }
 
+
+    #region supportenemy stuff
+    public Transform supportEnemyTarger;
+    [SerializeField] private LayerMask layermask;
+    public float radius = 20;
+    private bool canTarget = true;
+    #endregion
     private Level level;
     public float damage = 5;
     private Separation seperation;
@@ -76,6 +84,11 @@ public class EnemyAi : MonoBehaviour, IEnemy
 
     private void Start()
     {
+        if (gameObject.name.Contains("Support"))
+        {
+            gameObject.AddComponent<LineRenderer>();
+            canAttack = false;
+        }
         Status = this.AddOrGetComponent<StatusHandler>();
         Status.Setup(this);
         Rigidbody = GetComponent<Rigidbody2D>();
@@ -152,6 +165,51 @@ public class EnemyAi : MonoBehaviour, IEnemy
     }
     private void Update()
     {
+        #region supportenemy stuff
+        if (gameObject.name.Contains("Support"))
+        {
+            if(supportEnemyTarger != null)
+            {
+                LineRenderer lineRenderer;
+
+                
+
+                lineRenderer = GetComponent<LineRenderer>();
+                Vector3[] positions = new Vector3[2];
+                positions[0] = gameObject.transform.position;
+                positions[1] = supportEnemyTarger.position;
+                lineRenderer.SetPositions(positions);
+            }
+           
+            if ((player.transform.position - transform.position).magnitude < 15.0f && canTarget) // If player is close support enemy gets random enemy closeby to buff
+            {
+                
+                Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, radius, layermask);
+                int random = Random.Range(1, hitColliders.Length);
+                for (int i = 0; i < hitColliders.Length; i++)
+                {
+                    if (i == random) // Check if the current hitcollider is inside the result
+                    {
+                        if (hitColliders[i].gameObject.name.Contains("Support"))
+                        {
+                            break;
+                        }
+                        Debug.Log(i);
+                        if (hitColliders[i].gameObject.TryGetComponent(out Health health))
+                        {
+                            supportEnemyTarger = hitColliders[i].gameObject.transform;
+                            hitColliders[i].gameObject.GetComponent<Health>().immune = true; // added check to health script called immune. // goes false on death method.
+                            
+                            canTarget = false;
+                        }
+                    }
+
+                }
+                
+
+            }
+        }
+        #endregion
         //if(canAttack == false)
         //{
         //    aiData.currentTarget = null; // REMEMBER TO DO SOMETHING WITH THIS
@@ -237,6 +295,11 @@ public class EnemyAi : MonoBehaviour, IEnemy
             weaponParent.RangedAttack();
             if (hasAttackEffect) attackEffect.CancelAttack();
         }
+        if (gameObject.name.Contains("Support"))
+        {
+            weaponParent.ImmunityBeam();
+            canAttack = false;
+        }
         else
         {
             weaponParent.Attack();
@@ -251,6 +314,14 @@ public class EnemyAi : MonoBehaviour, IEnemy
         if (this.gameObject.name.Contains("Carrier"))
         {
             enemySpawningCarrier.SpawnMinions();
+        }
+        if (gameObject.name.Contains("Support"))
+        {
+            if(supportEnemyTarger != null)
+            {
+                supportEnemyTarger.GetComponent<Health>().immune = false;
+            }
+            
         }
 
         Death = true;
@@ -295,7 +366,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
 
     IEnumerator CanAttack()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(3f);
         canAttackAnim = true;
     }
 

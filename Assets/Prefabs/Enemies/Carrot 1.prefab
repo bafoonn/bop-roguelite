@@ -21,6 +21,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -5859083586626064994, guid: a17e7d17ee9cbeb4d9e26f3dbd891e6c, type: 3}
     - target: {fileID: 1021474887807162252, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
+      propertyPath: Corpse
+      value: 
+      objectReference: {fileID: 6992705672734178762, guid: cf1702d8000e7134db360ed51a086188, type: 3}
+    - target: {fileID: 1021474887807162252, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
       propertyPath: attackDistance
       value: 3
       objectReference: {fileID: 0}
@@ -34,7 +38,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1259514723982879070, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.3125
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1333527582292187005, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
       propertyPath: targetDetectionRange

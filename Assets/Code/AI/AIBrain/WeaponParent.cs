@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using Pasta;
 using System;
 using System.Collections;
@@ -51,6 +52,14 @@ public class WeaponParent : MonoBehaviour
             {
                 enemyDirectionLocal = transform.InverseTransformPoint(aidata.currentTarget.transform.position); // Gets players position from aidata script.
             }
+            //if (gameObject.name.Contains("Support"))
+            //{
+            //    if(enemyAI.supportEnemyTarger != null)
+            //    {
+            //        enemyDirectionLocal = transform.InverseTransformPoint(enemyAI.supportEnemyTarger.transform.position);
+            //    }
+                
+            //}
 
             Vector2 scale = attackColliderHolder.transform.localScale;
             transform.right = direction;
@@ -111,6 +120,16 @@ public class WeaponParent : MonoBehaviour
         projectileScript.damage = enemyAI.damage; // Get projectiles damage from enemyscript so no need to change damage on multiple places.
         StartCoroutine(StopAttack());
         Scoot = true;
+    }
+    public void ImmunityBeam()
+    {
+        LineRenderer lineRenderer;
+        lineRenderer = gameObject.AddComponent<LineRenderer>();
+        lineRenderer = GetComponent<LineRenderer>();
+        Vector3[] positions = new Vector3[2];
+        positions[0] = gameObject.transform.position;
+        positions[1] = enemyAI.supportEnemyTarger.position;
+        lineRenderer.SetPositions(positions);
     }
 
 

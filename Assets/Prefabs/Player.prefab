@@ -138,7 +138,6 @@ GameObject:
   - component: {fileID: 7696243814693494855}
   - component: {fileID: 5005341813217243479}
   - component: {fileID: 2403863716485791647}
-  - component: {fileID: 7931643258982378263}
   - component: {fileID: 1197986375191235570}
   m_Layer: 6
   m_Name: Player
@@ -369,25 +368,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7931643258982378263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2076966697667818739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9651e9ee345be854eb1cc8a95024b9bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 3
-  precentage: 30
-  result: 0
-  layermask:
-    serializedVersion: 2
-    m_Bits: 128
-  maxEnemiesThatcanAttack: 4
 --- !u!114 &1197986375191235570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,13 +380,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9651e9ee345be854eb1cc8a95024b9bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 3
+  radius: 5
   precentage: 30
   result: 0
   layermask:
     serializedVersion: 2
     m_Bits: 128
-  maxEnemiesThatcanAttack: 4
+  maxEnemiesThatcanAttack: 3
 --- !u!1 &2260079396747194578
 GameObject:
   m_ObjectHideFlags: 0
