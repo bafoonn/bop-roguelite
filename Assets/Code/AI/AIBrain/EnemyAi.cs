@@ -10,6 +10,7 @@ using UnityEngine.VFX;
 public class EnemyAi : MonoBehaviour, IEnemy
 {
     #region detector stuff
+    [Header("detector stuff")]
     [SerializeField] private List<Detector> detectors;
     [SerializeField] private AIData aiData;
     [SerializeField] private float detectionDelay = 0.05f, aiUpdateDelay = 0.06f, attackDelay = 2f;
@@ -17,6 +18,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
     [SerializeField] private List<SteeringBehaviour> steeringBehaviours;
     private TargetDetector targetDetector;
     #endregion
+
     private float attackDefaultDist;
     public MonoBehaviour Mono => this;
     public Health Health { get; protected set; }
@@ -27,15 +29,21 @@ public class EnemyAi : MonoBehaviour, IEnemy
 
 
     #region supportenemy stuff
+    [Header("Support enemy variables")]
     public Transform supportEnemyTarger;
     [SerializeField] private LayerMask layermask;
     public float radius = 20;
     private bool canTarget = true;
     #endregion
+
     private Level level;
+
+    [Header("Damage that ai does")]
     public float damage = 5;
     private Separation seperation;
     public UnityEvent OnAttackPressed;
+
+
     public UnityEvent<Vector2> OnMovementInput, PointerEnemy;
     [SerializeField] public Vector2 movementInput;
     [SerializeField] private AISolver movementDirectionSolver;
@@ -46,6 +54,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
     [SerializeField] private Transform Player;
     private GameObject player;
     private Image attackIndicator;
+    [Header("Attack timers")]
     public float timeToAttack = 0; // When this reaches defaultTimeToAttack enemy will attack
     public float defaultTimeToAttack = 2; //Increase this if you want to make ai take longer
     private float defaultTimeToAttackWorkAround = 0; // TODO: DELETE THIS AT SOME POINT ONLY A WORKAROUND
@@ -54,6 +63,8 @@ public class EnemyAi : MonoBehaviour, IEnemy
     private bool canAttackAnim = true;
     private bool firstAttack = true;
     public float stunTimer = 1; // Will be used or replaced when adding stagger
+
+
     private AgentAnimations animations;
     [SerializeField] private Drop drop;
     //[SerializeField] private float chaseDistanceThershold = 3, attackDistanceThershold = 0.8f;
@@ -65,6 +76,9 @@ public class EnemyAi : MonoBehaviour, IEnemy
     [SerializeField] private bool hasDeathAnim = false;
     private EnemyDeath enemyDeathScript;
     [SerializeField] private GameObject Corpse;
+
+
+    [Header("animator bools")]
     public bool IsIdle = true;
     public bool isAttacking = false;
     public bool stunned = false;
@@ -73,7 +87,8 @@ public class EnemyAi : MonoBehaviour, IEnemy
     private Material _defaultMaterial = null;
     [SerializeField] private Material _damagedMaterial = null;
     #region Damage taking effects
-    private SpriteRenderer spriteRenderer; // TAKE DAMAGE STUFF
+    [Header("damage taking effects or other effects")]
+    public SpriteRenderer spriteRenderer; // TAKE DAMAGE STUFF
     private Color defaultColor; // TAKE DAMAGE STUFF
     private ParticleSystem m_particleSystem; // TAKE DAMAGE STUFF
     [SerializeField] private VisualEffect takeDamageEffects;
@@ -177,7 +192,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
 
                 
 
-                lineRenderer = GetComponent<LineRenderer>();
+                lineRenderer = GetComponent<LineRenderer>(); // Here to visualise for testing
                 Vector3[] positions = new Vector3[2];
                 positions[0] = gameObject.transform.position;
                 positions[1] = supportEnemyTarger.position;
@@ -219,6 +234,8 @@ public class EnemyAi : MonoBehaviour, IEnemy
             }
         }
         #endregion
+
+
         //if(canAttack == false)
         //{
         //    aiData.currentTarget = null; // REMEMBER TO DO SOMETHING WITH THIS
