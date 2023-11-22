@@ -267,8 +267,10 @@ public class Player : MonoBehaviour, IPlayer
     {
         _sprite.color = Color.white;
         if (_damagedMaterial != null) _sprite.material = _damagedMaterial;
+        if (_havePlayerUI) _playerUI.TakeDamageStart();
         HitStopper.Stop(_hitStopTime);
         yield return new WaitForSeconds(0.2f);
         _sprite.material = _defaultMaterial;
+        if (_havePlayerUI) _playerUI.TakeDamage();
     }
 }

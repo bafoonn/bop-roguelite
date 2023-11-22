@@ -75,7 +75,10 @@ namespace Pasta
                 {
                     shouldShake = false;
                     shakeTime = 0f;
-                } else
+                    targetXOffset = 0f;
+                    targetYOffset = 0f;
+                }
+                else
                 {
                     UpdateShake();
                 }
@@ -86,6 +89,7 @@ namespace Pasta
                 {
                     shouldRotationShake = false;
                     rotationShakeTime = 0f;
+                    targetRotation = 0f;
                 }
                 else
                 {
@@ -148,7 +152,7 @@ namespace Pasta
         }
 
 
-        private void ShakeSmooth(float xIntensity, float yIntensity, float duration, float shakeSpeed)
+        public void ShakeSmooth(float xIntensity, float yIntensity, float duration, float shakeSpeed)
         {
             shouldShake = true;
             shakeDuration = duration;
