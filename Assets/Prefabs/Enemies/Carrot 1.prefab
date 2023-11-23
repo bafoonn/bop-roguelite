@@ -20,6 +20,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -5859083586626064994, guid: a17e7d17ee9cbeb4d9e26f3dbd891e6c, type: 3}
+    - target: {fileID: 1006995971007075442, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
+      propertyPath: m_SpriteSortPoint
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1021474887807162252, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
       propertyPath: Corpse
       value: 
@@ -31,6 +35,14 @@ PrefabInstance:
     - target: {fileID: 1021474887807162252, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
       propertyPath: attackStopDistance
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1259514723982879070, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.x
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1259514723982879070, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.y
+      value: 48
       objectReference: {fileID: 0}
     - target: {fileID: 1259514723982879070, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x

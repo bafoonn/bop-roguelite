@@ -5983,7 +5983,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!114 &5913695015403125773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6023,6 +6023,11 @@ MonoBehaviour:
   steeringBehaviours:
   - {fileID: 3838692728030095157}
   - {fileID: 3029777545630577490}
+  supportEnemyTarger: {fileID: 0}
+  layermask:
+    serializedVersion: 2
+    m_Bits: 0
+  radius: 20
   damage: 10
   OnAttackPressed:
     m_PersistentCalls:
@@ -6084,6 +6089,7 @@ MonoBehaviour:
   stunned: 0
   Death: 0
   _damagedMaterial: {fileID: 2100000, guid: e38b85b99faeab94bb79fd7af982aff5, type: 2}
+  spriteRenderer: {fileID: 0}
   takeDamageEffects: {fileID: 3246212096596688428}
   ParticleSystemHolder: {fileID: 6295415784206921337}
 --- !u!114 &5018959942009198676
@@ -6151,6 +6157,7 @@ MonoBehaviour:
   <MaxHealth>k__BackingField: 50
   _currentHealth: 100
   damageText: {fileID: 6345340051648401441, guid: 69c2a01292c705b4bb0b826323b849ee, type: 3}
+  immune: 0
 --- !u!114 &-5337739654956472485
 MonoBehaviour:
   m_ObjectHideFlags: 0

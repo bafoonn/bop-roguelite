@@ -922,7 +922,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0.25}
     oldSize: {x: 2, y: 2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
@@ -1206,7 +1206,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!114 &5913695015403125773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1246,6 +1246,11 @@ MonoBehaviour:
   steeringBehaviours:
   - {fileID: 3838692728030095157}
   - {fileID: 3029777545630577490}
+  supportEnemyTarger: {fileID: 0}
+  layermask:
+    serializedVersion: 2
+    m_Bits: 0
+  radius: 20
   damage: 5
   OnAttackPressed:
     m_PersistentCalls:
@@ -1307,6 +1312,7 @@ MonoBehaviour:
   stunned: 0
   Death: 0
   _damagedMaterial: {fileID: 0}
+  spriteRenderer: {fileID: 0}
   takeDamageEffects: {fileID: 9091335694339236151}
   ParticleSystemHolder: {fileID: 0}
 --- !u!114 &5018959942009198676
