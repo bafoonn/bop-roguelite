@@ -16,7 +16,7 @@ public class Player : MonoBehaviour, IPlayer
     private Loot _loot;
     private PlayerAnimations _anim;
     private EventActions _actions;
-    private SpriteRenderer _sprite;
+    [SerializeField] private SpriteRenderer _sprite;
     private StatusHandler _statusHandler;
     public int currency = 10;
 
@@ -68,8 +68,8 @@ public class Player : MonoBehaviour, IPlayer
         _anim.Setup(_movement, _attackHandler, _input);
         _actions = GetComponentInChildren<EventActions>();
         Assert.IsNotNull(_actions);
+        Assert.IsNotNull(_sprite, "Player has no sprite set in the inspector.");
         _actions.Setup(this);
-        _sprite = GetComponent<SpriteRenderer>();
         _defaultMaterial = _sprite.material;
         _statusHandler = this.AddOrGetComponent<StatusHandler>();
         _statusHandler.Setup(this);

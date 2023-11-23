@@ -7,18 +7,21 @@ namespace Pasta
 {
     public class SoundPlayer : MonoBehaviour
     {
-        [Header("Player Fields")]
         public Sound SoundEffect;
         public AudioSource Source;
         [Range(0.0f, 1.0f)]
         public float Volume = 1.0f;
         //public float Distance = 1.0f;
+        [Tooltip("Stops previous playback if Play is called during it.")]
         public bool InterruptPlaying = true;
+        [Header("Pitch")]
         public bool AddPitch = false;
-        public bool LoopSource = false;
-        [Header("Repeater Fields")]
-        public float Interval = 5;
-        public float AddedIntervalRandomness = 0;
+        [Range(-3f, 3f)] public float MinPitch = 1f;
+        [Range(-3f, 3f)] public float MaxPitch = 1.02f;
+        [Header("Loop")]
+        //public bool LoopSource = false;
+        public float MinInterval = 5;
+        public float MaxInterval = 0;
         private bool doPlay = false;
         private Coroutine repeatRoutine;
 
@@ -31,7 +34,7 @@ namespace Pasta
             }
             Source.volume = Volume;
             Source.playOnAwake = false;
-            Source.loop = LoopSource;
+            //Source.loop = LoopSource;
             //Source.minDistance = Distance;
         }
 
@@ -45,11 +48,14 @@ namespace Pasta
                 //Source.minDistance = Distance;
             }
 
-            if (AddedIntervalRandomness < 0)
-                AddedIntervalRandomness = 0;
+            if (MaxPitch < MinPitch)
+                MaxPitch = MinPitch;
 
-            if (Interval < 0)
-                Interval = 0;
+            if (MaxInterval < MinInterval)
+                MaxInterval = MinInterval;
+
+            if (MinInterval < 0)
+                MinInterval = 0;
         }
 #endif
 
@@ -76,7 +82,7 @@ namespace Pasta
             Source.clip = SoundEffect.RandomClip;
 
             if (AddPitch)
-                Source.pitch = 1 + Random.Range(0, 0.2f);
+                Source.pitch = Random.Range(MinPitch, MaxPitch);
 
             Source.Play();
         }
@@ -110,7 +116,7 @@ namespace Pasta
         {
             while (doPlay)
             {
-                float interval = Interval + Random.Range(0, AddedIntervalRandomness);
+                float interval = Random.Range(MinInterval, MaxInterval);
                 yield return new WaitForSeconds(interval);
                 Play();
             }
