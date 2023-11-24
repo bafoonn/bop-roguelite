@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 627558375378887304}
   - component: {fileID: 3501058497912145717}
+  - component: {fileID: -6955342425867340137}
   m_Layer: 0
   m_Name: RammingObj
   m_TagString: Untagged
@@ -78,3 +79,21 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 1.96
+--- !u!114 &-6955342425867340137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673208719730585805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c692740b56eaab468f0d75b14c30816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  playerlayer:
+    serializedVersion: 2
+    m_Bits: 64
