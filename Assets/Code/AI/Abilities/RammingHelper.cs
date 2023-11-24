@@ -13,6 +13,9 @@ namespace Pasta
         private LayerMask intObstacle;
         private LayerMask intPlayer;
         private bool Charge = true;
+        private Vector3 startDist;
+        private Vector3 currentDist;
+        private float totalDistance = 0f;
         // Start is called before the first frame update
         void Start()
         {
@@ -21,15 +24,23 @@ namespace Pasta
             speed = ramming.speed;
             intObstacle = obstacleLayer;
             intPlayer = playerlayer;
+            startDist = transform.position;
+
         }
 
         // Update is called once per frame
         void Update()
         {
+            float distanceThisFrame = Vector3.Distance(transform.position, startDist);
+            totalDistance += distanceThisFrame;
             if (Charge)
             {
                 parent.transform.Translate(Vector3.right * speed * Time.deltaTime);
                 StartCoroutine(stopCharge());
+            }
+            if(totalDistance >= 20f)
+            {
+                Charge = false;
             }
             
         }
