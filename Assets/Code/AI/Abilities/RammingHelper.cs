@@ -29,8 +29,15 @@ namespace Pasta
             if (Charge)
             {
                 parent.transform.Translate(Vector3.right * speed * Time.deltaTime);
+                StartCoroutine(stopCharge());
             }
             
+        }
+
+        IEnumerator stopCharge()
+        {
+            yield return new WaitForSeconds(4f);
+            Charge = false;
         }
 
 
