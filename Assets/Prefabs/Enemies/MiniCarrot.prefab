@@ -142,6 +142,7 @@ MonoBehaviour:
   attackCollider: {fileID: 3046122872119725462}
   Aim: 1
   spriteTransform: {fileID: 0}
+  Scoot: 0
 --- !u!1 &2170883253053186688
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,6 +473,7 @@ MonoBehaviour:
     m_Bits: 64
   ShowGizmos: 1
   colliders: []
+  SeesPlayer: 0
 --- !u!1 &5054991355917479003
 GameObject:
   m_ObjectHideFlags: 0
@@ -852,8 +854,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1.3125}
+    pivot: {x: 0.5, y: 0.25}
+    oldSize: {x: 1, y: 2}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -912,7 +914,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!114 &5913695015403125773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -948,9 +950,15 @@ MonoBehaviour:
   aiUpdateDelay: 0.01
   attackDelay: 1
   attackDistance: 3
+  attackStopDistance: 1
   steeringBehaviours:
   - {fileID: 3838692728030095157}
   - {fileID: 3029777545630577490}
+  supportEnemyTarger: {fileID: 0}
+  layermask:
+    serializedVersion: 2
+    m_Bits: 0
+  radius: 20
   damage: 10
   OnAttackPressed:
     m_PersistentCalls:
@@ -1002,13 +1010,18 @@ MonoBehaviour:
   Player: {fileID: 0}
   timeToAttack: 0
   defaultTimeToAttack: 1
+  canAttack: 1
   stunTimer: 1
   drop: {fileID: 0}
   hasDeathAnim: 0
   Corpse: {fileID: 0}
   IsIdle: 1
   isAttacking: 0
+  stunned: 0
   Death: 0
+  _damagedMaterial: {fileID: 0}
+  spriteRenderer: {fileID: 0}
+  takeDamageEffects: {fileID: 0}
   ParticleSystemHolder: {fileID: 0}
 --- !u!114 &5018959942009198676
 MonoBehaviour:
@@ -1036,7 +1049,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BaseSpeed: 5
   Speed: 0
-  Lerp: 15
+  Acceleration: 15
+  SlipperyAcceleration: 1
   _currentDir: {x: 0, y: 0}
   _targetDir: {x: 0, y: 0}
   maxSpeed: 3
@@ -1074,6 +1088,7 @@ MonoBehaviour:
   <MaxHealth>k__BackingField: 50
   _currentHealth: 100
   damageText: {fileID: 6345340051648401441, guid: 69c2a01292c705b4bb0b826323b849ee, type: 3}
+  immune: 0
 --- !u!114 &-5337739654956472485
 MonoBehaviour:
   m_ObjectHideFlags: 0
