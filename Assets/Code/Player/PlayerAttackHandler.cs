@@ -17,12 +17,13 @@ namespace Pasta
 
         public bool CanAttack => _attackRoutine == null;
         public bool IsAttacking => _attackRoutine != null;
+        public AttackType CurrentAttack;
         private AttackArea _sensor;
 
         private bool _cancellable = true;
 
-        public float _quickAttackDamage = 10f;
-        public float _heavyAttackDamage = 20f;
+        private float _quickAttackDamage = 10f;
+        private float _heavyAttackDamage = 20f;
         private Stat _damage;
         private Stat _attackSpeed;
 
@@ -83,21 +84,13 @@ namespace Pasta
             Heavy
         }
 
-        public bool TryToAttack(Vector2 dir, AttackType type = AttackType.Quick)
+        public bool TryToAttack(AttackType type = AttackType.Quick)
         {
             if (!CanAttack)
             {
                 return false;
             }
 
-            Attack(dir, type);
-
-            return true;
-
-        }
-
-        public void Attack(Vector2 dir, AttackType type = AttackType.Quick)
-        {
             switch (type)
             {
                 case AttackType.Quick:
@@ -108,6 +101,14 @@ namespace Pasta
                     _attackRoutine = StartCoroutine(HeavyAttack());
                     break;
             }
+            CurrentAttack = type;
+
+            return true;
+        }
+
+        public void Attack(AttackType type = AttackType.Quick)
+        {
+            TryToAttack(type);
         }
 
         private IEnumerator QuickAttack()

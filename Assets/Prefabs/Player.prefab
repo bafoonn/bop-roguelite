@@ -246,8 +246,8 @@ GameObject:
   - component: {fileID: 4366640371036032285}
   - component: {fileID: 973878993686469967}
   - component: {fileID: 7696243814693494855}
-  - component: {fileID: 5005341813217243479}
   - component: {fileID: 1197986375191235570}
+  - component: {fileID: 4044627692175456098}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -393,20 +393,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af076f86870057a4692e2a523b6837e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5005341813217243479
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2076966697667818739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7c64ac5028f08b47920537dd3f1d5ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _renderer: {fileID: 3205818893177915582}
-  _animator: {fileID: 8997975901161530894}
 --- !u!114 &1197986375191235570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -426,6 +412,20 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   maxEnemiesThatcanAttack: 3
+--- !u!114 &4044627692175456098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076966697667818739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7c64ac5028f08b47920537dd3f1d5ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _renderer: {fileID: 3205818893177915582}
+  _animator: {fileID: 8997975901161530894}
 --- !u!1 &2090844500760463326
 GameObject:
   m_ObjectHideFlags: 0
@@ -1744,8 +1744,7 @@ MonoBehaviour:
   _heavyAttackTimeMultiplier: 3.5
   _quickAttackTime: 0.2
   _heavyAttackTime: 0.8
-  _quickAttackDamage: 10
-  _heavyAttackDamage: 20
+  CurrentAttack: 0
   _quickAttackHitStop: 0.03
   _heavyAttackHitStop: 0.06
   OnQuickHit:

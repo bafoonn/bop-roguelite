@@ -221,12 +221,12 @@ public class Player : MonoBehaviour, IPlayer
 
     private void QuickAttack()
     {
-        _attackHandler.Attack(_input.Aim, PlayerAttackHandler.AttackType.Quick);
+        _attackHandler.Attack(PlayerAttackHandler.AttackType.Quick);
     }
 
     private void HeavyAttack()
     {
-        _attackHandler.Attack(_input.Aim, PlayerAttackHandler.AttackType.Heavy);
+        _attackHandler.Attack(PlayerAttackHandler.AttackType.Heavy);
     }
 
     private class PlayerAction
