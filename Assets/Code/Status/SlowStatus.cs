@@ -27,5 +27,15 @@ namespace Pasta
         public void UnApply(ICharacter character)
         {
         }
+
+        public int Compare(IStatusEffect other)
+        {
+            if (other is SlowStatus slowStatus)
+            {
+                if (slowStatus.SlowPercentage > SlowPercentage) return -1;
+                if (slowStatus.SlowPercentage < SlowPercentage) return 1;
+            }
+            return 0;
+        }
     }
 }

@@ -1,29 +1,41 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Pasta
 {
     public class StatusHandler : MonoBehaviour
     {
-
         private ICharacter _character;
 
         private Dictionary<IStatusEffect, Coroutine> _activeEffects = new();
-
-        private void Start()
+        public List<StatusType> ActiveEffects
         {
-            if (_character == null)
+            get
             {
-                enabled = false;
-                return;
+                List<StatusType> effectTypes = new();
+                foreach (var effect in _activeEffects.Keys)
+                {
+                    effectTypes.Add(effect.Type);
+                }
+                return effectTypes;
             }
         }
+
+        public event Action<StatusType> OnApply;
+        public event Action<StatusType> OnUnapply;
 
         public void Setup(ICharacter character)
         {
             _character = character;
-            enabled = true;
+            var statusUI = GetComponentInChildren<StatusUI>();
+            if (statusUI != null)
+            {
+                statusUI.Setup(this);
+            }
         }
 
         /// <summary>
@@ -39,7 +51,18 @@ namespace Pasta
                 return false;
             }
 
-            _activeEffects.Add(statusEffect, StartCoroutine(StatusEffect(statusEffect, duration)));
+            if (!statusEffect.CanStack)
+            {
+                var activeEffect = _activeEffects.FirstOrDefault(kvp => kvp.Key.Type == statusEffect.Type).Key;
+                if (activeEffect != null && statusEffect.Compare(activeEffect) < 0)
+                {
+                    RemoveStatus(activeEffect);
+                    AddStatus(activeEffect, duration);
+                    return true;
+                }
+            }
+
+            AddStatus(statusEffect, duration);
             return true;
         }
 
@@ -55,21 +78,32 @@ namespace Pasta
                 return false;
             }
 
+            RemoveStatus(statusEffect);
+            return true;
+        }
+
+        private void AddStatus(IStatusEffect statusEffect, float duration)
+        {
+            _activeEffects.Add(statusEffect, StartCoroutine(StatusEffect(statusEffect, duration)));
+            statusEffect.Apply(_character, duration);
+            if (OnApply != null) OnApply(statusEffect.Type);
+        }
+
+        private void RemoveStatus(IStatusEffect statusEffect)
+        {
             var coroutine = _activeEffects[statusEffect];
             if (coroutine != null)
             {
                 StopCoroutine(coroutine);
             }
-
             _activeEffects.Remove(statusEffect);
             statusEffect.UnApply(_character);
-            return true;
+            if (OnUnapply != null) OnUnapply(statusEffect.Type);
         }
 
         private IEnumerator StatusEffect(IStatusEffect effect, float duration)
         {
             float timer = 0;
-            effect.Apply(_character, duration);
             do
             {
                 effect.Update(Time.deltaTime);
@@ -77,8 +111,7 @@ namespace Pasta
                 if (duration != 0) timer += Time.deltaTime;
             }
             while (timer <= duration);
-            effect.UnApply(_character);
-            _activeEffects.Remove(effect);
+            RemoveStatus(effect);
         }
 
         private void OnDestroy()

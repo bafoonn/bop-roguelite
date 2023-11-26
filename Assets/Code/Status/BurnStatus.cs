@@ -26,6 +26,10 @@ namespace Pasta
             Damage = damage;
         }
 
+        public BurnStatus()
+        {
+        }
+
         public void Apply(ICharacter character, float duration)
         {
             _current = character;
@@ -47,6 +51,17 @@ namespace Pasta
         {
             _current = null;
             timer = 0;
+        }
+
+        public int Compare(IStatusEffect other)
+        {
+            if (other is BurnStatus burnStatus)
+            {
+                if (burnStatus.Damage > Damage) return -1;
+                if (burnStatus.Damage < Damage) return 1;
+            }
+
+            return 0;
         }
     }
 }

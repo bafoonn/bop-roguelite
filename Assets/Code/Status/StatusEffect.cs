@@ -11,5 +11,6 @@ namespace Pasta
         public void UnApply(ICharacter character);
         public StatusType Type { get; }
         public bool CanStack { get; }
+        public int Compare(IStatusEffect other);
     }
 }

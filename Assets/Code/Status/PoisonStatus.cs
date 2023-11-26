@@ -42,5 +42,15 @@ namespace Pasta
             _current = null;
             timer = 0;
         }
+
+        public int Compare(IStatusEffect other)
+        {
+            if (other is PoisonStatus poison)
+            {
+                if (poison.Damage > Damage) return -1;
+                if (poison.Damage < Damage) return 1;
+            }
+            return 0;
+        }
     }
 }

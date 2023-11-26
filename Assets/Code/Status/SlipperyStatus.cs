@@ -25,5 +25,10 @@ namespace Pasta
         public void Update(float deltaTime)
         {
         }
+
+        public int Compare(IStatusEffect other)
+        {
+            return 0;
+        }
     }
 }

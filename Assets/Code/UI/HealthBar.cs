@@ -18,7 +18,7 @@ namespace Pasta
 
         private void Awake()
         {
-            Assert.IsNotNull(_image);
+            Assert.IsNotNull(_image, "HealthBar has no image set.");
             _image.type = Image.Type.Filled;
         }
 
