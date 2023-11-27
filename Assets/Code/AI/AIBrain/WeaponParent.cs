@@ -103,13 +103,15 @@ public class WeaponParent : MonoBehaviour
 
     public void Attack()
     {
-        attackCollider.enabled = true;
+        if(attackCollider != null) attackCollider.enabled = true;
         StartCoroutine(StopAttack());
     }
     private IEnumerator StopAttack() // TEST STUFF
     {
         yield return new WaitForSeconds(0.1f);
-        attackCollider.enabled = false;
+       
+        if (attackCollider != null) attackCollider.enabled = false;
+        
         Aim = true;
         animations.aim = true;
     }

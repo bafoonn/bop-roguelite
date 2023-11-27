@@ -13,6 +13,7 @@ namespace Pasta
 		private GameObject spawnedRammingOb;
 		public EnemyAi enemyai;
 		private AIData aidata;
+		private AgentMover agentMover;
 		private Rigidbody2D rbd2d;
 		public float speed = 20f;
 		
@@ -22,6 +23,7 @@ namespace Pasta
 			GameObject spawnedRammingObj = Instantiate(rammingGObj, parent.transform);
 			enemyai = parent.GetComponent<EnemyAi>();
 			aidata = parent.GetComponent<AIData>();
+			agentMover = parent.GetComponent<AgentMover>();
             
         }
 
@@ -31,6 +33,10 @@ namespace Pasta
 
 		public override void Deactivate()
 		{
+			if(agentMover != null)
+			{
+                agentMover.enabled = true;
+            }
 			Destroy(spawnedRammingOb);
 		}
 	}

@@ -17,5 +17,7 @@ MonoBehaviour:
   ActiveTime: 4
   damage: 10
   usableOutsideAttackRange: 1
-  AbilityWithAnim: 1
+  AbilityWithAnim: 0
   rammingGObj: {fileID: 1673208719730585805, guid: a7d08b75983700445bdb9ac652f96be7, type: 3}
+  enemyai: {fileID: 0}
+  speed: 20
