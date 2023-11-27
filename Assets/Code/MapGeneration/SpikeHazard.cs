@@ -23,7 +23,7 @@ namespace Pasta
         {
             if (!spikesTriggered && col.GetComponent<Health>())
             {
-                StartCoroutine(SpikeDelay());
+                StartCoroutine(ActivateSpikes());
             }
 
             if (isActive && col.TryGetComponent(out Health health))
@@ -37,13 +37,13 @@ namespace Pasta
         }
 
 
-        IEnumerator SpikeDelay()
+        IEnumerator ActivateSpikes()
         {
             spikesTriggered = true;
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(1f);
             spriteRenderer.material.SetColor("_Color", Color.blue);
             isActive = true;
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
             spriteRenderer.material.SetColor("_Color", Color.black);
             spikesTriggered = false;
             isActive = false;

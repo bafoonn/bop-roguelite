@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8949284928838979291}
   - component: {fileID: 1006995971007075442}
   - component: {fileID: 8022384325164921756}
-  - component: {fileID: -7066841776315775025}
   - component: {fileID: 278601232661142029}
   m_Layer: 0
   m_Name: TomatoDeath
@@ -138,21 +137,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-7066841776315775025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6992705672734178762}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89e7d1ab3c6997b4285c0dfa5f8e14a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  coin: {fileID: 1116788276701670648, guid: 3b7b86d3e93d70940bffedecb3cc93b5, type: 3}
-  value: 10
-  dropChance: 50
 --- !u!114 &278601232661142029
 MonoBehaviour:
   m_ObjectHideFlags: 0

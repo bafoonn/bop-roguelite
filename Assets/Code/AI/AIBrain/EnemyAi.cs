@@ -86,6 +86,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
 
     private Material _defaultMaterial = null;
     [SerializeField] private Material _damagedMaterial = null;
+    [SerializeField] private SoundEffect deathSound;
     #region Damage taking effects
     [Header("damage taking effects or other effects")]
     public SpriteRenderer spriteRenderer; // TAKE DAMAGE STUFF
@@ -337,6 +338,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
 
     protected virtual void DeathAction()
     {
+        AudioManager.Current.PlaySoundEffect(deathSound, 0.5f);
         if (this.gameObject.name.Contains("Carrier"))
         {
             enemySpawningCarrier.SpawnMinions();
