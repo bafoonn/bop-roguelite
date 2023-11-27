@@ -80,6 +80,7 @@ namespace Pasta
             player.AddPitch = addPitch;
             player.InterruptPlaying = interrupt;
             player.Volume = volume;
+            player.Source.volume = volume;
             player.Play();
         }
 
