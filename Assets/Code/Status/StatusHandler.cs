@@ -51,7 +51,7 @@ namespace Pasta
                 return false;
             }
 
-            if (!statusEffect.CanStack)
+            if (statusEffect.CanStack == false)
             {
                 var activeEffect = _activeEffects.FirstOrDefault(kvp => kvp.Key.Type == statusEffect.Type).Key;
                 if (activeEffect != null && statusEffect.Compare(activeEffect) < 0)
@@ -103,14 +103,25 @@ namespace Pasta
 
         private IEnumerator StatusEffect(IStatusEffect effect, float duration)
         {
+            bool hasTickRate = effect.Interval > 0;
             float timer = 0;
             do
             {
                 effect.Update(Time.deltaTime);
-                yield return null;
-                if (duration != 0) timer += Time.deltaTime;
+                if (hasTickRate)
+                {
+                    timer += effect.Interval;
+                    yield return new WaitForSeconds(effect.Interval);
+                }
+                else
+                {
+                    timer += Time.deltaTime;
+                    yield return null;
+                }
             }
-            while (timer <= duration);
+            while (duration > timer);
+            yield return null;
+            effect.Update(Time.deltaTime);
             RemoveStatus(effect);
         }
 

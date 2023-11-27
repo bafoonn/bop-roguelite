@@ -9,6 +9,8 @@ namespace Pasta
         public StatusType Type => StatusType.Slippery;
         public bool CanStack => true;
 
+        public float Interval => 0;
+
         private Movement _affectedMovement = null;
 
         public void Apply(ICharacter character, float duration)

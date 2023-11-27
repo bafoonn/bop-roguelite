@@ -40,7 +40,7 @@ namespace Pasta
                 ShopItemGeneration shop = GetComponentInParent<ShopItemGeneration>();
                 shop.ItemBought();
             }
-            else
+            else if(level != null)
             {
                 level.PickedUpReward();
             }

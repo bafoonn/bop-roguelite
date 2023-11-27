@@ -12,22 +12,17 @@ namespace Pasta
     public class BurnStatus : IStatusEffect
     {
         public float Damage;
-        public readonly float Interval = 1f;
+        public float Interval => 1f;
 
         public StatusType Type => StatusType.Burn;
 
         public bool CanStack => false;
 
         private IHittable _current = null;
-        private float timer = 0;
 
         public BurnStatus(float damage)
         {
             Damage = damage;
-        }
-
-        public BurnStatus()
-        {
         }
 
         public void Apply(ICharacter character, float duration)
@@ -38,19 +33,12 @@ namespace Pasta
         public void Update(float deltaTime)
         {
             if (_current == null) return;
-
-            timer += deltaTime;
-            if (timer > Interval)
-            {
-                _current.Hit(Damage);
-                timer = 0;
-            }
+            _current.Hit(Damage);
         }
 
         public void UnApply(ICharacter character)
         {
             _current = null;
-            timer = 0;
         }
 
         public int Compare(IStatusEffect other)

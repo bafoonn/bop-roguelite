@@ -13,10 +13,10 @@ namespace Pasta
 
         public Stats(StatProfile profile)
         {
-            Health = new Stat(profile.Health, StatType.Health);
-            Damage = new Stat(profile.Damage, StatType.Damage);
-            MovementSpeed = new Stat(profile.MovementSpeed, StatType.Movementspeed, profile.MaximumMovementSpeed);
-            AttackSpeed = new Stat(profile.AttackSpeed, StatType.Attackspeed);
+            Health = new Stat(profile.Health, StatType.Health, minValue: profile.MinHealth);
+            Damage = new Stat(profile.Damage, StatType.Damage, minValue: profile.MinDamage);
+            MovementSpeed = new Stat(profile.MovementSpeed, StatType.Movementspeed,minValue: profile.MinMovementSpeed, maxValue:profile.MaxMovementSpeed);
+            AttackSpeed = new Stat(profile.AttackSpeed, StatType.Attackspeed, minValue: profile.MinAttackSpeed);
         }
 
         public void GetDPS(float coefficiency, out float damage, out float hitRate)

@@ -10,7 +10,8 @@ namespace Pasta
         public readonly StatType Type;
         private float _baseValue;
         private float _value;
-        private float _maxValue = 0;
+        private readonly float _minValue = 0;
+        private readonly float _maxValue = 0;
         public float Value
         {
             get
@@ -28,7 +29,7 @@ namespace Pasta
                 _value = value;
                 if (ValueChanged != null)
                 {
-                    ValueChanged(_maxValue > 0 ? Mathf.Clamp(value, 0, _maxValue) : value);
+                    ValueChanged(_maxValue > 0 ? Mathf.Clamp(value, _minValue, _maxValue) : value);
                 }
             }
         }
@@ -44,11 +45,12 @@ namespace Pasta
             Type = type;
         }
 
-        public Stat(float value, StatType type, float maxValue)
+        public Stat(float value, StatType type, float minValue = 0, float maxValue = 0)
         {
             _baseValue = value;
             _value = value;
             Type = type;
+            _minValue = minValue;
             _maxValue = maxValue;
         }
 

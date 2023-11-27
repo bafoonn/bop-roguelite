@@ -13,10 +13,18 @@ MonoBehaviour:
   m_Name: IceCream
   m_EditorClassIdentifier: 
   _canStack: 1
-  Name: 
+  Name: Ice Cream
   Description: 
   Flavor: 
-  Sprite: {fileID: 0}
-  cost: 0
-  Effects: []
-  Events: []
+  Sprite: {fileID: -5845335184669475501, guid: b58b7447a3f48be49a6b5c5b29d25c25, type: 3}
+  cost: 10
+  Effects:
+  - Name: More Health
+    Stat: 0
+    Value: 10
+    Type: 0
+  Events:
+  - Name: Slow
+    EventActionPrefab: {fileID: 6508671052521538090, guid: 0eb0f46c6e87f0e478fcf81fa0f5d95f, type: 3}
+    ActionType: 1
+    ProcChance: 0.2

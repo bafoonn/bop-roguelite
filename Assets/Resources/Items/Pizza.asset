@@ -10,17 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f9b0d845e3f73742a1930a2cd0ed9f7, type: 3}
-  m_Name: Marshmellow
+  m_Name: Pizza
   m_EditorClassIdentifier: 
   _canStack: 1
-  Name: Burning Marshmellow
-  Description: One in five chance to apply burning to hit targets.
+  Name: Pizza
+  Description: 
   Flavor: 
-  Sprite: {fileID: -2345176947539042805, guid: 0f2b921156c37c74a9927d5ea2b3a55a, type: 3}
-  cost: 20
-  Effects: []
-  Events:
-  - Name: Burn on hit
-    EventActionPrefab: {fileID: 8613175926356625417, guid: 9104f281544d7d74392c1d1e82f73947, type: 3}
-    ActionType: 1
-    ProcChance: 0.1
+  Sprite: {fileID: -3195928601639412439, guid: e9ba17b99a7bc034a88965e0aeb36384, type: 3}
+  cost: 0
+  Effects:
+  - Name: Reduced Movement Speed
+    Stat: 3
+    Value: -0.5
+    Type: 0
+  - Name: Increased Damage
+    Stat: 1
+    Value: 1.1
+    Type: 1
+  Events: []

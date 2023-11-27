@@ -10,6 +10,8 @@ namespace Pasta
         public StatusType Type => StatusType.Slow;
         public bool CanStack => true;
 
+        public float Interval => 0;
+
         public SlowStatus(float percentage)
         {
             SlowPercentage = percentage;

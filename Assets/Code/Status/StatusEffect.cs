@@ -12,5 +12,6 @@ namespace Pasta
         public StatusType Type { get; }
         public bool CanStack { get; }
         public int Compare(IStatusEffect other);
+        public float Interval { get; }
     }
 }
