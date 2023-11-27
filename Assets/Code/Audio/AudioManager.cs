@@ -48,7 +48,7 @@ namespace Pasta
             return soundEffect != null;
         }
 
-        public void PlaySoundEffect(string effectName, bool addPitch = true, bool interrupt = true)
+        public void PlaySoundEffect(string effectName, float volume = 1f, bool addPitch = true, bool interrupt = true)
         {
             // Get soundeffect
             var soundEffect = soundEffects.FirstOrDefault(sfx => sfx.Name.Equals(effectName.ToLower()));
@@ -60,11 +60,12 @@ namespace Pasta
                 return;
             }
 
-            PlaySoundEffect(soundEffect, addPitch, interrupt);
+            PlaySoundEffect(soundEffect, volume, addPitch, interrupt);
         }
 
-        public void PlaySoundEffect(SoundEffect soundEffect, bool addPitch = true, bool interrupt = true)
+        public void PlaySoundEffect(SoundEffect soundEffect, float volume = 1f, bool addPitch = true, bool interrupt = true)
         {
+            volume = Mathf.Clamp01(volume);
             // Get player
             var player = sfxPlayers.FirstOrDefault(src => src.SoundEffect == soundEffect);
 
@@ -78,6 +79,7 @@ namespace Pasta
 
             player.AddPitch = addPitch;
             player.InterruptPlaying = interrupt;
+            player.Volume = volume;
             player.Play();
         }
 
