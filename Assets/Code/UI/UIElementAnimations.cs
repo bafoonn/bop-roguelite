@@ -60,11 +60,14 @@ namespace Pasta
         private bool shouldShake = false;
         private bool shouldRotationShake = false;
         private bool shouldPop = false;
-
+        private bool shouldUpdatePosition = false;
 
         void Start()
         {
-            //rectTransform = gameObject.transform.GetChild(0).GetComponent<RectTransform>();
+            if (TryGetComponent<RectTransform>(out RectTransform rt))
+            {
+                rectTransform = rt;
+            }
         }
 
         void Update()
@@ -113,11 +116,13 @@ namespace Pasta
             //TODO: Change certain effects to not use lerp
 
             currentRotation = Mathf.Lerp(currentRotation, targetRotation, rotationSpeed * Time.deltaTime);
+            if (currentRotation < 0.01f && currentRotation !> 0.01f) currentRotation = 0f;
             currentScale = Mathf.Lerp(currentScale, targetScale, scaleSpeed * Time.deltaTime);
+            if (currentScale < 0.01f && currentScale !> 0.01f) currentScale = 0f;
             currentXOffset = Mathf.Lerp(currentXOffset, targetXOffset, xOffsetSpeed * Time.deltaTime);
             currentYOffset = Mathf.Lerp(currentYOffset, targetYOffset, yOffsetSpeed * Time.deltaTime);
 
-            rectTransform.localPosition = new Vector3(currentXOffset, currentYOffset, 0f);
+            if (shouldUpdatePosition) rectTransform.localPosition = new Vector3(currentXOffset, currentYOffset, 0f);
             rectTransform.localRotation = Quaternion.Euler(0f, 0f, currentRotation);
             rectTransform.localScale = new Vector3(currentScale, currentScale, 1f);
         }
@@ -125,6 +130,18 @@ namespace Pasta
         public void SetRectTransform(RectTransform rectTransform)
         {
             this.rectTransform = rectTransform;
+        }
+
+        public void SetScale(float scale)
+        {
+            currentScale = scale;
+            targetScale = scale;
+        }
+
+        public void SetRotation(float rotation)
+        {
+            currentRotation = rotation;
+            targetRotation = rotation;
         }
 
         public void Highlight()
@@ -155,6 +172,7 @@ namespace Pasta
         public void ShakeSmooth(float xIntensity, float yIntensity, float duration, float shakeSpeed)
         {
             shouldShake = true;
+            shouldUpdatePosition = true;
             shakeDuration = duration;
             shakeTime = 0f;
             shakeXIntensity = xIntensity;
@@ -184,6 +202,38 @@ namespace Pasta
             popTime = 0f;
 
             scaleSpeed = 1000f;
+        }
+
+        public void ItemPopUp(float speed, float startRotation)
+        {
+            ScaleFromZero(speed);
+            RotateToZero(startRotation, speed);
+        }
+
+        public void ScaleFromZero(float speed)
+        {
+            currentScale = 0f;
+            targetScale = 1f;
+            scaleSpeed = speed;
+        }
+
+        public void ScaleToZero(float speed)
+        {
+            targetScale = 0f;
+            scaleSpeed = speed;
+        }
+
+        public void RotateToZero(float startRotation, float speed)
+        {
+            currentRotation = startRotation;
+            targetRotation = 0f;
+            rotationSpeed = speed;
+        }
+
+        public void RotateTo(float rotation, float speed)
+        {
+            targetRotation = rotation;
+            rotationSpeed = speed;
         }
 
         private void UpdateShake()
@@ -228,6 +278,7 @@ namespace Pasta
 
             shouldShake = false;
             shouldRotationShake = false;
+            shouldUpdatePosition = false;
             shakeTime = 0f;
             rotationShakeTime = 0f;
         }
@@ -246,6 +297,7 @@ namespace Pasta
 
             shouldShake = false;
             shouldRotationShake = false;
+            shouldUpdatePosition = false;
             shakeTime = 0f;
             rotationShakeTime = 0f;
         }

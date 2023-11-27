@@ -37,6 +37,7 @@ namespace Pasta
         public int cost;
         public StatEffect[] Effects;
         public EventActionContainer[] Events;
+        public Hieroglyph[] Hieroglyphs;
 
         private List<EventAction> _addedActions = new List<EventAction>();
 

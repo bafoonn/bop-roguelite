@@ -24,3 +24,14 @@ MonoBehaviour:
     EventActionPrefab: {fileID: 6008374857786805737, guid: a8667955c6e20044481d7c7f101aabf2, type: 3}
     ActionType: 6
     ProcChance: 1
+  Hieroglyphs:
+  - Name: Room Enter Heal
+    sprites:
+    - {fileID: -1280432611763135247, guid: bab68833c36d5c645ab0fc74be9400ff, type: 3}
+    - {fileID: 4952643979932594120, guid: e0d855cbf563dc242b615d90cad6f8e2, type: 3}
+    - {fileID: 7746310468709954608, guid: 5dd9ec5b1c784fc46a2bc77896303faf, type: 3}
+  - Name: Test
+    sprites:
+    - {fileID: -3827257235308218076, guid: 0162564799c79fa4088105b627ed7293, type: 3}
+    - {fileID: 7959563262057921063, guid: 5bd55b15f21bba2408a03d88402084de, type: 3}
+    - {fileID: -1280432611763135247, guid: bab68833c36d5c645ab0fc74be9400ff, type: 3}
