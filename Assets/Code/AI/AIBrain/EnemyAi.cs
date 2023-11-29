@@ -330,7 +330,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
         else
         {
             weaponParent.Attack();
-            abilityHolder.UseAbility = true;
+            if (abilityHolder.ability != null) abilityHolder.UseAbility = true;
             if (hasAttackEffect) attackEffect.CancelAttack();
             if (hasAttackEffect) attackEffect.HeavyAttack();
         }
@@ -382,14 +382,18 @@ public class EnemyAi : MonoBehaviour, IEnemy
 
     public void UseAbility()
     {
-        if (abilityHolder.ability.usableOutsideAttackRange == true)
+        if(abilityHolder.ability != null)
         {
-            movementInput = Vector2.zero;
-            abilityHolder.UseAbility = true;
-            canAttackAnim = false;
-            if (hasAttackEffect) attackEffect.CancelAttack();
-            StartCoroutine(CanAttack());
+            if (abilityHolder.ability.usableOutsideAttackRange == true)
+            {
+                movementInput = Vector2.zero;
+                abilityHolder.UseAbility = true;
+                canAttackAnim = false;
+                if (hasAttackEffect) attackEffect.CancelAttack();
+                StartCoroutine(CanAttack());
+            }
         }
+        
     }
 
     IEnumerator CanAttack()
@@ -407,7 +411,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
             if (hasAttackEffect) attackEffect.CancelAttack();
             isAttacking = false; // FOR ANIMATOR
             IsIdle = true;
-            abilityHolder.CanUseAbility = false;
+            if (abilityHolder.ability != null) abilityHolder.CanUseAbility = false;
             timeToAttack = 0;
             //if (hasAttackEffect) attackEffect.CancelAttack();
             //attackIndicator.fillAmount = 0;
@@ -430,7 +434,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
             {
                 isAttacking = true; // FOR ANIMATOR
                                     //Attacking 
-                abilityHolder.CanUseAbility = true;
+                if(abilityHolder.ability != null) abilityHolder.CanUseAbility = true;
                 movementInput = Vector2.zero;
                 OnAttackPressed?.Invoke();
                 if (hasAttackEffect) attackEffect.SetIndicatorLifetime(defaultTimeToAttack);
@@ -467,7 +471,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
                 animations.aim = true;
                 isAttacking = false; // FOR ANIMATOR
                                      //Chasing
-                abilityHolder.CanUseAbility = true; // <- Here for testing purposes.
+                if (abilityHolder.ability != null) abilityHolder.CanUseAbility = true; // <- Here for testing purposes.
                 if (hasAttackEffect) attackEffect.SetIndicatorLifetime(0);
                 if (hasAttackEffect) attackEffect.CancelAttack();
                 UseAbility();
