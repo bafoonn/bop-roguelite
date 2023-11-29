@@ -14,6 +14,7 @@ namespace Pasta
         private GameObject flavorObj;
         private GameObject hieroglypsObj;
         private GameObject backgroundObj;
+        private GameObject stampObj;
 
         public ItemBase item;
 
@@ -27,10 +28,13 @@ namespace Pasta
         [SerializeField] private float descPopUpDelay = 0.2f;
         [SerializeField] private float flavorPopUpSpeed = 4f;
         [SerializeField] private float flavorPopUpDelay = 0.4f;
+        [SerializeField] private float stampPopUpSpeed = 6f;
+        [SerializeField] private float stampCloseSpeed = 6f;
 
         [SerializeField] private float closeSpeed = 2f;
         [SerializeField] private float imageCloseDelay = 0.2f;
         [SerializeField] private float imageCloseSpeed = 4f;
+        [SerializeField] private float hieroglyphCloseDelay = 1f;
 
         [SerializeField] private float backgroundAlphaTarget = 0.85f;
         [SerializeField] private float backgroundAlphaSpeed = 4f;
@@ -49,6 +53,7 @@ namespace Pasta
             flavorObj = transform.Find("FlavorText").gameObject;
             hieroglypsObj = transform.Find("Hieroglyphs").gameObject;
             backgroundObj = transform.Find("Background").gameObject;
+            stampObj = transform.Find("Stamp").gameObject;
             bgColor = backgroundObj.GetComponent<Image>().color;
             bgColor.a = 0f;
 
@@ -76,28 +81,36 @@ namespace Pasta
 
         public void Activate(ItemBase item)
         {
+            this.gameObject.SetActive(true);
             this.item = item;
 
             nameObj.GetComponent<Text>().text = item.Name;
             descriptionObj.GetComponent<Text>().text = item.Description;
             imageObj.GetComponent<Image>().sprite = item.Sprite;
             flavorObj.GetComponent<Text>().text = item.Flavor;
-            shouldIncreaseBackgoundAlpha = true;
-
-            CreateHieroglyphs(item);
-
-            StartCoroutine(ShowObjects());
+            //shouldIncreaseBackgoundAlpha = true;
 
             
+
+            StartCoroutine(ShowObjects());
         }
 
         private IEnumerator ShowObjects()
         {
+
+            backgroundObj.GetComponent<Image>().color = bgColor;
             nameObj.GetComponent<UIElementAnimations>().SetScale(0f);
+            imageObj.GetComponent<UIElementAnimations>().SetScale(0f);
             descriptionObj.GetComponent<UIElementAnimations>().SetScale(0f);
             flavorObj.GetComponent<UIElementAnimations>().SetScale(0f);
+            stampObj.GetComponent<UIElementAnimations>().SetScale(0f);
+
+            yield return new WaitForSeconds(1f);
+            shouldIncreaseBackgoundAlpha = true;
+            CreateHieroglyphs(item);
 
             imageObj.GetComponent<UIElementAnimations>().ItemPopUp(imagePopUpSpeed, imageStartRotation);
+            stampObj.GetComponent<UIElementAnimations>().ScaleFromZero(stampPopUpSpeed);
             yield return new WaitForSeconds(namePopUpDelay);
             nameObj.GetComponent<UIElementAnimations>().ScaleFromZero(namePopUpSpeed);
             yield return new WaitForSeconds(descPopUpDelay);
@@ -125,6 +138,7 @@ namespace Pasta
             nameObj.GetComponent<UIElementAnimations>().ScaleToZero(closeSpeed);
             descriptionObj.GetComponent<UIElementAnimations>().ScaleToZero(closeSpeed);
             flavorObj.GetComponent<UIElementAnimations>().ScaleToZero(closeSpeed);
+            
 
             backgroundAlphaTarget = 0f;
             shouldIncreaseBackgoundAlpha = false;
@@ -133,8 +147,14 @@ namespace Pasta
 
             imageObj.GetComponent<UIElementAnimations>().ScaleToZero(imageCloseSpeed);
             imageObj.GetComponent<UIElementAnimations>().RotateTo(-180f, imageCloseSpeed);
+            stampObj.GetComponent<UIElementAnimations>().ScaleToZero(stampCloseSpeed);
+            stampObj.GetComponent<UIElementAnimations>().RotateTo(-180f, imageCloseSpeed);
 
-            yield return new WaitForSeconds(1f / imageCloseSpeed * 4);
+            yield return new WaitForSeconds(hieroglyphCloseDelay);
+
+            hgCreator.CloseHieroglyphs();
+
+            yield return new WaitForSeconds((1f / imageCloseSpeed * 4f) + (4f));
 
             gameObject.Deactivate();
         }
