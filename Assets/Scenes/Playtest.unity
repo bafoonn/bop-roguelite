@@ -632,7 +632,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1398549637756122894, guid: dcabfba1a1c5cc14caaa87d00026cabc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 119312560}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2076966697667818739, guid: dcabfba1a1c5cc14caaa87d00026cabc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1916093839}
   m_SourcePrefab: {fileID: 100100000, guid: dcabfba1a1c5cc14caaa87d00026cabc, type: 3}
 --- !u!1 &1585949250
 GameObject:
@@ -918,6 +921,27 @@ MonoBehaviour:
   ItemContent: {fileID: 1391098133}
   ItemHolder: {fileID: 4167559126975326014, guid: aa441e9d4523f324f872a62a64dba790, type: 3}
   itemsInUi: []
+--- !u!1 &1916093830 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2076966697667818739, guid: dcabfba1a1c5cc14caaa87d00026cabc, type: 3}
+  m_PrefabInstance: {fileID: 1483843644}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1916093839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916093830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f10dea84edcb634ebf6480553ab40f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileMap: {fileID: 0}
+  woodtiles:
+  - {fileID: 11400000, guid: 7e435d4d160fd4c829e4324a02d348c3, type: 2}
+  - {fileID: 11400000, guid: f9139e0fb9cf54ca5a23ec6d9f776f51, type: 2}
 --- !u!1001 &1026123538025448267
 PrefabInstance:
   m_ObjectHideFlags: 0

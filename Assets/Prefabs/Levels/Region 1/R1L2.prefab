@@ -3778,6 +3778,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0382335bf5dcf1342812f0f9921738ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tilemap: {fileID: 0}
+  FloorLayer:
+    serializedVersion: 2
+    m_Bits: 512
   spawnPoint: {fileID: 7995406111701598927}
 --- !u!1 &5034158101517022865
 GameObject:

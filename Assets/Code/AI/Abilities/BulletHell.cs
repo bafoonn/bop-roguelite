@@ -19,6 +19,7 @@ namespace Pasta
         private Vector3Int originPoint3int;
         public override void Activate(GameObject parent)
         {
+            tileMap = FindFirstObjectByType<Tilemap>();
             for (int i = 0; i < MaxHowManySpawners; i++)
             {
                 originPoint = parent.transform.position + Random.insideUnitSphere * SpawnRadius;

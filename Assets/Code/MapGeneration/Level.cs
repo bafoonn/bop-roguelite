@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace Pasta
 {
@@ -20,6 +21,9 @@ namespace Pasta
         private BossPortal bossPortal;
         private bool nextRoomBoss = false;
         private int levelNumber;
+        public Tilemap[] tilemaps;
+        public Tilemap tilemap;
+        public LayerMask FloorLayer;
 
         public ItemBase Reward => reward;
 
@@ -29,6 +33,17 @@ namespace Pasta
         // Start is called before the first frame update
         void Start()
         {
+            tilemaps = GetComponentsInChildren<Tilemap>(true);
+            for(int i = 0; i < tilemaps.Length; i++)
+            {
+                if (tilemaps[i] != null)
+                {
+                    if (FloorLayer.Includes(tilemaps[i].gameObject.layer))
+                    {
+                        tilemap = tilemaps[i];
+                    }
+                }
+            }
             endPoints = GetComponentInChildren<EndPoints>();
             endPoints.gameObject.SetActive(false);
             if (GetComponentInChildren<ShopPortal>())

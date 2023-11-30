@@ -11,9 +11,11 @@ public class AgentAnimations : MonoBehaviour
     [SerializeField] public Animator animator;
     [SerializeField] private GameObject EnemyBody;
     public bool aim = true;
+    public bool attacking = false;
     private EnemyAi enemyAi;
     private AgentMover agentMover;
     private float defaultSpeed;
+    private Transform player;
     private void Awake()
     {
         //animator = GetComponent<Animator>();
@@ -21,6 +23,7 @@ public class AgentAnimations : MonoBehaviour
         enemyAi = GetComponent<EnemyAi>();
         agentMover = GetComponent<AgentMover>();
         defaultSpeed = agentMover.maxSpeed;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     public void RotateToPointer(Vector2 lookDirection)
@@ -53,8 +56,15 @@ public class AgentAnimations : MonoBehaviour
                 animator.SetFloat("DirX", enemyAi.movementInput.x);
                 animator.SetFloat("DirY", enemyAi.movementInput.y);
             }
+            if (enemyAi.isAttacking)
+            {
+                animator.SetFloat("DirX", enemyAi.movementInput.x);
+                animator.SetFloat("DirY", enemyAi.movementInput.y);
+            }
         }
     }
+
+    
     public void PlayAbilityAnim() // For playing enemy ability anims.
     {
         agentMover.Speed = 0f;

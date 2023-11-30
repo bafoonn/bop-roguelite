@@ -317,6 +317,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
 
     public void Attack()
     {
+        
         if (gameObject.tag.Contains("Ranged"))
         {
             weaponParent.RangedAttack();
@@ -359,7 +360,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
 
         //HitStopper.Stop(0.2f);
 
-        if (!hasDeathAnim)
+        if (Corpse == null)
         {
             Destroy(gameObject);
             drop.RollDrop();

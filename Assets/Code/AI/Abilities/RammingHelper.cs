@@ -49,9 +49,9 @@ namespace Pasta
             yield return new WaitForSeconds(0.1f);
             direction = parent.Find("EnemyBody").transform.Find("Weapon").transform.Find("WeaponSprite").transform.right;
             startChargebool = true;
-            agentMover.enabled = false;
+            agentMover.enabled = false; // Disabled enemy ai movement
             Debug.Log("Adding force");
-            rbd2d.AddForce(direction * speed, ForceMode2D.Impulse);
+            rbd2d.AddForce(direction * speed, ForceMode2D.Impulse); // adds Explosion like force to the "charge"
         }
 
         // Update is called once per frame
@@ -61,7 +61,7 @@ namespace Pasta
            
             if (Charge && startChargebool)
             {
-                float distanceThisFrame = Vector3.Distance(transform.position, startDist);
+                float distanceThisFrame = Vector3.Distance(transform.position, startDist); // Get distance traveled in "time form" 
                 totalDistance += distanceThisFrame;
                 foreach (var boxCollider in boxCollider2Ds)
                 {
@@ -76,7 +76,7 @@ namespace Pasta
             {
                 Charge = false;
             }
-            if(!Charge)
+            if(!Charge) 
             {
                 agentMover.enabled = true;
                 foreach (var boxCollider in boxCollider2Ds)
