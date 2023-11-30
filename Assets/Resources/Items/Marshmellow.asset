@@ -23,4 +23,10 @@ MonoBehaviour:
   - Name: Burn on hit
     EventActionPrefab: {fileID: 8613175926356625417, guid: 9104f281544d7d74392c1d1e82f73947, type: 3}
     ActionType: 1
-    ProcChance: 0.1
+    ProcChance: 0.2
+  Hieroglyphs:
+  - Name: Apply burn
+    sprites:
+    - {fileID: -6799637688695467347, guid: 9db5ae1d9cb9b324eb0cda208a4c6388, type: 3}
+    - {fileID: 8055624873748767669, guid: 71bf9c89d3a3d7841998d7041752b7dc, type: 3}
+    - {fileID: -4089486910313259214, guid: 9f8e435b565b9994aae50fcae307907f, type: 3}

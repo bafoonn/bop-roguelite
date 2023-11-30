@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canStack: 1
   Name: Cup of Coffee
-  Description: 
+  Description: Kick off your morning with a large cup of coffee. +10% movement speed
+    & +0.3 attacks per seconds
   Flavor: Black coffee. Nothing more, nothing less.
   Sprite: {fileID: 4613932378464574621, guid: 4aa94352dc2854f4c90822b257b06c82, type: 3}
   cost: 30
@@ -28,3 +29,12 @@ MonoBehaviour:
     Value: 0.3
     Type: 0
   Events: []
+  Hieroglyphs:
+  - Name: movement speed up
+    sprites:
+    - {fileID: 5462491220751129457, guid: 326111461a4f91c42b60ef54c9592cf5, type: 3}
+    - {fileID: 2094356212948544673, guid: 020f740b43dfa8641a22507cbbbc78b1, type: 3}
+  - Name: Attack speed up
+    sprites:
+    - {fileID: -7909161065004961426, guid: 12435301e90a78a42850db2451220dbd, type: 3}
+    - {fileID: 2094356212948544673, guid: 020f740b43dfa8641a22507cbbbc78b1, type: 3}

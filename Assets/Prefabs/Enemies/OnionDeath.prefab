@@ -8,6 +8,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 882927482396275736, guid: 0bd6a8d9d9f054945bcfe81a42ba2fc6, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.x
+      value: 0.39269906
+      objectReference: {fileID: 0}
+    - target: {fileID: 882927482396275736, guid: 0bd6a8d9d9f054945bcfe81a42ba2fc6, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 882927482396275736, guid: 0bd6a8d9d9f054945bcfe81a42ba2fc6, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.z
+      value: 0.1640951
+      objectReference: {fileID: 0}
     - target: {fileID: 1006995971007075442, guid: 0bd6a8d9d9f054945bcfe81a42ba2fc6, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -54,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6992705672734178762, guid: 0bd6a8d9d9f054945bcfe81a42ba2fc6, type: 3}
       propertyPath: m_Name
-      value: TomatoDeath Variant
+      value: OnionDeath
       objectReference: {fileID: 0}
     - target: {fileID: 8022384325164921756, guid: 0bd6a8d9d9f054945bcfe81a42ba2fc6, type: 3}
       propertyPath: m_Controller

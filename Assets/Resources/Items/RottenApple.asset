@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canStack: 0
   Name: Rotten Apple
-  Description: 
+  Description: Gain a poisonous aura, but -10 total health
   Flavor: It has gone beyond bad.
   Sprite: {fileID: -1608413829978786433, guid: d160d2fe1d320d34ab45ccec0fd5e376, type: 3}
   cost: 20
@@ -28,3 +28,13 @@ MonoBehaviour:
     EventActionPrefab: {fileID: 2674626695042508919, guid: d9ad2ebcad508fd4da28cd6eb46766e2, type: 3}
     ActionType: 0
     ProcChance: 1
+  Hieroglyphs:
+  - Name: Rotten aura
+    sprites:
+    - {fileID: 8928003218700626746, guid: 79fd1365ddc427146a21eaaf84834ca0, type: 3}
+    - {fileID: 8055624873748767669, guid: 71bf9c89d3a3d7841998d7041752b7dc, type: 3}
+    - {fileID: -6303980851891360352, guid: a19b703221c6cf041a3f9e2d347d6d3f, type: 3}
+  - Name: Health down
+    sprites:
+    - {fileID: -2703576718235987106, guid: e228249b0771003448d8b5a7faf0913c, type: 3}
+    - {fileID: 3404297668476086576, guid: 833c12f886b35924e8d625af1fc432fa, type: 3}

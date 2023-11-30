@@ -8,6 +8,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 882927482396275736, guid: 0bd6a8d9d9f054945bcfe81a42ba2fc6, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.x
+      value: 1.5589385
+      objectReference: {fileID: 0}
+    - target: {fileID: 882927482396275736, guid: 0bd6a8d9d9f054945bcfe81a42ba2fc6, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.y
+      value: 0.25139618
+      objectReference: {fileID: 0}
+    - target: {fileID: 882927482396275736, guid: 0bd6a8d9d9f054945bcfe81a42ba2fc6, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.z
+      value: 0.08161979
+      objectReference: {fileID: 0}
     - target: {fileID: 1006995971007075442, guid: 0bd6a8d9d9f054945bcfe81a42ba2fc6, type: 3}
       propertyPath: m_Sprite
       value: 

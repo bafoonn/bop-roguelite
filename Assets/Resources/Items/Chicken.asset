@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Chicken
   m_EditorClassIdentifier: 
   _canStack: 1
-  Name: Chicken Drum Stick
-  Description: 
+  Name: Drumstick
+  Description: +25 total health, but -3% movement speed
   Flavor: Don't eat too many!
   Sprite: {fileID: 1373213130586829986, guid: 64faa9dc7736ee2499462153e901dd84, type: 3}
   cost: 20
@@ -28,3 +28,13 @@ MonoBehaviour:
     Value: 0.97
     Type: 1
   Events: []
+  Hieroglyphs:
+  - Name: health up
+    sprites:
+    - {fileID: -2703576718235987106, guid: e228249b0771003448d8b5a7faf0913c, type: 3}
+    - {fileID: 2094356212948544673, guid: 020f740b43dfa8641a22507cbbbc78b1, type: 3}
+    - {fileID: 2094356212948544673, guid: 020f740b43dfa8641a22507cbbbc78b1, type: 3}
+  - Name: Speed down
+    sprites:
+    - {fileID: 5462491220751129457, guid: 326111461a4f91c42b60ef54c9592cf5, type: 3}
+    - {fileID: 3404297668476086576, guid: 833c12f886b35924e8d625af1fc432fa, type: 3}

@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canStack: 1
   Name: Banana
-  Description: Chance to heal for 10% when entering a room.
-  Flavor: The perfect snack.
+  Description: The perfect snack for long journeys. Chance to heal for 10% when entering
+    a room.
+  Flavor: Can be used as a measuring device.
   Sprite: {fileID: 2046177537035590154, guid: c0d98c1df091db149a39c00297b0849e, type: 3}
   cost: 20
   Effects: []
@@ -27,11 +28,6 @@ MonoBehaviour:
   Hieroglyphs:
   - Name: Room Enter Heal
     sprites:
-    - {fileID: -1280432611763135247, guid: bab68833c36d5c645ab0fc74be9400ff, type: 3}
-    - {fileID: 4952643979932594120, guid: e0d855cbf563dc242b615d90cad6f8e2, type: 3}
-    - {fileID: 7746310468709954608, guid: 5dd9ec5b1c784fc46a2bc77896303faf, type: 3}
-  - Name: Test
-    sprites:
-    - {fileID: -3827257235308218076, guid: 0162564799c79fa4088105b627ed7293, type: 3}
-    - {fileID: 7959563262057921063, guid: 5bd55b15f21bba2408a03d88402084de, type: 3}
-    - {fileID: -1280432611763135247, guid: bab68833c36d5c645ab0fc74be9400ff, type: 3}
+    - {fileID: 3927179951475266143, guid: 4b95daf518e890e4ba5c8e38d3db4a37, type: 3}
+    - {fileID: 8055624873748767669, guid: 71bf9c89d3a3d7841998d7041752b7dc, type: 3}
+    - {fileID: -506876107478206299, guid: eaeb56f0bc6a3d24da2f055e552ad479, type: 3}

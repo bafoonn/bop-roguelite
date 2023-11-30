@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canStack: 1
   Name: Ice Cream
-  Description: 
-  Flavor: 
+  Description: Your attacks have a 60% chance to slow enemies & +10 total health
+  Flavor: It's vanilla... so boring.
   Sprite: {fileID: -5845335184669475501, guid: b58b7447a3f48be49a6b5c5b29d25c25, type: 3}
   cost: 10
   Effects:
@@ -27,4 +27,14 @@ MonoBehaviour:
   - Name: Slow
     EventActionPrefab: {fileID: 6508671052521538090, guid: 0eb0f46c6e87f0e478fcf81fa0f5d95f, type: 3}
     ActionType: 1
-    ProcChance: 0.2
+    ProcChance: 0.6
+  Hieroglyphs:
+  - Name: Slow enemies
+    sprites:
+    - {fileID: -6799637688695467347, guid: 9db5ae1d9cb9b324eb0cda208a4c6388, type: 3}
+    - {fileID: 8055624873748767669, guid: 71bf9c89d3a3d7841998d7041752b7dc, type: 3}
+    - {fileID: -8632123264011086262, guid: cd86943095fbc9149bb022699db0cfa5, type: 3}
+  - Name: Health up
+    sprites:
+    - {fileID: -2703576718235987106, guid: e228249b0771003448d8b5a7faf0913c, type: 3}
+    - {fileID: 2094356212948544673, guid: 020f740b43dfa8641a22507cbbbc78b1, type: 3}

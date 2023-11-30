@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canStack: 1
   Name: Pizza
-  Description: 
-  Flavor: 
+  Description: +10% attack damage, but -0.5 movement speed
+  Flavor: Don't you dare put pineapple on a pizza!
   Sprite: {fileID: -3195928601639412439, guid: e9ba17b99a7bc034a88965e0aeb36384, type: 3}
   cost: 0
   Effects:
@@ -28,3 +28,13 @@ MonoBehaviour:
     Value: 1.1
     Type: 1
   Events: []
+  Hieroglyphs:
+  - Name: Damage up
+    sprites:
+    - {fileID: -6799637688695467347, guid: 9db5ae1d9cb9b324eb0cda208a4c6388, type: 3}
+    - {fileID: 2094356212948544673, guid: 020f740b43dfa8641a22507cbbbc78b1, type: 3}
+    - {fileID: 2094356212948544673, guid: 020f740b43dfa8641a22507cbbbc78b1, type: 3}
+  - Name: Movement speed down
+    sprites:
+    - {fileID: 5462491220751129457, guid: 326111461a4f91c42b60ef54c9592cf5, type: 3}
+    - {fileID: 3404297668476086576, guid: 833c12f886b35924e8d625af1fc432fa, type: 3}

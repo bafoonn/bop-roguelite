@@ -100,6 +100,11 @@ namespace Pasta
 
         private IEnumerator ShowObjects()
         {
+            nameObj.HardReset();
+            imageObj.HardReset();
+            descriptionObj.HardReset();
+            flavorObj.HardReset();
+            stampObj.HardReset();
 
             backgroundObj.color = bgColor;
             nameObj.SetScale(0f);
@@ -165,8 +170,6 @@ namespace Pasta
             yield return new WaitForSecondsRealtime(hgCreator.TotalCloseDelay);
             Time.timeScale = 1f;
             IsActive = false;
-
-            //yield return new WaitForSecondsRealtime((1f / imageCloseSpeed * 4f) + (4f));
 
 
             gameObject.Deactivate();

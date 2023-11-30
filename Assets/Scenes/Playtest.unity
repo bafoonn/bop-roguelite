@@ -483,6 +483,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1658050680617120658, guid: dcabfba1a1c5cc14caaa87d00026cabc, type: 3}
+      propertyPath: closeDelay
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1658050680617120658, guid: dcabfba1a1c5cc14caaa87d00026cabc, type: 3}
+      propertyPath: closeSpeed
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 2076966697667818739, guid: dcabfba1a1c5cc14caaa87d00026cabc, type: 3}
       propertyPath: m_Name
       value: Player
@@ -502,6 +510,22 @@ PrefabInstance:
     - target: {fileID: 2862614470180354494, guid: dcabfba1a1c5cc14caaa87d00026cabc, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975112306554398131, guid: dcabfba1a1c5cc14caaa87d00026cabc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8361672146179402186, guid: dcabfba1a1c5cc14caaa87d00026cabc, type: 3}
+      propertyPath: m_Color.a
+      value: 0.94509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 9197396687692150638, guid: dcabfba1a1c5cc14caaa87d00026cabc, type: 3}
+      propertyPath: hieroglyphCloseDelay
+      value: 0.005
+      objectReference: {fileID: 0}
+    - target: {fileID: 9197396687692150638, guid: dcabfba1a1c5cc14caaa87d00026cabc, type: 3}
+      propertyPath: backgroundAlphaTarget
+      value: 0.92
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

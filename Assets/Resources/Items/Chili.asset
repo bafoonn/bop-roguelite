@@ -14,17 +14,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canStack: 1
   Name: Chili
-  Description: 
-  Flavor: Blazing hot.
+  Description: A highly pungent chili pepper.  +20% movement speed & +20% attack
+    speed, but -20 total health
+  Flavor: Red hot chili peppers rock!
   Sprite: {fileID: -4849407820689032084, guid: 0f404a812f7f46948b4793e8e73980ed, type: 3}
   cost: 10
   Effects:
-  - Name: Reduced damage
-    Stat: 1
-    Value: 0.95
-    Type: 1
   - Name: Additional Movement Speed
     Stat: 3
     Value: 1.2
     Type: 1
+  - Name: Additional Attack Speed
+    Stat: 2
+    Value: 1.2
+    Type: 1
+  - Name: Reduced Health
+    Stat: 0
+    Value: -20
+    Type: 0
   Events: []
+  Hieroglyphs:
+  - Name: Movement speed up
+    sprites:
+    - {fileID: 5462491220751129457, guid: 326111461a4f91c42b60ef54c9592cf5, type: 3}
+    - {fileID: 2094356212948544673, guid: 020f740b43dfa8641a22507cbbbc78b1, type: 3}
+    - {fileID: 2094356212948544673, guid: 020f740b43dfa8641a22507cbbbc78b1, type: 3}
+  - Name: Attack speed up
+    sprites:
+    - {fileID: -7909161065004961426, guid: 12435301e90a78a42850db2451220dbd, type: 3}
+    - {fileID: 2094356212948544673, guid: 020f740b43dfa8641a22507cbbbc78b1, type: 3}
+    - {fileID: 2094356212948544673, guid: 020f740b43dfa8641a22507cbbbc78b1, type: 3}
+  - Name: Health down
+    sprites:
+    - {fileID: -2703576718235987106, guid: e228249b0771003448d8b5a7faf0913c, type: 3}
+    - {fileID: 3404297668476086576, guid: 833c12f886b35924e8d625af1fc432fa, type: 3}
+    - {fileID: 3404297668476086576, guid: 833c12f886b35924e8d625af1fc432fa, type: 3}

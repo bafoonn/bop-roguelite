@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canStack: 1
   Name: Fish
-  Description: 
+  Description: +1 attack damage, and make enemies slippery
   Flavor: It's slippery.
   Sprite: {fileID: 6361611475456273693, guid: 68ce878d0714c7e4cb3e873d0aff8d1a, type: 3}
   cost: 10
@@ -28,3 +28,4 @@ MonoBehaviour:
     EventActionPrefab: {fileID: 5696246142650556881, guid: 07b969bcab17eec4fbfb3e8c13af0268, type: 3}
     ActionType: 1
     ProcChance: 0.5
+  Hieroglyphs: []

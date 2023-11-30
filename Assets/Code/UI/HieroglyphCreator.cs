@@ -23,7 +23,7 @@ namespace Pasta
         [SerializeField] private float yOffset = 22f;
 
         private List<GameObject> hgList = new();
-        public float TotalCloseDelay => closeDelay * hgList.Count;
+        public float TotalCloseDelay => closeDelay * hgList.Count + (1f / closeSpeed);
 
         void Start()
         {

@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canStack: 1
   Name: Bowl of Batter
-  Description: 
-  Flavor: 
+  Description: Whisking batter all day is a real workout. 20% more attack damage,
+    but 10% slower attacks.
+  Flavor: Batter up!
   Sprite: {fileID: 8969275494466620481, guid: 2edcd188773787e40a5cec36febbfd39, type: 3}
   cost: 20
   Effects:
@@ -28,3 +29,13 @@ MonoBehaviour:
     Value: 0.9
     Type: 1
   Events: []
+  Hieroglyphs:
+  - Name: Attack up
+    sprites:
+    - {fileID: -6799637688695467347, guid: 9db5ae1d9cb9b324eb0cda208a4c6388, type: 3}
+    - {fileID: 2094356212948544673, guid: 020f740b43dfa8641a22507cbbbc78b1, type: 3}
+    - {fileID: 2094356212948544673, guid: 020f740b43dfa8641a22507cbbbc78b1, type: 3}
+  - Name: Attack speed down
+    sprites:
+    - {fileID: -7909161065004961426, guid: 12435301e90a78a42850db2451220dbd, type: 3}
+    - {fileID: 3404297668476086576, guid: 833c12f886b35924e8d625af1fc432fa, type: 3}

@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canStack: 0
   Name: Electric Eel
-  Description: 
+  Description: 33% chance to zap the target and up to 3 nearby enemies for 80% of
+    your attack damage.
   Flavor: 
   Sprite: {fileID: -4418031461292793555, guid: 110fae6f44679fd4a9b0ce6c593a0e48, type: 3}
   cost: 50
@@ -24,3 +25,9 @@ MonoBehaviour:
     EventActionPrefab: {fileID: 8675824498920572660, guid: 01be61de1c3bc6d4eb5c7b73dea9df76, type: 3}
     ActionType: 1
     ProcChance: 0.33
+  Hieroglyphs:
+  - Name: Chain lightning
+    sprites:
+    - {fileID: -6799637688695467347, guid: 9db5ae1d9cb9b324eb0cda208a4c6388, type: 3}
+    - {fileID: 8055624873748767669, guid: 71bf9c89d3a3d7841998d7041752b7dc, type: 3}
+    - {fileID: 3369137713523805904, guid: a66bfc0dc6f2fe34cbf1adfd3815bc0f, type: 3}

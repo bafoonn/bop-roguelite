@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canStack: 1
   Name: Cheese
-  Description: 
-  Flavor: Gives you strength.
+  Description: +2 attack damage
+  Flavor: 'Note: put some cheesy joke here.'
   Sprite: {fileID: -2098588154144839390, guid: f1e5810c9a83e214c8afdf006b1d7fb2, type: 3}
   cost: 20
   Effects:
@@ -24,3 +24,8 @@ MonoBehaviour:
     Value: 2
     Type: 0
   Events: []
+  Hieroglyphs:
+  - Name: Attack up
+    sprites:
+    - {fileID: -6799637688695467347, guid: 9db5ae1d9cb9b324eb0cda208a4c6388, type: 3}
+    - {fileID: 2094356212948544673, guid: 020f740b43dfa8641a22507cbbbc78b1, type: 3}
