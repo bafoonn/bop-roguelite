@@ -87,6 +87,7 @@ namespace Pasta
             imageObj.GetComponent<Image>().sprite = item.Sprite;
             flavorObj.GetComponent<Text>().text = item.Flavor;
             //shouldIncreaseBackgoundAlpha = true;
+            close.GetComponent<FirstSelectUIObject>().Select();
 
 
             if (_currentCoroutine != null)
@@ -161,10 +162,12 @@ namespace Pasta
             yield return new WaitForSecondsRealtime(hieroglyphCloseDelay);
 
             hgCreator.CloseHieroglyphs();
+            yield return new WaitForSecondsRealtime(hgCreator.TotalCloseDelay);
             Time.timeScale = 1f;
             IsActive = false;
 
-            yield return new WaitForSecondsRealtime((1f / imageCloseSpeed * 4f) + (4f));
+            //yield return new WaitForSecondsRealtime((1f / imageCloseSpeed * 4f) + (4f));
+
 
             gameObject.Deactivate();
             _currentCoroutine = null;
