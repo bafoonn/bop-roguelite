@@ -57,7 +57,7 @@ namespace Pasta
             Vector2 Position = (Vector2)transform.position + Vector2.up + UnityEngine.Random.insideUnitCircle;
             if (damageText != null)
             {
-                GameObject DamageTextSpawned = Instantiate(damageText, Position, transform.localRotation);
+                GameObject DamageTextSpawned = Instantiate(damageText, Position, Quaternion.identity);
                 DamageTextSpawned.GetComponentInChildren<Text>().text = damage.ToString("#");
             }
 

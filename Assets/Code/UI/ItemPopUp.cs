@@ -8,13 +8,14 @@ namespace Pasta
     public class ItemPopUp : MonoBehaviour
     {
 
-        private GameObject nameObj;
-        private GameObject descriptionObj;
-        private GameObject imageObj;
-        private GameObject flavorObj;
+        private UIElementAnimations nameObj;
+        private UIElementAnimations descriptionObj;
+        private UIElementAnimations imageObj;
+        private UIElementAnimations flavorObj;
         private GameObject hieroglypsObj;
-        private GameObject backgroundObj;
-        private GameObject stampObj;
+        private Image backgroundObj;
+        private UIElementAnimations stampObj;
+        private UIElementAnimations close;
 
         public ItemBase item;
 
@@ -39,43 +40,40 @@ namespace Pasta
         [SerializeField] private float backgroundAlphaTarget = 0.85f;
         [SerializeField] private float backgroundAlphaSpeed = 4f;
         private float currentBackgroundAlpha = 0f;
-        private bool shouldIncreaseBackgoundAlpha = false;
         private Color bgColor;
 
         private HieroglyphCreator hgCreator;
 
+        public bool IsActive { get; private set; }
+        private Coroutine _currentCoroutine = null;
 
-        void Start()
+        void Awake()
         {
-            nameObj = transform.Find("Name").gameObject;
-            descriptionObj = transform.Find("Description").gameObject;
-            imageObj = transform.Find("Image").gameObject;
-            flavorObj = transform.Find("FlavorText").gameObject;
+            nameObj = transform.Find("Name").gameObject.GetComponent<UIElementAnimations>();
+            descriptionObj = transform.Find("Description").gameObject.GetComponent<UIElementAnimations>();
+            imageObj = transform.Find("Image").gameObject.GetComponent<UIElementAnimations>();
+            flavorObj = transform.Find("FlavorText").gameObject.GetComponent<UIElementAnimations>();
             hieroglypsObj = transform.Find("Hieroglyphs").gameObject;
-            backgroundObj = transform.Find("Background").gameObject;
-            stampObj = transform.Find("Stamp").gameObject;
-            bgColor = backgroundObj.GetComponent<Image>().color;
+            backgroundObj = transform.Find("Background").gameObject.GetComponent<Image>();
+            stampObj = transform.Find("Stamp").gameObject.GetComponent<UIElementAnimations>();
+            close = transform.Find("Close").gameObject.GetComponent<UIElementAnimations>();
+            bgColor = backgroundObj.color;
             bgColor.a = 0f;
 
             hgCreator = GetComponent<HieroglyphCreator>();
 
             //Testing stuff
-            Activate(testItem);
+            if (testItem != null)
+                Activate(testItem);
         }
 
         void Update()
         {
-            if (shouldIncreaseBackgoundAlpha && currentBackgroundAlpha != backgroundAlphaTarget)
+            if (backgroundAlphaTarget != currentBackgroundAlpha)
             {
-                currentBackgroundAlpha = Mathf.MoveTowards(currentBackgroundAlpha, backgroundAlphaTarget, backgroundAlphaSpeed * Time.deltaTime);
+                currentBackgroundAlpha = Mathf.MoveTowards(currentBackgroundAlpha, backgroundAlphaTarget, backgroundAlphaSpeed * Time.unscaledDeltaTime);
                 bgColor.a = currentBackgroundAlpha;
-                backgroundObj.GetComponent<Image>().color = bgColor;
-            }
-            else if (!shouldIncreaseBackgoundAlpha && currentBackgroundAlpha != 0f)
-            {
-                currentBackgroundAlpha = Mathf.MoveTowards(currentBackgroundAlpha, 0f, backgroundAlphaSpeed * Time.deltaTime);
-                bgColor.a = currentBackgroundAlpha;
-                backgroundObj.GetComponent<Image>().color = bgColor;
+                backgroundObj.color = bgColor;
             }
         }
 
@@ -90,36 +88,44 @@ namespace Pasta
             flavorObj.GetComponent<Text>().text = item.Flavor;
             //shouldIncreaseBackgoundAlpha = true;
 
-            
 
-            StartCoroutine(ShowObjects());
+            if (_currentCoroutine != null)
+            {
+                StopCoroutine(_currentCoroutine);
+            }
+            _currentCoroutine = StartCoroutine(ShowObjects());
+            Time.timeScale = 0f;
         }
 
         private IEnumerator ShowObjects()
         {
 
-            backgroundObj.GetComponent<Image>().color = bgColor;
-            nameObj.GetComponent<UIElementAnimations>().SetScale(0f);
-            imageObj.GetComponent<UIElementAnimations>().SetScale(0f);
-            descriptionObj.GetComponent<UIElementAnimations>().SetScale(0f);
-            flavorObj.GetComponent<UIElementAnimations>().SetScale(0f);
-            stampObj.GetComponent<UIElementAnimations>().SetScale(0f);
+            backgroundObj.color = bgColor;
+            nameObj.SetScale(0f);
+            imageObj.SetScale(0f);
+            descriptionObj.SetScale(0f);
+            flavorObj.SetScale(0f);
+            stampObj.SetScale(0f);
+            close.SetScale(0f);
 
-            yield return new WaitForSeconds(1f);
-            shouldIncreaseBackgoundAlpha = true;
+            //yield return new WaitForSeconds(1f);
+            backgroundAlphaTarget = 0.8f;
             CreateHieroglyphs(item);
 
-            imageObj.GetComponent<UIElementAnimations>().ItemPopUp(imagePopUpSpeed, imageStartRotation);
-            stampObj.GetComponent<UIElementAnimations>().ScaleFromZero(stampPopUpSpeed);
-            yield return new WaitForSeconds(namePopUpDelay);
-            nameObj.GetComponent<UIElementAnimations>().ScaleFromZero(namePopUpSpeed);
-            yield return new WaitForSeconds(descPopUpDelay);
-            descriptionObj.GetComponent<UIElementAnimations>().ScaleFromZero(descPopUpSpeed);
-            yield return new WaitForSeconds(flavorPopUpDelay);
-            flavorObj.GetComponent<UIElementAnimations>().ScaleFromZero(flavorPopUpSpeed);
+            imageObj.ItemPopUp(imagePopUpSpeed, imageStartRotation);
+            stampObj.ScaleFromZero(stampPopUpSpeed);
+            close.ScaleFromZero(imagePopUpSpeed);
+            yield return new WaitForSecondsRealtime(namePopUpDelay);
+            nameObj.ScaleFromZero(namePopUpSpeed);
+            yield return new WaitForSecondsRealtime(descPopUpDelay);
+            descriptionObj.ScaleFromZero(descPopUpSpeed);
+            yield return new WaitForSecondsRealtime(flavorPopUpDelay);
+            flavorObj.ScaleFromZero(flavorPopUpSpeed);
 
-            yield return new WaitForSeconds(5f);
-            Close();
+            IsActive = true;
+            _currentCoroutine = null;
+            //yield return new WaitForSeconds(5f);
+            //Close();
         }
 
         private void CreateHieroglyphs(ItemBase item)
@@ -127,36 +133,41 @@ namespace Pasta
             hgCreator.CreateFromItem(item);
         }
 
-        public bool Close()
+        public void Close()
         {
-            StartCoroutine(ClosePopUp());
-            return true;
+            if (_currentCoroutine != null)
+            {
+                StopCoroutine(_currentCoroutine);
+            }
+            _currentCoroutine = StartCoroutine(ClosePopUp());
         }
 
         private IEnumerator ClosePopUp()
         {
-            nameObj.GetComponent<UIElementAnimations>().ScaleToZero(closeSpeed);
-            descriptionObj.GetComponent<UIElementAnimations>().ScaleToZero(closeSpeed);
-            flavorObj.GetComponent<UIElementAnimations>().ScaleToZero(closeSpeed);
-            
+            nameObj.ScaleToZero(closeSpeed);
+            descriptionObj.ScaleToZero(closeSpeed);
+            flavorObj.ScaleToZero(closeSpeed);
+            close.ScaleToZero(closeSpeed);
 
             backgroundAlphaTarget = 0f;
-            shouldIncreaseBackgoundAlpha = false;
 
-            yield return new WaitForSeconds(imageCloseDelay);
+            yield return new WaitForSecondsRealtime(imageCloseDelay);
 
-            imageObj.GetComponent<UIElementAnimations>().ScaleToZero(imageCloseSpeed);
-            imageObj.GetComponent<UIElementAnimations>().RotateTo(-180f, imageCloseSpeed);
-            stampObj.GetComponent<UIElementAnimations>().ScaleToZero(stampCloseSpeed);
-            stampObj.GetComponent<UIElementAnimations>().RotateTo(-180f, imageCloseSpeed);
+            imageObj.ScaleToZero(imageCloseSpeed);
+            imageObj.RotateTo(-180f, imageCloseSpeed);
+            stampObj.ScaleToZero(stampCloseSpeed);
+            stampObj.RotateTo(-180f, imageCloseSpeed);
 
-            yield return new WaitForSeconds(hieroglyphCloseDelay);
+            yield return new WaitForSecondsRealtime(hieroglyphCloseDelay);
 
             hgCreator.CloseHieroglyphs();
+            Time.timeScale = 1f;
+            IsActive = false;
 
-            yield return new WaitForSeconds((1f / imageCloseSpeed * 4f) + (4f));
+            yield return new WaitForSecondsRealtime((1f / imageCloseSpeed * 4f) + (4f));
 
             gameObject.Deactivate();
+            _currentCoroutine = null;
         }
     }
 }

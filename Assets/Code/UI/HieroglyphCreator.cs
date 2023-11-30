@@ -22,16 +22,12 @@ namespace Pasta
         [SerializeField] private float xOffset = 18f;
         [SerializeField] private float yOffset = 22f;
 
-        private List<GameObject> hgList;
+        private List<GameObject> hgList = new();
+        public float TotalCloseDelay => closeDelay * hgList.Count;
 
         void Start()
         {
             Setup(Vector3.zero);
-        }
-
-        void Update()
-        {
-        
         }
 
         public void Setup(Vector3 position)
@@ -41,6 +37,7 @@ namespace Pasta
 
         public void CreateFromItem(ItemBase item)
         {
+            if (item.Hieroglyphs == null) return;
             Hieroglyph[] hieroglyphs = item.Hieroglyphs;
 
             Vector2 originalParent = parent.GetComponent<RectTransform>().anchoredPosition;
@@ -57,24 +54,24 @@ namespace Pasta
                     hgNew.GetComponent<UIElementAnimations>().SetScale(0f);
                     hgNew.GetComponent<Image>().sprite = hieroglyphs[i].sprites[ii];
                     hgNew.GetComponent<Image>().enabled = false;
-                    hgNew.GetComponent<RectTransform>().anchoredPosition = new Vector2 (position.x + (xOffset * ii), position.y + (-yOffset * i));
+                    hgNew.GetComponent<RectTransform>().anchoredPosition = new Vector2(position.x + (xOffset * ii), position.y + (-yOffset * i));
                     hgList.Add(hgNew);
                 }
-                
+
             }
             StartCoroutine(PopUpHieroglyphs(hgList));
         }
 
         private IEnumerator PopUpHieroglyphs(List<GameObject> list)
         {
-            yield return new WaitForSeconds(popUpStartDelay);
+            yield return new WaitForSecondsRealtime(popUpStartDelay);
 
             for (int i = 0; i < list.Count; i++)
             {
                 list[i].GetComponent<Image>().enabled = true;
                 list[i].GetComponent<UIElementAnimations>().SetScale(0f);
                 list[i].gameObject.GetComponent<UIElementAnimations>().ScaleFromZero(popUpSpeed);
-                yield return new WaitForSeconds(popUpDelay);
+                yield return new WaitForSecondsRealtime(popUpDelay);
             }
         }
 
@@ -88,7 +85,7 @@ namespace Pasta
             for (int i = 0; i < list.Count; i++)
             {
                 list[i].gameObject.GetComponent<UIElementAnimations>().ScaleToZero(closeSpeed);
-                yield return new WaitForSeconds(closeDelay);
+                yield return new WaitForSecondsRealtime(closeDelay);
             }
         }
     }

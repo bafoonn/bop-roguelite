@@ -18,9 +18,17 @@ namespace Pasta
 
         private void OnApplicationQuit() => Clear();
 
-        public bool TryAdd(IItem item)
+        public bool CanLoot(IItem item)
         {
             if (!item.CanStack && Contains(item))
+                return false;
+
+            return true;
+        }
+
+        public bool TryAdd(IItem item)
+        {
+            if (!CanLoot(item))
             {
                 return false;
             }

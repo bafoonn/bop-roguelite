@@ -18,6 +18,7 @@ public class Player : MonoBehaviour, IPlayer
     private EventActions _actions;
     [SerializeField] private SpriteRenderer _sprite;
     private StatusHandler _statusHandler;
+    private ItemPopUp _itemPopUp;
     public int currency = 10;
 
     public PlayerInput Input => _input;
@@ -73,6 +74,7 @@ public class Player : MonoBehaviour, IPlayer
         _defaultMaterial = _sprite.material;
         _statusHandler = this.AddOrGetComponent<StatusHandler>();
         _statusHandler.Setup(this);
+        _itemPopUp = GetComponentInChildren<ItemPopUp>(true);
 
         GetComponentInChildren<CurrencyUI>().Setup(this);
 
@@ -87,6 +89,11 @@ public class Player : MonoBehaviour, IPlayer
         _movement.Setup(_rigidbody);
 
         _havePlayerUI = _playerUI != null;
+    }
+
+    private void Update()
+    {
+        _input.enabled = !(GameManager.Current.IsPaused || _itemPopUp.IsActive);
     }
 
     private void FixedUpdate()
@@ -110,26 +117,26 @@ public class Player : MonoBehaviour, IPlayer
     private void OnEnable()
     {
         _health.OnDeath += OnDeath;
-        GameManager.OnPause += OnPause;
-        GameManager.OnUnpause += OnUnpause;
+        //GameManager.OnPause += OnPause;
+        //GameManager.OnUnpause += OnUnpause;
     }
 
     private void OnDisable()
     {
         _health.OnDeath -= OnDeath;
-        GameManager.OnPause -= OnPause;
-        GameManager.OnUnpause -= OnUnpause;
+        //GameManager.OnPause -= OnPause;
+        //GameManager.OnUnpause -= OnUnpause;
     }
 
-    private void OnPause()
-    {
-        _input.enabled = false;
-    }
+    //private void OnPause()
+    //{
+    //    _input.enabled = false;
+    //}
 
-    private void OnUnpause()
-    {
-        _input.enabled = true;
-    }
+    //private void OnUnpause()
+    //{
+    //    _input.enabled = true;
+    //}
 
     private void OnDeath()
     {
@@ -143,8 +150,10 @@ public class Player : MonoBehaviour, IPlayer
         {
             if (!pickup.CheckIfShopItem())
             {
-                if (_loot.TryAdd(pickup.Item))
+                if (_loot.CanLoot(pickup.Item))
                 {
+                    ShowItem(pickup.Item);
+                    _loot.Add(pickup.Item);
                     pickup.Take();
                 }
             }
@@ -152,9 +161,11 @@ public class Player : MonoBehaviour, IPlayer
             {
                 if (pickup.Item.cost <= currency)
                 {
-                    if (_loot.TryAdd(pickup.Item))
+                    if (_loot.CanLoot(pickup.Item))
                     {
                         currency -= pickup.Item.cost;
+                        ShowItem(pickup.Item);
+                        _loot.Add(pickup.Item);
                         pickup.Take();
                     }
                 }
@@ -173,6 +184,14 @@ public class Player : MonoBehaviour, IPlayer
             coin.Take(ref currency);
             if (_havePlayerUI) _playerUI.CoinPickup();
             return;
+        }
+
+        void ShowItem(ItemBase item)
+        {
+            if (_loot.Contains(item)) return;
+            if (_itemPopUp == null) return;
+            if (_itemPopUp.IsActive) _itemPopUp.Close();
+            _itemPopUp.Activate(item);
         }
     }
 

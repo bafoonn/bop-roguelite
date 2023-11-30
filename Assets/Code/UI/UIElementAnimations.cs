@@ -24,6 +24,8 @@ namespace Pasta
         [SerializeField]
         private float scaleResetSpeed = 8f;
 
+        public bool IgnoreTimeScale = true;
+
         private RectTransform rectTransform;
 
         private float rotationSpeed = 5f;
@@ -56,6 +58,8 @@ namespace Pasta
         private float targetXOffset;
         private float targetYOffset;
 
+        private Vector3 startPos;
+
         private bool shouldUpdate = true;
         private bool shouldShake = false;
         private bool shouldRotationShake = false;
@@ -67,6 +71,7 @@ namespace Pasta
             if (TryGetComponent<RectTransform>(out RectTransform rt))
             {
                 rectTransform = rt;
+                startPos = rectTransform.localPosition;
             }
         }
 
@@ -114,15 +119,16 @@ namespace Pasta
             }
 
             //TODO: Change certain effects to not use lerp
+            float deltaTime = IgnoreTimeScale ? Time.unscaledDeltaTime : Time.deltaTime;
 
-            currentRotation = Mathf.Lerp(currentRotation, targetRotation, rotationSpeed * Time.deltaTime);
-            if (currentRotation < 0.01f && currentRotation !> 0.01f) currentRotation = 0f;
-            currentScale = Mathf.Lerp(currentScale, targetScale, scaleSpeed * Time.deltaTime);
-            if (currentScale < 0.01f && currentScale !> 0.01f) currentScale = 0f;
-            currentXOffset = Mathf.Lerp(currentXOffset, targetXOffset, xOffsetSpeed * Time.deltaTime);
-            currentYOffset = Mathf.Lerp(currentYOffset, targetYOffset, yOffsetSpeed * Time.deltaTime);
+            currentRotation = Mathf.Lerp(currentRotation, targetRotation, rotationSpeed * deltaTime);
+            if (currentRotation < 0.01f && currentRotation! > 0.01f) currentRotation = 0f;
+            currentScale = Mathf.Lerp(currentScale, targetScale, scaleSpeed * deltaTime);
+            if (currentScale < 0.01f && currentScale! > 0.01f) currentScale = 0f;
+            currentXOffset = Mathf.Lerp(currentXOffset, targetXOffset, xOffsetSpeed * deltaTime);
+            currentYOffset = Mathf.Lerp(currentYOffset, targetYOffset, yOffsetSpeed * deltaTime);
 
-            if (shouldUpdatePosition) rectTransform.localPosition = new Vector3(currentXOffset, currentYOffset, 0f);
+            if (shouldUpdatePosition) rectTransform.localPosition = startPos + new Vector3(currentXOffset, currentYOffset, 0f);
             rectTransform.localRotation = Quaternion.Euler(0f, 0f, currentRotation);
             rectTransform.localScale = new Vector3(currentScale, currentScale, 1f);
         }
