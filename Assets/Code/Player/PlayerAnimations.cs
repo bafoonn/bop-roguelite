@@ -27,7 +27,7 @@ namespace Pasta
 
         private void Update()
         {
-            _facingDir = _movement.IsRolling ? _movement._currentDir : _input.Aim;
+            _facingDir = _movement.IsDodging ? _movement._currentDir : _input.Aim;
             _facingDir.Normalize();
             _renderer.flipX = DoFlip();
             var dir = _attackHandler.IsAttacking ? _input.Aim : _input.Movement;
@@ -43,7 +43,7 @@ namespace Pasta
 
         private int FindState()
         {
-            if (_movement.IsRolling) return Dodge;
+            if (_movement.IsDodging) return Dodge;
             if (_movement._currentDir.sqrMagnitude > Mathf.Epsilon) return Run;
             if (_attackHandler.IsAttacking) return Run;
             return Idle;

@@ -79,8 +79,8 @@ public class Player : MonoBehaviour, IPlayer
         GetComponentInChildren<CurrencyUI>().Setup(this);
 
         _dodgeAction = new PlayerAction(Dodge, () => _attackHandler.Cancel());
-        _quickAttackAction = new PlayerAction(QuickAttack, () => !_movement.IsRolling && _attackHandler.CanAttack);
-        _heavyAttackAction = new PlayerAction(HeavyAttack, () => !_movement.IsRolling && _attackHandler.CanAttack);
+        _quickAttackAction = new PlayerAction(QuickAttack, () => !_movement.IsDodging && _attackHandler.CanAttack);
+        _heavyAttackAction = new PlayerAction(HeavyAttack, () => !_movement.IsDodging && _attackHandler.CanAttack);
 
         _input.DodgeCallback = () => AddAction(_dodgeAction);
         _input.QuickAttackCallback = () => AddAction(_quickAttackAction);
@@ -93,7 +93,7 @@ public class Player : MonoBehaviour, IPlayer
 
     private void Update()
     {
-        _input.enabled = !(GameManager.Current.IsPaused || _itemPopUp.IsActive);
+        _input.enabled = !(GameManager.Current.IsPaused || _itemPopUp.IsActive || GameManager.Current.CurrentState == GameStateType.GameOver);
     }
 
     private void FixedUpdate()

@@ -7,14 +7,20 @@ using UnityEngine.VFX;
 
 public class PlayerMovement : Movement
 {
-    [SerializeField] private float _dodgeCooldown = 0.2f;
+    [Header("Dodge")]
+    [SerializeField] private float _dodgeDelay = 0.2f;
     [SerializeField] private float _dodgeDuration = 0.5f;
     [SerializeField] private float _dodgeSpeed = 10f;
+    [SerializeField] private float _dodgeCooldown = 5f;
+    [SerializeField] private int _maxDodgeCount = 1, _currentDodgeCount = 1;
+    [SerializeField] private float _dodgeTimer = 0f;
+
+    public int DodgeCount => _currentDodgeCount;
 
     private Coroutine _dodgeRoutine = null;
     private bool _isDodging = false;
-    public bool IsRolling => _isDodging;
-    public bool CanDodge => (_dodgeRoutine == null && _isDodging == false);
+    public bool IsDodging => _isDodging;
+    public bool CanDodge => _dodgeRoutine == null && _isDodging == false && _currentDodgeCount > 0;
     public Stat _movementSpeed;
 
     private VisualEffect dodgeEffect;
@@ -32,6 +38,19 @@ public class PlayerMovement : Movement
     private void OnDestroy()
     {
         _movementSpeed.ValueChanged -= OnMovementSpeedChanged;
+    }
+
+    private void Update()
+    {
+        if (_currentDodgeCount < _maxDodgeCount)
+        {
+            _dodgeTimer += Time.deltaTime;
+            if (_dodgeTimer > _dodgeCooldown)
+            {
+                _currentDodgeCount++;
+                _dodgeTimer = 0;
+            }
+        }
     }
 
     private void OnMovementSpeedChanged(float value)
@@ -69,6 +88,7 @@ public class PlayerMovement : Movement
     private IEnumerator Dodge(Vector2 dir)
     {
         _isDodging = true;
+        _currentDodgeCount--;
         dir.Normalize();
         _currentDir = dir;
         _targetDir = dir;
@@ -94,7 +114,7 @@ public class PlayerMovement : Movement
         UpdateSpeed();
         if (_haveDodgeEffect) dodgeEffect.SendEvent("Stop");
 
-        yield return new WaitForSeconds(_dodgeCooldown);
+        yield return new WaitForSeconds(_dodgeDelay);
         _dodgeRoutine = null;
     }
 }
