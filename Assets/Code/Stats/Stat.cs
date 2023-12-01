@@ -10,8 +10,10 @@ namespace Pasta
         public readonly StatType Type;
         private float _baseValue;
         private float _value;
+        private float _unclampedValue;
         private readonly float _minValue = 0;
         private readonly float _maxValue = 0;
+
         public float Value
         {
             get
@@ -26,10 +28,11 @@ namespace Pasta
             private set
             {
 
-                _value = value;
+                _unclampedValue = value;
+                _value = Mathf.Clamp(_unclampedValue, _minValue, _maxValue > 0 ? _maxValue : _unclampedValue);
                 if (ValueChanged != null)
                 {
-                    ValueChanged(_maxValue > 0 ? Mathf.Clamp(value, _minValue, _maxValue) : value);
+                    ValueChanged(_value);
                 }
             }
         }
