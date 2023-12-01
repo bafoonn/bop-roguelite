@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 public class Player : MonoBehaviour, IPlayer
 {
@@ -55,6 +56,10 @@ public class Player : MonoBehaviour, IPlayer
 
     [SerializeField] private PlayerUIAnimationController _playerUI;
     private bool _havePlayerUI;
+
+    public UnityEvent OnItemPickUp;
+    public UnityEvent OnCoinPickUp;
+    public UnityEvent OnHealPickUp;
 
     private void Awake()
     {
@@ -155,6 +160,7 @@ public class Player : MonoBehaviour, IPlayer
                     ShowItem(pickup.Item);
                     _loot.Add(pickup.Item);
                     pickup.Take();
+                    OnItemPickUp.Invoke();
                 }
             }
             else
@@ -167,6 +173,7 @@ public class Player : MonoBehaviour, IPlayer
                         ShowItem(pickup.Item);
                         _loot.Add(pickup.Item);
                         pickup.Take();
+                        OnItemPickUp.Invoke();
                     }
                 }
             }
@@ -176,12 +183,14 @@ public class Player : MonoBehaviour, IPlayer
         if (collision.TryGetComponent<HealthRestore>(out var restore))
         {
             restore.Heal(_health);
+            OnHealPickUp.Invoke();
             return;
         }
 
         if (collision.TryGetComponent<Coin>(out var coin))
         {
             coin.Take(ref currency);
+            OnCoinPickUp.Invoke();
             if (_havePlayerUI) _playerUI.CoinPickup();
             return;
         }

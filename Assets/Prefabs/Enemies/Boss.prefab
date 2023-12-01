@@ -855,6 +855,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   EnemyBody: {fileID: 394010356348426381}
   aim: 1
+  attacking: 0
 --- !u!114 &8806108206215821516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1012,7 +1013,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coin: {fileID: 1116788276701670648, guid: 3b7b86d3e93d70940bffedecb3cc93b5, type: 3}
-  value: 100
+  value: 30
   dropChance: 100
 --- !u!1 &7888501175237090382
 GameObject:

@@ -64,6 +64,7 @@ namespace Pasta
         public void ActivateShopKeeper()
         {
             activeShopKeeper.gameObject.SetActive(true);
+            activeShopKeeper.GenerateItems();
         }
         public void DisableShopKeeper()
         {

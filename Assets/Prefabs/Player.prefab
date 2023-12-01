@@ -306,6 +306,59 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 3119409419638683670}
+--- !u!1 &1332576687613723798
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 594251702768978695}
+  - component: {fileID: 1311140149835036577}
+  m_Layer: 0
+  m_Name: ItemPickUpSound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &594251702768978695
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1332576687613723798}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 894218206778268372}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1311140149835036577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1332576687613723798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30fe86b7f5917f14885bcfdc97984a09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoundEffect: {fileID: 11400000, guid: 8ece8b7c92d74c247b0ccb4863047e5d, type: 2}
+  Source: {fileID: 0}
+  Volume: 0.3
+  InterruptPlaying: 1
+  AddPitch: 1
+  MinPitch: 1
+  MaxPitch: 1.02
+  MinInterval: 5
+  MaxInterval: 5
 --- !u!1 &1938306446717995282
 GameObject:
   m_ObjectHideFlags: 0
@@ -410,6 +463,10 @@ Transform:
   - {fileID: 534688264898137236}
   - {fileID: 8937844732237997297}
   - {fileID: 4391888730275453748}
+  - {fileID: 1843600100088253912}
+  - {fileID: 2313667717252781262}
+  - {fileID: 594251702768978695}
+  - {fileID: 3275248488293452023}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &288557622701945295
@@ -433,6 +490,51 @@ MonoBehaviour:
   _hitStopTime: 0.3
   _movementMultiplierWhileAttacking: 0.36
   _playerUI: {fileID: 7346646219617330964}
+  OnItemPickUp:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1311140149835036577}
+        m_TargetAssemblyTypeName: Pasta.SoundPlayer, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnCoinPickUp:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4999690205731752734}
+        m_TargetAssemblyTypeName: Pasta.SoundPlayer, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnHealPickUp:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 777730802356483676}
+        m_TargetAssemblyTypeName: Pasta.SoundPlayer, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4928316304019425267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,9 +553,28 @@ MonoBehaviour:
   SlipperyAcceleration: 1
   _currentDir: {x: 0, y: 0}
   _targetDir: {x: 0, y: 0}
-  _dodgeCooldown: 0.1
+  _dodgeDelay: 0.2
   _dodgeDuration: 0.4
   _dodgeSpeed: 8
+  _dodgeCooldown: 0.1
+  _maxDodgeCount: 1
+  _currentDodgeCount: 1
+  _dodgeTimer: 0
+  OnDodge:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1865767229056720315}
+        m_TargetAssemblyTypeName: Pasta.SoundPlayer, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!50 &4366640371036032285
 Rigidbody2D:
   serializedVersion: 4
@@ -1020,6 +1141,112 @@ MonoBehaviour:
   takeDamageShakeIntensity: 6
   takeDamageShakeDuration: 0.3
   takeDamageShakeSpeed: 60
+--- !u!1 &3274144891374390189
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3275248488293452023}
+  - component: {fileID: 777730802356483676}
+  m_Layer: 0
+  m_Name: HealthPickUpSound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3275248488293452023
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3274144891374390189}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 894218206778268372}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &777730802356483676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3274144891374390189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30fe86b7f5917f14885bcfdc97984a09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoundEffect: {fileID: 11400000, guid: 8196585f6bea98347ae3ac576342e588, type: 2}
+  Source: {fileID: 0}
+  Volume: 0.28
+  InterruptPlaying: 1
+  AddPitch: 1
+  MinPitch: 1
+  MaxPitch: 1.02
+  MinInterval: 5
+  MaxInterval: 5
+--- !u!1 &3858376173820597809
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1843600100088253912}
+  - component: {fileID: 1865767229056720315}
+  m_Layer: 0
+  m_Name: DodgeSound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1843600100088253912
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3858376173820597809}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 894218206778268372}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1865767229056720315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3858376173820597809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30fe86b7f5917f14885bcfdc97984a09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoundEffect: {fileID: 11400000, guid: 8bd343e596a3e334ebcb00050b59e1b6, type: 2}
+  Source: {fileID: 0}
+  Volume: 0.3
+  InterruptPlaying: 1
+  AddPitch: 1
+  MinPitch: 1
+  MaxPitch: 1.02
+  MinInterval: 5
+  MaxInterval: 5
 --- !u!1 &4054274224903924999
 GameObject:
   m_ObjectHideFlags: 0
@@ -2123,6 +2350,59 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &8682472087560465454
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2313667717252781262}
+  - component: {fileID: 4999690205731752734}
+  m_Layer: 0
+  m_Name: CoinPickUpSound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2313667717252781262
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8682472087560465454}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 894218206778268372}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4999690205731752734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8682472087560465454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30fe86b7f5917f14885bcfdc97984a09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoundEffect: {fileID: 11400000, guid: f66e6175341883d4bb7b84fd4d8ac70d, type: 2}
+  Source: {fileID: 0}
+  Volume: 0.3
+  InterruptPlaying: 1
+  AddPitch: 1
+  MinPitch: 1
+  MaxPitch: 1.02
+  MinInterval: 5
+  MaxInterval: 5
 --- !u!1 &8842679096635821182
 GameObject:
   m_ObjectHideFlags: 0

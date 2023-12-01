@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
+using UnityEngine.Events;
 
 public class PlayerMovement : Movement
 {
@@ -25,6 +26,8 @@ public class PlayerMovement : Movement
 
     private VisualEffect dodgeEffect;
     private bool _haveDodgeEffect;
+
+    public UnityEvent OnDodge;
 
     private void Start()
     {
@@ -80,7 +83,7 @@ public class PlayerMovement : Movement
         {
             return false;
         }
-
+        OnDodge.Invoke();
         _dodgeRoutine = StartCoroutine(Dodge(dir));
         return true;
     }
