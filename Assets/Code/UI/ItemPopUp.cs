@@ -39,6 +39,7 @@ namespace Pasta
 
         [SerializeField] private float backgroundAlphaTarget = 0.85f;
         [SerializeField] private float backgroundAlphaSpeed = 4f;
+        private float currentBackgroundAlphaTarget = 0f;
         private float currentBackgroundAlpha = 0f;
         private Color bgColor;
 
@@ -69,9 +70,9 @@ namespace Pasta
 
         void Update()
         {
-            if (backgroundAlphaTarget != currentBackgroundAlpha)
+            if (currentBackgroundAlphaTarget != currentBackgroundAlpha)
             {
-                currentBackgroundAlpha = Mathf.MoveTowards(currentBackgroundAlpha, backgroundAlphaTarget, backgroundAlphaSpeed * Time.unscaledDeltaTime);
+                currentBackgroundAlpha = Mathf.MoveTowards(currentBackgroundAlpha, currentBackgroundAlphaTarget, backgroundAlphaSpeed * Time.unscaledDeltaTime);
                 bgColor.a = currentBackgroundAlpha;
                 backgroundObj.color = bgColor;
             }
@@ -115,7 +116,7 @@ namespace Pasta
             close.SetScale(0f);
 
             //yield return new WaitForSeconds(1f);
-            backgroundAlphaTarget = 0.8f;
+            currentBackgroundAlphaTarget = backgroundAlphaTarget;
             CreateHieroglyphs(item);
 
             imageObj.ItemPopUp(imagePopUpSpeed, imageStartRotation);
@@ -155,7 +156,7 @@ namespace Pasta
             flavorObj.ScaleToZero(closeSpeed);
             close.ScaleToZero(closeSpeed);
 
-            backgroundAlphaTarget = 0f;
+            currentBackgroundAlphaTarget = 0f;
 
             yield return new WaitForSecondsRealtime(imageCloseDelay);
 
