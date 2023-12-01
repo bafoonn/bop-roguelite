@@ -10,6 +10,7 @@ namespace Pasta
         [SerializeField] private GameObject hieroglyphPrefab;
         [SerializeField] private GameObject parent;
 
+        private Vector2 originalParent;
         private Vector3 position;
 
         [SerializeField] private float popUpStartDelay = 0.4f;
@@ -25,7 +26,7 @@ namespace Pasta
         private List<GameObject> hgList = new();
         public float TotalCloseDelay => closeDelay * hgList.Count + (1f / closeSpeed);
 
-        void Start()
+        void Awake()
         {
             Setup(Vector3.zero);
         }
@@ -33,6 +34,8 @@ namespace Pasta
         public void Setup(Vector3 position)
         {
             this.position = position;
+            originalParent = parent.GetComponent<RectTransform>().anchoredPosition;
+            Debug.Log(originalParent.x + ", " + originalParent.y);
         }
 
         public void CreateFromItem(ItemBase item)
@@ -40,7 +43,6 @@ namespace Pasta
             if (item.Hieroglyphs == null) return;
             Hieroglyph[] hieroglyphs = item.Hieroglyphs;
 
-            Vector2 originalParent = parent.GetComponent<RectTransform>().anchoredPosition;
             parent.GetComponent<RectTransform>().anchoredPosition = new Vector2(originalParent.x, originalParent.y + ((yOffset * (hieroglyphs.Length - 1) / 2f)));
 
             hgList = new List<GameObject>();

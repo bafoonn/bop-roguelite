@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 namespace Pasta
 {
@@ -17,6 +18,9 @@ namespace Pasta
 
         private Stat _damageStat = null;
 
+        private VisualEffect _effect = null;
+        private bool _hasEffect = false;
+
         protected override void Init()
         {
             base.Init();
@@ -31,6 +35,8 @@ namespace Pasta
             {
                 sprite.transform.localScale = Vector3.one * _radius * 2;
             }
+            _effect = GetComponentInChildren<VisualEffect>();
+            _hasEffect = _effect != null;
 
             _damageStat.ValueChanged += OnDamageChanged;
         }
@@ -47,6 +53,7 @@ namespace Pasta
                     foreach (var enemy in _enemySensor.Objects)
                     {
                         enemy.Status.ApplyStatus(new PoisonStatus(_damage), _poisonDuration);
+                        if (_hasEffect) _effect.SendEvent("Trigger");
                     }
                     timer = 0;
                 }
