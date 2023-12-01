@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.Events;
 
 namespace Pasta
@@ -18,7 +19,8 @@ namespace Pasta
         public bool CanAttack => _attackRoutine == null;
         public bool IsAttacking => _attackRoutine != null;
         public AttackType CurrentAttack;
-        private AttackArea _sensor;
+        [SerializeField] private AttackArea _quickAttackArea;
+        [SerializeField] private AttackArea _heavyAttackArea;
 
         private bool _cancellable = true;
 
@@ -41,7 +43,8 @@ namespace Pasta
 
         private void Awake()
         {
-            _sensor = GetComponentInChildren<AttackArea>();
+            Assert.IsNotNull(_quickAttackArea, "QuickAttackArea is not set in PlayerAttackHandler.");
+            Assert.IsNotNull(_heavyAttackArea, "HeavyAttackArea is not set in PlayerAttackHandler.");
             _attackEffects = GetComponentInChildren<AttackEffects>();
         }
 
@@ -151,9 +154,10 @@ namespace Pasta
         private int HitObjects(AttackType type)
         {
             int hitCount = 0;
-            for (int i = 0; i < _sensor.Objects.Count; i++)
+            var sensor = type == AttackType.Quick ? _quickAttackArea : _heavyAttackArea;
+            for (int i = 0; i < sensor.Objects.Count; i++)
             {
-                var hittable = _sensor.Objects[i];
+                var hittable = sensor.Objects[i];
                 if (hittable == null)
                 {
                     continue;
