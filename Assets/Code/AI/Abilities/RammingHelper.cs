@@ -17,6 +17,7 @@ namespace Pasta
         private Vector3 currentDist;
         private float totalDistance = 0f;
         public WeaponParent weaponParent;
+        private AgentAnimations agentAnimations;
         private EnemyAi enemyAi;
         private Vector3 direction;
         private Rigidbody2D rbd2d;
@@ -24,6 +25,7 @@ namespace Pasta
         private bool startChargebool = false;
         private AgentMover agentMover;
         private BoxCollider2D[] boxCollider2Ds;
+        public float windupTime;
         // Start is called before the first frame update
         void Start()
         {
@@ -36,6 +38,7 @@ namespace Pasta
             player = GameObject.FindGameObjectWithTag("Player").transform.position;
             enemyAi = this.transform.GetComponentInParent<EnemyAi>();
             weaponParent = parent.GetComponentInChildren<WeaponParent>();
+            agentAnimations = parent.GetComponent<AgentAnimations>();
             agentMover = parent.GetComponent<AgentMover>();
             boxCollider2Ds = parent.GetComponentsInChildren<BoxCollider2D>();
             rbd2d = parent.GetComponent<Rigidbody2D>(); 
@@ -46,10 +49,13 @@ namespace Pasta
         IEnumerator startCharge()
         {
             enemyAi.movementInput = Vector3.zero;
-            yield return new WaitForSeconds(0.1f);
+            agentMover.enabled = false;
             direction = parent.Find("EnemyBody").transform.Find("Weapon").transform.Find("WeaponSprite").transform.right;
+            weaponParent.Aim = false;
+            agentAnimations.aim = false;
+            yield return new WaitForSeconds(windupTime);
             startChargebool = true;
-            agentMover.enabled = false; // Disabled enemy ai movement
+            // Disabled enemy ai movement
             Debug.Log("Adding force");
             rbd2d.AddForce(direction * speed, ForceMode2D.Impulse); // adds Explosion like force to the "charge"
         }
@@ -58,7 +64,8 @@ namespace Pasta
         void Update()
         {
 
-           
+            weaponParent.Aim = false;
+            agentAnimations.aim = false;
             if (Charge && startChargebool)
             {
                 float distanceThisFrame = Vector3.Distance(transform.position, startDist); // Get distance traveled in "time form" 

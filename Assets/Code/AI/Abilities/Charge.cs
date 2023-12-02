@@ -13,19 +13,27 @@ namespace Pasta
         private AIData aiData;
         public float speed = 0f;
         public float distancetoUse;
-
+        private Vector2 TargetPos;
         private BoxCollider2D BoxCollider2d;
-
+        private Transform player;
         private BoxCollider2D bC2D;
         public override void Activate(GameObject parent)
         {
+            player = GameObject.FindGameObjectWithTag("Player").transform;
             AIData aiData = parent.GetComponent<AIData>();
             //BossAI bossAi = parent.GetComponent<BossAI>();
             //GameObject player = GameObject.FindGameObjectWithTag("Player");
 
             rigidbody = parent.GetComponent<Rigidbody2D>();
             BoxCollider2d = parent.GetComponent<BoxCollider2D>();
-            Vector2 TargetPos = aiData.currentTarget.position + Random.insideUnitSphere;
+            if (aiData.currentTarget != null) {
+                TargetPos = aiData.currentTarget.position + Random.insideUnitSphere;
+
+			}
+			else
+			{
+                TargetPos = player.position;
+			}
             //rigidbody.MovePosition(TargetPos * speed);
             rigidbody.position = TargetPos;
             bC2D = parent.AddComponent<BoxCollider2D>();

@@ -13,6 +13,7 @@ namespace Pasta
         public float damage = 1f;
         public bool usableOutsideAttackRange = false;
         public bool AbilityWithAnim = false;
+        public bool randomize = false;
 
         public virtual void Activate(GameObject parent)
         {

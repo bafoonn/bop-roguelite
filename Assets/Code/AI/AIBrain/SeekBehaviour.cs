@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SeekBehaviour : SteeringBehaviour
 {
-    [SerializeField] private float targetReachedThershold = 0.5f; //Go to last pos player was seen if lost sight
+    [SerializeField] public float targetReachedThershold = 0.5f; //Go to last pos player was seen if lost sight
     [SerializeField] private bool ShowGizmos = true;
     bool reachedLastTarget = true;
 

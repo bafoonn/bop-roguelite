@@ -14,7 +14,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
     [SerializeField] private List<Detector> detectors;
     [SerializeField] private AIData aiData;
     [SerializeField] private float detectionDelay = 0.05f, aiUpdateDelay = 0.06f, attackDelay = 2f;
-    [SerializeField] private float attackDistance = 0.5f, attackStopDistance = 1f;
+    [SerializeField] private float attackDistance = 0.5f, attackStopDistance = 1.5f;
     [SerializeField] private List<SteeringBehaviour> steeringBehaviours;
     private TargetDetector targetDetector;
     #endregion
@@ -40,10 +40,12 @@ public class EnemyAi : MonoBehaviour, IEnemy
 
     [Header("Damage that ai does")]
     public float damage = 5;
+    private float cooldown = 10f;
+    private bool canuseAbility = true;
     private Separation seperation;
     public UnityEvent OnAttackPressed;
-
-
+    private float dontattackdist = 5f;
+    private int RandomInt;
     public UnityEvent<Vector2> OnMovementInput, PointerEnemy;
     [SerializeField] public Vector2 movementInput;
     [SerializeField] private AISolver movementDirectionSolver;
@@ -53,18 +55,19 @@ public class EnemyAi : MonoBehaviour, IEnemy
     private AbilityHolder abilityHolder;
     [SerializeField] private Transform Player;
     private GameObject player;
+    private float defaultDetectionDelay;
     private Image attackIndicator;
     [Header("Attack timers")]
     public float timeToAttack = 0; // When this reaches defaultTimeToAttack enemy will attack
     public float defaultTimeToAttack = 2; //Increase this if you want to make ai take longer
     private float defaultTimeToAttackWorkAround = 0; // TODO: DELETE THIS AT SOME POINT ONLY A WORKAROUND
     private float workaroundTimeToAttack = 0; // TODO: DELETE THIS AT SOME POINT ONLY A WORKAROUND
-    public bool canAttack = true;
+    public bool canAttack = false;
     private bool canAttackAnim = true;
     private bool firstAttack = true;
     public float stunTimer = 1; // Will be used or replaced when adding stagger
 
-
+    public bool gotAttackToken = false;
     private AgentAnimations animations;
     [SerializeField] private Drop drop;
     //[SerializeField] private float chaseDistanceThershold = 3, attackDistanceThershold = 0.8f;
@@ -77,6 +80,8 @@ public class EnemyAi : MonoBehaviour, IEnemy
     private EnemyDeath enemyDeathScript;
     [SerializeField] private GameObject Corpse;
 
+
+    private bool shouldMaintainDistance = false;
 
     [Header("animator bools")]
     public bool IsIdle = true;
@@ -124,7 +129,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
         animations = GetComponent<AgentAnimations>();
         abilityHolder = GetComponent<AbilityHolder>();
         targetDetector = GetComponentInChildren<TargetDetector>();
-
+        defaultDetectionDelay = detectionDelay;
         //Detect objects
         if (this.gameObject.name.Contains("Carrier"))
         {
@@ -135,6 +140,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
         hasDamageEffects = takeDamageEffects != null;
         drop = GetComponent<Drop>();
         seperation = GetComponent<Separation>();
+        attackDistance = dontattackdist;
     }
     private void Awake()
     {
@@ -243,7 +249,11 @@ public class EnemyAi : MonoBehaviour, IEnemy
         //}
         if (aiData.currentTarget != null)
         {
-
+            cooldown -= Time.deltaTime;
+            if(cooldown <= 0)
+			{
+                canuseAbility = true;
+			}
             //Looking at target.
             PointerEnemy?.Invoke(aiData.currentTarget.position);
 
@@ -254,8 +264,48 @@ public class EnemyAi : MonoBehaviour, IEnemy
             }
             if (aiData.currentTarget != null)
             {
-
                 float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
+                if (!gameObject.tag.Contains("Ranged"))
+				{
+                    distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
+                    if (!canAttack)
+                    {
+                        SeekBehaviour seekbehaviour = gameObject.GetComponentInChildren<SeekBehaviour>();
+                        seekbehaviour.targetReachedThershold = 4f;
+                        attackDistance = dontattackdist;
+                        detectionDelay = defaultDetectionDelay;
+						float safeDistance = 4f;
+						if (distance < safeDistance && shouldMaintainDistance)
+						{
+                            movementInput = Vector2.zero;
+						}
+					}
+                    else
+                    {
+                        SeekBehaviour seekbehaviour = gameObject.GetComponentInChildren<SeekBehaviour>();
+                        seekbehaviour.targetReachedThershold = 0.5f;
+                        shouldMaintainDistance = false;
+                        attackDistance = attackDefaultDist;
+                        detectionDelay = 0.5f;
+                    }
+                }
+				else
+				{
+                    canAttack = true;
+                    if (!canAttack)
+                    {
+                        SeekBehaviour seekbehaviour = gameObject.GetComponentInChildren<SeekBehaviour>();
+                        seekbehaviour.targetReachedThershold = 10f;
+                        attackDistance = dontattackdist;
+                        detectionDelay = defaultDetectionDelay;
+                        float safeDistance = 10f;
+                        if (distance < safeDistance && shouldMaintainDistance)
+                        {
+                            movementInput = Vector2.zero;
+                        }
+                    }
+                }
+                
                 if (distance < attackDistance)
                 {
 
@@ -331,7 +381,21 @@ public class EnemyAi : MonoBehaviour, IEnemy
         else
         {
             weaponParent.Attack();
-            if (abilityHolder.ability != null) abilityHolder.UseAbility = true;
+			if (abilityHolder.ability.randomize)
+			{
+                RandomInt = Random.Range(1, 8);
+                if (RandomInt == 1 && canuseAbility)
+                {
+                    canuseAbility = false;
+                    if (abilityHolder.ability != null) abilityHolder.UseAbility = true;
+                }
+            }
+			else
+			{
+                if (abilityHolder.ability != null) abilityHolder.UseAbility = true;
+            }
+            
+                
             if (hasAttackEffect) attackEffect.CancelAttack();
             if (hasAttackEffect) attackEffect.HeavyAttack();
         }
@@ -387,16 +451,43 @@ public class EnemyAi : MonoBehaviour, IEnemy
         {
             if (abilityHolder.ability.usableOutsideAttackRange == true)
             {
-                movementInput = Vector2.zero;
-                abilityHolder.UseAbility = true;
-                canAttackAnim = false;
-                if (hasAttackEffect) attackEffect.CancelAttack();
-                StartCoroutine(CanAttack());
+				if (abilityHolder.ability.randomize)
+				{
+                    RandomInt = Random.Range(1, 8);
+                    if (RandomInt == 1 && canuseAbility)
+                    {
+                        canuseAbility = false;
+                        Debug.Log(RandomInt + "using ability randomly");
+                        movementInput = Vector2.zero;
+                        abilityHolder.UseAbility = true;
+                        canAttackAnim = false;
+                        if (hasAttackEffect) attackEffect.CancelAttack();
+                        StartCoroutine(CanAttack());
+                    }
+                    else
+                    {
+                        canuseAbility = false;
+                        if (hasAttackEffect) attackEffect.CancelAttack();
+                        StartCoroutine(CanAttack());
+                    }
+                }
+				else
+				{
+                    movementInput = Vector2.zero;
+                    abilityHolder.UseAbility = true;
+                    canAttackAnim = false;
+                    if (hasAttackEffect) attackEffect.CancelAttack();
+                    StartCoroutine(CanAttack());
+                }
+                
             }
         }
         
     }
-
+    public void ToggleMaintainDistance(bool value)
+    {
+        shouldMaintainDistance = value;
+    }
     IEnumerator CanAttack()
     {
         yield return new WaitForSeconds(3f);
@@ -423,14 +514,27 @@ public class EnemyAi : MonoBehaviour, IEnemy
         {
             IsIdle = false;
             float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
-            //if (stunned)
-            //{
-            //    movementInput = Vector2.zero;
-            //    timeToAttack = 0;
-            //    attackIndicator.fillAmount = 0;
-            //    // StartCourotine(UnStun());
-            //}
-            // ALOITA HY�KK�YS X DISTANCELLA JA LOPETA Y 
+			//if (stunned)
+			//{
+			//    movementInput = Vector2.zero;
+			//    timeToAttack = 0;
+			//    attackIndicator.fillAmount = 0;
+			//    // StartCourotine(UnStun());
+			//}
+			// ALOITA HY�KK�YS X DISTANCELLA JA LOPETA Y 
+			if (!canAttack)
+			{
+                attackDistance = dontattackdist;
+               
+
+            }
+			else
+			{
+                gotAttackToken = true;
+                Debug.Log(gotAttackToken + gameObject.name);
+                attackDistance = attackDefaultDist;
+			}
+			
             if (distance < attackDistance && canAttack && canAttackAnim)  // REMEMBER TO DO SOMETHING WITH THIS
             {
                 isAttacking = true; // FOR ANIMATOR
@@ -447,6 +551,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
                     timeToAttack = 0;
                     //attackIndicator.fillAmount = 0;
                     isAttacking = false;
+                    detectionDelay = defaultDetectionDelay;
                 }
                 attackDistance = attackStopDistance;
                 if (firstAttack) // TODO: FIX THIS IF TIME
@@ -487,6 +592,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
             }
         }
     }
+    
 
     public void Hit(float damage, HitType type, ICharacter source = null)
     {

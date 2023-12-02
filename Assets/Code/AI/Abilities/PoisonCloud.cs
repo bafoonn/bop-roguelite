@@ -11,18 +11,42 @@ namespace Pasta
         private GameObject spawnedPoisonCloud;
         private Vector2 originPoint;
         public float spawnRadius = 2f;
+        public float minSpawnDistance = 5.0f; // Adjust the minimum spawn distance as needed
+        private float radius = 10f;
         private GameObject player;
+        private GameObject[] allPoisons;
         private DestroyAbility destroyAbility;
         private float Activetime;
         public override void Activate(GameObject parent)
         {
+            allPoisons = GameObject.FindGameObjectsWithTag("Ability");
+
+            bool canSpawn = true;
             player = GameObject.FindGameObjectWithTag("Player");
             originPoint = player.transform.position + Random.insideUnitSphere * spawnRadius;
-            spawnedPoisonCloud = Instantiate(poisonCloudGameobject, originPoint, Quaternion.identity);
-            Activetime = ActiveTime;
-            destroyAbility = spawnedPoisonCloud.AddComponent<DestroyAbility>();
-            destroyAbility.activeTime = Activetime;
-            DeactivateAbility();
+            foreach (var poisonCloud in allPoisons)
+            {
+                float distance = Vector2.Distance(poisonCloud.transform.position, originPoint);
+
+                if (distance < minSpawnDistance)
+                {
+                    canSpawn = false;
+                    break;
+                }
+            }
+
+			if (canSpawn)
+			{
+                player = GameObject.FindGameObjectWithTag("Player");
+                spawnedPoisonCloud = Instantiate(poisonCloudGameobject, originPoint, Quaternion.identity);
+                Activetime = ActiveTime;
+                destroyAbility = spawnedPoisonCloud.AddComponent<DestroyAbility>();
+                destroyAbility.activeTime = Activetime;
+                DeactivateAbility();
+            }
+                
+            
+           
         }
         private IEnumerator DeactivateAbility()
         {
@@ -32,7 +56,7 @@ namespace Pasta
 
         public override void Deactivate()
         {
-            Destroy(spawnedPoisonCloud);
+           if(spawnedPoisonCloud != null) Destroy(spawnedPoisonCloud);
         }
     }
 }

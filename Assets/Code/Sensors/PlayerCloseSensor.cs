@@ -6,7 +6,7 @@ namespace Pasta
 {
     public class PlayerCloseSensor : MonoBehaviour
     {
-        public float radius = 20;
+        public float radius = 4;
 
         public float precentage = 40;
         private float precentageSubtract;
@@ -15,19 +15,54 @@ namespace Pasta
         [SerializeField] private LayerMask layermask;
         private int layer;
         public int maxEnemiesThatcanAttack = 4;
+        private float timer = 3f; // Initial timer value
+
         // Start is called before the first frame update
         void Start()
         {
             precentageSubtract = precentage / 100;
             layer = layermask;
+            StartCoroutine(updateAttackers());
+        }
 
+        private void OnEnable()
+        {
+            EventActions.OnEvent += OnEvent;
+        }
+
+        private void OnDisable()
+        {
+            EventActions.OnEvent -= OnEvent;
+        }
+
+        private void OnEvent(EventContext obj)
+        {
+            if (obj.EventType != EventActionType.OnRoomEnter) return;
+            StartCoroutine(updateAttackers());
         }
 
         // Update is called once per frame
         void Update()
         {
+            timer -= Time.deltaTime;
+            if (timer <= 0f)
+            {
+
+                // Reset the timer
+                timer = 3f;
+
+                // Call the coroutine logic
+                StartCoroutine(updateAttackers());
+            }
+        }
+
+        private IEnumerator updateAttackers()
+		{
+            yield return new WaitForSeconds(1);
             Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, radius, layermask); // TODO: Only affect the X Closest
             result = Mathf.Max(result, 1); // Ensure result is at least 1 
+            // sorts closest hitcolliders to player.
+            System.Array.Sort(hitColliders, (a, b) => Vector2.Distance(a.transform.position, transform.position).CompareTo(Vector2.Distance(b.transform.position, transform.position)));
             for (int i = 0; i < hitColliders.Length; i++)
             {
                 if (i < maxEnemiesThatcanAttack) // Check if the current hitcollider is inside the result
@@ -35,7 +70,10 @@ namespace Pasta
                     //Debug.Log(i);
                     if (hitColliders[i].gameObject.TryGetComponent(out EnemyAi enemyAi))
                     {
+                        Debug.Log("Can attack");
                         enemyai = hitColliders[i].gameObject.GetComponent<EnemyAi>();
+                        enemyai.ToggleMaintainDistance(false);
+                        enemyAi.gotAttackToken = true;
                         enemyai.canAttack = true;
                         AIData aidata = hitColliders[i].gameObject.GetComponent<AIData>();
                     }
@@ -45,15 +83,21 @@ namespace Pasta
                     if (hitColliders[i].gameObject.TryGetComponent(out EnemyAi enemyAi))
                     {
                         enemyai = hitColliders[i].gameObject.GetComponent<EnemyAi>();
+                        enemyai.ToggleMaintainDistance(true);
+                        enemyAi.gotAttackToken = false;
                         enemyai.canAttack = false;
                         AIData aidata = hitColliders[i].gameObject.GetComponent<AIData>();
                         aidata.currentTarget = null;
+                        
                     }
                 }
 
             }
+            yield break;
         }
 
+
+        
 
         private void OnDrawGizmos()
         {

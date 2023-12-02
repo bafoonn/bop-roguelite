@@ -16,8 +16,10 @@ MonoBehaviour:
   coolDown: 30
   ActiveTime: 20
   damage: 20
-  usableOutsideAttackRange: 1
+  usableOutsideAttackRange: 0
   AbilityWithAnim: 0
+  randomize: 0
   MaxHowManySpawners: 4
   SpawnRadius: 10
-  spawnerBullets: {fileID: 0}
+  spawnerBullets: {fileID: 7190476221125444802, guid: e11a5b34a880bf4469a17b68a3dcda60, type: 3}
+  spawnedSpawner: {fileID: 0}

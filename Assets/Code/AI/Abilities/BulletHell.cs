@@ -11,7 +11,7 @@ namespace Pasta
         [SerializeField] private int MaxHowManySpawners = 4;
         public float SpawnRadius = 10f;
         [SerializeField] private GameObject spawnerBullets;
-        private GameObject[] spawners;
+        public GameObject spawnedSpawner;
         private Tilemap tileMap;
         private DestroyAbility destroy;
         private Vector2 originPoint;
@@ -20,37 +20,31 @@ namespace Pasta
         public override void Activate(GameObject parent)
         {
             tileMap = FindFirstObjectByType<Tilemap>();
-            for (int i = 0; i < MaxHowManySpawners; i++)
-            {
+            
                 originPoint = parent.transform.position + Random.insideUnitSphere * SpawnRadius;
                 originPoint2int = Vector2Int.RoundToInt(originPoint);
                 originPoint3int = ((Vector3Int)originPoint2int);
                 if (tileMap.HasTile(originPoint3int))
                 {
-                    spawners[i] = Instantiate(spawnerBullets, originPoint, Quaternion.identity);
-                    spawners[i].GetComponent<DealDamageOnTrigger>().damage = damage;
-                    destroy = spawners[i].AddComponent<DestroyAbility>();
+                    spawnedSpawner = Instantiate(spawnerBullets, originPoint, Quaternion.identity);
+                    destroy = spawnedSpawner.AddComponent<DestroyAbility>();
                     destroy.activeTime = ActiveTime;
                 }
-            }
+          
             DeactivateAbility();
         }
 
         private IEnumerator DeactivateAbility()
         {
             yield return new WaitForSeconds(coolDown + 1);
-            foreach (GameObject puddle in spawners)
-            {
-                Destroy(puddle);
-            }
+            
+                Destroy(spawnedSpawner);
+            
 
         }
         public override void Deactivate()
         {
-            foreach (GameObject sapwner in spawners)
-            {
-                Destroy(sapwner);
-            }
+            Destroy(spawnedSpawner);
         }
     }
 }
