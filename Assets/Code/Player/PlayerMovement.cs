@@ -12,11 +12,16 @@ public class PlayerMovement : Movement
     [SerializeField] private float _dodgeDelay = 0.2f;
     [SerializeField] private float _dodgeDuration = 0.5f;
     [SerializeField] private float _dodgeSpeed = 10f;
-    [SerializeField] private float _dodgeCooldown = 5f;
+    [SerializeField] private float _dodgeCooldown = 3f;
     [SerializeField] private int _maxDodgeCount = 1, _currentDodgeCount = 1;
     [SerializeField] private float _dodgeTimer = 0f;
 
     public int DodgeCount => _currentDodgeCount;
+    public float DodgeCooldown => _dodgeCooldown;
+    public float DodgeTimer => _dodgeTimer;
+    public float DodgeCooldownProgress => _dodgeTimer / _dodgeCooldown;
+    public bool IsDodgeRecharging => _currentDodgeCount < _maxDodgeCount;
+    public UnityEvent<int> OnDodgeGained;
 
     private Coroutine _dodgeRoutine = null;
     private bool _isDodging = false;
@@ -52,6 +57,8 @@ public class PlayerMovement : Movement
             {
                 _currentDodgeCount++;
                 _dodgeTimer = 0;
+                if (OnDodgeGained != null)
+                    OnDodgeGained.Invoke(_currentDodgeCount);
             }
         }
     }
