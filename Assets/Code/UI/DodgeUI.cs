@@ -16,7 +16,12 @@ namespace Pasta
         {
             _elementAnimations = GetComponent<UIElementAnimations>();
             _playerMovement = GetComponentInParent<PlayerMovement>();
-            _playerMovement.OnDodgeGained.AddListener((_) => _elementAnimations.Highlight(1, 1));
+            _playerMovement.OnDodgeGained.AddListener(Animate);
+        }
+
+        private void OnDestroy()
+        {
+            _playerMovement.OnDodgeGained.RemoveListener(Animate);
         }
 
         private void Update()
@@ -24,6 +29,11 @@ namespace Pasta
             _image.type = _playerMovement.IsDodgeRecharging ? Image.Type.Filled : Image.Type.Simple;
             _image.fillAmount = _playerMovement.DodgeCooldownProgress;
             if (_text != null) _text.text = _playerMovement.DodgeCount.ToString();
+        }
+
+        private void Animate(int _)
+        {
+            _elementAnimations.Highlight(1, 1);
         }
     }
 }

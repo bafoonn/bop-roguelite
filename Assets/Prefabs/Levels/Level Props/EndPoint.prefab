@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.009880066, a: 1}
+  m_Sprite: {fileID: 6806873361383555155, guid: 5b0125d56a3d8e64aaafa6edad92347c, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -99,10 +99,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e2920a25f70aa941adeb93e3478f7f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rewardList:
-  - {fileID: 11400000, guid: 62d04dd1457c3284bb508411b001c032, type: 2}
-  - {fileID: 11400000, guid: 5f41ed4eca717fb459581999581746e1, type: 2}
-  - {fileID: 11400000, guid: bb50c646451767142adf93cb01b95362, type: 2}
   itemDisplay: {fileID: 1217001106379851232}
 --- !u!61 &3101250142648797978
 BoxCollider2D:

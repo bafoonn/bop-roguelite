@@ -639,6 +639,9 @@ MonoBehaviour:
   _maxDodgeCount: 1
   _currentDodgeCount: 1
   _dodgeTimer: 0
+  OnDodgeGained:
+    m_PersistentCalls:
+      m_Calls: []
   OnDodge:
     m_PersistentCalls:
       m_Calls:
@@ -2644,6 +2647,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8687927719549449105}
   - component: {fileID: 6949036163823744296}
+  - component: {fileID: 2560897224372477092}
   m_Layer: 5
   m_Name: Dodge
   m_TagString: Untagged
@@ -2667,9 +2671,9 @@ RectTransform:
   - {fileID: 4721246114113965339}
   m_Father: {fileID: 1398549637756122894}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -32, y: 32}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 24, y: 24}
   m_SizeDelta: {x: 32, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6949036163823744296
@@ -2686,6 +2690,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _image: {fileID: 272693762485535999}
   _text: {fileID: 292609282753859893}
+--- !u!114 &2560897224372477092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8754400622189538236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40e4185a6f2b95d4795b3903a3ff5b57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightScale: 1.4
+  highlightScaleSpeed: 24
+  highlightShakeIntensityX: 0
+  highlightShakeIntensityY: 5
+  highlightShakeDuration: 0.6
+  highlightShakeSpeed: 20
+  scaleResetSpeed: 8
+  IgnoreTimeScale: 1
 --- !u!1 &8842679096635821182
 GameObject:
   m_ObjectHideFlags: 0
