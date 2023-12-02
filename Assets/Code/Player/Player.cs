@@ -182,8 +182,11 @@ public class Player : MonoBehaviour, IPlayer
 
         if (collision.TryGetComponent<HealthRestore>(out var restore))
         {
+            if (!_health.IsMaxHealth)
+            {
+                OnHealPickUp.Invoke();
+            }
             restore.Heal(_health);
-            OnHealPickUp.Invoke();
             return;
         }
 
