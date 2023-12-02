@@ -12,10 +12,14 @@ namespace Pasta
         {
             if (col.TryGetComponent<Player>(out var player))
             {
-                if (player.TryTakeCurrency(cost))
+                Health health = col.gameObject.GetComponent<Health>();
+                if (health.CurrentHealth != health.MaxHealth)
                 {
-                    player.PlayerHealth.Heal(healAmount);
-                    gameObject.SetActive(false);
+                    if (player.TryTakeCurrency(cost))
+                    {
+                        player.PlayerHealth.Heal(healAmount);
+                        gameObject.SetActive(false);
+                    }
                 }
             }
         }
