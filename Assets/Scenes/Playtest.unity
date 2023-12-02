@@ -485,11 +485,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1197986375191235570, guid: dcabfba1a1c5cc14caaa87d00026cabc, type: 3}
       propertyPath: radius
-      value: 5.5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1197986375191235570, guid: dcabfba1a1c5cc14caaa87d00026cabc, type: 3}
       propertyPath: maxEnemiesThatcanAttack
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1658050680617120658, guid: dcabfba1a1c5cc14caaa87d00026cabc, type: 3}
       propertyPath: closeDelay
@@ -605,7 +605,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8.109375
+  orthographic size: 8.140625
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
