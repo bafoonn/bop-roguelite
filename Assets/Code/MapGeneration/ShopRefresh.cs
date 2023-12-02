@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 
 namespace Pasta
 {
@@ -11,12 +11,12 @@ namespace Pasta
         [SerializeField]
         public int cost;
         private string costString;
-        private TMP_Text costDisplay;
+        private Text costDisplay;
         // Start is called before the first frame update
         void Start()
         {
             shopKeeper = GetComponentInParent<Shopkeeper>();
-            costDisplay = GetComponentInChildren<TMP_Text>();
+            costDisplay = GetComponentInChildren<Text>();
             costString = cost.ToString();
             costDisplay.text = costString;
         }

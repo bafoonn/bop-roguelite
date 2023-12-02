@@ -70,7 +70,7 @@ namespace Pasta
 
         void Update()
         {
-            if (currentBackgroundAlphaTarget != currentBackgroundAlpha)
+            if (currentBackgroundAlpha != currentBackgroundAlphaTarget)
             {
                 currentBackgroundAlpha = Mathf.MoveTowards(currentBackgroundAlpha, currentBackgroundAlphaTarget, backgroundAlphaSpeed * Time.unscaledDeltaTime);
                 bgColor.a = currentBackgroundAlpha;

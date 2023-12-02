@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 namespace Pasta
 {
     public class ShopItemGeneration : MonoBehaviour
@@ -13,7 +13,7 @@ namespace Pasta
         //private float timer = 0.5f;
         private Collider2D itemCollider;
         private string cost;
-        private TMP_Text costDisplay;
+        private Text costDisplay;
 
         // Start is called before the first frame update
         void Start()
@@ -63,7 +63,7 @@ namespace Pasta
             itemCollider = item.GetComponent<Collider2D>();
             itemCollider.isTrigger = true;
 
-            costDisplay = GetComponentInChildren<TMP_Text>();
+            costDisplay = GetComponentInChildren<Text>();
             costDisplay.text = cost;
         }
     }

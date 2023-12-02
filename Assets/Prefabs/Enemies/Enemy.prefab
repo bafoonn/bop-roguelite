@@ -456,6 +456,9 @@ VisualEffect:
       - m_Value: {x: 3, y: 3}
         m_Name: Ind Scale
         m_Overridden: 1
+      - m_Value: {x: 9, y: 1}
+        m_Name: HA Flipbook Size
+        m_Overridden: 1
     m_Vector3f:
       m_Array: []
     m_Vector4f:
@@ -6097,6 +6100,7 @@ MonoBehaviour:
   animator: {fileID: 8022384325164921756}
   EnemyBody: {fileID: 6721311283363056939}
   aim: 1
+  attacking: 0
 --- !u!114 &69885865199376009
 MonoBehaviour:
   m_ObjectHideFlags: 0
