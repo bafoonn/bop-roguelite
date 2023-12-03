@@ -403,7 +403,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
 
     protected virtual void DeathAction()
     {
-        AudioManager.Current.PlaySoundEffect(deathSound, 0.5f);
+        AudioManager.Current.PlaySoundEffect(deathSound, 1f);
         if (this.gameObject.name.Contains("Carrier"))
         {
             enemySpawningCarrier.SpawnMinions();

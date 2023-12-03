@@ -350,9 +350,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30fe86b7f5917f14885bcfdc97984a09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SoundEffect: {fileID: 0}
+  SoundEffect: {fileID: 11400000, guid: 8ece8b7c92d74c247b0ccb4863047e5d, type: 2}
   Source: {fileID: 0}
-  Volume: 0.3
+  Volume: 1
   InterruptPlaying: 1
   AddPitch: 1
   MinPitch: 1
@@ -1285,7 +1285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SoundEffect: {fileID: 11400000, guid: 8196585f6bea98347ae3ac576342e588, type: 2}
   Source: {fileID: 0}
-  Volume: 0.28
+  Volume: 0.27
   InterruptPlaying: 1
   AddPitch: 1
   MinPitch: 1
@@ -1338,7 +1338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SoundEffect: {fileID: 11400000, guid: 8bd343e596a3e334ebcb00050b59e1b6, type: 2}
   Source: {fileID: 0}
-  Volume: 0.3
+  Volume: 1
   InterruptPlaying: 1
   AddPitch: 1
   MinPitch: 1
@@ -2645,7 +2645,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SoundEffect: {fileID: 11400000, guid: f66e6175341883d4bb7b84fd4d8ac70d, type: 2}
   Source: {fileID: 0}
-  Volume: 0.3
+  Volume: 1
   InterruptPlaying: 1
   AddPitch: 1
   MinPitch: 1
