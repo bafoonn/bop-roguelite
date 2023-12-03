@@ -997,7 +997,7 @@ VisualEffect:
       - m_Value: 0.2
         m_Name: QA Lifetime
         m_Overridden: 1
-      - m_Value: 0.2
+      - m_Value: 0.16
         m_Name: HA Lifetime
         m_Overridden: 1
     m_Vector2f:
@@ -1011,7 +1011,7 @@ VisualEffect:
       - m_Value: {x: 4, y: 4}
         m_Name: Ind Scale
         m_Overridden: 1
-      - m_Value: {x: 3, y: 3}
+      - m_Value: {x: 4, y: 1}
         m_Name: HA Flipbook Size
         m_Overridden: 1
       - m_Value: {x: -0.25, y: 0}
@@ -1034,7 +1034,7 @@ VisualEffect:
       - m_Value: 9
         m_Name: QA Animation Frames
         m_Overridden: 1
-      - m_Value: 9
+      - m_Value: 4
         m_Name: HA Animation Frames
         m_Overridden: 1
     m_Matrix4x4f:
@@ -1048,10 +1048,10 @@ VisualEffect:
       - m_Value: {fileID: 2800000, guid: 1c8a8ac9dffa83d4586f9e371c95ba60, type: 3}
         m_Name: QA Sprite
         m_Overridden: 1
-      - m_Value: {fileID: 2800000, guid: 112b39a92bdc41c4c8273da82938d1e4, type: 3}
+      - m_Value: {fileID: 2800000, guid: 1cff45966919b1d45884075dc07e4219, type: 3}
         m_Name: HA Sprite
         m_Overridden: 1
-      - m_Value: {fileID: 2800000, guid: 375fb6a200d0de1449511a354a7a95f2, type: 3}
+      - m_Value: {fileID: 2800000, guid: 97a9ae0c3e3de86459f21fbe06992dda, type: 3}
         m_Name: Ind Sprite
         m_Overridden: 1
     m_Bool:
@@ -3487,27 +3487,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6538249998344813691, guid: bdd0a8fe972680446b50621b1236b98b, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6538249998344813691, guid: bdd0a8fe972680446b50621b1236b98b, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6538249998344813691, guid: bdd0a8fe972680446b50621b1236b98b, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6538249998344813691, guid: bdd0a8fe972680446b50621b1236b98b, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6538249998344813691, guid: bdd0a8fe972680446b50621b1236b98b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 480
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6538249998344813691, guid: bdd0a8fe972680446b50621b1236b98b, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 270
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6538249998344813691, guid: bdd0a8fe972680446b50621b1236b98b, type: 3}
       propertyPath: m_LocalPosition.x
