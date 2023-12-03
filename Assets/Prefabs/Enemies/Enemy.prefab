@@ -302,7 +302,7 @@ VisualEffect:
       m_Array: []
     m_Vector4f:
       m_Array:
-      - m_Value: {x: 1.9245284, y: 0.11731858, z: 0.09985761, w: 0}
+      - m_Value: {x: 1.2438428, y: 0.0065122787, z: 0.04177276, w: 0}
         m_Name: Splash Color
         m_Overridden: 1
     m_Uint:
@@ -6038,6 +6038,7 @@ MonoBehaviour:
   defaultTimeToAttack: 1.5
   canAttack: 0
   stunTimer: 1
+  gotAttackToken: 0
   drop: {fileID: 0}
   hasDeathAnim: 1
   Corpse: {fileID: 6992705672734178762, guid: 0bd6a8d9d9f054945bcfe81a42ba2fc6, type: 3}
