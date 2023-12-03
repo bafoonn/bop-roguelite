@@ -34,25 +34,13 @@ namespace Pasta
 
             if (collision.TryGetComponent<T>(out var obj))
             {
+                if (_objects.Contains(obj)) return;
                 _objects.Add(obj);
                 if (OnItemDetected != null)
                 {
                     OnItemDetected.Invoke(obj);
                 }
                 OnEnter(obj);
-            }
-        }
-
-        private void OnTriggerStay2D(Collider2D collision)
-        {
-            if (!SensedLayers.Includes(collision.gameObject.layer))
-            {
-                return;
-            }
-
-            if (collision.TryGetComponent<T>(out var obj))
-            {
-                OnStay(obj);
             }
         }
 
@@ -66,10 +54,6 @@ namespace Pasta
         }
 
         protected virtual void OnEnter(T obj)
-        {
-        }
-
-        protected virtual void OnStay(T obj)
         {
         }
 

@@ -956,7 +956,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
@@ -997,7 +997,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0.25}
     oldSize: {x: 2, y: 2}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
@@ -1155,6 +1155,7 @@ MonoBehaviour:
   defaultTimeToAttack: 2
   canAttack: 0
   stunTimer: 1
+  gotAttackToken: 0
   drop: {fileID: 0}
   hasDeathAnim: 1
   Corpse: {fileID: 4335425223508017075, guid: 2e59b9c170f78f74ea76eb82374851a5, type: 3}

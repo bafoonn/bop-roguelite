@@ -73,6 +73,7 @@ namespace Pasta
             if (player == null)
             {
                 player = Instantiate(sfxPlayerTemplate, transform);
+                player.gameObject.name = soundEffect.Name;
                 player.SoundEffect = soundEffect;
                 sfxPlayers.Add(player);
             }
