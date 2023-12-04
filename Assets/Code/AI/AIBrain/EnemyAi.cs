@@ -493,7 +493,17 @@ public class EnemyAi : MonoBehaviour, IEnemy
         yield return new WaitForSeconds(3f);
         canAttackAnim = true;
     }
-    
+    public void ActivateIndicator()
+	{
+        if (hasAttackEffect) attackEffect.SetIndicatorLifetime(defaultTimeToAttack);
+        if (hasAttackEffect) attackEffect.AttackIndicator();
+    }
+
+    public void DeActivateIndicator()
+	{
+        if (hasAttackEffect) attackEffect.SetIndicatorLifetime(0);
+        if (hasAttackEffect) attackEffect.CancelAttack();
+    }
 
     private IEnumerator ChaseAndAttack()
     {
@@ -543,8 +553,8 @@ public class EnemyAi : MonoBehaviour, IEnemy
                 if(abilityHolder.ability != null) abilityHolder.CanUseAbility = true;
                 movementInput = Vector2.zero;
                 OnAttackPressed?.Invoke();
-                if (hasAttackEffect) attackEffect.SetIndicatorLifetime(defaultTimeToAttack);
-                if (hasAttackEffect) attackEffect.AttackIndicator();
+                //if (hasAttackEffect) attackEffect.SetIndicatorLifetime(defaultTimeToAttack);
+                //if (hasAttackEffect) attackEffect.AttackIndicator();
                 if (timeToAttack >= defaultTimeToAttack) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
                 {
                     Debug.Log("Attacking");

@@ -74,6 +74,7 @@ namespace Pasta
                         enemyai = hitColliders[i].gameObject.GetComponent<EnemyAi>();
                         enemyai.ToggleMaintainDistance(false);
                         enemyAi.gotAttackToken = true;
+                        enemyAi.ActivateIndicator();
                         enemyai.canAttack = true;
                         AIData aidata = hitColliders[i].gameObject.GetComponent<AIData>();
                     }
@@ -85,6 +86,7 @@ namespace Pasta
                         enemyai = hitColliders[i].gameObject.GetComponent<EnemyAi>();
                         enemyai.ToggleMaintainDistance(true);
                         enemyAi.gotAttackToken = false;
+                        enemyAi.DeActivateIndicator();
                         enemyai.canAttack = false;
                         AIData aidata = hitColliders[i].gameObject.GetComponent<AIData>();
                         aidata.currentTarget = null;
