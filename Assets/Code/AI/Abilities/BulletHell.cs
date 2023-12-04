@@ -26,7 +26,7 @@ namespace Pasta
                 originPoint3int = ((Vector3Int)originPoint2int);
                 if (tileMap.HasTile(originPoint3int))
                 {
-                    spawnedSpawner = Instantiate(spawnerBullets, originPoint, Quaternion.identity);
+                    spawnedSpawner = Instantiate(spawnerBullets, originPoint, Quaternion.identity); 
                     destroy = spawnedSpawner.AddComponent<DestroyAbility>();
                     destroy.activeTime = ActiveTime;
                 }

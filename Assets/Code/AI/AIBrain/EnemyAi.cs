@@ -381,7 +381,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
         else
         {
             weaponParent.Attack();
-			if (abilityHolder.ability.randomize)
+            if (abilityHolder.ability != null) if (abilityHolder.ability.randomize)
 			{
                 RandomInt = Random.Range(1, 8);
                 if (RandomInt == 1 && canuseAbility)
@@ -493,6 +493,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
         yield return new WaitForSeconds(3f);
         canAttackAnim = true;
     }
+    
 
     private IEnumerator ChaseAndAttack()
     {
