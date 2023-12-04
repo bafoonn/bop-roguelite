@@ -493,7 +493,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
         yield return new WaitForSeconds(3f);
         canAttackAnim = true;
     }
-    public void ActivateIndicator()
+    public void ActivateIndicator() // Called from PlayerCloseSensor script when getting attack token.
 	{
         if (hasAttackEffect) attackEffect.SetIndicatorLifetime(defaultTimeToAttack);
         if (hasAttackEffect) attackEffect.AttackIndicator();
