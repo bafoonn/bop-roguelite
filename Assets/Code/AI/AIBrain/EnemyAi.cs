@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.U2D.IK;
 using UnityEngine.UI;
 using UnityEngine.VFX;
 
@@ -267,14 +268,24 @@ public class EnemyAi : MonoBehaviour, IEnemy
                 float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
                 if (!gameObject.tag.Contains("Ranged"))
 				{
+                    if ((player.transform.position - transform.position).magnitude > 7.0f)
+                    {
+                        canAttack = false;
+                        
+                    }
+                    if ((player.transform.position - transform.position).magnitude < 1.0f)
+                    {
+                        movementInput = Vector2.zero;
+
+                    }
                     distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
                     if (!canAttack)
                     {
                         SeekBehaviour seekbehaviour = gameObject.GetComponentInChildren<SeekBehaviour>();
-                        seekbehaviour.targetReachedThershold = 4f;
+                        seekbehaviour.targetReachedThershold = 5f;
                         attackDistance = dontattackdist;
                         detectionDelay = defaultDetectionDelay;
-						float safeDistance = 4f;
+						float safeDistance = 5f;
 						if (distance < safeDistance && shouldMaintainDistance)
 						{
                             movementInput = Vector2.zero;
@@ -286,13 +297,13 @@ public class EnemyAi : MonoBehaviour, IEnemy
                         seekbehaviour.targetReachedThershold = 0.5f;
                         shouldMaintainDistance = false;
                         attackDistance = attackDefaultDist;
-                        detectionDelay = 0.5f;
+                        detectionDelay = 0.1f;
                     }
                 }
 				else
 				{
                     canAttack = true;
-                    if (!canAttack)
+                    if (!canAttack) // Ranged enemy
                     {
                         SeekBehaviour seekbehaviour = gameObject.GetComponentInChildren<SeekBehaviour>();
                         seekbehaviour.targetReachedThershold = 10f;
@@ -490,12 +501,13 @@ public class EnemyAi : MonoBehaviour, IEnemy
     }
     IEnumerator CanAttack()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(attackDelay);
         canAttackAnim = true;
     }
     public void ActivateIndicator() // Called from PlayerCloseSensor script when getting attack token.
 	{
-        if (hasAttackEffect) attackEffect.SetIndicatorLifetime(defaultTimeToAttack);
+        Debug.Log("Activating indicator");
+        if (hasAttackEffect) attackEffect.SetIndicatorLifetime(1f);
         if (hasAttackEffect) attackEffect.AttackIndicator();
     }
 

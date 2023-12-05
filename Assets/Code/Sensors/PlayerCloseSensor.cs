@@ -59,7 +59,7 @@ namespace Pasta
         private IEnumerator updateAttackers()
 		{
             yield return new WaitForSeconds(1);
-            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, radius, layermask); // TODO: Only affect the X Closest
+            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, radius, layermask); 
             result = Mathf.Max(result, 1); // Ensure result is at least 1 
             // sorts closest hitcolliders to player.
             System.Array.Sort(hitColliders, (a, b) => Vector2.Distance(a.transform.position, transform.position).CompareTo(Vector2.Distance(b.transform.position, transform.position)));
@@ -89,7 +89,7 @@ namespace Pasta
                         enemyAi.DeActivateIndicator();
                         enemyai.canAttack = false;
                         AIData aidata = hitColliders[i].gameObject.GetComponent<AIData>();
-                        aidata.currentTarget = null;
+                        //aidata.currentTarget = null;
                         
                     }
                 }

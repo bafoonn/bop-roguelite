@@ -538,7 +538,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1197986375191235570, guid: dcabfba1a1c5cc14caaa87d00026cabc, type: 3}
       propertyPath: maxEnemiesThatcanAttack
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1658050680617120658, guid: dcabfba1a1c5cc14caaa87d00026cabc, type: 3}
       propertyPath: closeDelay
@@ -658,7 +658,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.5
+  orthographic size: 4.21875
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
