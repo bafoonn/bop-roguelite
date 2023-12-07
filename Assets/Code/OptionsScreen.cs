@@ -4,13 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Audio;
+using Pasta;
+using System;
 
 public class OptionsScreen : MonoBehaviour
 {
     public Toggle FullScreenToggle;
     public Toggle VSyncToggle;
 
-    public TMP_Text resolutionLabel;
+    public Text resolutionLabel;
 
     public List<ResItem> Resolutions = new List<ResItem>();
     private int SelectedRes;
@@ -61,17 +63,16 @@ public class OptionsScreen : MonoBehaviour
             UpdateResText();
         }
 
-        float Volume = 0;
-        AudioMixer.GetFloat("MasterVol", out Volume);
-        masterSlider.value = Volume;
-        AudioMixer.GetFloat("MusicVol", out Volume);
-        musicSlider.value = Volume;
-        AudioMixer.GetFloat("SFXVol", out Volume);
-        sfxSlider.value = Volume;
+        float masterVol = AudioManager.GetVolume(VolumeParameter.MasterVolume).FromDBToLinear();
+        float musicVol = AudioManager.GetVolume(VolumeParameter.MusicVolume).FromDBToLinear();
+        float sfxVol = AudioManager.GetVolume(VolumeParameter.SFXVolume).FromDBToLinear();
+        masterSlider.SetValueWithoutNotify(masterVol);
+        musicSlider.SetValueWithoutNotify(musicVol / masterVol/ masterVol);
+        sfxSlider.SetValueWithoutNotify(sfxVol / masterVol / masterVol);
 
-        masterLabel.text = Mathf.RoundToInt(masterSlider.value + 80).ToString();
-        musicLabel.text = Mathf.RoundToInt(musicSlider.value + 80).ToString();
-        sfxLabel.text = Mathf.RoundToInt(sfxSlider.value + 80).ToString();
+        masterLabel.text = Mathf.RoundToInt(masterSlider.value * 100).ToString();
+        musicLabel.text = Mathf.RoundToInt(musicSlider.value * 100).ToString();
+        sfxLabel.text = Mathf.RoundToInt(sfxSlider.value * 100).ToString();
     }
 
     public void ResLeft()
@@ -109,7 +110,7 @@ public class OptionsScreen : MonoBehaviour
         else
         {
             QualitySettings.vSyncCount = 0;
-            
+
         }
 
         Screen.SetResolution(Resolutions[SelectedRes].horizontal, Resolutions[SelectedRes].vertical, FullScreenToggle.isOn);
@@ -118,27 +119,31 @@ public class OptionsScreen : MonoBehaviour
 
     public void SetMasterVolume()
     {
-        masterLabel.text = Mathf.RoundToInt(masterSlider.value + 80).ToString();
-        AudioMixer.SetFloat("MasterVol", masterSlider.value);
-        PlayerPrefs.SetFloat("MasterVol", masterSlider.value);
+        masterLabel.text = Mathf.RoundToInt(masterSlider.value * 100).ToString();
+        SetVolume(masterSlider.value, VolumeParameter.MasterVolume);
+        SetMusicVolume();
+        SetSFXVolume();
     }
+
     public void SetMusicVolume()
     {
-        musicLabel.text = Mathf.RoundToInt(musicSlider.value + 80).ToString();
-        AudioMixer.SetFloat("MusicVol", musicSlider.value);
-        PlayerPrefs.SetFloat("MusicVol", musicSlider.value);
+        musicLabel.text = Mathf.RoundToInt(musicSlider.value * 100).ToString();
+        SetVolume(masterSlider.value * musicSlider.value, VolumeParameter.MusicVolume);
     }
+
     public void SetSFXVolume()
     {
-        sfxLabel.text = Mathf.RoundToInt(sfxSlider.value + 80).ToString();
-        AudioMixer.SetFloat("SFXVol", sfxSlider.value);
-        PlayerPrefs.SetFloat("SFXVol", sfxSlider.value);
+        sfxLabel.text = Mathf.RoundToInt(sfxSlider.value * 100).ToString();
+        SetVolume(masterSlider.value * sfxSlider.value, VolumeParameter.SFXVolume);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void SetVolume(float value, VolumeParameter param)
     {
-
+        string parameter = param.ToString();
+        value = (float)Math.Round(value, 2);
+        AudioManager.SetVolume(param, value);
+        PlayerPrefs.SetFloat(parameter, value);
+        Debug.Log(parameter + value);
     }
 }
 

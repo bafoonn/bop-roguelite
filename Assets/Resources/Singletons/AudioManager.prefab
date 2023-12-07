@@ -47,12 +47,12 @@ MonoBehaviour:
   SoundEffect: {fileID: 0}
   Source: {fileID: 0}
   Volume: 1
-  Distance: 1
   InterruptPlaying: 1
   AddPitch: 0
-  LoopSource: 0
-  Interval: 5
-  AddedIntervalRandomness: 0
+  MinPitch: 1
+  MaxPitch: 1.02
+  MinInterval: 5
+  MaxInterval: 5
 --- !u!1 &1328112463981598224
 GameObject:
   m_ObjectHideFlags: 0
@@ -101,3 +101,4 @@ MonoBehaviour:
   mixer: {fileID: 24100000, guid: 4415fb09d73b87244947d97d78d95b06, type: 2}
   <SFXMixerGroup>k__BackingField: {fileID: 4851060293944740150, guid: 4415fb09d73b87244947d97d78d95b06, type: 2}
   <MusicMixerGroup>k__BackingField: {fileID: 3381759019608646146, guid: 4415fb09d73b87244947d97d78d95b06, type: 2}
+  usePlayerPrefs: 1

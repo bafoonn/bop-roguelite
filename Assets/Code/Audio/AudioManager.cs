@@ -20,6 +20,8 @@ namespace Pasta
         private SoundEffect[] soundEffects;
         private Music[] songs;
 
+        [SerializeField] private bool usePlayerPrefs;
+
         protected override void Init()
         {
             base.Init();
@@ -31,7 +33,19 @@ namespace Pasta
             Debug.Assert(sfxPlayerTemplate != null, $"{name} couldn't find an sfxPlayer in children.");
             Debug.Assert(soundEffects != null, $"{name} couldn't load soundeffects");
             Debug.Assert(songs != null, $"{name} couldn't load music");
+        }
 
+        private void Start()
+        {
+            if (usePlayerPrefs)
+            {
+                float masterVol = PlayerPrefs.GetFloat(VolumeParameter.MasterVolume.ToString());
+                float musicVol = PlayerPrefs.GetFloat(VolumeParameter.MusicVolume.ToString());
+                float sfxVol = PlayerPrefs.GetFloat(VolumeParameter.SFXVolume.ToString());
+                SetVolume(VolumeParameter.MasterVolume, masterVol);
+                SetVolume(VolumeParameter.MusicVolume, masterVol * musicVol);
+                SetVolume(VolumeParameter.SFXVolume, masterVol * sfxVol);
+            }
         }
 
         /// <summary>
@@ -88,15 +102,13 @@ namespace Pasta
 
         public static bool SetVolume(VolumeParameter param, float value)
         {
-            string paramName = param.ToString();
-
-            return Current.mixer.SetFloat(paramName, value.FromLinearToDB());
+            value = Mathf.Clamp01(value);
+            return Current.mixer.SetFloat(param.ToString(), value.FromLinearToDB());
         }
 
-        public static bool GetVolume(VolumeParameter param, out float value)
+        public static bool TryGetVolume(VolumeParameter param, out float value)
         {
-            string paramName = param.ToString();
-            if (Current.mixer.GetFloat(paramName, out float volume))
+            if (Current.mixer.GetFloat(param.ToString(), out float volume))
             {
                 value = volume;
                 return true;
@@ -104,6 +116,12 @@ namespace Pasta
 
             value = 0;
             return false;
+        }
+
+        public static float GetVolume(VolumeParameter param)
+        {
+            Current.mixer.GetFloat(param.ToString(), out float value);
+            return value;
         }
     }
 }
