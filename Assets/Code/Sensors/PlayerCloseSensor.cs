@@ -70,13 +70,17 @@ namespace Pasta
                     //Debug.Log(i);
                     if (hitColliders[i].gameObject.TryGetComponent(out EnemyAi enemyAi))
                     {
-                        Debug.Log("Can attack");
-                        enemyai = hitColliders[i].gameObject.GetComponent<EnemyAi>();
-                        enemyai.ToggleMaintainDistance(false);
-                        enemyAi.gotAttackToken = true;
-                        enemyAi.ActivateIndicator();
-                        enemyai.canAttack = true;
-                        AIData aidata = hitColliders[i].gameObject.GetComponent<AIData>();
+                        if ((transform.position - hitColliders[i].gameObject.transform.position).magnitude < 5.0f)
+                        {
+                            Debug.Log("Can attack");
+                            enemyai = hitColliders[i].gameObject.GetComponent<EnemyAi>();
+                            enemyai.ToggleMaintainDistance(false);
+                            enemyAi.gotAttackToken = true;
+                            enemyAi.ActivateIndicator();
+                            enemyai.canAttack = true;
+                            AIData aidata = hitColliders[i].gameObject.GetComponent<AIData>();
+                        }
+                        
                     }
                 }
                 else

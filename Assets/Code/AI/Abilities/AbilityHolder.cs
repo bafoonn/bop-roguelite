@@ -20,9 +20,12 @@ namespace Pasta
 
         private void Start()
         {
-
-            random = UnityEngine.Random.Range(0, abilities.Length);
-            ability = abilities[random];
+            if(abilities != null)
+            {
+                random = UnityEngine.Random.Range(0, abilities.Length);
+                ability = abilities[random];
+            }
+            
         }
 
         enum AbilityState
@@ -35,72 +38,77 @@ namespace Pasta
         // Update is called once per frame
         void Update()
         {
-            if (CanUseAbility)
+            if (abilities.Length != 0)
             {
-                ability = abilities[random];
-                switch (state)
+
+
+                if (CanUseAbility)
                 {
-                    case AbilityState.ready:
-                        if (UseAbility)
-                        {
-                            if (ability.AbilityWithAnim)
+                    ability = abilities[random];
+                    switch (state)
+                    {
+                        case AbilityState.ready:
+                            if (UseAbility)
                             {
-                                if(AnimDone)
+                                if (ability.AbilityWithAnim)
                                 {
-                                    abilityAnimHelper = GetComponent<AgentAnimations>();
-                                    abilityAnimHelper.PlayAbilityAnim();
+                                    if (AnimDone)
+                                    {
+                                        abilityAnimHelper = GetComponent<AgentAnimations>();
+                                        abilityAnimHelper.PlayAbilityAnim();
+                                    }
+                                    if (ActivateAbilityThroughAnim)
+                                    {
+                                        Debug.Log("Using" + ability);
+                                        ability.Activate(gameObject);
+                                        state = AbilityState.active;
+                                        activeTime = ability.ActiveTime;
+                                    }
                                 }
-                                if (ActivateAbilityThroughAnim)
+                                else
                                 {
                                     Debug.Log("Using" + ability);
                                     ability.Activate(gameObject);
                                     state = AbilityState.active;
                                     activeTime = ability.ActiveTime;
                                 }
+
+                            }
+                            break;
+                        case AbilityState.active:
+                            if (activeTime > 0)
+                            {
+                                activeTime -= Time.deltaTime;
                             }
                             else
                             {
-                                Debug.Log("Using" + ability);
-                                ability.Activate(gameObject);
-                                state = AbilityState.active;
-                                activeTime = ability.ActiveTime;
+                                ActivateAbilityThroughAnim = false;
+
+                                UseAbility = false; // <- Here for testing purposes.
+                                ability.Deactivate();
+                                state = AbilityState.cooldown;
+                                cooldownTime = ability.coolDown;
                             }
-                           
-                        }
-                        break;
-                    case AbilityState.active:
-                        if (activeTime > 0)
-                        {
-                            activeTime -= Time.deltaTime;
-                        }
-                        else
-                        {
-                            ActivateAbilityThroughAnim = false;
-                            
-                            UseAbility = false; // <- Here for testing purposes.
-                            ability.Deactivate();
-                            state = AbilityState.cooldown;
-                            cooldownTime = ability.coolDown;
-                        }
-                        break;
-                    case AbilityState.cooldown:
-                        if (cooldownTime > 0)
-                        {
-                            cooldownTime -= Time.deltaTime;
+                            break;
+                        case AbilityState.cooldown:
+                            if (cooldownTime > 0)
+                            {
+                                cooldownTime -= Time.deltaTime;
 
-                        }
-                        else
-                        {
-                            state = AbilityState.ready;
-                            AnimDone = true;
-                        }
-                        break;
+                            }
+                            else
+                            {
+                                state = AbilityState.ready;
+                                AnimDone = true;
+                            }
+                            break;
+                    }
+
+
                 }
-
-
             }
         }
-        public void ActivateAbility()
+        public void ActivateAbility() // Used in animation "events" 
         {
             ActivateAbilityThroughAnim = true;
         }

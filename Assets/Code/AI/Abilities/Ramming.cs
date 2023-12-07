@@ -12,6 +12,7 @@ namespace Pasta
 		[SerializeField] public GameObject rammingGObj;
 		private GameObject spawnedRammingOb;
 		public EnemyAi enemyai;
+		public BossAI bossAI;
 		private AIData aidata;
 		private AgentMover agentMover;
 		private Rigidbody2D rbd2d;
@@ -21,7 +22,15 @@ namespace Pasta
         public override void Activate(GameObject parent)
 		{
 			GameObject spawnedRammingObj = Instantiate(rammingGObj, parent.transform);
-			enemyai = parent.GetComponent<EnemyAi>();
+			if(parent.gameObject.tag != "Boss")
+			{
+                enemyai = parent.GetComponent<EnemyAi>();
+            }
+			else
+			{
+				bossAI = parent.GetComponent<BossAI>();
+			}
+			
 			aidata = parent.GetComponent<AIData>();
 			agentMover = parent.GetComponent<AgentMover>();
             

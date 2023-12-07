@@ -17,5 +17,8 @@ MonoBehaviour:
   ActiveTime: 2
   damage: 1
   usableOutsideAttackRange: 1
+  AbilityWithAnim: 0
+  randomize: 0
+  usableAtHealthPercentage: 100
   spawnRadius: 2
   MeatBall: {fileID: 910622235303783855, guid: 584e6bb6566b5ad4aa90225d9dc06b9d, type: 3}

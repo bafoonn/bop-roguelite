@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Pasta
@@ -19,24 +20,35 @@ namespace Pasta
         public WeaponParent weaponParent;
         private AgentAnimations agentAnimations;
         private EnemyAi enemyAi;
+        private BossAI bossAI;
         private Vector3 direction;
         private Rigidbody2D rbd2d;
         public Vector3 player;
         private bool startChargebool = false;
         private AgentMover agentMover;
+        private CircleCollider2D circleCollider2d;
         private BoxCollider2D[] boxCollider2Ds;
+        private float Damage = 10f;
         public float windupTime;
         // Start is called before the first frame update
         void Start()
         {
+            
             parent = transform.parent;
             ramming = FindFirstObjectByType<Ramming>();
             intObstacle = obstacleLayer;
             intPlayer = playerlayer;
             startDist = transform.position;
-            direction = parent.Find("EnemyBody").transform.Find("Weapon").transform.Find("WeaponSprite").transform.right;
+            direction = parent.GetComponentInChildren<WeaponParent>().transform.Find("WeaponSprite").transform.right;
             player = GameObject.FindGameObjectWithTag("Player").transform.position;
-            enemyAi = this.transform.GetComponentInParent<EnemyAi>();
+            if(parent.gameObject.tag != "Boss")
+            {
+                enemyAi = this.transform.GetComponentInParent<EnemyAi>();
+            }
+            else
+            {
+                bossAI = this.transform.GetComponentInParent<BossAI>();
+            }
             weaponParent = parent.GetComponentInChildren<WeaponParent>();
             agentAnimations = parent.GetComponent<AgentAnimations>();
             agentMover = parent.GetComponent<AgentMover>();
@@ -48,9 +60,16 @@ namespace Pasta
 
         IEnumerator startCharge()
         {
-            enemyAi.movementInput = Vector3.zero;
+            if (parent.gameObject.tag != "Boss")
+            {
+                enemyAi.movementInput = Vector3.zero;
+            }
+            else
+            {
+                bossAI.movementInput = Vector3.zero;
+            }
             agentMover.enabled = false;
-            direction = parent.Find("EnemyBody").transform.Find("Weapon").transform.Find("WeaponSprite").transform.right;
+            direction = parent.GetComponentInChildren<WeaponParent>().transform.Find("WeaponSprite").transform.right;
             weaponParent.Aim = false;
             agentAnimations.aim = false;
             yield return new WaitForSeconds(windupTime);
@@ -58,6 +77,7 @@ namespace Pasta
             // Disabled enemy ai movement
             Debug.Log("Adding force");
             rbd2d.AddForce(direction * speed, ForceMode2D.Impulse); // adds Explosion like force to the "charge"
+            circleCollider2d.enabled = true;
         }
 
         // Update is called once per frame
@@ -127,10 +147,14 @@ namespace Pasta
                 speed = 0f;
                 Charge = false;
             }
-            //if(collision.gameObject.layer == playerlayer)
-            //{
-            //    Charge = false;
-            //}
+           if(collision.gameObject.tag == "Player")
+            {
+                if (collision.TryGetComponent<IHittable>(out var hittable))
+                {
+                    hittable.Hit(Damage);
+                }
+            }
+        }
         }
     }
-}
+

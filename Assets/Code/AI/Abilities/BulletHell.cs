@@ -12,6 +12,7 @@ namespace Pasta
         public float SpawnRadius = 10f;
         [SerializeField] private GameObject spawnerBullets;
         public GameObject spawnedSpawner;
+       
         private Tilemap tileMap;
         private DestroyAbility destroy;
         private Vector2 originPoint;

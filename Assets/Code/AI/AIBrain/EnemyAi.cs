@@ -8,6 +8,8 @@ using UnityEngine.U2D.IK;
 using UnityEngine.UI;
 using UnityEngine.VFX;
 
+// This requires: (PlayerCloseSensor script attached to player, WeaponParent script attached to enemys weapon parent, AgentMover, Detector Scripts, Steering scripts, AIData, AgentAnimations, Health, EnemyDeath scripts attached to gameobject.)
+
 public class EnemyAi : MonoBehaviour, IEnemy
 {
     #region detector stuff
@@ -258,7 +260,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
             //Looking at target.
             PointerEnemy?.Invoke(aiData.currentTarget.position);
 
-            if (Chasing == false)
+            if (Chasing == false) 
             {
                 Chasing = true;
                 StartCoroutine(ChaseAndAttack());
@@ -266,7 +268,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
             if (aiData.currentTarget != null)
             {
                 float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
-                if (!gameObject.tag.Contains("Ranged"))
+                if (!gameObject.tag.Contains("Ranged")) // If not ranged enemy then execute staying away from player or attack if gotten attacktoken
 				{
                     if ((player.transform.position - transform.position).magnitude > 7.0f)
                     {
@@ -345,7 +347,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
                     }
 
 
-                    if (timeToAttack >= defaultTimeToAttack / 1.5)
+                    if (timeToAttack >= defaultTimeToAttack / 1.5) // Stops enemy from aiming when close to attacking.
                     {
                         weaponParent.Aim = false;
                         animations.aim = false;
@@ -462,7 +464,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
         {
             if (abilityHolder.ability.usableOutsideAttackRange == true)
             {
-				if (abilityHolder.ability.randomize)
+				if (abilityHolder.ability.randomize) // If ability has randomize bool true execute.
 				{
                     RandomInt = Random.Range(1, 8);
                     if (RandomInt == 1 && canuseAbility)
@@ -495,7 +497,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
         }
         
     }
-    public void ToggleMaintainDistance(bool value)
+    public void ToggleMaintainDistance(bool value) // Gets bool value from playerclosesensor script.
     {
         shouldMaintainDistance = value;
     }
@@ -517,10 +519,10 @@ public class EnemyAi : MonoBehaviour, IEnemy
         if (hasAttackEffect) attackEffect.CancelAttack();
     }
 
-    private IEnumerator ChaseAndAttack()
+    private IEnumerator ChaseAndAttack() // Enemy ai states "idle" "chase & look" "attack"
     {
-
-        if (aiData.currentTarget == null)
+        // Idle state
+        if (aiData.currentTarget == null) // If current target is null go to idle.
         {
             attackDistance = attackDefaultDist;
             if (hasAttackEffect) attackEffect.CancelAttack();
@@ -535,6 +537,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
         }
         else
         {
+            
             IsIdle = false;
             float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
 			//if (stunned)
@@ -557,8 +560,8 @@ public class EnemyAi : MonoBehaviour, IEnemy
                 Debug.Log(gotAttackToken + gameObject.name);
                 attackDistance = attackDefaultDist;
 			}
-			
-            if (distance < attackDistance && canAttack && canAttackAnim)  // REMEMBER TO DO SOMETHING WITH THIS
+            // Attack state
+            if (distance < attackDistance && canAttack && canAttackAnim)  // if distance is smaller than attackdistance execute attack.
             {
                 isAttacking = true; // FOR ANIMATOR
                                     //Attacking 
@@ -592,10 +595,10 @@ public class EnemyAi : MonoBehaviour, IEnemy
 
 
             }
-            else
+            else // Chasing state.
             {
 
-                attackDistance = attackDefaultDist;
+                attackDistance = attackDefaultDist; 
                 weaponParent.Aim = true;
                 animations.aim = true;
                 isAttacking = false; // FOR ANIMATOR

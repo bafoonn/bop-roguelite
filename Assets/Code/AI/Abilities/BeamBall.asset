@@ -19,6 +19,7 @@ MonoBehaviour:
   usableOutsideAttackRange: 1
   AbilityWithAnim: 0
   randomize: 0
+  usableAtHealthPercentage: 40
   beamGameBall: {fileID: 6813837663239196266, guid: b9522ba32817c6449a50908597171254, type: 3}
   spawnRadius: 3
   BossRadius: 2

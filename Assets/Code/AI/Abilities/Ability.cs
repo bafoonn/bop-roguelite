@@ -14,6 +14,7 @@ namespace Pasta
         public bool usableOutsideAttackRange = false;
         public bool AbilityWithAnim = false;
         public bool randomize = false;
+        public float usableAtHealthPercentage = 60;
 
         public virtual void Activate(GameObject parent)
         {

@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using Pasta;
 
+
 public class BossAI : MonoBehaviour, IEnemy
 {
     [SerializeField] private List<Detector> detectors;
@@ -13,7 +14,7 @@ public class BossAI : MonoBehaviour, IEnemy
     [SerializeField] private float detectionDelay = 0.05f, aiUpdateDelay = 0.06f, attackDelay = 2f;
     [SerializeField] public float attackDistance = 0.5f;
     [SerializeField] private List<SteeringBehaviour> steeringBehaviours;
-
+    private int RandomInt;
     public MonoBehaviour Mono => this;
 
     public UnityEvent OnAttackPressed;
@@ -29,7 +30,7 @@ public class BossAI : MonoBehaviour, IEnemy
     public Movement Movement { get; private set; }
     public Rigidbody2D Rigidbody { get; private set; }
     public StatusHandler Status { get; private set; }
-
+    private float CurrentHealthPercentage;
     public static event System.Action<BossAI> OnDeath;
     private Level level;
     [SerializeField] private Transform Player;
@@ -68,6 +69,7 @@ public class BossAI : MonoBehaviour, IEnemy
     }
     private void Awake()
     {
+
         InvokeRepeating("PerformDetection", 0, detectionDelay);
         Health = GetComponent<Health>();
         Debug.Assert(Health != null);
@@ -91,7 +93,7 @@ public class BossAI : MonoBehaviour, IEnemy
     }
     private void Update()
     {
-
+        CurrentHealthPercentage = (Health.CurrentHealth / Health.MaxHealth) * 100;
         if (aiData.currentTarget != null)
         {
 
@@ -133,13 +135,18 @@ public class BossAI : MonoBehaviour, IEnemy
 
     public void Attack()
     {
+
         Debug.Log("Swing");
         //abilityHolder.UseAbility = true; // <- Here for testing purposes.
         for (int i = 0; i < abilityHolders.Length; i++)
         {
             if (abilityHolders[i] != null)
             {
-                abilityHolders[i].UseAbility = true;
+                if(CurrentHealthPercentage <= abilityHolders[i].ability.usableAtHealthPercentage)
+                {
+                    abilityHolders[i].UseAbility = true;
+                }
+               
             }
         }
         weaponParent.Attack();
@@ -148,16 +155,23 @@ public class BossAI : MonoBehaviour, IEnemy
     }
     public void UseAbility()
     {
+        RandomInt = UnityEngine.Random.Range(1, 3);
+
         for (int i = 0; i < abilityHolders.Length; i++)
         {
             if (abilityHolders[i] != null)
             {
                 if (abilityHolders[i].ability.usableOutsideAttackRange == true)
                 {
-                    abilityHolders[i].UseAbility = true;
+                    if (CurrentHealthPercentage <= abilityHolders[i].ability.usableAtHealthPercentage)
+                    {
+                        abilityHolders[i].UseAbility = true;
+                    }
                 }
             }
         }
+
+
         //if (abilityHolder.ability.usableOutsideAttackRange == true)
         //{
         //    abilityHolder.UseAbility = true;
@@ -250,6 +264,7 @@ public class BossAI : MonoBehaviour, IEnemy
                         abilityHolders[i].CanUseAbility = true;
                     }
                 }
+
                 UseAbility();
                 timeToAttack = 0;
                 //attackIndicator.fillAmount = 0;
