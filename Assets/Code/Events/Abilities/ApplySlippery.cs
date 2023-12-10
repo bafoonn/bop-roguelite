@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Pasta
 {
-    public class ApplySlippery : EventAction
+    public class ApplySlippery : ItemAbility
     {
         public float Duration = 5f;
 

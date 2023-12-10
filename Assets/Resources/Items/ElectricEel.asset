@@ -20,11 +20,14 @@ MonoBehaviour:
   Sprite: {fileID: -4418031461292793555, guid: 110fae6f44679fd4a9b0ce6c593a0e48, type: 3}
   cost: 50
   Effects: []
-  Events:
+  Abilities:
   - Name: Chain Lightning
-    EventActionPrefab: {fileID: 8675824498920572660, guid: 01be61de1c3bc6d4eb5c7b73dea9df76, type: 3}
+    ItemAbilityPrefab: {fileID: 8675824498920572660, guid: 01be61de1c3bc6d4eb5c7b73dea9df76, type: 3}
     ActionType: 1
-    ProcChance: 0.33
+    ProcChance:
+      Percentage: 0.15
+      Stacks: 0
+      ScaleType: 0
   Hieroglyphs:
   - Name: Chain lightning
     sprites:

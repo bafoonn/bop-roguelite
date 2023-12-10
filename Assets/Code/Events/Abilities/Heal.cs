@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Pasta
 {
-    public class Heal : EventAction
+    public class Heal : ItemAbility
     {
         [SerializeField] private float _healAmount;
         [SerializeField] private bool _isPercentage = false;

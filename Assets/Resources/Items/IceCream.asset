@@ -23,11 +23,14 @@ MonoBehaviour:
     Stat: 0
     Value: 10
     Type: 0
-  Events:
+  Abilities:
   - Name: Slow
-    EventActionPrefab: {fileID: 6508671052521538090, guid: 0eb0f46c6e87f0e478fcf81fa0f5d95f, type: 3}
+    ItemAbilityPrefab: {fileID: 7623830405953740256, guid: 6ed22eff8502dcb48a041d45b71209b3, type: 3}
     ActionType: 1
-    ProcChance: 0.6
+    ProcChance:
+      Percentage: 0.1
+      Stacks: 0
+      ScaleType: 0
   Hieroglyphs:
   - Name: Slow enemies
     sprites:

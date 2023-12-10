@@ -5,7 +5,7 @@ using UnityEngine.VFX;
 
 namespace Pasta
 {
-    public class RottenAura : EventAction
+    public class RottenAura : ItemAbility
     {
         [SerializeField] private float _damageCoefficiency = 0.2f;
         [SerializeField] private float _radius = 2.5f;

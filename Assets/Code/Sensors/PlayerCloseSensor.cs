@@ -27,12 +27,12 @@ namespace Pasta
 
         private void OnEnable()
         {
-            EventActions.OnEvent += OnEvent;
+            ItemAbilities.OnEvent += OnEvent;
         }
 
         private void OnDisable()
         {
-            EventActions.OnEvent -= OnEvent;
+            ItemAbilities.OnEvent -= OnEvent;
         }
 
         private void OnEvent(EventContext obj)

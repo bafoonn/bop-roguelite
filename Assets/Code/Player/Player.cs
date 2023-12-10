@@ -16,7 +16,7 @@ public class Player : MonoBehaviour, IPlayer
     private PlayerHealth _health;
     private Loot _loot;
     private PlayerAnimations _anim;
-    private EventActions _actions;
+    private ItemAbilities _actions;
     [SerializeField] private SpriteRenderer _sprite;
     private StatusHandler _statusHandler;
     private ItemPopUp _itemPopUp;
@@ -72,7 +72,7 @@ public class Player : MonoBehaviour, IPlayer
         _loot = this.AddOrGetComponent<Loot>();
         _anim = GetComponent<PlayerAnimations>();
         _anim.Setup(_movement, _attackHandler, _input);
-        _actions = GetComponentInChildren<EventActions>();
+        _actions = GetComponentInChildren<ItemAbilities>();
         Assert.IsNotNull(_actions);
         Assert.IsNotNull(_sprite, "Player has no sprite set in the inspector.");
         _actions.Setup(this);
@@ -245,7 +245,7 @@ public class Player : MonoBehaviour, IPlayer
     {
         if (_movement.TryDodge(_input.Movement))
         {
-            EventActions.InvokeEvent(EventActionType.OnDodge);
+            ItemAbilities.InvokeEvent(EventActionType.OnDodge);
             AddIframes(_dodgeFrames);
         }
     }

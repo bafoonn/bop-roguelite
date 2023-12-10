@@ -6,29 +6,32 @@ using UnityEngine.Events;
 
 namespace Pasta
 {
-    public abstract class EventAction : MonoBehaviour
+    public abstract class ItemAbility : MonoBehaviour
     {
         protected Player _player = null;
+        protected ItemBase _sourceItem = null;
         protected EventActionType _actionType = EventActionType.None;
-        protected float _procChance = 1;
+        protected ScalingValue _procChance = null;
 
         public UnityEvent OnInit;
         public UnityEvent OnTrigger;
 
+
         private void OnEnable()
         {
-            EventActions.OnEvent += OnEvent;
+            ItemAbilities.OnEvent += OnEvent;
         }
 
         private void OnDisable()
         {
-            EventActions.OnEvent -= OnEvent;
+            ItemAbilities.OnEvent -= OnEvent;
         }
 
         private void OnEvent(EventContext context)
         {
             if (context.EventType != _actionType) return;
-            if (UnityEngine.Random.value > _procChance) return;
+            _procChance.Stacks = _sourceItem.Amount;
+            if (!_procChance.Roll()) return;
 
             if (OnTrigger != null)
             {
@@ -38,16 +41,14 @@ namespace Pasta
             Trigger(context);
         }
 
-        public virtual void Setup(Player player, EventActionType type, float procChance)
+        public virtual void Setup(ItemBase item, Player player, EventActionType type, ScalingValue procChance)
         {
+            _sourceItem = item;
             _player = player;
             _actionType = type;
-            _procChance = Mathf.Clamp01(procChance);
+            _procChance = procChance;
             Init();
-            if (OnInit != null)
-            {
-                OnInit.Invoke();
-            }
+            OnInit.Invoke();
         }
 
         public void Remove()

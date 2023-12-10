@@ -23,11 +23,14 @@ MonoBehaviour:
     Stat: 0
     Value: -10
     Type: 0
-  Events:
-  - Name: Rotten Aura
-    EventActionPrefab: {fileID: 2674626695042508919, guid: d9ad2ebcad508fd4da28cd6eb46766e2, type: 3}
+  Abilities:
+  - Name: Aura
+    ItemAbilityPrefab: {fileID: 2674626695042508919, guid: d9ad2ebcad508fd4da28cd6eb46766e2, type: 3}
     ActionType: 0
-    ProcChance: 1
+    ProcChance:
+      Percentage: 0
+      Stacks: 0
+      ScaleType: 0
   Hieroglyphs:
   - Name: Rotten aura
     sprites:

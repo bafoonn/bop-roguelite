@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: Stats
   m_EditorClassIdentifier: 
   Health: 100
+  MinHealth: 10
   Damage: 10
+  MinDamage: 1
   MovementSpeed: 5
-  MaximumMovementSpeed: 15
+  MinMovementSpeed: 3
+  MaxMovementSpeed: 15
   AttackSpeed: 3
+  MinAttackSpeed: 0.5

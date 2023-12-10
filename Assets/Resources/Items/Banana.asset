@@ -20,11 +20,14 @@ MonoBehaviour:
   Sprite: {fileID: 2046177537035590154, guid: c0d98c1df091db149a39c00297b0849e, type: 3}
   cost: 20
   Effects: []
-  Events:
-  - Name: Heal on room enter
-    EventActionPrefab: {fileID: 6008374857786805737, guid: a8667955c6e20044481d7c7f101aabf2, type: 3}
+  Abilities:
+  - Name: Heal on room enter.
+    ItemAbilityPrefab: {fileID: 6008374857786805737, guid: a8667955c6e20044481d7c7f101aabf2, type: 3}
     ActionType: 6
-    ProcChance: 1
+    ProcChance:
+      Percentage: 1
+      Stacks: 0
+      ScaleType: 0
   Hieroglyphs:
   - Name: Room Enter Heal
     sprites:

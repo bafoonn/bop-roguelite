@@ -431,7 +431,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
         }
 
         Death = true;
-        EventActions.InvokeEvent(EventActionType.OnKill);
+        ItemAbilities.InvokeEvent(EventActionType.OnKill);
 
         level.EnemyKilled();
 

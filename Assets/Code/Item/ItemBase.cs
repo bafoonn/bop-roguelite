@@ -8,12 +8,12 @@ namespace Pasta
     public class ItemBase : ScriptableObject, IItem
     {
         [System.Serializable]
-        public class EventActionContainer
+        public class ItemAbilityContainer
         {
             public string Name;
-            public EventAction EventActionPrefab;
+            public ItemAbility ItemAbilityPrefab;
             public EventActionType ActionType;
-            [Range(0f, 1f)] public float ProcChance = 1;
+            public ScalingValue ProcChance;
         }
 
         [SerializeField] private bool _canStack = true;
@@ -36,10 +36,11 @@ namespace Pasta
         public int Amount => _amount;
         public int cost;
         public StatEffect[] Effects;
-        public EventActionContainer[] Events;
+        public ItemAbilityContainer[] Abilities;
         public Hieroglyph[] Hieroglyphs;
 
-        private List<EventAction> _addedActions = new List<EventAction>();
+        private Stack<List<StatEffect>> _addedEffects = new Stack<List<StatEffect>>();
+        private List<ItemAbility> _addedAbilities = new List<ItemAbility>();
 
         public bool Loot()
         {
@@ -48,42 +49,47 @@ namespace Pasta
                 return false;
             }
 
-            _amount++;
-
-            foreach (var effect in Effects)
+            if (Amount == 0)
             {
-                effect.Apply();
-                Debug.Log(effect);
-            }
-
-            foreach (var container in Events)
-            {
-                var newAction = EventActions.Create(container.EventActionPrefab, container.ActionType, container.ProcChance);
-                if (newAction != null)
+                foreach (var container in Abilities)
                 {
-                    _addedActions.Add(newAction);
+                    var newAction = ItemAbilities.Create(this, container.ItemAbilityPrefab, container.ActionType, container.ProcChance);
+                    if (newAction != null)
+                    {
+                        _addedAbilities.Add(newAction);
+                    }
                 }
             }
 
+            var effects = new List<StatEffect>();
+            foreach (var effect in Effects)
+            {
+                effect.Apply();
+                effects.Add(effect);
+            }
+            _addedEffects.Push(effects);
+
+            _amount++;
             return true;
         }
 
         public void Drop()
         {
-            if (Amount > 0)
-            {
-                _amount--;
-            }
+            if (Amount > 0) _amount--;
 
-            foreach (var effect in Effects)
+            var effects = _addedEffects.Pop();
+            foreach (var effect in effects)
             {
                 effect.Unapply();
             }
 
-            while (_addedActions.Count > 0)
+            if (Amount == 0)
             {
-                if (_addedActions[0] != null) _addedActions[0].Remove();
-                _addedActions.RemoveAt(0);
+                while (_addedAbilities.Count > 0)
+                {
+                    if (_addedAbilities[0] != null) _addedAbilities[0].Remove();
+                    _addedAbilities.RemoveAt(0);
+                }
             }
         }
     }

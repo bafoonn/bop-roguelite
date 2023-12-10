@@ -4,10 +4,15 @@ using UnityEngine;
 
 namespace Pasta
 {
-    public class ApplySlow : EventAction
+    public class ApplyBurn : ItemAbility
     {
-        public float SlowPercentage = 0.5f;
-        public float Duration = 5f;
+        private Stat _damage = null;
+
+        protected override void Init()
+        {
+            base.Init();
+            _damage = StatManager.Current.GetStat(StatType.Damage);
+        }
 
         protected override void Trigger(EventContext context)
         {
@@ -16,7 +21,8 @@ namespace Pasta
             {
                 if (hitContext.Target is ICharacter character)
                 {
-                    character.Status.ApplyStatus(new SlowStatus(SlowPercentage), Duration);
+                    Debug.Log("Apply burn");
+                    character.Status.ApplyStatus(new BurnStatus(_damage.Value), 5);
                 }
             }
         }

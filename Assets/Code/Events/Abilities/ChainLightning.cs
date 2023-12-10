@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Pasta
 {
-    public class ChainLightning : EventAction
+    public class ChainLightning : ItemAbility
     {
         [SerializeField] private float _radius = 5f;
         [SerializeField] private int _chains = 3;

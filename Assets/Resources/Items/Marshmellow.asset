@@ -19,11 +19,14 @@ MonoBehaviour:
   Sprite: {fileID: -2345176947539042805, guid: 0f2b921156c37c74a9927d5ea2b3a55a, type: 3}
   cost: 20
   Effects: []
-  Events:
-  - Name: Burn on hit
-    EventActionPrefab: {fileID: 8613175926356625417, guid: 9104f281544d7d74392c1d1e82f73947, type: 3}
+  Abilities:
+  - Name: Burn
+    ItemAbilityPrefab: {fileID: 8613175926356625417, guid: 9104f281544d7d74392c1d1e82f73947, type: 3}
     ActionType: 1
-    ProcChance: 0.2
+    ProcChance:
+      Percentage: 0.15
+      Stacks: 0
+      ScaleType: 1
   Hieroglyphs:
   - Name: Apply burn
     sprites:

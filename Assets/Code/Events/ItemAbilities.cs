@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace Pasta
 {
-    public class EventActions : MonoBehaviour
+    public class ItemAbilities : MonoBehaviour
     {
-        private static EventActions _actions = null;
+        private static ItemAbilities _actions = null;
         private Player _player = null;
 
         public static event Action<EventContext> OnEvent;
@@ -22,7 +22,7 @@ namespace Pasta
             _player = player;
         }
 
-        public static EventAction Create(EventAction actionPrefab, EventActionType type, float procChance)
+        public static ItemAbility Create(ItemBase item, ItemAbility actionPrefab, EventActionType type, ScalingValue procChance)
         {
             if (_actions == null)
             {
@@ -41,7 +41,7 @@ namespace Pasta
 
             var action = Instantiate(actionPrefab, _actions.transform);
             action.gameObject.name = $"{type} - {actionPrefab.name}";
-            action.Setup(_actions._player, type, procChance);
+            action.Setup(item, _actions._player, type, procChance);
             return action;
         }
 

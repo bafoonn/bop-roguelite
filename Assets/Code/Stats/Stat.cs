@@ -60,24 +60,22 @@ namespace Pasta
         private float CalculateValue()
         {
             float newValue = _baseValue;
+            float multiplier = 1;
 
             foreach (StatEffect effect in _effects)
             {
-                if (effect.Type == StatEffectType.Additive)
+                switch (effect.Type)
                 {
-                    newValue += effect.Value;
+                    case StatEffectType.Additive:
+                        newValue += effect.Value;
+                        break;
+                    case StatEffectType.Multiplicative:
+                        multiplier += effect.Value - 1;
+                        break;
                 }
             }
 
-            foreach (StatEffect effect in _effects)
-            {
-                if (effect.Type == StatEffectType.Multiplicative)
-                {
-                    newValue *= effect.Value;
-                }
-            }
-
-            Value = newValue;
+            Value = newValue * multiplier;
             return newValue;
         }
 

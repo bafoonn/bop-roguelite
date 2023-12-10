@@ -28,13 +28,13 @@ namespace Pasta
         public override void Heal(float amount)
         {
             base.Heal(amount);
-            EventActions.InvokeEvent(EventActionType.OnHeal);
+            ItemAbilities.InvokeEvent(EventActionType.OnHeal);
         }
 
         public override void TakeDamage(float damage)
         {
             base.TakeDamage(damage);
-            EventActions.InvokeEvent(EventActionType.OnDamaged);
+            ItemAbilities.InvokeEvent(EventActionType.OnDamaged);
         }
     }
 }

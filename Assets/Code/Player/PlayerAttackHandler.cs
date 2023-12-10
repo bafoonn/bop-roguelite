@@ -153,34 +153,26 @@ namespace Pasta
 
         private int HitObjects(AttackType type)
         {
-            int hitCount = 0;
             var sensor = type == AttackType.Quick ? _quickAttackArea : _heavyAttackArea;
-            for (int i = 0; i < sensor.Objects.Count; i++)
-            {
-                var hittable = sensor.Objects[i];
-                if (hittable == null)
-                {
-                    continue;
-                }
+            float damage = type == AttackType.Quick ? _quickAttackDamage : _heavyAttackDamage;
+            int hitCount = sensor.HitObjects(damage, HitType.Hit, _player, OnHit);
 
-                float damage = 0;
+            return hitCount;
+
+            void OnHit(IHittable hittable)
+            {
                 switch (type)
                 {
                     case AttackType.Quick:
-                        damage = _quickAttackDamage;
-                        EventActions.InvokeEvent(new HitContext(hittable, damage, EventActionType.OnQuickHit));
+                        ItemAbilities.InvokeEvent(new HitContext(hittable, damage, EventActionType.OnQuickHit));
                         break;
                     case AttackType.Heavy:
-                        damage = _heavyAttackDamage;
-                        EventActions.InvokeEvent(new HitContext(hittable, damage, EventActionType.OnHeavyHit));
+                        ItemAbilities.InvokeEvent(new HitContext(hittable, damage, EventActionType.OnHeavyHit));
                         break;
                 }
 
-                EventActions.InvokeEvent(new HitContext(hittable, damage, EventActionType.OnHit));
-                hittable.Hit(damage, HitType.Hit, _player);
-                hitCount++;
+                ItemAbilities.InvokeEvent(new HitContext(hittable, damage, EventActionType.OnHit));
             }
-            return hitCount;
         }
 
         public bool Cancel()
