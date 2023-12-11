@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f9b0d845e3f73742a1930a2cd0ed9f7, type: 3}
+  m_Name: Strawberry
+  m_EditorClassIdentifier: 
+  _canStack: 1
+  Name: Strawberry
+  Description: 1+ Dodge Count, Longer Dodge Cooldown
+  Flavor: 
+  Sprite: {fileID: -50385446370504167, guid: 67ebba27e9d96004793f9af568077da2, type: 3}
+  cost: 30
+  Effects:
+  - Name: More Dodges
+    Stat: 4
+    Value: 1
+    Type: 0
+  - Name: More Dodge Cooldown
+    Stat: 5
+    Value: 1
+    Type: 0
+  Abilities: []
+  Hieroglyphs:
+  - Name: +DodgeCount
+    sprites:
+    - {fileID: 2094356212948544673, guid: 020f740b43dfa8641a22507cbbbc78b1, type: 3}
+    - {fileID: -5483768678908948402, guid: 36e05daf32846614792d6ad76717091e, type: 3}

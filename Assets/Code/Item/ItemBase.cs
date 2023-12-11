@@ -30,7 +30,9 @@ namespace Pasta
         }
 
         public string Name;
+        [TextArea(3, 20)]
         public string Description;
+        [TextArea(3, 20)]
         public string Flavor;
         public Sprite Sprite;
         public int Amount => _amount;

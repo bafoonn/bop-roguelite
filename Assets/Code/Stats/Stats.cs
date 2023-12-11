@@ -10,13 +10,17 @@ namespace Pasta
         public Stat Damage { get; private set; }
         public Stat MovementSpeed { get; private set; }
         public Stat AttackSpeed { get; private set; }
+        public Stat DodgeCooldown { get; private set; }
+        public Stat DodgeCount { get; private set; }
 
         public Stats(StatProfile profile)
         {
             Health = new Stat(profile.Health, StatType.Health, minValue: profile.MinHealth);
             Damage = new Stat(profile.Damage, StatType.Damage, minValue: profile.MinDamage);
-            MovementSpeed = new Stat(profile.MovementSpeed, StatType.Movementspeed,minValue: profile.MinMovementSpeed, maxValue:profile.MaxMovementSpeed);
+            MovementSpeed = new Stat(profile.MovementSpeed, StatType.Movementspeed, minValue: profile.MinMovementSpeed, maxValue: profile.MaxMovementSpeed);
             AttackSpeed = new Stat(profile.AttackSpeed, StatType.Attackspeed, minValue: profile.MinAttackSpeed);
+            DodgeCooldown = new Stat(profile.DodgeCooldown, StatType.DodgeCooldown, 0);
+            DodgeCount = new Stat(profile.DodgeCount, StatType.DodgeCount, 1);
         }
 
         public void GetDPS(float coefficiency, out float damage, out float hitRate)

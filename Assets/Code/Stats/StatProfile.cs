@@ -22,5 +22,8 @@ namespace Pasta
         [Tooltip("Attacks per second")]
         public float AttackSpeed = 3;
         public float MinAttackSpeed = 0.5f;
+        [Header("Dodge")]
+        public int DodgeCount = 1;
+        public float DodgeCooldown = 3f;
     }
 }
