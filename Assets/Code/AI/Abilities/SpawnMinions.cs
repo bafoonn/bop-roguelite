@@ -15,9 +15,10 @@ namespace Pasta
         private Vector3Int originPoint3int;
         public float spawnRadius;
         private Tilemap tileMap;
+        private Level level;
         public override void Activate(GameObject parent)
         {
-            Instantiate(Minion);
+            //Instantiate(Minion);
             originPoint = parent.transform.position;
             tileMap = FindFirstObjectByType<Tilemap>();
 
@@ -26,7 +27,7 @@ namespace Pasta
             originPoint3int = ((Vector3Int)originPoint2int);
             if (tileMap.HasTile(originPoint3int))
             {
-                Instantiate(Minion, originPoint, Quaternion.identity);
+                Instantiate(Minion, originPoint, Quaternion.identity, parent.transform.parent);
             }
         }
     }

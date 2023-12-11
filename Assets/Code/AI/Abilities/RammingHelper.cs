@@ -10,6 +10,7 @@ namespace Pasta
         private Transform parent;
         private Ramming ramming;
         private float speed = 15f;
+        private bool pointAtPlayer = true;
         public LayerMask obstacleLayer , playerlayer;
         private LayerMask intObstacle;
         private LayerMask intPlayer;
@@ -25,16 +26,18 @@ namespace Pasta
         private Rigidbody2D rbd2d;
         public Vector3 player;
         private bool startChargebool = false;
+        private AIData aidata;
         private AgentMover agentMover;
         private CircleCollider2D circleCollider2d;
         private BoxCollider2D[] boxCollider2Ds;
         private float Damage = 10f;
+        private AttackEffects attackEffects;
         public float windupTime;
         // Start is called before the first frame update
         void Start()
         {
-            
             parent = transform.parent;
+            aidata = parent.GetComponent<AIData>();
             ramming = FindFirstObjectByType<Ramming>();
             intObstacle = obstacleLayer;
             intPlayer = playerlayer;
@@ -56,6 +59,14 @@ namespace Pasta
             boxCollider2Ds = parent.GetComponentsInChildren<BoxCollider2D>();
             rbd2d = parent.GetComponent<Rigidbody2D>(); 
             Charge = true;
+            StartCoroutine(getTarget());
+        }
+
+        IEnumerator getTarget()
+        {
+            agentMover.enabled = false;
+            yield return new WaitForSeconds(0.2f);
+            direction = parent.GetComponentInChildren<WeaponParent>().transform.Find("WeaponSprite").transform.right;
             StartCoroutine(startCharge());
         }
 
@@ -71,6 +82,7 @@ namespace Pasta
             }
             agentMover.enabled = false;
             direction = parent.GetComponentInChildren<WeaponParent>().transform.Find("WeaponSprite").transform.right;
+            pointAtPlayer = false;
             weaponParent.Aim = false;
             agentAnimations.aim = false;
             yield return new WaitForSeconds(windupTime);
@@ -84,11 +96,14 @@ namespace Pasta
         // Update is called once per frame
         void Update()
         {
-
-            weaponParent.Aim = false;
-            agentAnimations.aim = false;
+            if(pointAtPlayer == false)
+            {
+                aidata.currentTarget = null;
+            }
+            
             if (Charge && startChargebool)
             {
+                
                 float distanceThisFrame = Vector3.Distance(transform.position, startDist); // Get distance traveled in "time form" 
                 totalDistance += distanceThisFrame;
                 foreach (var boxCollider in boxCollider2Ds)
@@ -96,7 +111,7 @@ namespace Pasta
                     boxCollider.enabled = false;
                 }
                 weaponParent.Aim = false;
-                
+                agentAnimations.aim = false;
                 //this.transform.parent.Translate(direction * speed * Time.deltaTime);
                 StartCoroutine(stopCharge());
             }

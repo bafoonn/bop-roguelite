@@ -12,7 +12,7 @@ namespace Pasta
         private VisualEffect effect;
         public float _rotation;
 
-        private bool _shouldUpdateRotation = true;
+        public bool _shouldUpdateRotation = true;
 
         private bool _isFlipped = true;
 

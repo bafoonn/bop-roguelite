@@ -16,7 +16,7 @@ public class BossAI : MonoBehaviour, IEnemy
     [SerializeField] private List<SteeringBehaviour> steeringBehaviours;
     private int RandomInt;
     public MonoBehaviour Mono => this;
-
+    public bool indicatorAlive = false;
     public UnityEvent OnAttackPressed;
     public UnityEvent<Vector2> OnMovementInput, OnPointerInput;
     [SerializeField] public Vector2 movementInput;
@@ -24,6 +24,7 @@ public class BossAI : MonoBehaviour, IEnemy
     bool Chasing = false;
     public float damage = 10f;
     public bool isAttacking = false;
+    public bool canAttack = false;
     [SerializeField] private AbilityHolder abilityHolder;
     private WeaponParent weaponParent;
     public Health Health { get; protected set; }
@@ -135,7 +136,6 @@ public class BossAI : MonoBehaviour, IEnemy
 
     public void Attack()
     {
-
         Debug.Log("Swing");
         //abilityHolder.UseAbility = true; // <- Here for testing purposes.
         for (int i = 0; i < abilityHolders.Length; i++)
@@ -198,6 +198,8 @@ public class BossAI : MonoBehaviour, IEnemy
                 }
             }
             isAttacking = false;
+            if (hasAttackEffect) attackEffect.CancelAttack();
+            indicatorAlive = false;
             movementInput = Vector2.zero;
             timeToAttack = 0;
             //attackIndicator.fillAmount = 0;
@@ -211,6 +213,7 @@ public class BossAI : MonoBehaviour, IEnemy
             {
                 movementInput = Vector2.zero;
                 Debug.Log("Attacking");
+
                 isAttacking = true;
                 //Attacking 
                 //abilityHolder.CanUseAbility = true; // <- Here for testing purposes.
@@ -236,16 +239,25 @@ public class BossAI : MonoBehaviour, IEnemy
                 }
                 //}
                 OnAttackPressed?.Invoke();
+                if (!indicatorAlive)
+                {
+                    indicatorAlive = true;
+                    
+                    if (hasAttackEffect) attackEffect.AttackIndicator();
+                    if (hasAttackEffect) attackEffect.SetIndicatorLifetime(defaultTimeToAttack);
+                }
+                
+                
 
-                if (hasAttackEffect) attackEffect.AttackIndicator();
-                if (hasAttackEffect) attackEffect.SetIndicatorLifetime(attackDelay);
                 if (timeToAttack >= defaultTimeToAttack) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
                 {
                     Attack(); // Attack method
+                    indicatorAlive = false;
                     timeToAttack = 0;
                     //attackIndicator.fillAmount = 0;
                     isAttacking = false;
                 }
+                
                 yield return new WaitForSeconds(attackDelay);
                 StartCoroutine(ChaseAndAttack());
             }
@@ -253,6 +265,7 @@ public class BossAI : MonoBehaviour, IEnemy
             {
                 isAttacking = false;
                 weaponParent.Aim = true;
+                indicatorAlive = false;
                 animations.aim = true;
                 Debug.Log("Chasing");
                 //Chasing
@@ -268,6 +281,7 @@ public class BossAI : MonoBehaviour, IEnemy
                 UseAbility();
                 timeToAttack = 0;
                 //attackIndicator.fillAmount = 0;
+                if (hasAttackEffect) attackEffect.CancelAttack();
                 movementInput = movementDirectionSolver.GetDirectionToMove(steeringBehaviours, aiData);
                 yield return new WaitForSeconds(aiUpdateDelay);
                 StartCoroutine(ChaseAndAttack());
