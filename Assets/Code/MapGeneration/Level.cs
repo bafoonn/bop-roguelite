@@ -24,6 +24,8 @@ namespace Pasta
         public Tilemap[] tilemaps;
         public Tilemap tilemap;
         public LayerMask FloorLayer;
+        private int rewardType;
+        private int[] rewardTypes;
 
         public ItemBase Reward => reward;
 
@@ -69,9 +71,10 @@ namespace Pasta
             CheckIfNonCombatRoom();
         }
 
-        public void PassRewardIndex(ItemBase passedReward, int passedLevelNumber)
+        public void PassRewardIndex(ItemBase passedReward, int passedLevelNumber, int passedRewardType)
         {
             reward = passedReward;
+            rewardType = passedRewardType;
             levelNumber = passedLevelNumber;
         }
         // Each enemy spawner passes the value of the number of enemies it will spawn, which is then added to the total sum
@@ -109,7 +112,7 @@ namespace Pasta
                         Destroy(ability.gameObject);
                     }
                     rewardSpawner.gameObject.SetActive(true);
-                    rewardSpawner.InitializeRewardSpawn(reward);
+                    rewardSpawner.InitializeRewardSpawn(reward, rewardType);
                 }
             }
         }
@@ -126,9 +129,10 @@ namespace Pasta
                 shopPortal.gameObject.SetActive(true);
             }
         }
-        public void ActivateEndPoints(ItemBase[] passedRewards)
+        public void ActivateEndPoints(ItemBase[] passedRewards, int[] passedRewardTypes)
         {
             rewards = passedRewards;
+            rewardTypes = passedRewardTypes;
             isCombatRoom = false;
         }
         private void CheckIfNonCombatRoom()
@@ -136,7 +140,7 @@ namespace Pasta
             if (!isCombatRoom)
             {
                 endPoints.gameObject.SetActive(true);
-                endPoints.PassRewards(rewards);
+                endPoints.PassRewards(rewards, rewardTypes);
             }
         }
         public void ActivateBossPortal()

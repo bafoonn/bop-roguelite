@@ -19,6 +19,7 @@ namespace Pasta
             player.transform.position = spawnPoint.transform.position;
             endPoints = GetComponentInChildren<EndPoints>();
             endPoints.GenerateRoomRewards();
+            endPoints.OnlyItemRewards();
         }
     }
 }

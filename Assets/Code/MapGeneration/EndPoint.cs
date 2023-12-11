@@ -8,6 +8,9 @@ namespace Pasta
     {
         private ItemBase roomReward;
         private ItemBase returnedItem;
+        [SerializeField] HealthRestore healthRestore;
+        [SerializeField] Coin coinPickUp;
+        private int rewardType;
         [SerializeField] SpriteRenderer itemDisplay;
 
         private bool isActive = false;
@@ -25,6 +28,18 @@ namespace Pasta
             {
                 timer -= Time.deltaTime;
             }
+        }
+
+        public int GenerateRoomRewardType()
+        {
+            int random = Random.Range(0, 3);
+            rewardType = random;
+            return rewardType;
+        }
+        public void OnlyItemRewards(ItemBase reward)
+        {
+            rewardType = 0;
+            GenerateRoomReward(reward, rewardType);
         }
 
         // Called for an initial reward generation that has to pass a dublicate check
@@ -63,11 +78,22 @@ namespace Pasta
         }
 
         // Called when the reward has passed the dublicate check and will be assigned as the reward for the next room if the player activates this endpoint
-        public void GenerateRoomReward(ItemBase reward)
+        public void GenerateRoomReward(ItemBase reward, int rewardType)
         {
-            var rewards = Items.Current.GetRewards();
-            roomReward = reward;
-            itemDisplay.sprite = reward.Sprite;
+            switch (rewardType)
+            {
+                case 0:
+                    var rewards = Items.Current.GetRewards();
+                    roomReward = reward;
+                    itemDisplay.sprite = reward.Sprite;
+                    break;
+                case 1:
+                    itemDisplay.sprite = healthRestore.GetComponent<SpriteRenderer>().sprite;
+                    break;
+                case 2:
+                    itemDisplay.sprite = coinPickUp.GetComponent<SpriteRenderer>().sprite;
+                    break;
+            }
         }
 
         // When player collides with an endpoint, level generation is called and the reward for this endpoint is passed to the next level as its reward
@@ -79,11 +105,11 @@ namespace Pasta
                 if (GetComponentInParent<Region>())
                 {
                     Region region = GetComponentInParent<Region>();
-                    region.GenerateLevel(roomReward);
+                    region.GenerateLevel(roomReward, rewardType);
                 }
                 else
                 {
-                    levelManager.ChangeRegion(roomReward);
+                    levelManager.ChangeRegion(roomReward, rewardType);
                 }
                 levelManager.DisableShopKeeper();
             }

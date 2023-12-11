@@ -26,7 +26,7 @@ namespace Pasta
             room = Instantiate(startRoom, transform.position, Quaternion.identity, transform);
         }
 
-        public void ChangeRegion(ItemBase roomReward)
+        public void ChangeRegion(ItemBase roomReward, int rewardType)
         {
             if (regionIndex != regions.Length)
             {
@@ -42,7 +42,7 @@ namespace Pasta
                 regionIndex++;
 
                 activeRegion = Instantiate(regions[regionIndex], transform.position, Quaternion.identity, transform);
-                activeRegion.GenerateLevel(roomReward);
+                activeRegion.GenerateLevel(roomReward, rewardType);
             }
             else
             {

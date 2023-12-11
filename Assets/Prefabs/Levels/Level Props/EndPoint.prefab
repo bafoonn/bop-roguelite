@@ -99,6 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e2920a25f70aa941adeb93e3478f7f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthRestore: {fileID: 8667308841557092511, guid: 71a20bbac22781745ae69965dcc5090f, type: 3}
+  coinPickUp: {fileID: -8426941880774691381, guid: e3f58c06b9df57f4c8f8c3ba4821adec, type: 3}
   itemDisplay: {fileID: 1217001106379851232}
 --- !u!61 &3101250142648797978
 BoxCollider2D:

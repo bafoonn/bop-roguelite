@@ -17,11 +17,11 @@ namespace Pasta
                 if (GetComponentInParent<Region>())
                 {
                     Region region = GetComponentInParent<Region>();
-                    region.GenerateLevel(roomReward);
+                    region.GenerateLevel(roomReward, 0);
                 }
                 else
                 {
-                    levelManager.ChangeRegion(roomReward);
+                    levelManager.ChangeRegion(roomReward, 0);
                 }
                 levelManager.DisableShopKeeper();
             }

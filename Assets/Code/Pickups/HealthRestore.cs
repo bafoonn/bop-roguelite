@@ -8,7 +8,6 @@ namespace Pasta
     {
         public float HealAmount = 0.1f;
         public bool IsPercentage = true;
-
         public void Heal(PlayerHealth playerHealth)
         {
             if (playerHealth.IsMaxHealth)

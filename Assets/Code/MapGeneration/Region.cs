@@ -18,6 +18,7 @@ namespace Pasta
         private Level activeLevel;
 
         private ItemBase[] rewards;
+        private int[] rewardTypes;
         private EndPoints endPoints;
 
         // Start is called before the first frame update
@@ -29,7 +30,7 @@ namespace Pasta
         {
             dublicateCheck = new bool[levels.Length];
         }
-        public void GenerateLevel(ItemBase roomReward)
+        public void GenerateLevel(ItemBase roomReward, int rewardType)
         {
             if (levelNumber != 0)
             {
@@ -40,14 +41,14 @@ namespace Pasta
             // Change region if level limit per region is reached
             if (levelNumber == 6)
             {
-                levelManager.ChangeRegion(roomReward);
+                levelManager.ChangeRegion(roomReward, rewardType);
                 levelNumber = 0;
             }
 
             // Instantiate boss level if last level for the region is reached, boss level is always the last level in the levels array
             else if (levelNumber == 5)
             {
-                InstantiateLevel(levels.Length - 1, roomReward);
+                InstantiateLevel(levels.Length - 1, roomReward, rewardType);
             }
 
             // Instantiate random level from levels list
@@ -58,7 +59,7 @@ namespace Pasta
                     int random = Random.Range(0, levels.Length - 1);
                     if (!dublicateCheck[random])
                     {
-                        InstantiateLevel(random, roomReward);
+                        InstantiateLevel(random, roomReward, rewardType);
                         dublicateCheck[random] = true;
                         break;
                     }
@@ -66,11 +67,11 @@ namespace Pasta
             }
         }
 
-        private void InstantiateLevel(int levelIndex, ItemBase roomReward)
+        private void InstantiateLevel(int levelIndex, ItemBase roomReward, int rewardType)
         {
             ItemAbilities.InvokeEvent(EventActionType.OnRoomEnter);
             activeLevel = Instantiate(levels[levelIndex], transform.position, Quaternion.identity, transform);          
-            activeLevel.PassRewardIndex(roomReward, levelNumber);
+            activeLevel.PassRewardIndex(roomReward, levelNumber, rewardType);
         }
 
         public void ActivateShopLevel()
@@ -79,6 +80,8 @@ namespace Pasta
             if (levelNumber != 4)
             {
                 rewards = endPoints.GetRewards();
+                rewardTypes = endPoints.GetRewardTypes();
+                
             }
             Destroy(activeLevel.gameObject);
 
@@ -86,7 +89,7 @@ namespace Pasta
 
             if (levelNumber != 4)
             {
-                activeLevel.ActivateEndPoints(rewards);
+                activeLevel.ActivateEndPoints(rewards, rewardTypes);
             }
             else
             {
