@@ -515,7 +515,6 @@ GameObject:
   - component: {fileID: 7696243814693494855}
   - component: {fileID: 1197986375191235570}
   - component: {fileID: 4044627692175456098}
-  - component: {fileID: 278071904025479822}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -744,13 +743,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9651e9ee345be854eb1cc8a95024b9bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 5
+  radius: 4
   precentage: 30
   result: 0
   layermask:
     serializedVersion: 2
     m_Bits: 128
-  maxEnemiesThatcanAttack: 4
+  maxEnemiesThatcanAttack: 2
 --- !u!114 &4044627692175456098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -765,23 +764,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _renderer: {fileID: 3205818893177915582}
   _animator: {fileID: 8997975901161530894}
---- !u!114 &278071904025479822
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2076966697667818739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f10dea84edcb634ebf6480553ab40f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tileMap: {fileID: 0}
-  level: {fileID: 0}
-  woodtiles:
-  - {fileID: 11400000, guid: 7e435d4d160fd4c829e4324a02d348c3, type: 2}
-  - {fileID: 11400000, guid: f9139e0fb9cf54ca5a23ec6d9f776f51, type: 2}
 --- !u!1 &2090844500760463326
 GameObject:
   m_ObjectHideFlags: 0
@@ -935,7 +917,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SoundEffect: {fileID: 11400000, guid: 06e717fed6d1cf44094fdc72d5907873, type: 2}
   Source: {fileID: 0}
-  Volume: 0.3
+  Volume: 1
   InterruptPlaying: 1
   AddPitch: 1
   MinPitch: 1
@@ -1595,9 +1577,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6414224967576391055}
-  - component: {fileID: 8711532398240425144}
+  - component: {fileID: 7057343227282051835}
   m_Layer: 0
-  m_Name: EventActions
+  m_Name: ItemAbilities
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1618,7 +1600,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 894218206778268372}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8711532398240425144
+--- !u!114 &7057343227282051835
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1627,7 +1609,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4246880436338340298}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccb7900c73d60b444a8fa7b6cf61eb21, type: 3}
+  m_Script: {fileID: 11500000, guid: 5db0f92594146aa4e9a2452dbdbdf321, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4413991664999422215
@@ -3439,11 +3421,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 275637226380829972, guid: bdd0a8fe972680446b50621b1236b98b, type: 3}
       propertyPath: backgroundAlphaTarget
-      value: 0.95
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 610894800991697840, guid: bdd0a8fe972680446b50621b1236b98b, type: 3}
       propertyPath: m_Color.a
-      value: 1
+      value: 0.94509804
       objectReference: {fileID: 0}
     - target: {fileID: 1359453175617583049, guid: bdd0a8fe972680446b50621b1236b98b, type: 3}
       propertyPath: m_Name
@@ -3561,6 +3543,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 829190682414963079, guid: f8ad13eefabbc344f872c3b5a9e278f1, type: 3}
+    - target: {fileID: 7742357745435943400, guid: bdd0a8fe972680446b50621b1236b98b, type: 3}
+      propertyPath: closeDelay
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7742357745435943400, guid: bdd0a8fe972680446b50621b1236b98b, type: 3}
+      propertyPath: closeSpeed
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
