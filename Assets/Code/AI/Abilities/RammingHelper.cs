@@ -41,6 +41,7 @@ namespace Pasta
             startDist = transform.position;
             direction = parent.GetComponentInChildren<WeaponParent>().transform.Find("WeaponSprite").transform.right;
             player = GameObject.FindGameObjectWithTag("Player").transform.position;
+            circleCollider2d = GetComponent<CircleCollider2D>();
             if(parent.gameObject.tag != "Boss")
             {
                 enemyAi = this.transform.GetComponentInParent<EnemyAi>();

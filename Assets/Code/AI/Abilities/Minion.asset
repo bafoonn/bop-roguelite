@@ -9,18 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2ae306f15d643b4f8312e51868cac0c, type: 3}
-  m_Name: BeamBall
+  m_Script: {fileID: 11500000, guid: 38fd7a6fced522a4d8fd30cf7441d11b, type: 3}
+  m_Name: Minion
   m_EditorClassIdentifier: 
-  AbilityName: BeamBall
-  coolDown: 20
-  ActiveTime: 25
-  damage: 10
+  AbilityName: Minion
+  coolDown: 200
+  ActiveTime: 400
+  damage: 2
   usableOutsideAttackRange: 1
   AbilityWithAnim: 0
   randomize: 0
   usableAtHealthPercentage: 50
-  beamGameBall: {fileID: 6813837663239196266, guid: b9522ba32817c6449a50908597171254, type: 3}
-  spawnRadius: 3
-  BossRadius: 2
-  BallRadius: 2
+  Minion: {fileID: 6183453909542400734, guid: b9643de2ac887e5408e851d5c4b317a1, type: 3}
+  spawnRadius: 10
