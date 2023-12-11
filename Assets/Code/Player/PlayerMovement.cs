@@ -12,14 +12,13 @@ public class PlayerMovement : Movement
     [SerializeField] private float _dodgeDelay = 0.2f;
     [SerializeField] private float _dodgeDuration = 0.5f;
     [SerializeField] private float _dodgeSpeed = 10f;
-    [SerializeField] private float _dodgeCooldown = 3f;
-    [SerializeField] private int _maxDodgeCount = 1, _currentDodgeCount = 1;
+    [SerializeField] private int _currentDodgeCount = 1;
     [SerializeField] private float _dodgeTimer = 0f;
 
     public int DodgeCount => _currentDodgeCount;
-    public float DodgeCooldown => _dodgeCooldown;
+    public float DodgeCooldown => _dodgeCooldown.Value;
     public float DodgeTimer => _dodgeTimer;
-    public float DodgeCooldownProgress => _dodgeTimer / _dodgeCooldown;
+    public float DodgeCooldownProgress => _dodgeTimer / DodgeCooldown;
     public bool IsDodgeRecharging => _currentDodgeCount < _maxDodgeCount;
     public UnityEvent<int> OnDodgeGained;
 
@@ -27,7 +26,12 @@ public class PlayerMovement : Movement
     private bool _isDodging = false;
     public bool IsDodging => _isDodging;
     public bool CanDodge => _dodgeRoutine == null && _isDodging == false && _currentDodgeCount > 0;
-    public Stat _movementSpeed;
+
+    private Stat _movementSpeed;
+    private Stat _dodgeCount;
+    private Stat _dodgeCooldown;
+
+    private int _maxDodgeCount => (int)_dodgeCount.Value;
 
     private VisualEffect dodgeEffect;
     private bool _haveDodgeEffect;
@@ -37,6 +41,8 @@ public class PlayerMovement : Movement
     private void Start()
     {
         _movementSpeed = StatManager.Current.GetStat(StatType.Movementspeed);
+        _dodgeCount = StatManager.Current.GetStat(StatType.DodgeCount);
+        _dodgeCooldown = StatManager.Current.GetStat(StatType.DodgeCooldown);
         _movementSpeed.ValueChanged += OnMovementSpeedChanged;
         OnMovementSpeedChanged(_movementSpeed.Value);
         dodgeEffect = this.transform.Find("DodgeRollEffect").GetComponent<VisualEffect>();
@@ -53,7 +59,7 @@ public class PlayerMovement : Movement
         if (_currentDodgeCount < _maxDodgeCount)
         {
             _dodgeTimer += Time.deltaTime;
-            if (_dodgeTimer > _dodgeCooldown)
+            if (_dodgeTimer > DodgeCooldown)
             {
                 _currentDodgeCount++;
                 _dodgeTimer = 0;

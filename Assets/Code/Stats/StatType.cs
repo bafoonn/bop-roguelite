@@ -5,6 +5,8 @@ namespace Pasta
         Health,
         Damage,
         Attackspeed,
-        Movementspeed
+        Movementspeed,
+        DodgeCount,
+        DodgeCooldown
     }
 }
