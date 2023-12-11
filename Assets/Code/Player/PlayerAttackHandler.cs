@@ -53,7 +53,7 @@ namespace Pasta
             _damage = StatManager.Current.GetStat(StatType.Damage);
             _damage.ValueChanged += OnDamageChanged;
 
-            _attackSpeed = StatManager.Current.GetStat(StatType.Attackspeed);
+            _attackSpeed = StatManager.Current.GetStat(StatType.AttackSpeed);
             _attackSpeed.ValueChanged += OnAttackSpeedChanged;
             SetDamage(_damage.Value, _attackSpeed.Value);
 

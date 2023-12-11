@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canStack: 1
   Name: Drumstick
-  Description: +25 total health, but -3% movement speed
+  Description: '+25 total health
+
+    -3% movement speed'
   Flavor: Don't eat too many!
   Sprite: {fileID: 1373213130586829986, guid: 64faa9dc7736ee2499462153e901dd84, type: 3}
   cost: 20
@@ -27,7 +29,7 @@ MonoBehaviour:
     Stat: 3
     Value: 0.97
     Type: 1
-  Events: []
+  Abilities: []
   Hieroglyphs:
   - Name: health up
     sprites:

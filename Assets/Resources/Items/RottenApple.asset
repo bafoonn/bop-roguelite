@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canStack: 0
   Name: Rotten Apple
-  Description: Gain a poisonous aura, but -10 total health
+  Description: 'Gain a poisonous aura
+
+    -10 total health'
   Flavor: It has gone beyond bad.
   Sprite: {fileID: -1608413829978786433, guid: d160d2fe1d320d34ab45ccec0fd5e376, type: 3}
   cost: 20

@@ -14,8 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canStack: 1
   Name: Chili
-  Description: A highly pungent chili pepper.  +20% movement speed & +20% attack
-    speed, but -20 total health
+  Description: '+20% movement speed
+
+    +20% attack speed
+
+    -20 total health'
   Flavor: Red hot chili peppers rock!
   Sprite: {fileID: -4849407820689032084, guid: 0f404a812f7f46948b4793e8e73980ed, type: 3}
   cost: 10
@@ -32,7 +35,7 @@ MonoBehaviour:
     Stat: 0
     Value: -20
     Type: 0
-  Events: []
+  Abilities: []
   Hieroglyphs:
   - Name: Movement speed up
     sprites:

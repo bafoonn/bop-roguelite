@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canStack: 1
   Name: Banana
-  Description: The perfect snack for long journeys. Chance to heal for 10% when entering
-    a room.
+  Description: When entering a room heal for 5 health.
   Flavor: Can be used as a measuring device.
   Sprite: {fileID: 2046177537035590154, guid: c0d98c1df091db149a39c00297b0849e, type: 3}
   cost: 20
@@ -26,7 +25,7 @@ MonoBehaviour:
     ActionType: 6
     ProcChance:
       Percentage: 1
-      Stacks: 0
+      Stacks: 1
       ScaleType: 0
   Hieroglyphs:
   - Name: Room Enter Heal

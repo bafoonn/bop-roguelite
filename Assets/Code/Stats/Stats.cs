@@ -17,8 +17,8 @@ namespace Pasta
         {
             Health = new Stat(profile.Health, StatType.Health, minValue: profile.MinHealth);
             Damage = new Stat(profile.Damage, StatType.Damage, minValue: profile.MinDamage);
-            MovementSpeed = new Stat(profile.MovementSpeed, StatType.Movementspeed, minValue: profile.MinMovementSpeed, maxValue: profile.MaxMovementSpeed);
-            AttackSpeed = new Stat(profile.AttackSpeed, StatType.Attackspeed, minValue: profile.MinAttackSpeed);
+            MovementSpeed = new Stat(profile.MovementSpeed, StatType.MovementSpeed, minValue: profile.MinMovementSpeed, maxValue: profile.MaxMovementSpeed);
+            AttackSpeed = new Stat(profile.AttackSpeed, StatType.AttackSpeed, minValue: profile.MinAttackSpeed);
             DodgeCooldown = new Stat(profile.DodgeCooldown, StatType.DodgeCooldown, 0);
             DodgeCount = new Stat(profile.DodgeCount, StatType.DodgeCount, 1);
         }

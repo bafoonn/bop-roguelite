@@ -31,8 +31,8 @@ namespace Pasta
             {
                 case StatType.Health: return _currentStats.Health;
                 case StatType.Damage: return _currentStats.Damage;
-                case StatType.Attackspeed: return _currentStats.AttackSpeed;
-                case StatType.Movementspeed: return _currentStats.MovementSpeed;
+                case StatType.AttackSpeed: return _currentStats.AttackSpeed;
+                case StatType.MovementSpeed: return _currentStats.MovementSpeed;
                 case StatType.DodgeCount: return _currentStats.DodgeCount;
                 case StatType.DodgeCooldown: return _currentStats.DodgeCooldown;
                 default: throw new NotImplementedException($"GetStat of type {type} is not implemented.");

@@ -40,7 +40,7 @@ public class PlayerMovement : Movement
 
     private void Start()
     {
-        _movementSpeed = StatManager.Current.GetStat(StatType.Movementspeed);
+        _movementSpeed = StatManager.Current.GetStat(StatType.MovementSpeed);
         _dodgeCount = StatManager.Current.GetStat(StatType.DodgeCount);
         _dodgeCooldown = StatManager.Current.GetStat(StatType.DodgeCooldown);
         _movementSpeed.ValueChanged += OnMovementSpeedChanged;

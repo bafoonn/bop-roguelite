@@ -39,8 +39,10 @@ namespace Pasta
             {
                 CreateItem(inputField.text);
                 inputField.SetValueWithoutNotify("");
-            });
-            addButton.text = "Add";
+            })
+            {
+                text = "Add"
+            };
             var deleteButton = new Button(() =>
             {
                 var items = LoadItems();
@@ -48,13 +50,17 @@ namespace Pasta
                 var path = PATH + item.name + ".asset";
                 AssetDatabase.DeleteAsset(path);
                 Draw();
-            });
-            deleteButton.text = "Delete Selected";
+            })
+            {
+                text = "Delete Selected"
+            };
             var refreshButton = new Button(() =>
             {
                 Draw();
-            });
-            refreshButton.text = "Refresh";
+            })
+            {
+                text = "Refresh"
+            };
 
             header.Add(inputField);
             header.Add(addButton);

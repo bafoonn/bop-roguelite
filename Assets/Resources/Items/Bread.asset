@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canStack: 1
   Name: Bread
-  Description: One of the oldest man-made foods, it'll surely keep you alive.  10%
-    more total health
+  Description: +10% Health
   Flavor: Another one bites the crust.
   Sprite: {fileID: 1148123488233625931, guid: ad178d275ac9fc844ac08fbd19f8bbfd, type: 3}
   cost: 10
@@ -24,7 +23,7 @@ MonoBehaviour:
     Stat: 0
     Value: 1.1
     Type: 1
-  Events: []
+  Abilities: []
   Hieroglyphs:
   - Name: Health up
     sprites:

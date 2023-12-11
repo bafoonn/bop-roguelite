@@ -49,13 +49,13 @@ namespace Pasta
                 case StatEffectType.Additive:
                     {
                         char character = Value > 0 ? '+' : '-';
-                        return $"{character}{Mathf.Abs(Value)} {Stat}";
+                        return $"{character}{Mathf.Abs(Value)} {Stat.ReadableStr()}";
                     }
                 case StatEffectType.Multiplicative:
                     {
                         string effect = Value > 1 ? "increased" : "reduced";
                         string value = Mathf.Abs(Mathf.RoundToInt((Value - 1) * 100)).ToString() + "%";
-                        return $"{value} {effect} {Stat}";
+                        return $"{value} {effect} {Stat.ReadableStr()}";
                     }
                 default: return "";
             }

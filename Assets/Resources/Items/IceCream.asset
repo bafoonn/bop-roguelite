@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canStack: 1
   Name: Ice Cream
-  Description: Your attacks have a 60% chance to slow enemies & +10 total health
+  Description: 'Attacks have a chance to slow enemies
+
+    +10 total health'
   Flavor: It's vanilla... so boring.
   Sprite: {fileID: -5845335184669475501, guid: b58b7447a3f48be49a6b5c5b29d25c25, type: 3}
   cost: 10
