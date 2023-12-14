@@ -9,6 +9,7 @@ namespace Pasta
         Static,
         Linear,
         Hyperbolic,
-        Accumulating
+        Exponential,
+        Reciprocal
     }
 }

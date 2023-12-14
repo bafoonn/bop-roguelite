@@ -140,7 +140,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   _damageCoefficiency: 0.33
-  _radius: 2.5
+  _baseRadius: 2.5
+  _radiusStackIncrease: 0.25
   _hitRate: 1
   _poisonDuration: 3
 --- !u!58 &3732000861345039163

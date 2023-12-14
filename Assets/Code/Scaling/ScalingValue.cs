@@ -32,7 +32,8 @@ namespace Pasta
             {
                 case ScaleType.Linear: return GetLinear(value, stacks);
                 case ScaleType.Hyperbolic: return GetHyperbolic(value, stacks);
-                case ScaleType.Accumulating: return GetAccumulating(value, stacks);
+                case ScaleType.Exponential: return GetExponential(value, stacks);
+                case ScaleType.Reciprocal: return GetReciprocal(value, stacks);
                 case ScaleType.Static: return value;
                 default: return 0;
             }
@@ -43,16 +44,20 @@ namespace Pasta
             return value * stacks;
         }
 
-        public static float GetHyperbolic(float value, int stacks = 1)
+        public static float GetHyperbolic(float percentage, int stacks = 1)
         {
-            Mathf.Clamp01(value);
-            return 1 - 1 / (1 + value * stacks);
+            if (stacks == 0) return 0;
+            return 1 - 1 / (1 + percentage * stacks);
         }
 
-        public static float GetAccumulating(float value, int stacks = 1)
+        public static float GetExponential(float percentage, int stacks = 1)
         {
-            value = Mathf.Clamp01(value);
-            return 1 - Mathf.Pow(1 - value, stacks);
+            return Mathf.Pow(1 + percentage, stacks) - 1;
+        }
+
+        public static float GetReciprocal(float percentage, int stacks = 1)
+        {
+            return percentage / (stacks + 1);
         }
     }
 }

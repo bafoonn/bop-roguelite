@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f9b0d845e3f73742a1930a2cd0ed9f7, type: 3}
   m_Name: RottenApple
   m_EditorClassIdentifier: 
-  _canStack: 0
+  _canStack: 1
   Name: Rotten Apple
-  Description: 'Gain a poisonous aura
+  Description: 'Gain an aura that inflicts poison on enemies.
 
     -10 total health'
   Flavor: It has gone beyond bad.
@@ -30,8 +30,7 @@ MonoBehaviour:
     ItemAbilityPrefab: {fileID: 2674626695042508919, guid: d9ad2ebcad508fd4da28cd6eb46766e2, type: 3}
     ActionType: 0
     ProcChance:
-      Percentage: 0
-      Stacks: 0
+      Value: 0
       ScaleType: 0
   Hieroglyphs:
   - Name: Rotten aura

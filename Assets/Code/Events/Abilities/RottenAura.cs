@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.VFX;
 
 namespace Pasta
@@ -8,9 +9,12 @@ namespace Pasta
     public class RottenAura : ItemAbility
     {
         [SerializeField] private float _damageCoefficiency = 0.2f;
-        [SerializeField] private float _radius = 2.5f;
+        [SerializeField] private float _baseRadius = 2.5f;
+        [SerializeField] private float _radiusStackIncrease = 0.5f;
+        [SerializeField, Range(0, 1f)] private float _durationStackIncreasePercentage = 0.3f;
 
         private CircleCollider2D _collider = null;
+        private SpriteRenderer _sprite = null;
 
         private float _damage = 0;
         [SerializeField] private float _hitRate = 1f, _poisonDuration = 5f;
@@ -19,26 +23,23 @@ namespace Pasta
         private Stat _damageStat = null;
 
         private VisualEffect _effect = null;
-        private bool _hasEffect = false;
 
         protected override void Init()
         {
-            base.Init();
             _damageStat = StatManager.Current.GetStat(StatType.Damage);
             _collider = this.AddOrGetComponent<CircleCollider2D>();
-            _collider.radius = _radius;
+            _collider.isTrigger = true;
 
-            OnDamageChanged(_damageStat.Value);
+            _sprite = GetComponentInChildren<SpriteRenderer>();
+            Assert.IsNotNull(_sprite, $"{name} couldn't find SpriteRenderer in children.");
 
-            var sprite = GetComponentInChildren<SpriteRenderer>();
-            if (sprite != null)
-            {
-                sprite.transform.localScale = Vector3.one * _radius * 2;
-            }
             _effect = GetComponentInChildren<VisualEffect>();
-            _hasEffect = _effect != null;
+            Assert.IsNotNull(_effect, $"{name} couldn't find VisualEffect in children.");
 
-            _damageStat.ValueChanged += OnDamageChanged;
+            _damageStat.ValueChanged += SetDamage;
+            SetDamage(_damageStat.Value);
+            SetRadius();
+            _item.OnAmountChanged += SetRadius;
         }
 
         private IEnumerator Start()
@@ -52,8 +53,9 @@ namespace Pasta
                 {
                     foreach (var enemy in _enemySensor.Objects)
                     {
-                        enemy.Status.ApplyStatus(new PoisonStatus(_damage), _poisonDuration);
-                        if (_hasEffect) _effect.SendEvent("Trigger");
+                        float duration = _poisonDuration + _poisonDuration * ScalingValue.GetHyperbolic(_durationStackIncreasePercentage, _item.Amount - 1);
+                        enemy.Status.ApplyStatus(new PoisonStatus(_damage), duration);
+                        _effect.SendEvent("Trigger");
                     }
                     timer = 0;
                 }
@@ -64,12 +66,21 @@ namespace Pasta
 
         private void OnDestroy()
         {
-            _damageStat.ValueChanged -= OnDamageChanged;
+            _damageStat.ValueChanged -= SetDamage;
+            _item.OnAmountChanged -= SetRadius;
         }
 
-        private void OnDamageChanged(float value)
+        private void SetDamage(float value)
         {
             _damage = value * _damageCoefficiency;
+        }
+
+        private void SetRadius()
+        {
+            float radius = _baseRadius + _radiusStackIncrease * _item.Amount - 1;
+            _collider.radius = radius;
+            _sprite.transform.localScale = Vector3.one * radius * 2;
+            _effect.transform.localScale = _sprite.transform.localScale * 0.2f;
         }
     }
 }

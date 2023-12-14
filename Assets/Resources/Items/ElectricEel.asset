@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f9b0d845e3f73742a1930a2cd0ed9f7, type: 3}
   m_Name: ElectricEel
   m_EditorClassIdentifier: 
-  _canStack: 0
+  _canStack: 1
   Name: Electric Eel
-  Description: 33% chance to zap the target and up to 3 nearby enemies for 80% of
-    your attack damage.
+  Description: On hit 33% chance to create a chain lightning that bounces between
+    enemies dealing damage.
   Flavor: 
   Sprite: {fileID: -4418031461292793555, guid: 110fae6f44679fd4a9b0ce6c593a0e48, type: 3}
   cost: 50
@@ -25,7 +25,7 @@ MonoBehaviour:
     ItemAbilityPrefab: {fileID: 8675824498920572660, guid: 01be61de1c3bc6d4eb5c7b73dea9df76, type: 3}
     ActionType: 1
     ProcChance:
-      Value: 0.15
+      Value: 0.33
       ScaleType: 0
   Hieroglyphs:
   - Name: Chain lightning

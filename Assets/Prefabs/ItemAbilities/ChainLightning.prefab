@@ -4879,9 +4879,9 @@ MonoBehaviour:
   OnTrigger:
     m_PersistentCalls:
       m_Calls: []
-  _procChance: 0.3
   _radius: 5
-  _chains: 3
-  _chainTime: 0.5
+  _baseChains: 3
+  _chainTime: 0.2
   _damageCoefficiency: 0.8
+  _chainStackIncrease: 1
   _particles: {fileID: 0}

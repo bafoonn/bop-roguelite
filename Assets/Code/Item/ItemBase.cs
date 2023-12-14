@@ -44,6 +44,8 @@ namespace Pasta
         private Stack<List<StatEffect>> _addedEffects = new Stack<List<StatEffect>>();
         private List<ItemAbility> _addedAbilities = new List<ItemAbility>();
 
+        public event System.Action OnAmountChanged;
+
         public bool Loot()
         {
             if (!CanLoot)
@@ -72,6 +74,7 @@ namespace Pasta
             _addedEffects.Push(effects);
 
             _amount++;
+            if (OnAmountChanged != null) OnAmountChanged.Invoke();
             return true;
         }
 
@@ -93,6 +96,7 @@ namespace Pasta
                     _addedAbilities.RemoveAt(0);
                 }
             }
+            if (OnAmountChanged != null) OnAmountChanged.Invoke();
         }
     }
 }

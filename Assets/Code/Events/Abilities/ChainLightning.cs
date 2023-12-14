@@ -7,9 +7,10 @@ namespace Pasta
     public class ChainLightning : ItemAbility
     {
         [SerializeField] private float _radius = 5f;
-        [SerializeField] private int _chains = 3;
+        [SerializeField] private int _baseChains = 3;
         [SerializeField] private float _chainTime = 0.5f;
         [SerializeField] private float _damageCoefficiency = 0.8f;
+        [SerializeField] private int _chainStackIncrease = 1;
         [SerializeField] private ParticleSystem _particles = null;
         private Stat _damage = null;
         private int _enemyLayer;
@@ -36,45 +37,53 @@ namespace Pasta
         private IEnumerator SpawnLightning(IHittable first)
         {
             int chainCount = 0;
-            List<IHittable> hits = new List<IHittable>();
+            List<IHittable> hitEnemies = new List<IHittable>();
             Vector2 point = first != null ? first.Mono.transform.position : _player.transform.position;
-            while (chainCount < _chains)
+            while (chainCount < _baseChains + _chainStackIncrease * _item.Amount)
             {
                 var enemies = new List<Collider2D>(Physics2D.OverlapCircleAll(point, _radius, _enemyLayer));
                 bool targetFound = false;
 
                 if (chainCount == 0 && first != null)
                 {
-                    hits.Add(first);
+                    hitEnemies.Add(first);
                     first.Hit(_damage.Value * _damageCoefficiency);
-
                     PlayParticles();
+                    yield return new WaitForSeconds(_chainTime);
                 }
 
+                // 
                 while (enemies.Count > 0 && !targetFound)
                 {
-                    int random = Random.Range(0, enemies.Count);
-                    if (enemies[random].TryGetComponent<IHittable>(out var hittable))
-                    {
-                        if (hits.Contains(hittable))
-                        {
-                            enemies.RemoveAt(random);
-                            continue;
-                        }
+                    var enemy = FindTarget(enemies);
+                    if (enemy == null) continue;
 
-                        point = enemies[random].transform.position;
-
-                        PlayParticles();
-                        hits.Add(hittable);
-                        hittable.Hit(_damage.Value * _damageCoefficiency);
-                        targetFound = true;
-                    }
-                    enemies.RemoveAt(random);
+                    PlayParticles();
+                    hitEnemies.Add(enemy);
+                    enemy.Hit(_damage.Value * _damageCoefficiency);
+                    targetFound = true;
                 }
 
                 if (!targetFound) break;
                 chainCount++;
                 yield return new WaitForSeconds(_chainTime);
+            }
+
+            IHittable FindTarget(List<Collider2D> enemies)
+            {
+                int random = Random.Range(0, enemies.Count);
+                if (enemies[random].TryGetComponent<IHittable>(out var hittable))
+                {
+                    if (hitEnemies.Contains(hittable))
+                    {
+                        enemies.RemoveAt(random);
+                    }
+
+                    point = enemies[random].transform.position;
+                    return hittable;
+                }
+                enemies.RemoveAt(random);
+                return null;
             }
 
             void PlayParticles()
