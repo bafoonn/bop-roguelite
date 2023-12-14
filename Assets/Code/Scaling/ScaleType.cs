@@ -6,6 +6,7 @@ namespace Pasta
 {
     public enum ScaleType
     {
+        Static,
         Linear,
         Hyperbolic,
         Accumulating

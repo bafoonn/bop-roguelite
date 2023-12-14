@@ -30,8 +30,7 @@ MonoBehaviour:
     ItemAbilityPrefab: {fileID: 7623830405953740256, guid: 6ed22eff8502dcb48a041d45b71209b3, type: 3}
     ActionType: 1
     ProcChance:
-      Percentage: 0.1
-      Stacks: 0
+      Value: 0.6
       ScaleType: 0
   Hieroglyphs:
   - Name: Slow enemies

@@ -8,6 +8,7 @@ namespace Pasta
     {
         [SerializeField] private float _healAmount;
         [SerializeField] private bool _isPercentage = false;
+        [SerializeField] private bool _scaleWithAmount = true;
         private PlayerHealth _health = null;
 
         protected override void Init()
@@ -17,7 +18,8 @@ namespace Pasta
 
         protected override void Trigger(EventContext context)
         {
-            _health.Heal(_isPercentage ? _health.MaxHealth * _healAmount : _healAmount);
+            float value = _isPercentage ? _health.MaxHealth * _healAmount : _healAmount;
+            _health.Heal(_scaleWithAmount ? value * _item.Amount : value);
         }
 
         private void OnValidate()

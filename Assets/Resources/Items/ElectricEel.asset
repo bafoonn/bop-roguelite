@@ -25,8 +25,7 @@ MonoBehaviour:
     ItemAbilityPrefab: {fileID: 8675824498920572660, guid: 01be61de1c3bc6d4eb5c7b73dea9df76, type: 3}
     ActionType: 1
     ProcChance:
-      Percentage: 0.15
-      Stacks: 0
+      Value: 0.15
       ScaleType: 0
   Hieroglyphs:
   - Name: Chain lightning

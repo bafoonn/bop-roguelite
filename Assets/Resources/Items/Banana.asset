@@ -24,8 +24,7 @@ MonoBehaviour:
     ItemAbilityPrefab: {fileID: 6008374857786805737, guid: a8667955c6e20044481d7c7f101aabf2, type: 3}
     ActionType: 6
     ProcChance:
-      Percentage: 1
-      Stacks: 1
+      Value: 1
       ScaleType: 0
   Hieroglyphs:
   - Name: Room Enter Heal

@@ -9,9 +9,9 @@ namespace Pasta
     public abstract class ItemAbility : MonoBehaviour
     {
         protected Player _player = null;
-        protected ItemBase _sourceItem = null;
+        protected ItemBase _item = null;
         protected EventActionType _actionType = EventActionType.None;
-        protected ScalingValue _procChance = null;
+        protected ScalingValue _procChance;
 
         public UnityEvent OnInit;
         public UnityEvent OnTrigger;
@@ -29,9 +29,9 @@ namespace Pasta
 
         private void OnEvent(EventContext context)
         {
+            if (_actionType == EventActionType.None) return;
             if (context.EventType != _actionType) return;
-            _procChance.Stacks = _sourceItem.Amount;
-            if (!_procChance.Roll()) return;
+            if (!_procChance.Roll(_item.Amount)) return;
 
             if (OnTrigger != null)
             {
@@ -43,7 +43,7 @@ namespace Pasta
 
         public virtual void Setup(ItemBase item, Player player, EventActionType type, ScalingValue procChance)
         {
-            _sourceItem = item;
+            _item = item;
             _player = player;
             _actionType = type;
             _procChance = procChance;

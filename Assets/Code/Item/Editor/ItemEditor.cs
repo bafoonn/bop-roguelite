@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Properties;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -48,11 +47,9 @@ namespace Pasta
                 inputField.SetValueWithoutNotify("");
             })
             { text = "Add" };
-            var itemAdder = new Box();
+            var itemAdder = new FlexBox(FlexDirection.Row);
             itemAdder.Add(inputField);
             itemAdder.Add(addButton);
-            itemAdder.style.display = DisplayStyle.Flex;
-            itemAdder.style.flexDirection = FlexDirection.Row;
 
             var deleteButton = new Button(DeleteSelected) { text = "Delete Selected" };
             var refreshButton = new Button(() =>
@@ -62,11 +59,9 @@ namespace Pasta
                 _leftPanel.SetSelection(selected);
             })
             { text = "Refresh" };
-            var buttons = new Box();
+            var buttons = new FlexBox(FlexDirection.Row);
             buttons.Add(deleteButton);
             buttons.Add(refreshButton);
-            buttons.style.display = DisplayStyle.Flex;
-            buttons.style.flexDirection = FlexDirection.Row;
             buttons.style.paddingBottom = 5;
 
             header.Add(itemAdder);
@@ -79,10 +74,11 @@ namespace Pasta
             var items = LoadItems();
             _leftPanel = new ListView(items)
             {
-                fixedItemHeight = LIST_IMAGE_DIMENSIONS,
+                fixedItemHeight = LIST_IMAGE_DIMENSIONS + 5,
                 makeItem = () =>
                 {
-                    var box = new Box();
+                    var box = new FlexBox(FlexDirection.Row);
+                    box.SetPadding(5);
                     var image = new Image();
                     image.style.width = LIST_IMAGE_DIMENSIONS;
                     image.style.height = LIST_IMAGE_DIMENSIONS;
@@ -94,7 +90,6 @@ namespace Pasta
                     label.style.alignSelf = Align.Center;
                     label.style.paddingLeft = 5;
                     box.Add(label);
-                    box.style.flexDirection = FlexDirection.Row;
 
                     return box;
                 },
@@ -145,6 +140,7 @@ namespace Pasta
         private void SetSelected(ItemBase item)
         {
             var serializedItem = new SerializedObject(item);
+
             var itemProp = serializedItem.GetIterator();
             itemProp.Next(true);
 
