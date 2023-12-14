@@ -8,7 +8,7 @@ public class SeekBehaviour : SteeringBehaviour
     [SerializeField] public float targetReachedThershold = 0.5f; //Go to last pos player was seen if lost sight
     [SerializeField] private bool ShowGizmos = true;
     bool reachedLastTarget = true;
-
+    bool seenPlayer = false;
     private Vector2 targetPositionCached;
     private float[] intrestsTemp;
     public override (float[] danger, float[] intrest) GetSteering(float[] danger, float[] intrest, AIData aiData)
@@ -19,6 +19,10 @@ public class SeekBehaviour : SteeringBehaviour
         {
             if(aiData.targets == null || aiData.targets.Count <= 0)
             {
+                //if (seenPlayer) // TODO: TEST
+                //{
+                //    aiData.currentTarget = GameObject.FindGameObjectWithTag("Player").transform;
+                //}
                 aiData.currentTarget = null;
                 return (danger, intrest);
             }
@@ -32,6 +36,7 @@ public class SeekBehaviour : SteeringBehaviour
         //Caches the last position if we still see the target
         if(aiData.currentTarget != null && aiData.targets != null && aiData.targets.Contains(aiData.currentTarget))
         {
+            seenPlayer = true;
             targetPositionCached = aiData.currentTarget.position;
         }
         //Check if has reached the target   

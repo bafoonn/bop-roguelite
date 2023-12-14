@@ -12,6 +12,7 @@ public class TargetDetector : Detector
     [SerializeField] private float targetDetectionRange = 5; // How far does the ai detect. Circle cast.
     [SerializeField] private LayerMask obstacleLayerMask, playerLayerMask; // Check if player is visible to enemy.
     [SerializeField] private bool ShowGizmos = true;
+    private Transform player;
 
     public List<Transform> colliders;
     public bool SeesPlayer = false;
@@ -22,6 +23,7 @@ public class TargetDetector : Detector
 
         if (playerCollider != null)
         {
+
                  // If this detects but enemy dosent move then try increasing player collider size
             // Checks if enemy can see the player.
             Vector2 direction = (playerCollider.transform.position - transform.position).normalized;
@@ -32,7 +34,7 @@ public class TargetDetector : Detector
             {
                 Debug.DrawRay(transform.position, direction * targetDetectionRange, Color.magenta);
                 colliders = new List<Transform>() { playerCollider.transform };
-                
+                SeesPlayer = true;
             }
             else
             {
