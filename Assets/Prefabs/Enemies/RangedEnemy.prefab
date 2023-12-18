@@ -184,6 +184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSource: {fileID: 6406048881137789883}
   _rotation: 0
+  _shouldUpdateRotation: 1
 --- !u!1 &1044481489385632269
 GameObject:
   m_ObjectHideFlags: 0
@@ -505,7 +506,7 @@ MonoBehaviour:
     m_Bits: 64
   ShowGizmos: 1
   colliders: []
-  SeesPlayer: 0
+  SeenPlayer: 0
 --- !u!1 &5002543978065745369
 GameObject:
   m_ObjectHideFlags: 0
@@ -1153,7 +1154,7 @@ MonoBehaviour:
   Player: {fileID: 0}
   timeToAttack: 0
   defaultTimeToAttack: 2
-  canAttack: 0
+  canAttack: 1
   stunTimer: 1
   gotAttackToken: 0
   drop: {fileID: 0}
@@ -1361,8 +1362,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac645b9282d68274d9f527221479be0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetReachedThershold: 2
+  targetReachedThershold: 10
   ShowGizmos: 1
+  targetPositionCached: {x: 0, y: 0}
 --- !u!1 &7518006742336827222
 GameObject:
   m_ObjectHideFlags: 0

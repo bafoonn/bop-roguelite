@@ -40,7 +40,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
     #endregion
 
     private Level level;
-
+    private bool canDetect = true;
     [Header("Damage that ai does")]
     public float damage = 5;
     private float cooldown = 10f;
@@ -83,7 +83,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
     private EnemyDeath enemyDeathScript;
     [SerializeField] private GameObject Corpse;
 
-
+    private SeekBehaviour seekBehaviour;
     private bool shouldMaintainDistance = false;
 
     [Header("animator bools")]
@@ -113,6 +113,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
             gameObject.AddComponent<LineRenderer>();
             canAttack = false;
         }
+        seekBehaviour = GetComponentInChildren<SeekBehaviour>();
         Status = this.AddOrGetComponent<StatusHandler>();
         Status.Setup(this);
         Rigidbody = GetComponent<Rigidbody2D>();
@@ -133,6 +134,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
         abilityHolder = GetComponent<AbilityHolder>();
         targetDetector = GetComponentInChildren<TargetDetector>();
         defaultDetectionDelay = detectionDelay;
+        aiData = GetComponent<AIData>();
         //Detect objects
         if (this.gameObject.name.Contains("Carrier"))
         {
@@ -224,7 +226,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
                 {
                     if (i == random) // Check if the current hitcollider is inside the result
                     {
-                        if (hitColliders[i].gameObject.name.Contains("Support"))
+                        if (hitColliders[i].gameObject.name.Contains("Support")) // Stops from buffing itself or other support enemies
                         {
                             break;
                         }
@@ -275,7 +277,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
                         canAttack = false;
                         
                     }
-                    if ((player.transform.position - transform.position).magnitude < 1.0f)
+                    if ((player.transform.position - transform.position).magnitude < 1.0f) // Stops enemies from pushing player
                     {
                         movementInput = Vector2.zero;
 
@@ -283,6 +285,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
                     distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
                     if (!canAttack)
                     {
+                        // This puts the distance enemies will stay away from player if hasnt gotten attack token
                         SeekBehaviour seekbehaviour = gameObject.GetComponentInChildren<SeekBehaviour>();
                         seekbehaviour.targetReachedThershold = 5f;
                         attackDistance = dontattackdist;
@@ -296,7 +299,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
                     else
                     {
                         SeekBehaviour seekbehaviour = gameObject.GetComponentInChildren<SeekBehaviour>();
-                        seekbehaviour.targetReachedThershold = 0.5f;
+                        seekbehaviour.targetReachedThershold = 1f; // This is default 0.5f
                         shouldMaintainDistance = false;
                         attackDistance = attackDefaultDist;
                         detectionDelay = 0.1f;
@@ -322,7 +325,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
                 if (distance < attackDistance)
                 {
 
-                    if (weaponParent.Scoot && transform.gameObject.name.Contains("Ranged"))
+                    if (weaponParent.Scoot && transform.gameObject.name.Contains("Ranged")) // Ranged enemy "runs" away from player
                     {
                         if ((player.transform.position - transform.position).magnitude < 5.0f)
                         {
@@ -367,7 +370,9 @@ public class EnemyAi : MonoBehaviour, IEnemy
                 }
 
             }
+           
         }
+        
         else if (aiData.GetTargetsCount() > 0)
         {
             //Getting the target
@@ -384,7 +389,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
         if (gameObject.tag.Contains("Ranged"))
         {
             weaponParent.RangedAttack();
-            if (hasAttackEffect) attackEffect.CancelAttack();
+            if (hasAttackEffect) attackEffect.CancelAttack(); // Stops indicator
         }
         if (gameObject.name.Contains("Support"))
         {
@@ -409,8 +414,8 @@ public class EnemyAi : MonoBehaviour, IEnemy
             }
             
                 
-            if (hasAttackEffect) attackEffect.CancelAttack();
-            if (hasAttackEffect) attackEffect.HeavyAttack();
+            if (hasAttackEffect) attackEffect.CancelAttack(); // Stops indicator
+            if (hasAttackEffect) attackEffect.HeavyAttack(); // Does attack sprite
         }
     }
 
@@ -506,8 +511,42 @@ public class EnemyAi : MonoBehaviour, IEnemy
         yield return new WaitForSeconds(attackDelay);
         canAttackAnim = true;
     }
+    IEnumerator StuckCheck()
+    {
+        yield return new WaitForSeconds(detectionDelay + 0.2f);
+        if ((player.transform.position - transform.position).magnitude < 2.0f) 
+        {
+            movementInput = Vector2.zero;
+
+        }
+        else
+        {
+            
+            aiData.currentTarget = null;
+            aiData.targets.Clear();
+            PerformDetection();
+        }
+       
+    }
+
     public void ActivateIndicator() // Called from PlayerCloseSensor script when getting attack token.
 	{
+        StartCoroutine(ChaseAndAttack());
+        if (!gameObject.tag.Contains("Ranged"))
+        {
+            if (targetDetector.SeenPlayer && aiData != null && player != null)
+            {
+                aiData.targets.Add(player.transform);
+                PerformDetection();
+                movementInput = movementDirectionSolver.GetDirectionToMove(steeringBehaviours, aiData);
+                StartCoroutine(StuckCheck());
+                SeekBehaviour seekbehaviour = gameObject.GetComponentInChildren<SeekBehaviour>();
+                seekbehaviour.targetReachedThershold = 1f;
+            }
+            
+            
+        }
+        
         Debug.Log("Activating indicator");
         if (hasAttackEffect) attackEffect.SetIndicatorLifetime(1f);
         if (hasAttackEffect) attackEffect.AttackIndicator();
@@ -521,9 +560,18 @@ public class EnemyAi : MonoBehaviour, IEnemy
 
     private IEnumerator ChaseAndAttack() // Enemy ai states "idle" "chase & look" "attack"
     {
+        
         // Idle state
         if (aiData.currentTarget == null) // If current target is null go to idle.
         {
+            //if (targetDetector.SeesPlayer)
+            //{
+            //    Debug.Log("Idle");
+            //    SeekBehaviour seekbehaviour = GetComponentInChildren<SeekBehaviour>();
+            //    seekbehaviour.targetPositionCached = player.transform.position;
+            //    aiData.currentTarget = seekbehaviour.targetPositionCached;
+            //    movementInput = movementDirectionSolver.GetDirectionToMove(steeringBehaviours, aiData);
+            //}
             attackDistance = attackDefaultDist;
             if (hasAttackEffect) attackEffect.CancelAttack();
             isAttacking = false; // FOR ANIMATOR
@@ -547,7 +595,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
 			//    attackIndicator.fillAmount = 0;
 			//    // StartCourotine(UnStun());
 			//}
-			// ALOITA HY�KK�YS X DISTANCELLA JA LOPETA Y 
+			// start attack at distance 
 			if (!canAttack)
 			{
                 attackDistance = dontattackdist;
@@ -580,7 +628,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
                     detectionDelay = defaultDetectionDelay;
                 }
                 attackDistance = attackStopDistance;
-                if (firstAttack) // TODO: FIX THIS IF TIME
+                if (firstAttack) // TODO: FIX THIS IF TIME // Here only since indicator bugged out if enemy attacking first time don't know why
                 {
                     timeToAttack = 0;
                     yield return new WaitForSeconds(0);
@@ -598,7 +646,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
             else // Chasing state.
             {
 
-                attackDistance = attackDefaultDist; 
+                attackDistance = attackDefaultDist;
                 weaponParent.Aim = true;
                 animations.aim = true;
                 isAttacking = false; // FOR ANIMATOR
@@ -618,6 +666,40 @@ public class EnemyAi : MonoBehaviour, IEnemy
             }
         }
     }
+
+    //IEnumerator Chase()
+    //{
+    //    if(aiData.currentTarget != null)
+    //    {
+    //        float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
+    //        if (distance < attackDistance && canAttack && canAttackAnim)  // if distance is smaller than attackdistance execute attack.
+    //        {
+    //            StartCoroutine(ChaseAndAttack());
+    //            yield return new WaitForSeconds(aiUpdateDelay);
+    //        }
+            
+    //    }
+       
+    //        attackDistance = attackDefaultDist;
+    //        weaponParent.Aim = true;
+    //        animations.aim = true;
+    //        isAttacking = false; // FOR ANIMATOR
+    //                             //Chasing
+    //        if (abilityHolder.ability != null) abilityHolder.CanUseAbility = true; // <- Here for testing purposes.
+    //        if (hasAttackEffect) attackEffect.SetIndicatorLifetime(0);
+    //        if (hasAttackEffect) attackEffect.CancelAttack();
+    //        UseAbility();
+    //        timeToAttack = 0;
+    //        //if (hasAttackEffect) attackEffect.CancelAttack();
+    //        //attackIndicator.fillAmount = 0;
+    //        movementInput = movementDirectionSolver.GetDirectionToMove(steeringBehaviours, aiData);
+    //        //Debug.Log(movementInput);
+    //        yield return new WaitForSeconds(aiUpdateDelay);
+    //        StartCoroutine(Chase());
+        
+
+       
+    //}
     
 
     public void Hit(float damage, HitType type, ICharacter source = null)

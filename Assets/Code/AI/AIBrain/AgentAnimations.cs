@@ -51,16 +51,9 @@ public class AgentAnimations : MonoBehaviour
             animator.SetBool("isAttacking", enemyAi.isAttacking);
             animator.SetBool("IsIdle", enemyAi.IsIdle);
             animator.SetBool("Death", enemyAi.Death);
-            if (!enemyAi.isAttacking) // Keeps the most current anim "direction" when attacking.
-            {
-                animator.SetFloat("DirX", enemyAi.movementInput.x);
-                animator.SetFloat("DirY", enemyAi.movementInput.y);
-            }
-            if (enemyAi.isAttacking)
-            {
-                animator.SetFloat("DirX", enemyAi.movementInput.x);
-                animator.SetFloat("DirY", enemyAi.movementInput.y);
-            }
+            animator.SetFloat("DirX", enemyAi.movementInput.x);
+            animator.SetFloat("DirY", enemyAi.movementInput.y);
+           
         }
     }
 
@@ -78,10 +71,4 @@ public class AgentAnimations : MonoBehaviour
         agentMover.Speed = agentMover.BaseSpeed;
         animator.SetBool("Ability", false);
     }
-
-    //public void PlayAnimation(Vector2 movementInput)
-    //{
-    //    animator.SetBool("Running", movementInput.magnitude > 0);
-
-    //}
 }

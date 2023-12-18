@@ -15,7 +15,7 @@ public class TargetDetector : Detector
     private Transform player;
 
     public List<Transform> colliders;
-    public bool SeesPlayer = false;
+    public bool SeenPlayer = false;
     public override void Detect(AIData aiData)
     {
         // If player is near.
@@ -23,7 +23,7 @@ public class TargetDetector : Detector
 
         if (playerCollider != null)
         {
-
+           
                  // If this detects but enemy dosent move then try increasing player collider size
             // Checks if enemy can see the player.
             Vector2 direction = (playerCollider.transform.position - transform.position).normalized;
@@ -34,19 +34,24 @@ public class TargetDetector : Detector
             {
                 Debug.DrawRay(transform.position, direction * targetDetectionRange, Color.magenta);
                 colliders = new List<Transform>() { playerCollider.transform };
-                SeesPlayer = true;
+                SeenPlayer = true;
             }
             else
-            {
-                colliders = null;
+            {   // Dosen't see player.
+                if (!SeenPlayer)
+                {
+                    colliders = null;
+                }
             }
         }
         else
-        {
+        {   
             
-            // Dosen't see player.
-            colliders = null;
-            
+            if (!SeenPlayer)
+            {
+                colliders = null;
+            }
+
         }
         aiData.targets = colliders;
     }
