@@ -741,7 +741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9651e9ee345be854eb1cc8a95024b9bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 4
+  radius: 5.5
   precentage: 30
   result: 0
   layermask:
@@ -1090,6 +1090,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSource: {fileID: 7945911272454864015}
   _rotation: 0
+  _shouldUpdateRotation: 1
 --- !u!1 &3202896001364875642
 GameObject:
   m_ObjectHideFlags: 0

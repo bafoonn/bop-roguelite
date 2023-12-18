@@ -13,6 +13,7 @@ namespace Pasta
         public float result;
         private EnemyAi enemyai;
         [SerializeField] private LayerMask layermask;
+        private SeekBehaviour seekBehaviour;
         private int layer;
         public int maxEnemiesThatcanAttack = 4;
         private float timer = 3f; // Initial timer value
@@ -20,6 +21,7 @@ namespace Pasta
         // Start is called before the first frame update
         void Start()
         {
+
             precentageSubtract = precentage / 100;
             layer = layermask;
             StartCoroutine(updateAttackers());
@@ -70,15 +72,17 @@ namespace Pasta
                     //Debug.Log(i);
                     if (hitColliders[i].gameObject.TryGetComponent(out EnemyAi enemyAi))
                     {
-                        if ((transform.position - hitColliders[i].gameObject.transform.position).magnitude < 5.0f)
+                        if ((transform.position - hitColliders[i].gameObject.transform.position).magnitude < radius)
                         {
+                            AIData aidata = hitColliders[i].gameObject.GetComponent<AIData>();               
                             Debug.Log("Can attack");
+                            seekBehaviour = hitColliders[i].gameObject.GetComponentInChildren<SeekBehaviour>();
                             enemyai = hitColliders[i].gameObject.GetComponent<EnemyAi>();
                             enemyai.ToggleMaintainDistance(false);
                             enemyAi.gotAttackToken = true;
                             enemyAi.ActivateIndicator();
                             enemyai.canAttack = true;
-                            AIData aidata = hitColliders[i].gameObject.GetComponent<AIData>();
+                            
                         }
                         
                     }
