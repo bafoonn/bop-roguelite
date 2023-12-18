@@ -2,12 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Pasta
 {
     public class InputReader : Singleton<InputReader>
     {
-        public override bool DoPersist => true;
+        public override bool PersistSceneLoad => true;
         private Controls _controls;
 
         public static event Action OnPause;

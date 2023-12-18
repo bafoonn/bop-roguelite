@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Pasta
 {
-    public class LevelManager : MonoBehaviour
+    public class LevelManager : Singleton<LevelManager>
     {
         [SerializeField]
         private StartRoom startRoom;
@@ -17,6 +17,12 @@ namespace Pasta
         [SerializeField]
         private Shopkeeper shopKeeper;
         private Shopkeeper activeShopKeeper;
+
+        public Region ActiveRegion => activeRegion;
+        public Level ActiveLevel => activeRegion.ActiveLevel;
+
+        public override bool PersistSceneLoad => false;
+
         // Start is called before the first frame update
         void Start()
         {

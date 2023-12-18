@@ -14,7 +14,7 @@ namespace Pasta
 
         public ItemInHolder[] itemsInUi;
 
-        public override bool DoPersist => false;
+        public override bool PersistSceneLoad => false;
 
         public void Add(ItemBase item)
         {

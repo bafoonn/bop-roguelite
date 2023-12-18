@@ -11,7 +11,7 @@ namespace Pasta
         [SerializeField] private StatProfile _currentStatProfile;
         private Stats _currentStats;
 
-        public override bool DoPersist => false;
+        public override bool PersistSceneLoad => false;
         public Stats Stats => _currentStats;
 
         protected override void Init()

@@ -9,25 +9,23 @@ namespace Pasta
     [CreateAssetMenu(menuName = "Abilities/Minion")]
     public class SpawnMinions : Ability
     {
-        [SerializeField] private GameObject Minion;
+        [SerializeField] private EnemyAi Minion;
         private Vector2 originPoint;
         private Vector2Int originPoint2int;
         private Vector3Int originPoint3int;
         public float spawnRadius;
-        private Tilemap tileMap;
-        private Level level;
         public override void Activate(GameObject parent)
         {
             //Instantiate(Minion);
             originPoint = parent.transform.position;
-            tileMap = FindFirstObjectByType<Tilemap>();
+            var level = LevelManager.Current.ActiveLevel;
 
             originPoint = parent.transform.position + Random.insideUnitSphere * spawnRadius;
             originPoint2int = Vector2Int.RoundToInt(originPoint);
             originPoint3int = ((Vector3Int)originPoint2int);
-            if (tileMap.HasTile(originPoint3int))
+            if (level.tilemap.HasTile(originPoint3int))
             {
-                Instantiate(Minion, originPoint, Quaternion.identity, parent.transform.parent);
+                level.SpawnEnemy(Minion, originPoint);
             }
         }
     }

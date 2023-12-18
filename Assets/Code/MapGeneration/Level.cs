@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.Tilemaps;
 
 namespace Pasta
@@ -36,7 +37,7 @@ namespace Pasta
         void Start()
         {
             tilemaps = GetComponentsInChildren<Tilemap>(true);
-            for(int i = 0; i < tilemaps.Length; i++)
+            for (int i = 0; i < tilemaps.Length; i++)
             {
                 if (tilemaps[i] != null)
                 {
@@ -116,6 +117,14 @@ namespace Pasta
                 }
             }
         }
+
+        public EnemyAi SpawnEnemy(EnemyAi enemyPrefab, Vector2 position)
+        {
+            Assert.IsNotNull(enemyPrefab, "Tried to spawn null enemyPrefab: " + nameof(enemyPrefab));
+            AddToEnemyCount(1);
+            return Instantiate(enemyPrefab, position, Quaternion.identity, transform);
+        }
+
         public void PickedUpReward()
         {
             if (levelNumber != 4)

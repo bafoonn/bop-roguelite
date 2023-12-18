@@ -21,6 +21,8 @@ namespace Pasta
         private int[] rewardTypes;
         private EndPoints endPoints;
 
+        public Level ActiveLevel => activeLevel;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -54,7 +56,7 @@ namespace Pasta
             // Instantiate random level from levels list
             else
             {
-                while(true)
+                while (true)
                 {
                     int random = Random.Range(0, levels.Length - 1);
                     if (!dublicateCheck[random])
@@ -70,7 +72,7 @@ namespace Pasta
         private void InstantiateLevel(int levelIndex, ItemBase roomReward, int rewardType)
         {
             ItemAbilities.InvokeEvent(EventActionType.OnRoomEnter);
-            activeLevel = Instantiate(levels[levelIndex], transform.position, Quaternion.identity, transform);          
+            activeLevel = Instantiate(levels[levelIndex], transform.position, Quaternion.identity, transform);
             activeLevel.PassRewardIndex(roomReward, levelNumber, rewardType);
         }
 
@@ -81,7 +83,7 @@ namespace Pasta
             {
                 rewards = endPoints.GetRewards();
                 rewardTypes = endPoints.GetRewardTypes();
-                
+
             }
             Destroy(activeLevel.gameObject);
 

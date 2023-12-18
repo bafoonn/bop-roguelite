@@ -9,7 +9,7 @@ namespace Pasta
 {
     public class GameManager : Singleton<GameManager>
     {
-        public override bool DoPersist => true;
+        public override bool PersistSceneLoad => true;
         private bool _isPaused = false;
 
         public bool IsPaused => _isPaused;

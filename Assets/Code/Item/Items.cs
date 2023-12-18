@@ -6,7 +6,7 @@ namespace Pasta
 {
     public class Items : Singleton<Items>
     {
-        public override bool DoPersist => true;
+        public override bool PersistSceneLoad => true;
         private ItemBase[] _items = null;
 
         protected override void Init()

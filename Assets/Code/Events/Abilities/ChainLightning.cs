@@ -7,7 +7,7 @@ namespace Pasta
     public class ChainLightning : ItemAbility
     {
         [SerializeField] private float _radius = 5f;
-        [SerializeField] private int _baseChains = 3;
+        [SerializeField] private int _baseChains = 2;
         [SerializeField] private float _chainTime = 0.5f;
         [SerializeField] private float _damageCoefficiency = 0.8f;
         [SerializeField] private int _chainStackIncrease = 1;
@@ -39,7 +39,7 @@ namespace Pasta
             int chainCount = 0;
             List<IHittable> hitEnemies = new List<IHittable>();
             Vector2 point = first != null ? first.Mono.transform.position : _player.transform.position;
-            while (chainCount < _baseChains + _chainStackIncrease * _item.Amount)
+            while (chainCount < _baseChains + _chainStackIncrease * _item.Amount - 1)
             {
                 var enemies = new List<Collider2D>(Physics2D.OverlapCircleAll(point, _radius, _enemyLayer));
                 bool targetFound = false;
@@ -71,18 +71,17 @@ namespace Pasta
 
             IHittable FindTarget(List<Collider2D> enemies)
             {
-                int random = Random.Range(0, enemies.Count);
-                if (enemies[random].TryGetComponent<IHittable>(out var hittable))
-                {
-                    if (hitEnemies.Contains(hittable))
-                    {
-                        enemies.RemoveAt(random);
-                    }
+                int random = enemies.Count > 1 ? Random.Range(0, enemies.Count) : 0;
+                var enemy = enemies[random];
+                enemies.RemoveAt(random);
 
+                if (enemy == null) return null;
+                if (enemy.TryGetComponent<IHittable>(out var hittable) && hitEnemies.Contains(hittable) == false)
+                {
                     point = enemies[random].transform.position;
                     return hittable;
                 }
-                enemies.RemoveAt(random);
+
                 return null;
             }
 

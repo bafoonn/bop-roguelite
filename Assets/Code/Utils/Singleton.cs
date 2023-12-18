@@ -8,7 +8,7 @@ namespace Pasta
     /// <typeparam name="T">Type of the singleton.</typeparam>
     public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
-        public abstract bool DoPersist { get; }
+        public abstract bool PersistSceneLoad { get; }
         public static bool Exists => _current != null;
 
         private static T _current;
@@ -56,7 +56,7 @@ namespace Pasta
             if (_current != this)
                 Destroy(gameObject);
 
-            if (DoPersist)
+            if (PersistSceneLoad)
             {
                 DontDestroyOnLoad(gameObject);
             }

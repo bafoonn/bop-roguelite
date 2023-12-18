@@ -6,7 +6,7 @@ namespace Pasta
 {
     public class HitStopper : Singleton<HitStopper>
     {
-        public override bool DoPersist => true;
+        public override bool PersistSceneLoad => true;
         private static Coroutine _waitRoutine;
 
         public static void Stop(float duration)

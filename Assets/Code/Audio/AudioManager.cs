@@ -12,7 +12,7 @@ namespace Pasta
         [field: SerializeField] public AudioMixerGroup SFXMixerGroup { get; private set; }
         [field: SerializeField] public AudioMixerGroup MusicMixerGroup { get; private set; }
 
-        public override bool DoPersist => true;
+        public override bool PersistSceneLoad => true;
 
         private SFXPlayer sfxPlayerTemplate;
         private List<SFXPlayer> sfxPlayers = new();
