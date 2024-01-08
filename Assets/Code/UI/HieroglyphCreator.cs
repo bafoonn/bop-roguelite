@@ -89,6 +89,11 @@ namespace Pasta
                 list[i].gameObject.GetComponent<UIElementAnimations>().ScaleToZero(closeSpeed);
                 yield return new WaitForSecondsRealtime(closeDelay);
             }
+            while (list.Count > 0)
+            {
+                Destroy(list[0]);
+                list.RemoveAt(0);
+            }
         }
     }
 }

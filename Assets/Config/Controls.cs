@@ -98,6 +98,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Loot"",
+                    ""type"": ""Button"",
+                    ""id"": ""35f2f309-1c89-46da-9678-4dac21c0a482"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -309,6 +318,28 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""MousePos"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""20f4e9a1-8545-4b49-bfb0-ec41be193ad1"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KB&M"",
+                    ""action"": ""Loot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""25ab500e-6ff6-4f56-b3ba-a755fc49e38f"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Loot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -392,6 +423,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_Hook = m_Player.FindAction("Hook", throwIfNotFound: true);
         m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
         m_Player_MousePos = m_Player.FindAction("MousePos", throwIfNotFound: true);
+        m_Player_Loot = m_Player.FindAction("Loot", throwIfNotFound: true);
         // Function
         m_Function = asset.FindActionMap("Function", throwIfNotFound: true);
         m_Function_Pause = m_Function.FindAction("Pause", throwIfNotFound: true);
@@ -464,6 +496,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Hook;
     private readonly InputAction m_Player_Aim;
     private readonly InputAction m_Player_MousePos;
+    private readonly InputAction m_Player_Loot;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -476,6 +509,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Hook => m_Wrapper.m_Player_Hook;
         public InputAction @Aim => m_Wrapper.m_Player_Aim;
         public InputAction @MousePos => m_Wrapper.m_Player_MousePos;
+        public InputAction @Loot => m_Wrapper.m_Player_Loot;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -509,6 +543,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @MousePos.started += instance.OnMousePos;
             @MousePos.performed += instance.OnMousePos;
             @MousePos.canceled += instance.OnMousePos;
+            @Loot.started += instance.OnLoot;
+            @Loot.performed += instance.OnLoot;
+            @Loot.canceled += instance.OnLoot;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -537,6 +574,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @MousePos.started -= instance.OnMousePos;
             @MousePos.performed -= instance.OnMousePos;
             @MousePos.canceled -= instance.OnMousePos;
+            @Loot.started -= instance.OnLoot;
+            @Loot.performed -= instance.OnLoot;
+            @Loot.canceled -= instance.OnLoot;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -628,6 +668,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnHook(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
         void OnMousePos(InputAction.CallbackContext context);
+        void OnLoot(InputAction.CallbackContext context);
     }
     public interface IFunctionActions
     {

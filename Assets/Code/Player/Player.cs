@@ -7,7 +7,7 @@ using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
 
-public class Player : MonoBehaviour, IPlayer
+public class Player : Singleton<Player>, IPlayer
 {
     private PlayerInput _input;
     private Rigidbody2D _rigidbody;
@@ -48,6 +48,8 @@ public class Player : MonoBehaviour, IPlayer
     public StatusHandler Status => _statusHandler;
     public Rigidbody2D Rigidbody => _rigidbody;
 
+    public override bool PersistSceneLoad => false;
+
     public static event Action OnPlayerDeath;
     [SerializeField] private Material _damagedMaterial = null;
     private Material _defaultMaterial = null;
@@ -80,6 +82,8 @@ public class Player : MonoBehaviour, IPlayer
         _statusHandler = this.AddOrGetComponent<StatusHandler>();
         _statusHandler.Setup(this);
         _itemPopUp = GetComponentInChildren<ItemPopUp>(true);
+        var lootUI = GetComponentInChildren<LootUI>(true);
+        if (lootUI != null) lootUI.Setup(_loot);
 
         GetComponentInChildren<CurrencyUI>().Setup(this);
 
