@@ -38,19 +38,20 @@ public class TargetDetector : Detector
             }
             else
             {   // Dosen't see player.
-                if (!SeenPlayer)
-                {
-                    colliders = null;
-                }
+                colliders = null;
+                //if (!SeenPlayer) // TEST TO REVERT
+                //{
+                //    colliders = null;
+                //}
             }
         }
         else
-        {   
-            
-            if (!SeenPlayer)
-            {
-                colliders = null;
-            }
+        {
+            colliders = null;
+            //if (!SeenPlayer) // TEST TO REVERT
+            //{
+            //    colliders = null;
+            //}
 
         }
         aiData.targets = colliders;

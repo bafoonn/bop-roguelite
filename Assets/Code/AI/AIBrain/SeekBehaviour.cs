@@ -14,9 +14,11 @@ public class SeekBehaviour : SteeringBehaviour
     bool reachedLastTarget = false;
     bool seenPlayer = false;
     public Vector2 targetPositionCached;
+    private GameObject player;
     private float[] intrestsTemp;
     public override (float[] danger, float[] intrest) GetSteering(float[] danger, float[] intrest, AIData aiData)
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         parent = transform.parent;
         targetDetector = parent.GetComponentInChildren<TargetDetector>();
         //if enemy dosen't have a target stop seeking
@@ -26,11 +28,11 @@ public class SeekBehaviour : SteeringBehaviour
             {
                 if (aiData.targets == null || aiData.targets.Count <= 0)
                 {
-                    if (seenPlayer) // If enemy has seen player it wont lose it
-                    {
-                        targetPositionCached = GameObject.FindGameObjectWithTag("Player").transform.position;
-                    }
-                    aiData.currentTarget = null;
+                //if (seenPlayer) // If enemy has seen player it wont lose it // TEST TO REVERT
+                //{
+                //    targetPositionCached = GameObject.FindGameObjectWithTag("Player").transform.position;
+                //}
+                aiData.currentTarget = null;
                     return (danger, intrest);
                 }
                 else
@@ -51,14 +53,14 @@ public class SeekBehaviour : SteeringBehaviour
             {
 
                 
-                Debug.Log("Reached target");
                 reachedLastTarget = true;
                 aiData.currentTarget = null;
                 return (danger, intrest);
 
             }
-            //If we havent's reached the target do the main logic
-            Vector2 directionToTarget = (targetPositionCached - (Vector2)transform.position);
+          
+        //If we havent's reached the target do the main logic
+        Vector2 directionToTarget = (targetPositionCached - (Vector2)transform.position);
             for (int i = 0; i < intrest.Length; i++)
             {
                 float result = Vector2.Dot(directionToTarget.normalized, Directions.eightDirections[i]);

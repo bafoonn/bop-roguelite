@@ -62,7 +62,7 @@ namespace Pasta
 		{
             yield return new WaitForSeconds(1);
             Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, radius, layermask); 
-            result = Mathf.Max(result, 1); // Ensure result is at least 1 
+
             // sorts closest hitcolliders to player.
             System.Array.Sort(hitColliders, (a, b) => Vector2.Distance(a.transform.position, transform.position).CompareTo(Vector2.Distance(b.transform.position, transform.position)));
             for (int i = 0; i < hitColliders.Length; i++)

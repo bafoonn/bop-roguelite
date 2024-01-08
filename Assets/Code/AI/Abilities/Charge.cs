@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace Pasta
 {
@@ -17,9 +18,13 @@ namespace Pasta
         private BoxCollider2D BoxCollider2d;
         private Transform player;
         private BoxCollider2D bC2D;
+        private GameObject tilemapholder;
+        private Tilemap tilemap;
+        private Vector2Int v2i;
+        private Vector3Int v3i;
         public override void Activate(GameObject parent)
         {
-            player = GameObject.FindGameObjectWithTag("Player").transform;
+            tilemap = FindFirstObjectByType<Tilemap>();
             AIData aiData = parent.GetComponent<AIData>();
             //BossAI bossAi = parent.GetComponent<BossAI>();
             //GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -28,14 +33,39 @@ namespace Pasta
             BoxCollider2d = parent.GetComponent<BoxCollider2D>();
             if (aiData.currentTarget != null) {
                 TargetPos = aiData.currentTarget.position + Random.insideUnitSphere;
-
+                v2i = Vector2Int.RoundToInt(TargetPos);
+                v3i = ((Vector3Int)v2i);
+                if (tilemap.HasTile(v3i))
+                {
+                    Debug.Log("Hastile");
+                    rigidbody.position = TargetPos;
+                }
+                else
+                {
+                    Debug.Log("notile");
+                }
 			}
 			else
 			{
                 TargetPos = player.position;
-			}
+                v2i = Vector2Int.RoundToInt(TargetPos);
+                v3i = ((Vector3Int)v2i);
+                if (tilemap.HasTile(v3i))
+                {
+                    Debug.Log("Hastile");
+                    rigidbody.position = TargetPos;
+                }
+                else
+                {
+                    Debug.Log("notile");
+                }
+            }
+            if(tilemap == null)
+            {
+                Debug.Log("Tilemap not found");
+            }
             //rigidbody.MovePosition(TargetPos * speed);
-            rigidbody.position = TargetPos;
+            
             bC2D = parent.AddComponent<BoxCollider2D>();
             BoxCollider2d.isTrigger = true;
             bC2D.isTrigger = true;

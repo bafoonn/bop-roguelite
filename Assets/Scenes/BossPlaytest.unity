@@ -532,6 +532,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1197986375191235570, guid: dcabfba1a1c5cc14caaa87d00026cabc, type: 3}
+      propertyPath: maxEnemiesThatcanAttack
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2076966697667818739, guid: dcabfba1a1c5cc14caaa87d00026cabc, type: 3}
       propertyPath: m_Name
       value: Player
