@@ -14,11 +14,22 @@ namespace Pasta
         [SerializeField]
         private int damage = 30;
         private bool isActivated = false;
+        private SpriteRenderer spriteRenderer;
+        private Color baseColor;
+        private BoxCollider2D boxcol;
+
+        private void Start()
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+            baseColor = spriteRenderer.color;
+            boxcol = gameObject.GetComponent<BoxCollider2D>();
+        }
 
         private void OnTriggerEnter2D(Collider2D col)
         {
             if (!isActivated && col.TryGetComponent<IHittable>(out _))
             {
+                spriteRenderer.material.SetColor("_Color", Color.black);
                 for (int i = 0; i < dartShooters.Length; i++)
                 {
                     activeDart = Instantiate(dart, dartShooters[i].transform.position, Quaternion.identity);
@@ -27,8 +38,18 @@ namespace Pasta
                     sprite.transform.Rotate(0, 0, 90);
                     activeDart.StartMoving(damage);
                 }
-                isActivated = true;
+                StartCoroutine(OffTimer());
             }
+        }
+
+        IEnumerator OffTimer()
+        {
+            isActivated = true;
+            yield return new WaitForSeconds(2f);
+            isActivated = false;
+            spriteRenderer.material.SetColor("_Color", baseColor);
+            boxcol.enabled = false;
+            boxcol.enabled = true;
         }
     }
 }
