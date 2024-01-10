@@ -6,21 +6,41 @@ namespace Pasta
 {
     public class Grid : MonoBehaviour
     {
-		public Transform player;
+        // Toggle to only display path gizmos for testing
+        public bool onlyDisplayPathGizmos;
+
+		public Transform player; // TODO: Remove this just for testing.
+
         public LayerMask ObstacleMask;
+
         public Vector2 gridWorldSize;
+
+        // Radius of each node in the grid
         public float nodeRadius;
+
         Node[,] grid;
 
 		float nodeDiameter;
+
 		int gridSizeX, gridSizeY;
 
 		private void Start()
 		{
 			nodeDiameter = nodeRadius = 0.5f;
-			gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
+
+            // Calculate grid size based on world size and node diameter
+            gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
 			gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
 			CreateGrid();
+		}
+
+        // Max size property for external use
+        public int MaxSize
+		{
+			get
+			{
+				return gridSizeX * gridSizeY;
+			}
 		}
 
 		void CreateGrid()
@@ -34,12 +54,13 @@ namespace Pasta
 				{
 					Vector3 worldPoint = worldbottomLeft + Vector3.right * (i * nodeDiameter + nodeRadius) + Vector3.up * (e * nodeDiameter + nodeRadius);
 					bool walkable = !(Physics2D.OverlapCircle(worldPoint, nodeRadius, ObstacleMask));
-					grid[i, e] = new Node(walkable, worldPoint);
+					grid[i, e] = new Node(walkable, worldPoint, i, e);
 				}
 			}
 		}
 
-		public Node NodeFromWorldPos(Vector3 worldPos)
+        // Convert world position to grid node
+        public Node NodeFromWorldPos(Vector3 worldPos)
 		{
 			float precentX = (worldPos.x + gridWorldSize.x / 2) / gridWorldSize.x;
 			float precentY = (worldPos.y + gridWorldSize.y / 2) / gridWorldSize.y;
@@ -51,22 +72,73 @@ namespace Pasta
 			return grid[x, y];
 		}
 
+		public List<Node> GetNeighbours(Node node)
+		{
+			List<Node> neighbours = new List<Node>();
+
+			for(int x = -1; x <= 1; x++)
+			{
+                for (int y = -1; y <= 1; y++)
+				{
+					if(x == 0 && y == 0)
+					{
+						continue;
+					}
+					int checkX = node.gridX + x;
+					int checkY = node.gridY + y;
+
+					if(checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
+					{
+						neighbours.Add(grid[checkX,checkY]);
+					}
+				}
+
+            }
+
+			return neighbours;
+		}
+
+        // List to store the calculated path
+        public List<Node> path;
+
 		private void OnDrawGizmos()
 		{
             Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, gridWorldSize.y, 1));
-			if(grid != null)
+			if (onlyDisplayPathGizmos)
 			{
-				Node playerNode = NodeFromWorldPos(player.position);
-				foreach(Node node in grid)
+				if(path != null)
 				{
-					Gizmos.color = (node.Walkable) ? Color.white : Color.red;
-					if(playerNode == node)
+					foreach(Node n in path)
 					{
-						Gizmos.color = Color.green;
-					}
-					Gizmos.DrawCube(node.worldPosition, Vector3.one * (nodeDiameter - .1f));
+                        Gizmos.color = Color.black;
+                        Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - .1f));
+                    }
 				}
 			}
+			else
+			{
+                if (grid != null)
+                {
+                    Node playerNode = NodeFromWorldPos(player.position); // This is how we get random pos and player pos // TODO: Remove this just for testing.
+                    foreach (Node node in grid)
+                    {
+                        Gizmos.color = (node.Walkable) ? Color.white : Color.red;
+                        if (path != null)
+                        {
+                            if (path.Contains(node))
+                            {
+                                Gizmos.color = Color.black;
+                            }
+                        }
+                        if (playerNode == node)
+                        {
+                            Gizmos.color = Color.green;
+                        }
+                        Gizmos.DrawCube(node.worldPosition, Vector3.one * (nodeDiameter - .1f));
+                    }
+                }
+            }
+			
 		}
 	}
 }
