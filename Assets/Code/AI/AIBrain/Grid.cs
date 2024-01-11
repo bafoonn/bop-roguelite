@@ -7,7 +7,7 @@ namespace Pasta
     public class Grid : MonoBehaviour
     {
         // Toggle to only display path gizmos for testing
-        public bool onlyDisplayPathGizmos;
+        public bool displayGridGizmos;
 
 		public Transform player; // TODO: Remove this just for testing.
 
@@ -24,9 +24,9 @@ namespace Pasta
 
 		int gridSizeX, gridSizeY;
 
-		private void Start()
+		private void Awake()
 		{
-			nodeDiameter = nodeRadius = 0.5f;
+			nodeDiameter = nodeRadius = 0.25f;
 
             // Calculate grid size based on world size and node diameter
             gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
@@ -66,9 +66,10 @@ namespace Pasta
 			float precentY = (worldPos.y + gridWorldSize.y / 2) / gridWorldSize.y;
 			precentX = Mathf.Clamp01(precentX);
 			precentY = Mathf.Clamp01(precentY);
-
-			int x = Mathf.RoundToInt((gridSizeX - 1) * precentX);
-			int y = Mathf.RoundToInt((gridSizeY - 1) * precentY);
+			int x = Mathf.FloorToInt(Mathf.Clamp((gridSizeX) * precentX, 0, gridSizeX - 1));
+			int y = Mathf.FloorToInt(Mathf.Clamp((gridSizeY) * precentY, 0, gridSizeY - 1));
+			//int x = Mathf.RoundToInt((gridSizeX - 1) * precentX);
+			//int y = Mathf.RoundToInt((gridSizeY - 1) * precentY);
 			return grid[x, y];
 		}
 
@@ -98,47 +99,26 @@ namespace Pasta
 			return neighbours;
 		}
 
-        // List to store the calculated path
-        public List<Node> path;
+		// List to store the calculated path
 
 		private void OnDrawGizmos()
 		{
-            Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, gridWorldSize.y, 1));
-			if (onlyDisplayPathGizmos)
+			Node playerNode = NodeFromWorldPos(player.position);
+			Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
+			if (grid != null && displayGridGizmos)
 			{
-				if(path != null)
+				foreach (Node n in grid)
 				{
-					foreach(Node n in path)
+					Gizmos.color = (n.Walkable) ? Color.white : Color.red;
+					Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - .1f));
+					if (playerNode == n)
 					{
-                        Gizmos.color = Color.black;
-                        Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - .1f));
-                    }
+						Gizmos.color = Color.green;
+					}
+					Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - .1f));
 				}
+				
 			}
-			else
-			{
-                if (grid != null)
-                {
-                    Node playerNode = NodeFromWorldPos(player.position); // This is how we get random pos and player pos // TODO: Remove this just for testing.
-                    foreach (Node node in grid)
-                    {
-                        Gizmos.color = (node.Walkable) ? Color.white : Color.red;
-                        if (path != null)
-                        {
-                            if (path.Contains(node))
-                            {
-                                Gizmos.color = Color.black;
-                            }
-                        }
-                        if (playerNode == node)
-                        {
-                            Gizmos.color = Color.green;
-                        }
-                        Gizmos.DrawCube(node.worldPosition, Vector3.one * (nodeDiameter - .1f));
-                    }
-                }
-            }
-			
 		}
 	}
 }
