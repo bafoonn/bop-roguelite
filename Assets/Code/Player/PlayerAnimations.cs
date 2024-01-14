@@ -21,16 +21,18 @@ namespace Pasta
         private PlayerAttackHandler _attackHandler = null;
         private PlayerInput _input = null;
 
-        private Vector2 _facingDir = Vector2.zero;
+        public Vector2 _facingDir = Vector2.zero;
 
         private int _current;
 
-        private void Update()
+        private void FixedUpdate()
         {
-            _facingDir = _movement.IsDodging ? _movement._currentDir : _input.Aim;
+            //_facingDir = _movement.IsDodging ? _movement._currentDir : _input.Aim;
+            if (_input.Movement != Vector2.zero) _facingDir = _input.Aim;
             _facingDir.Normalize();
             _renderer.flipX = DoFlip();
-            var dir = _attackHandler.IsAttacking ? _input.Aim : _input.Movement;
+            var dir = _input.Aim;
+            //var dir = _attackHandler.IsAttacking ? _input.Aim : _input.Movement;
             _animator.SetFloat(MoveX, dir.x);
             _animator.SetFloat(MoveY, dir.y);
 
@@ -43,8 +45,9 @@ namespace Pasta
 
         private int FindState()
         {
-            if (_movement.IsDodging) return Dodge;
-            if (_movement._currentDir.sqrMagnitude > Mathf.Epsilon) return Run;
+            //if (_movement.IsDodging) return Dodge;
+            if (_movement.IsDodging) return Run;
+            if (_movement.IsMoving) return Run;
             if (_attackHandler.IsAttacking) return Run;
             return Idle;
         }
@@ -52,9 +55,10 @@ namespace Pasta
         private bool DoFlip()
         {
             bool flip = Vector2.Dot(Vector2.right, _facingDir) < 0;
-            if (_current == Idle) return flip;
-            if (_current == Dodge) return flip;
-            return false;
+            //if (_current == Idle) return flip;
+            //if (_current == Dodge) return flip;
+            //return false;
+            return flip;
         }
 
         public void Setup(PlayerMovement movement, PlayerAttackHandler attackHandler, PlayerInput input)

@@ -78,7 +78,7 @@ namespace Pasta
                 if (enemy == null) return null;
                 if (enemy.TryGetComponent<IHittable>(out var hittable) && hitEnemies.Contains(hittable) == false)
                 {
-                    point = enemies[random].transform.position;
+                    point = enemy.transform.position;
                     return hittable;
                 }
 

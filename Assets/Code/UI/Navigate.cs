@@ -21,10 +21,10 @@ namespace Pasta
             GameManager.Current.GoTo(GameStateType.MainMenu);
         }
 
-        public void Pause()
-        {
-            GameManager.Current.OnPaused();
-        }
+        //public void Pause()
+        //{
+        //    GameManager.Current.OnPaused();
+        //}
 
         public void Exit()
         {

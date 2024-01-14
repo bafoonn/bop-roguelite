@@ -8,13 +8,14 @@ namespace Pasta
     public class AttackEffects : MonoBehaviour
     {
         [SerializeField] private Transform rotationSource;
-        
+
         private VisualEffect effect;
         public float _rotation;
 
         public bool _shouldUpdateRotation = true;
 
         private bool _isFlipped = true;
+        public bool IsFlipped => _isFlipped;
 
         void Awake()
         {
@@ -33,7 +34,7 @@ namespace Pasta
         public void QuickAttack()
         {
             _isFlipped = !_isFlipped;
-            effect.SetBool("QA Is Flipped", _isFlipped);
+            effect.SetBool("QA Is Flipped", !_isFlipped);
             effect.SendEvent("QuickAttack");
         }
         public void HeavyAttack()

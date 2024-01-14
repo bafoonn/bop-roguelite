@@ -15,7 +15,7 @@ namespace Pasta
         public bool IsPaused => _isPaused;
 
         [SerializeField] private string _mainMenuScene = "MainMenu";
-        [SerializeField] private string _pauseScene = "Pause";
+        //[SerializeField] private string _pauseScene = "Pause";
         [SerializeField] private string _gameScene = "Playtest";
         [SerializeField] private string _gameOverScene = "GameOver";
 
@@ -26,7 +26,7 @@ namespace Pasta
 
         private GameState _mainMenuState = null;
         private GameState _gameState = null;
-        private GameState _pauseState = null;
+        //private GameState _pauseState = null;
         private GameState _gameOverState = null;
         private GameState[] _gameStates = null;
 
@@ -38,20 +38,20 @@ namespace Pasta
             base.Init();
             _mainMenuState = new GameState(_mainMenuScene, GameStateType.MainMenu, false, () => true);
             _gameState = new GameState(_gameScene, GameStateType.Game, false, () => true);
-            _pauseState = new GameState(_pauseScene, GameStateType.Pause, true,
-                canActivate: () => _currentState.SceneName.Equals(_gameScene),
-                onActivate: () =>
-                {
-                    _isPaused = true;
-                    Time.timeScale = 0;
-                    if (OnPause != null) OnPause();
-                },
-                onDeactivate: () =>
-                {
-                    _isPaused = false;
-                    Time.timeScale = 1;
-                    if (OnUnpause != null) OnUnpause();
-                });
+            //_pauseState = new GameState(_pauseScene, GameStateType.Pause, true,
+            //    canActivate: () => _currentState.SceneName.Equals(_gameScene),
+            //    onActivate: () =>
+            //    {
+            //        _isPaused = true;
+            //        Time.timeScale = 0;
+            //        if (OnPause != null) OnPause();
+            //    },
+            //    onDeactivate: () =>
+            //    {
+            //        _isPaused = false;
+            //        Time.timeScale = 1;
+            //        if (OnUnpause != null) OnUnpause();
+            //    });
 
             _gameOverState = new GameState(_gameOverScene, GameStateType.GameOver, true,
                 canActivate: () => _currentState.SceneName.Equals(_gameScene));
@@ -60,7 +60,7 @@ namespace Pasta
             {
                 _mainMenuState,
                 _gameState,
-                _pauseState,
+                //_pauseState,
                 _gameOverState
             };
 
@@ -79,13 +79,13 @@ namespace Pasta
 
         private void OnEnable()
         {
-            InputReader.OnPause += OnPaused;
+            //InputReader.OnPause += OnPaused;
             Player.OnPlayerDeath += OnDeath;
         }
 
         private void OnDisable()
         {
-            InputReader.OnPause -= OnPaused;
+            //InputReader.OnPause -= OnPaused;
             Player.OnPlayerDeath -= OnDeath;
         }
 
@@ -143,17 +143,26 @@ namespace Pasta
             GoTo(GameStateType.GameOver);
         }
 
-        public void OnPaused()
+        public void Pause()
         {
-            if (!_isPaused)
-            {
-                GoTo(GameStateType.Pause);
-            }
-            else
-            {
-                GoBack();
-            }
+            Time.timeScale = 0;
         }
+
+        public void Unpause()
+        {
+            Time.timeScale = 1;
+        }
+        //public void OnPaused()
+        //{
+        //    if (!_isPaused)
+        //    {
+        //        GoTo(GameStateType.Pause);
+        //    }
+        //    else
+        //    {
+        //        GoBack();
+        //    }
+        //}
 
 
     }

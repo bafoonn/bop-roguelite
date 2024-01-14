@@ -8,44 +8,82 @@ namespace Pasta
 {
     public class PlayerAttackHandler : MonoBehaviour
     {
-        [SerializeField] private float _heavyAttackTimeMultiplier = 3.5f;
-        [SerializeField]
-        private float _quickAttackTime = 0.2f;
-        [SerializeField]
-        private float _heavyAttackTime = 0.8f;
+        [System.Serializable]
+        public class AttackProfile
+        {
+            [HideInInspector] public float Damage;
+            [HideInInspector] public float TotalAttackTime;
+            [HideInInspector] public float ConeAngle;
+            public float WindUpPercent;
+            public float WindDownPercent;
+            public float HitStopTime;
+            public float Windup => TotalAttackTime * WindUpPercent;
+            public float Winddown => TotalAttackTime * WindDownPercent;
+            public float AttackTime => TotalAttackTime - (Windup + Winddown);
+            public AttackArea AttackArea;
+            public Action PlayEffect;
+            public Action OnHit;
+        }
 
+        [SerializeField] private float _heavyAttackTimeMultiplier = 3.5f;
+        //[SerializeField] private float _quickAttackTime = 0.2f;
+        //[SerializeField] private float _quickAttackWindupPercent = 0.2f;
+        //[SerializeField] private float _quickAttackWinddownPercent = 0f;
+
+        //[SerializeField] private float _heavyAttackTime = 0.8f;
+        //[SerializeField] private float _heavyAttackWindupPercent = 0.5f;
+        //[SerializeField] private float _heavyAttackWinddownPercent = 0f;
+
+        [SerializeField] private AttackProfile _quickAttackProfile;
+        [SerializeField] private AttackProfile _heavyAttackProfile;
         private Coroutine _attackRoutine;
 
         public bool CanAttack => _attackRoutine == null;
         public bool IsAttacking => _attackRoutine != null;
         public AttackType CurrentAttack;
-        [SerializeField] private AttackArea _quickAttackArea;
-        [SerializeField] private AttackArea _heavyAttackArea;
+        //[SerializeField] private AttackArea _quickAttackArea;
+        //[SerializeField] private AttackArea _heavyAttackArea;
 
         private bool _cancellable = true;
 
-        private float _quickAttackDamage = 10f;
-        private float _heavyAttackDamage = 20f;
+        //private float _quickAttackDamage = 10f;
+        //private float _heavyAttackDamage = 20f;
         private Stat _damage;
         private Stat _attackSpeed;
 
         private AttackEffects _attackEffects;
-        private bool _hasAttackEffects = false;
+        private CleavingWeaponAnimations _weaponAnimations;
 
-        [SerializeField] private float _quickAttackHitStop = 0.03f;
-        [SerializeField] private float _heavyAttackHitStop = 0.06f;
+        //[SerializeField] private float _quickAttackHitStop = 0.03f;
+        //[SerializeField] private float _heavyAttackHitStop = 0.06f;
 
         private ICharacter _player = null;
 
         public UnityEvent OnQuickHit;
         public UnityEvent OnHeavyHit;
-        public UnityEvent OnMiss;
+        public UnityEvent OnSwing;
 
         private void Awake()
         {
-            Assert.IsNotNull(_quickAttackArea, "QuickAttackArea is not set in PlayerAttackHandler.");
-            Assert.IsNotNull(_heavyAttackArea, "HeavyAttackArea is not set in PlayerAttackHandler.");
+            Assert.IsNotNull(_quickAttackProfile.AttackArea, "QuickAttackArea is not set in PlayerAttackHandler.");
+            Assert.IsNotNull(_heavyAttackProfile.AttackArea, "HeavyAttackArea is not set in PlayerAttackHandler.");
+            _quickAttackProfile.ConeAngle = _quickAttackProfile.AttackArea.GetComponent<Cone>().Angle;
+            _heavyAttackProfile.ConeAngle = _heavyAttackProfile.AttackArea.GetComponent<Cone>().Angle;
             _attackEffects = GetComponentInChildren<AttackEffects>();
+            _weaponAnimations = GetComponentInParent<CleavingWeaponAnimations>();
+            _quickAttackProfile.OnHit = () =>
+            {
+                HitStopper.Stop(_quickAttackProfile.HitStopTime);
+                OnQuickHit?.Invoke();
+            };
+            _quickAttackProfile.PlayEffect = _attackEffects.QuickAttack;
+
+            _heavyAttackProfile.OnHit = () =>
+            {
+                HitStopper.Stop(_heavyAttackProfile.HitStopTime);
+                OnHeavyHit?.Invoke();
+            };
+            _heavyAttackProfile.PlayEffect = _attackEffects.HeavyAttack;
         }
 
         private void Start()
@@ -57,7 +95,7 @@ namespace Pasta
             _attackSpeed.ValueChanged += OnAttackSpeedChanged;
             SetDamage(_damage.Value, _attackSpeed.Value);
 
-            _hasAttackEffects = _attackEffects != null;
+            //_hasAttackEffects = _attackEffects != null;
             _player = GetComponentInParent<Player>();
         }
 
@@ -73,12 +111,15 @@ namespace Pasta
 
         private void SetDamage(float damage, float attackSpeed)
         {
-            _quickAttackTime = 1f / attackSpeed;
-            _heavyAttackTime = _quickAttackTime * _heavyAttackTimeMultiplier;
-            _attackEffects.SetIndicatorLifetime(_heavyAttackTime);
+            float quickAttackTime = 1f / attackSpeed;
+            float heavyAttackTime = quickAttackTime * _heavyAttackTimeMultiplier;
 
-            _quickAttackDamage = damage;
-            _heavyAttackDamage = _quickAttackDamage * (_heavyAttackTime / _quickAttackTime) + 1;
+            _quickAttackProfile.TotalAttackTime = quickAttackTime;
+            _quickAttackProfile.Damage = damage;
+
+            _heavyAttackProfile.TotalAttackTime = heavyAttackTime;
+            _heavyAttackProfile.Damage = damage * (heavyAttackTime / quickAttackTime) + 1;
+            _attackEffects.SetIndicatorLifetime(_heavyAttackProfile.AttackTime);
         }
 
         public enum AttackType
@@ -97,11 +138,11 @@ namespace Pasta
             switch (type)
             {
                 case AttackType.Quick:
-                    _attackRoutine = StartCoroutine(QuickAttack());
+                    _attackRoutine = StartCoroutine(AttackRoutine(type, _quickAttackProfile));
                     break;
 
                 case AttackType.Heavy:
-                    _attackRoutine = StartCoroutine(HeavyAttack());
+                    _attackRoutine = StartCoroutine(AttackRoutine(type, _heavyAttackProfile));
                     break;
             }
             CurrentAttack = type;
@@ -114,48 +155,67 @@ namespace Pasta
             TryToAttack(type);
         }
 
-        private IEnumerator QuickAttack()
+        private IEnumerator AttackRoutine(AttackType type, AttackProfile attackProfile)
         {
-            if (_hasAttackEffects) _attackEffects.QuickAttack();
-            int hitCount = HitObjects(AttackType.Quick);
-            if (hitCount == 0 && OnMiss != null) OnMiss.Invoke();
-            if (hitCount > 0)
-            {
-                if (OnQuickHit != null) OnQuickHit.Invoke();
-                HitStopper.Stop(_quickAttackHitStop);
-            }
-            yield return new WaitForSeconds(_quickAttackTime);
-            _attackRoutine = null;
-        }
-
-        private IEnumerator HeavyAttack()
-        {
-            float waitTime = _heavyAttackTime * 0.5f;
-            if (_hasAttackEffects) _attackEffects.AttackIndicator();
-            yield return new WaitForSeconds(waitTime);
+            _weaponAnimations.Swing(attackProfile.Windup, attackProfile.Winddown, attackProfile.AttackTime, _attackEffects.IsFlipped, attackProfile.ConeAngle);
+            yield return new WaitForSeconds(attackProfile.Windup);
 
             _cancellable = false;
-            yield return new WaitForSeconds(waitTime);
-            float hitCount = HitObjects(AttackType.Heavy);
-
-            if (_hasAttackEffects) _attackEffects.HeavyAttack();
-            if (hitCount == 0 && OnMiss != null) OnMiss.Invoke();
-
+            attackProfile.PlayEffect();
+            int hitCount = HitObjects(type, attackProfile.AttackArea, attackProfile.Damage);
+            OnSwing.Invoke();
             if (hitCount > 0)
             {
-                if (OnHeavyHit != null) OnHeavyHit.Invoke();
-                HitStopper.Stop(_heavyAttackHitStop);
+                attackProfile.OnHit();
             }
+            //_weaponAnimations.SwingEnd(attackProfile.AttackTime + attackProfile.Winddown, !_attackEffects.IsFlipped, attackProfile.ConeAngle);
+            yield return new WaitForSeconds(attackProfile.AttackTime);
 
+            yield return new WaitForSeconds(attackProfile.Winddown);
             _cancellable = true;
             _attackRoutine = null;
         }
 
-        private int HitObjects(AttackType type)
+        //private IEnumerator QuickAttack()
+        //{
+        //    if (_hasAttackEffects) _attackEffects.QuickAttack();
+        //    int hitCount = HitObjects(AttackType.Quick);
+        //    if (hitCount == 0 && OnSwing != null) OnSwing.Invoke();
+        //    if (hitCount > 0)
+        //    {
+        //        if (OnQuickHit != null) OnQuickHit.Invoke();
+        //        HitStopper.Stop(_quickAttackHitStop);
+        //    }
+        //    yield return new WaitForSeconds(_quickAttackTime);
+        //    _attackRoutine = null;
+        //}
+
+        //private IEnumerator HeavyAttack()
+        //{
+        //    float waitTime = _heavyAttackTime * 0.5f;
+        //    if (_hasAttackEffects) _attackEffects.AttackIndicator();
+        //    yield return new WaitForSeconds(waitTime);
+
+        //    _cancellable = false;
+        //    yield return new WaitForSeconds(waitTime);
+        //    float hitCount = HitObjects(AttackType.Heavy);
+
+        //    if (_hasAttackEffects) _attackEffects.HeavyAttack();
+        //    if (hitCount == 0 && OnSwing != null) OnSwing.Invoke();
+
+        //    if (hitCount > 0)
+        //    {
+        //        if (OnHeavyHit != null) OnHeavyHit.Invoke();
+        //        HitStopper.Stop(_heavyAttackHitStop);
+        //    }
+
+        //    _cancellable = true;
+        //    _attackRoutine = null;
+        //}
+
+        private int HitObjects(AttackType type, AttackArea attackArea, float damage)
         {
-            var sensor = type == AttackType.Quick ? _quickAttackArea : _heavyAttackArea;
-            float damage = type == AttackType.Quick ? _quickAttackDamage : _heavyAttackDamage;
-            int hitCount = sensor.HitObjects(damage, HitType.Hit, _player, OnHit);
+            int hitCount = attackArea.HitObjects(damage, HitType.Hit, _player, OnHit);
 
             return hitCount;
 
@@ -186,6 +246,7 @@ namespace Pasta
             {
                 _attackEffects.CancelAttack();
                 StopCoroutine(_attackRoutine);
+                _weaponAnimations.StopSwing();
                 _attackRoutine = null;
             }
 

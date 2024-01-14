@@ -89,7 +89,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
     private SeekBehaviour seekBehaviour;
     private bool shouldMaintainDistance = false;
 
-    [SerializeField]private Image attackplaceholderindicator;
+    [SerializeField] private Image attackplaceholderindicator;
 
     [Header("animator bools")]
     public bool IsIdle = true;
@@ -176,7 +176,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
 
         attackDistance = dontattackdist;
 
-        if(attackplaceholderindicator != null)
+        if (attackplaceholderindicator != null)
         {
             attackplaceholderindicator.enabled = false;
         }
@@ -210,7 +210,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
         }
         if (hasDamageEffects)
         {
-            takeDamageEffects.SetFloat("Rotation", player.transform.Find("AttackHandler").transform.localEulerAngles.z);
+            //takeDamageEffects.SetFloat("Rotation", player.transform.Find("AttackHandler").transform.localEulerAngles.z);
             takeDamageEffects.SendEvent("Hit");
         }
         StartCoroutine(TakingDamage());
@@ -225,7 +225,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
 
     }
 
-    
+
 
     private void Update()
     {
@@ -241,23 +241,23 @@ public class EnemyAi : MonoBehaviour, IEnemy
         #region supportenemy stuff
         if (gameObject.name.Contains("Support"))
         {
-            if(supportEnemyTarger != null)
+            if (supportEnemyTarger != null)
             {
                 LineRenderer lineRenderer;
 
-                
+
 
                 lineRenderer = GetComponent<LineRenderer>(); // Here to visualise for testing
                 Vector3[] positions = new Vector3[2];
                 positions[0] = gameObject.transform.position;
                 positions[1] = supportEnemyTarger.position;
                 lineRenderer.SetPositions(positions);
-                
+
             }
-           
+
             if ((player.transform.position - transform.position).magnitude < 15.0f && canTarget) // If player is close support enemy gets random enemy closeby to buff
             {
-                
+
                 Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, radius, layermask);
                 int random = Random.Range(1, hitColliders.Length);
                 for (int i = 0; i < hitColliders.Length; i++)
@@ -276,13 +276,13 @@ public class EnemyAi : MonoBehaviour, IEnemy
                         {
                             supportEnemyTarger = hitColliders[i].gameObject.transform;
                             hitColliders[i].gameObject.GetComponent<Health>().immune = true; // added check to health script called immune. // goes false on death method.
-                            
+
                             canTarget = false;
                         }
                     }
 
                 }
-                
+
 
             }
         }
@@ -294,15 +294,15 @@ public class EnemyAi : MonoBehaviour, IEnemy
 
             cooldown -= Time.deltaTime;
 
-            if(cooldown <= 0)
-			{
+            if (cooldown <= 0)
+            {
                 canuseAbility = true;
-			}
+            }
 
             //Looking at target.
             PointerEnemy?.Invoke(aiData.currentTarget.position);
 
-            if (Chasing == false) 
+            if (Chasing == false)
             {
                 Chasing = true;
                 StartCoroutine(ChaseAndAttack());
@@ -314,7 +314,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
                 float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
 
                 if (!gameObject.tag.Contains("Ranged")) // If not ranged enemy then execute staying away from player or attack if gotten attacktoken
-				{
+                {
 
                     if ((player.transform.position - transform.position).magnitude > 7.0f)
                     {
@@ -337,12 +337,12 @@ public class EnemyAi : MonoBehaviour, IEnemy
                         seekbehaviour.targetReachedThershold = 2f; // Just here to stop seekbehaviour from reaching target too soon and stopping.
                         attackDistance = dontattackdist; // decrease attack dist
                         detectionDelay = defaultDetectionDelay; // How frequently "enemy" updates eg. looks for player.
-						float safeDistance = 5f;
-						if (distance < safeDistance && shouldMaintainDistance) // If inside safedistance stop moving & getting shouldMaintainDistance bool from PlayerCloseSensor which stops enemys from all attacking at the same time.
-						{
+                        float safeDistance = 5f;
+                        if (distance < safeDistance && shouldMaintainDistance) // If inside safedistance stop moving & getting shouldMaintainDistance bool from PlayerCloseSensor which stops enemys from all attacking at the same time.
+                        {
                             movementInput = Vector2.zero;
-						}
-					}
+                        }
+                    }
                     else
                     {
                         SeekBehaviour seekbehaviour = gameObject.GetComponentInChildren<SeekBehaviour>();
@@ -352,8 +352,8 @@ public class EnemyAi : MonoBehaviour, IEnemy
                         detectionDelay = 0.1f;
                     }
                 }
-				else
-				{
+                else
+                {
                     canAttack = true;
 
                     if (!canAttack) // Ranged enemy
@@ -369,7 +369,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
                         }
                     }
                 }
-                
+
                 if (distance < attackDistance)
                 {
 
@@ -419,9 +419,9 @@ public class EnemyAi : MonoBehaviour, IEnemy
                 }
 
             }
-           
+
         }
-        
+
         else if (aiData.GetTargetsCount() > 0)
         {
             //Getting the target
@@ -434,7 +434,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
 
     public void Attack()
     {
-        
+
         if (gameObject.tag.Contains("Ranged"))
         {
             weaponParent.RangedAttack();
@@ -450,22 +450,22 @@ public class EnemyAi : MonoBehaviour, IEnemy
         {
             weaponParent.Attack();
             if (abilityHolder.ability != null) if (abilityHolder.ability.randomize)
-			{
-
-                RandomInt = Random.Range(1, 8);
-                if (RandomInt == 1 && canuseAbility)
                 {
-                    canuseAbility = false;
+
+                    RandomInt = Random.Range(1, 8);
+                    if (RandomInt == 1 && canuseAbility)
+                    {
+                        canuseAbility = false;
+                        if (abilityHolder.ability != null) abilityHolder.UseAbility = true;
+                    }
+
+                }
+                else
+                {
                     if (abilityHolder.ability != null) abilityHolder.UseAbility = true;
                 }
 
-            }
-			else
-			{
-                if (abilityHolder.ability != null) abilityHolder.UseAbility = true;
-            }
-            
-                
+
             if (hasAttackEffect) attackEffect.CancelAttack(); // Stops indicator
             if (hasAttackEffect) attackEffect.HeavyAttack(); // Does attack sprite
         }
@@ -481,11 +481,11 @@ public class EnemyAi : MonoBehaviour, IEnemy
 
         if (gameObject.name.Contains("Support"))
         {
-            if(supportEnemyTarger != null)
+            if (supportEnemyTarger != null)
             {
                 supportEnemyTarger.GetComponent<Health>().immune = false;
             }
-            
+
         }
 
         Death = true;
@@ -511,14 +511,14 @@ public class EnemyAi : MonoBehaviour, IEnemy
 
     public void UseAbility()
     {
-        if(abilityHolder.ability != null)
+        if (abilityHolder.ability != null)
         {
 
             if (abilityHolder.ability.usableOutsideAttackRange == true)
             {
 
-				if (abilityHolder.ability.randomize) // If ability has randomize bool true execute.
-				{
+                if (abilityHolder.ability.randomize) // If ability has randomize bool true execute.
+                {
 
                     RandomInt = Random.Range(1, 8);
                     if (RandomInt == 1 && canuseAbility)
@@ -537,18 +537,18 @@ public class EnemyAi : MonoBehaviour, IEnemy
                         StartCoroutine(CanAttack());
                     }
                 }
-				else
-				{
+                else
+                {
                     movementInput = Vector2.zero;
                     abilityHolder.UseAbility = true;
                     canAttackAnim = false;
                     if (hasAttackEffect) attackEffect.CancelAttack();
                     StartCoroutine(CanAttack());
                 }
-                
+
             }
         }
-        
+
     }
     public void ToggleMaintainDistance(bool value) // Gets bool value from playerclosesensor script.
     {
@@ -562,23 +562,23 @@ public class EnemyAi : MonoBehaviour, IEnemy
     IEnumerator StuckCheck()
     {
         yield return new WaitForSeconds(detectionDelay + 0.2f);
-        if ((player.transform.position - transform.position).magnitude < 2.0f) 
+        if ((player.transform.position - transform.position).magnitude < 2.0f)
         {
             movementInput = Vector2.zero;
 
         }
         else
         {
-            
+
             aiData.currentTarget = null;
             aiData.targets.Clear();
             PerformDetection();
         }
-       
+
     }
 
     public void ActivateIndicator() // Called from PlayerCloseSensor script when getting attack token. // DELETE THIS
-	{
+    {
 
         if (!goAheadAttack)
         {
@@ -602,13 +602,13 @@ public class EnemyAi : MonoBehaviour, IEnemy
         //        SeekBehaviour seekbehaviour = gameObject.GetComponentInChildren<SeekBehaviour>();
         //        seekbehaviour.targetReachedThershold = 1f;
         //    }
-            
-            
+
+
         //}
     }
 
     public void DeActivateIndicator()
-	{
+    {
         goAheadAttack = false;
 
         if (attackplaceholderindicator != null)
@@ -622,7 +622,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
 
     private IEnumerator ChaseAndAttack() // Enemy ai states "idle" "chase & look" "attack"
     {
-        
+
         // Idle state
         if (aiData.currentTarget == null) // If current target is null go to idle.
         {
@@ -644,14 +644,14 @@ public class EnemyAi : MonoBehaviour, IEnemy
         }
         else
         {
-            
+
             IsIdle = false;
 
             float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
 
-			// start attack at distance 
-			if (!canAttack)
-			{
+            // start attack at distance 
+            if (!canAttack)
+            {
                 attackDistance = dontattackdist;
 
                 if (attackplaceholderindicator != null)
@@ -659,10 +659,10 @@ public class EnemyAi : MonoBehaviour, IEnemy
                     attackplaceholderindicator.enabled = false;
                 }
             }
-			else
-			{
-                
-                if(attackplaceholderindicator != null)
+            else
+            {
+
+                if (attackplaceholderindicator != null)
                 {
                     attackplaceholderindicator.enabled = true;
                 }
@@ -672,13 +672,13 @@ public class EnemyAi : MonoBehaviour, IEnemy
                 Debug.Log(gotAttackToken + gameObject.name);
 
                 attackDistance = attackDefaultDist;
-			}
+            }
             // Attack state
             if (distance < attackDistance && canAttack && canAttackAnim)  // if distance is smaller than attackdistance execute attack.
             {
                 isAttacking = true; // FOR ANIMATOR
                                     //Attacking 
-                if(abilityHolder.ability != null) abilityHolder.CanUseAbility = true;
+                if (abilityHolder.ability != null) abilityHolder.CanUseAbility = true;
 
                 movementInput = Vector2.zero;
 

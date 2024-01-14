@@ -9,7 +9,7 @@ using UnityEngine.Events;
 public class PlayerMovement : Movement
 {
     [Header("Dodge")]
-    [SerializeField] private float _dodgeDelay = 0.2f;
+    [SerializeField] private float _dodgeDelay = 0.1f;
     [SerializeField] private float _dodgeDuration = 0.5f;
     [SerializeField] private float _dodgeSpeed = 10f;
     [SerializeField] private int _currentDodgeCount = 1;

@@ -30,7 +30,7 @@ public class Player : Singleton<Player>, IPlayer
     private bool _hasIframes => _iframes > Time.timeSinceLevelLoad;
 
     private Coroutine _buffer = null;
-    private float _bufferTime = 0.35f;
+    [SerializeField] private float _inputBuffer = 0.45f;
     private PlayerAction _dodgeAction = null;
     private PlayerAction _quickAttackAction = null;
     private PlayerAction _heavyAttackAction = null;
@@ -63,7 +63,7 @@ public class Player : Singleton<Player>, IPlayer
     public UnityEvent OnCoinPickUp;
     public UnityEvent OnHealPickUp;
 
-    private void Awake()
+    protected override void Init()
     {
         _input = this.AddOrGetComponent<PlayerInput>();
         _movement = this.AddOrGetComponent<PlayerMovement>();
@@ -234,7 +234,7 @@ public class Player : Singleton<Player>, IPlayer
             timer += Time.deltaTime;
             yield return null;
         }
-        while (timer < _bufferTime);
+        while (timer < _inputBuffer);
         _buffer = null;
     }
 

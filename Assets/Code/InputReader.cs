@@ -17,15 +17,16 @@ namespace Pasta
         {
             _controls = new Controls();
             _controls.Enable();
-            _controls.Function.Pause.performed += (context) =>
-            {
-                if (OnPause != null) OnPause();
-            };
         }
 
         public Controls.PlayerActions GetPlayerActions()
         {
             return _controls.Player;
+        }
+
+        public Controls.HUDActions GetHUDActions()
+        {
+            return _controls.HUD;
         }
     }
 }

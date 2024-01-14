@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e0956e2f24a2b8479b985fb26cc1243, type: 3}
-  m_Name: Stats
+  m_Name: TestStats
   m_EditorClassIdentifier: 
   Health: 100
   MinHealth: 10
@@ -19,7 +19,7 @@ MonoBehaviour:
   MovementSpeed: 5
   MinMovementSpeed: 3
   MaxMovementSpeed: 15
-  AttackSpeed: 3
-  MinAttackSpeed: 0.5
+  AttackSpeed: 7
+  MinAttackSpeed: 1
   DodgeCount: 1
   DodgeCooldown: 1

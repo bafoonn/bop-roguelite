@@ -3,7 +3,7 @@
     public enum GameStateType
     {
         MainMenu,
-        Pause,
+        //Pause,
         Game,
         GameOver
     }

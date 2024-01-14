@@ -64,10 +64,20 @@ namespace Pasta
             Init();
         }
 
+        protected void OnDestroy()
+        {
+            if (_current != this) return;
+            OnDestroyed();
+        }
+
         /// <summary>
         /// Method to be used to initialize the singleton.
         /// </summary>
         protected virtual void Init()
+        {
+        }
+
+        protected virtual void OnDestroyed()
         {
         }
     }
