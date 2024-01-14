@@ -22,22 +22,22 @@ namespace Pasta
         {
         }
 
-        public void StartFindPath(Vector3 startPos, Vector3 targetPos)
-		{
-            StartCoroutine(FindPath(startPos, targetPos));
-		}
+  //      public void StartFindPath(Vector3 startPos, Vector3 targetPos)
+		//{
+  //          StartCoroutine(FindPath(startPos, targetPos));
+		//}
 
         // A* Pathfinding algorithm to find the shortest path from startPos to targetPos
-        IEnumerator FindPath(Vector3 startPos, Vector3 targetPos)
+        public void FindPath(/*Vector3 startPos, Vector3 targetPos*/ pathRequest request, Action<PathResult> callback)
         {
             Vector3[] waypoints = new Vector3[0];
             bool pathSuccess = false;
             // Convert world positions to grid nodes
-            Node startNode = grid.NodeFromWorldPos(startPos);
-            Node targetNode = grid.NodeFromWorldPos(targetPos);
+            Node startNode = grid.NodeFromWorldPos(request.pathStart);
+            Node targetNode = grid.NodeFromWorldPos(request.pathEnd);
+            startNode.parent = startNode;
 
-
-            if(startNode.Walkable && targetNode.Walkable)
+            if (startNode.Walkable && targetNode.Walkable)
 			{
                 // Initialize open and closed sets for nodes
                 Heap<Node> openSet = new Heap<Node>(grid.MaxSize);
@@ -67,7 +67,7 @@ namespace Pasta
                         }
 
                         // Calculate the new movement cost to the neighbour
-                        int newMomevementCostToNeigbour = currentNode.gCost + GetDistance(currentNode, neighbour);
+                        int newMomevementCostToNeigbour = currentNode.gCost + GetDistance(currentNode, neighbour) + neighbour.movementPenalty; // Probs not used in but added just in case comment out if needed(if want to add weights).
                         if (newMomevementCostToNeigbour < currentNode.gCost || !openSet.Contains(neighbour))
                         {
                             neighbour.gCost = newMomevementCostToNeigbour;
@@ -78,17 +78,24 @@ namespace Pasta
                             {
                                 openSet.Add(neighbour);
                             }
+							else
+							{
+                                openSet.UpdateItem(neighbour);
+							}
                         }
                     }
                 }
             }
             
-            yield return null;
+            //yield return null;
 			if (pathSuccess)
+
 			{
                 waypoints = RetracePath(startNode, targetNode);
+                pathSuccess = waypoints.Length > 0;
             }
-            requestManager.Finished(waypoints, pathSuccess);
+            //requestManager.Finished(waypoints, pathSuccess);
+            callback(new PathResult(waypoints, pathSuccess, request.callback));
         }
 
         // Retrace the path from endNode to startNode and store it in grid.path

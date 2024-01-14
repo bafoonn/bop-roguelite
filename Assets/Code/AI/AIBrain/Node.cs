@@ -21,19 +21,22 @@ namespace Pasta
         public int gridX;
         public int gridY;
 
+        public int movementPenalty; // Probs not used in but added just in case comment out if needed(if want to add weights).
+
         // Reference to the parent node for reconstructing the path
         public Node parent;
 
         int heapIndex;
 
         // Constructor for creating a new node
-        public Node(bool walkable, Vector3 worldPos, int GridX, int GridY)
-		{
+        public Node(bool walkable, Vector3 worldPos, int GridX, int GridY, int penalty) // Probs not used in but added just in case comment out if needed(if want to add weights).
+        {
             Walkable = walkable;
             worldPosition = worldPos;
             gridX = GridX;
             gridY = GridY;
-		}
+            movementPenalty = penalty; // Probs not used in but added just in case comment out if needed(if want to add weights).
+        }
 
         // Total cost of the node (gCost + hCost)
         public int fCost
