@@ -14,15 +14,15 @@ public class EnemyAi : MonoBehaviour, IEnemy
 {
     #region detector stuff
     [Header("detector stuff")]
-    [SerializeField] private List<Detector> detectors;
-    [SerializeField] private AIData aiData;
-    [SerializeField] private float detectionDelay = 0.05f, aiUpdateDelay = 0.06f, attackDelay = 2f;
-    [SerializeField] private float attackDistance = 0.5f, attackStopDistance = 1.5f;
-    [SerializeField] private List<SteeringBehaviour> steeringBehaviours;
+    [SerializeField] public List<Detector> detectors;
+    [SerializeField] public AIData aiData;
+    [SerializeField] public float detectionDelay = 0.05f, aiUpdateDelay = 0.06f, attackDelay = 2f;
+    [SerializeField] public float attackDistance = 0.5f, attackStopDistance = 1.5f;
+    [SerializeField] public List<SteeringBehaviour> steeringBehaviours;
     private TargetDetector targetDetector;
     #endregion
 
-    private float attackDefaultDist;
+    public float attackDefaultDist;
     public MonoBehaviour Mono => this;
     public Health Health { get; protected set; }
     public Movement Movement => agentMover;
@@ -53,12 +53,12 @@ public class EnemyAi : MonoBehaviour, IEnemy
 
     public UnityEvent<Vector2> OnMovementInput, PointerEnemy;
     [SerializeField] public Vector2 movementInput;
-    [SerializeField] private AISolver movementDirectionSolver;
+    [SerializeField] public AISolver movementDirectionSolver;
 
-    bool Chasing = false;
+    public bool Chasing = false;
     private EnemyCarrier enemySpawningCarrier; // Only used by carrier enemies
-    private WeaponParent weaponParent;
-    private AbilityHolder abilityHolder;
+    public WeaponParent weaponParent;
+    public AbilityHolder abilityHolder;
     [SerializeField] private Transform Player;
     private GameObject player;
     private float defaultDetectionDelay;
@@ -74,20 +74,20 @@ public class EnemyAi : MonoBehaviour, IEnemy
 
     [Header("Animations & Speed")]
     public bool gotAttackToken = false;
-    private AgentAnimations animations;
+    public AgentAnimations animations;
     [SerializeField] private Drop drop;
     //[SerializeField] private float chaseDistanceThershold = 3, attackDistanceThershold = 0.8f;
     //private float passedTime = 1;
     private AgentMover agentMover;
     private float defaultMaxSpeed;
-    private AttackEffects attackEffect;
-    private bool hasAttackEffect;
+    public AttackEffects attackEffect;
+    public bool hasAttackEffect;
     [SerializeField] private bool hasDeathAnim = false;
     private EnemyDeath enemyDeathScript;
     [SerializeField] private GameObject Corpse;
 
     private SeekBehaviour seekBehaviour;
-    private bool shouldMaintainDistance = false;
+    public bool shouldMaintainDistance = false;
 
     [SerializeField] private Image attackplaceholderindicator;
 

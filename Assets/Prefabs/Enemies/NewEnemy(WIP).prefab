@@ -177,8 +177,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d0d783ecd30eab46b419ba4103d18eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackState: {fileID: 0}
+  attackState: {fileID: 5971662450637522435}
   canAttack: 0
+  enemy: {fileID: 0}
+  isClose: 0
 --- !u!1 &6484208104137940907
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,7 +360,7 @@ MonoBehaviour:
   speed: 2
   turnSpeed: 5
   turnDist: 0.2
-  stoppingDist: 0.2
+  stoppingDist: 1
   targetDetectionRange: 2
   targetDetectionRangeGizmo: 10
   playerLayerMask:
@@ -368,6 +370,7 @@ MonoBehaviour:
   EnemyLayerMask:
     serializedVersion: 2
     m_Bits: 128
+  FinishedPath: 0
   radius: 0.8
 --- !u!114 &7864292262585484745
 MonoBehaviour:
@@ -504,4 +507,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01d2371c28fd56044b5e4b185fabc758, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  approachPlayer: {fileID: 0}
+  approachPlayer: {fileID: 5688982629055998212}
+  patrolState: {fileID: 3722750499220450111}
+  hasGottenToken: 0
+  closeToPlayer: 0

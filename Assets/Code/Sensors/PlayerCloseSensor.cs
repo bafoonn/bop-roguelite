@@ -17,6 +17,7 @@ namespace Pasta
         private int layer;
         public int maxEnemiesThatcanAttack = 4;
         private float timer = 3f; // Initial timer value
+        private ChaseState chaseState;
 
         // Start is called before the first frame update
         void Start()
@@ -69,11 +70,22 @@ namespace Pasta
             {
                 if (i < maxEnemiesThatcanAttack) // Check if the current hitcollider is inside the result
                 {
-                    //Debug.Log(i);
-                    if (hitColliders[i].gameObject.TryGetComponent(out EnemyAi enemyAi))
+                    if (hitColliders[i].gameObject.TryGetComponent<ChaseState>(out ChaseState chaseState))
                     {
                         if ((transform.position - hitColliders[i].gameObject.transform.position).magnitude < radius)
                         {
+                            chaseState = hitColliders[i].gameObject.GetComponentInChildren<ChaseState>();
+                            chaseState.hasGottenToken = true;
+                        }
+             
+                    }
+                    //Debug.Log(i);
+                    if (hitColliders[i].gameObject.TryGetComponent(out EnemyAi enemyAi))
+                    {
+                        
+                        if ((transform.position - hitColliders[i].gameObject.transform.position).magnitude < radius)
+                        {
+                           
                             AIData aidata = hitColliders[i].gameObject.GetComponent<AIData>();               
                             Debug.Log("Can attack");
                             seekBehaviour = hitColliders[i].gameObject.GetComponentInChildren<SeekBehaviour>();
@@ -82,7 +94,6 @@ namespace Pasta
                             enemyAi.gotAttackToken = true;
                             enemyAi.ActivateIndicator();
                             enemyai.canAttack = true;
-                            
                         }
                         
                     }

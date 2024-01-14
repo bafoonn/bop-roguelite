@@ -22,9 +22,14 @@ namespace Pasta
         private Tilemap tilemap;
         private Vector2Int v2i;
         private Vector3Int v3i;
+        public Level level;
         public override void Activate(GameObject parent)
         {
-            tilemap = FindFirstObjectByType<Tilemap>();
+            level = FindFirstObjectByType<Level>();
+            if (level != null)
+            {
+                tilemap = level.tilemap;
+            }
             AIData aiData = parent.GetComponent<AIData>();
             //BossAI bossAi = parent.GetComponent<BossAI>();
             //GameObject player = GameObject.FindGameObjectWithTag("Player");

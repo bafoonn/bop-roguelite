@@ -39,6 +39,7 @@ public class TargetDetector : Detector
             else
             {   // Dosen't see player.
                 colliders = null;
+                SeenPlayer = false;
                 //if (!SeenPlayer) // TEST TO REVERT
                 //{
                 //    colliders = null;

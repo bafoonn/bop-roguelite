@@ -20,6 +20,7 @@ namespace Pasta
 		[SerializeField] private LayerMask playerLayerMask;
 		public bool followingPath = true;
 		[SerializeField] private LayerMask EnemyLayerMask; //TODO: Put these in states
+		public bool FinishedPath = false;
 		public float radius = 1; //TODO: Put these in states
 		//Vector3[] path;
 		//int targetIndex;
@@ -46,8 +47,9 @@ namespace Pasta
 
 		private void Update()
 		{
-			if ((target.transform.position - transform.position).magnitude < 3.0f)
+			if ((target.transform.position - transform.position).magnitude < 4.0f)
 			{
+				FinishedPath = true;
 				followingPath = false;
 				Debug.Log("Finished path");
 			}
@@ -55,7 +57,7 @@ namespace Pasta
 
 		public void StartPath()
 		{
-			followingPath = true;
+			followingPath = true;			
 			StartCoroutine(UpdatePath());
 		}
 
@@ -98,7 +100,7 @@ namespace Pasta
 			//Vector3 currentWaypoint = path[0];
 			
 			int pathIndex = 0;
-
+			FinishedPath = false;
 			//transform.LookAt(path.lookPoints[0]);
 
 			while (followingPath)

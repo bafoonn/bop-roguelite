@@ -21,6 +21,7 @@ namespace Pasta
 
         public override void Activate(GameObject parent)
 		{
+
 			GameObject spawnedRammingObj = Instantiate(rammingGObj, parent.transform);
 			if(parent.gameObject.tag != "Boss")
 			{

@@ -232,6 +232,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0126e69d2efc30743ba1b9f6eb6aadc2, type: 3}
+--- !u!114 &245010927 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3722750499220450111, guid: e101460c36e9acd48b143da2a42662ab, type: 3}
+  m_PrefabInstance: {fileID: 1747001525}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 019bae79963297547b4f4825b938d908, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &289672870
 GameObject:
   m_ObjectHideFlags: 0
@@ -693,6 +704,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1841126117}
   m_SourcePrefab: {fileID: 100100000, guid: e00fefb25f6277148ba6da547bf7b734, type: 3}
+--- !u!114 &1314625677 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5971662450637522435, guid: e101460c36e9acd48b143da2a42662ab, type: 3}
+  m_PrefabInstance: {fileID: 1747001525}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6541aa2ecf267d74093195755d328c0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1391098133 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9148033404110890887, guid: e00fefb25f6277148ba6da547bf7b734, type: 3}
@@ -1086,6 +1108,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2577584353279790566, guid: e101460c36e9acd48b143da2a42662ab, type: 3}
+      propertyPath: patrolState
+      value: 
+      objectReference: {fileID: 245010927}
+    - target: {fileID: 2577584353279790566, guid: e101460c36e9acd48b143da2a42662ab, type: 3}
+      propertyPath: approachPlayer
+      value: 
+      objectReference: {fileID: 2024191477}
+    - target: {fileID: 3041805919668499922, guid: e101460c36e9acd48b143da2a42662ab, type: 3}
+      propertyPath: stoppingDist
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5688982629055998212, guid: e101460c36e9acd48b143da2a42662ab, type: 3}
+      propertyPath: attackState
+      value: 
+      objectReference: {fileID: 1314625677}
     - target: {fileID: 6004038205310852666, guid: e101460c36e9acd48b143da2a42662ab, type: 3}
       propertyPath: m_BodyType
       value: 1
@@ -1299,6 +1337,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa8c9d6f4fce1434da8437644d38d647, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2024191477 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5688982629055998212, guid: e101460c36e9acd48b143da2a42662ab, type: 3}
+  m_PrefabInstance: {fileID: 1747001525}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d0d783ecd30eab46b419ba4103d18eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1026123538025448267

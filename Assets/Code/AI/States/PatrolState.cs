@@ -15,12 +15,16 @@ namespace Pasta
 		[SerializeField] private float targetDetectionRange = 5;
 		[SerializeField] private LayerMask obstacleLayerMask, playerLayerMask;
 		private bool Done = false;
+		private Transform player;
+		private Transform parent;
 
 		public override State EnterState()
 		{
 			if(Done != true)
 			{
-				EnemyScript = GetComponentInParent<NewEnemy>();
+				player = GameObject.FindGameObjectWithTag("Player").transform;
+				parent = transform.parent.transform.parent;
+				EnemyScript = parent.GetComponent<NewEnemy>();
 				waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
 				random = UnityEngine.Random.Range(0, waypoints.Length);
 				waypoint = waypoints[random].transform;
@@ -43,9 +47,14 @@ namespace Pasta
 				{
 					canSeePlayer = true;
 				}
+				else
+				{
+					canSeePlayer = false;
+				}
 			}
 			if (canSeePlayer)
 			{
+				Done = false;
 				return chaseState;
 			}
 			else
