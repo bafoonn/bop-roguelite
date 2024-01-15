@@ -5530,6 +5530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0382335bf5dcf1342812f0f9921738ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tilemaps: []
   tilemap: {fileID: 0}
   FloorLayer:
     serializedVersion: 2
@@ -5629,6 +5630,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupPrefab: {fileID: 9192325325120207732, guid: 4fa313cf89162df488191642daa89edf, type: 3}
+  healthRestore: {fileID: 0}
+  coin: {fileID: 0}
 --- !u!1001 &280320596726980809
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5886,6 +5889,14 @@ PrefabInstance:
       propertyPath: 'enemies.Array.data[0]'
       value: 
       objectReference: {fileID: 7141955673082789303, guid: 1b52ab8268586dd46a24dbd6892920c0, type: 3}
+    - target: {fileID: 6509901214721368227, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
+      propertyPath: totalEnemiesToSpawnPerWave.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6509901214721368227, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
+      propertyPath: 'totalEnemiesToSpawnPerWave.Array.data[0]'
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

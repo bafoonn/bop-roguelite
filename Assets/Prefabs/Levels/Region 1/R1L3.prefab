@@ -5137,6 +5137,14 @@ PrefabInstance:
       propertyPath: 'enemies.Array.data[3]'
       value: 
       objectReference: {fileID: 6983709454110088221, guid: bed12d4534daf2c469aacd0a60e207a6, type: 3}
+    - target: {fileID: 6509901214721368227, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
+      propertyPath: totalEnemiesToSpawnPerWave.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6509901214721368227, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
+      propertyPath: 'totalEnemiesToSpawnPerWave.Array.data[0]'
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5285,6 +5293,14 @@ PrefabInstance:
       propertyPath: 'enemies.Array.data[3]'
       value: 
       objectReference: {fileID: 6983709454110088221, guid: bed12d4534daf2c469aacd0a60e207a6, type: 3}
+    - target: {fileID: 6509901214721368227, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
+      propertyPath: totalEnemiesToSpawnPerWave.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6509901214721368227, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
+      propertyPath: 'totalEnemiesToSpawnPerWave.Array.data[0]'
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5371,6 +5387,14 @@ PrefabInstance:
       propertyPath: 'enemies.Array.data[4]'
       value: 
       objectReference: {fileID: 6992705672734178762, guid: 720acabbfe3d84b47b2c00a825ea0500, type: 3}
+    - target: {fileID: 6509901214721368227, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
+      propertyPath: totalEnemiesToSpawnPerWave.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6509901214721368227, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
+      propertyPath: 'totalEnemiesToSpawnPerWave.Array.data[0]'
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5592,6 +5616,14 @@ PrefabInstance:
       propertyPath: 'enemies.Array.data[3]'
       value: 
       objectReference: {fileID: 6983709454110088221, guid: bed12d4534daf2c469aacd0a60e207a6, type: 3}
+    - target: {fileID: 6509901214721368227, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
+      propertyPath: totalEnemiesToSpawnPerWave.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6509901214721368227, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
+      propertyPath: 'totalEnemiesToSpawnPerWave.Array.data[0]'
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

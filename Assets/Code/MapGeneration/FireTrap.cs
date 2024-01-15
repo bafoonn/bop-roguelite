@@ -36,9 +36,9 @@ namespace Pasta
         }
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if (isActive && col.TryGetComponent(out IHittable hittable))
+            if (isActive && col.TryGetComponent(out ICharacter character))
             {
-                hittable.Hit(damage);
+                character.Status.ApplyStatus(new BurnStatus(damage), 1f);
             }
         }
 

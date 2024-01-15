@@ -9,9 +9,10 @@ namespace Pasta
         [SerializeField]
         private GameObject[] enemies;
         [SerializeField]
-        private int totalEnemiesToSpawnPerWave = 1;
+        private int[] totalEnemiesToSpawnPerWave;
         [SerializeField]
         private int waves = 1;
+        private int currentWave = 0;
         [SerializeField]
         private float startDelay;
         [SerializeField]
@@ -28,9 +29,9 @@ namespace Pasta
         // Start is called before the first frame update
         void Start()
         {
-            enemiesToSpawn = totalEnemiesToSpawnPerWave;
+            enemiesToSpawn = totalEnemiesToSpawnPerWave[currentWave];
             level = GetComponentInParent<Level>();
-            level.AddToEnemyCount(totalEnemiesToSpawnPerWave);
+            level.AddToEnemyCount(enemiesToSpawn);
             isSpawning = false;
         }
         void Update()
@@ -45,12 +46,12 @@ namespace Pasta
         {
             isSpawning = true;
             //Delay at the start of the spawn routine
-            if (enemiesToSpawn == totalEnemiesToSpawnPerWave && startDelay != 0)
+            if (enemiesToSpawn == totalEnemiesToSpawnPerWave[currentWave] && startDelay != 0)
             {
                 yield return new WaitForSeconds(startDelay);
             }
             //Delay between each spawn
-            else if (enemiesToSpawn != totalEnemiesToSpawnPerWave && spawnDelay != 0 && firstSpawn)
+            else if (enemiesToSpawn != totalEnemiesToSpawnPerWave[currentWave] && spawnDelay != 0 && firstSpawn)
             {
                 yield return new WaitForSeconds(spawnDelay);
             }
@@ -58,10 +59,13 @@ namespace Pasta
             //Spawn a random enemy from the list if randomSpawn is checked
             if (randomSpawn)
             {
-                int random = Random.Range(0, enemies.Length);
-                GameObject enemy = Instantiate(enemies[random], transform.position, Quaternion.identity);
-                enemy.transform.SetParent(level.gameObject.transform);
-                enemiesToSpawn--;
+                for (int i = 0; i < enemiesToSpawn; i++)
+                {
+                    int random = Random.Range(0, enemies.Length);
+                    GameObject enemy = Instantiate(enemies[random], transform.position, Quaternion.identity);
+                    enemy.transform.SetParent(level.gameObject.transform);
+                    enemiesToSpawn--;
+                }
             }
             //Spawn enemies in order from the list
             else
@@ -98,7 +102,9 @@ namespace Pasta
         {
             if (waves != 0)
             {
-                enemiesToSpawn = totalEnemiesToSpawnPerWave;
+                currentWave++;
+                enemiesToSpawn = totalEnemiesToSpawnPerWave[currentWave];
+                level.AddToEnemyCount(enemiesToSpawn);
                 spawnWave = true;
             }
         }
