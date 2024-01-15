@@ -12,10 +12,13 @@ public class PlayerInput : MonoBehaviour
     public Vector2 Aim;
     public Vector2 MouseScreenPos;
     public Vector2 MouseWorldPos;
+    //public bool DoDodge;
+    public bool DoQuickAttack;
+    public bool DoHeavyAttack;
     public Action DodgeCallback;
     public Action InteractCallback;
-    public Action QuickAttackCallback;
-    public Action HeavyAttackCallback;
+    //public Action QuickAttackCallback;
+    //public Action HeavyAttackCallback;
     public Action HookCallback;
     private bool _isMouseAim = true;
     public bool _isAiming = false;
@@ -40,9 +43,9 @@ public class PlayerInput : MonoBehaviour
     {
         _actions.Enable();
         _actions.Dodge.performed += OnDodge;
-        _actions.QuickAttack.performed += OnQuickAttack;
+        //_actions.QuickAttack.performed += OnQuickAttack;
         _actions.Interact.performed += OnInteract;
-        _actions.HeavyAttack.performed += OnHeavyAttack;
+        //_actions.HeavyAttack.performed += OnHeavyAttack;
         _actions.Aim.performed += OnAim;
         _actions.MousePos.performed += OnMousePos;
     }
@@ -53,21 +56,11 @@ public class PlayerInput : MonoBehaviour
         _actions.Disable();
         _actions.Dodge.performed -= OnDodge;
         _actions.Interact.performed -= OnInteract;
-        _actions.QuickAttack.performed -= OnQuickAttack;
-        _actions.HeavyAttack.performed -= OnHeavyAttack;
+        //_actions.QuickAttack.performed -= OnQuickAttack;
+        //_actions.HeavyAttack.performed -= OnHeavyAttack;
         _actions.Aim.performed -= OnAim;
         _actions.MousePos.performed -= OnMousePos;
         Movement = Vector2.zero;
-    }
-
-    private void OnAim(InputAction.CallbackContext obj)
-    {
-        _isMouseAim = false;
-    }
-
-    private void OnMousePos(InputAction.CallbackContext obj)
-    {
-        _isMouseAim = true;
     }
 
     private void Update()
@@ -76,6 +69,9 @@ public class PlayerInput : MonoBehaviour
         MouseScreenPos = _actions.MousePos.ReadValue<Vector2>();
         MouseWorldPos = _camera.ScreenToWorldPoint(MouseScreenPos);
         _isAiming = _actions.Aim.ReadValue<Vector2>() != Vector2.zero;
+        //DoDodge = _actions.Dodge.IsPressed();
+        DoQuickAttack = _actions.QuickAttack.IsPressed();
+        DoHeavyAttack = _actions.HeavyAttack.IsPressed();
 
         if (_isMouseAim)
         {
@@ -102,6 +98,16 @@ public class PlayerInput : MonoBehaviour
         Debug.DrawLine(transform.position, transform.position + (Vector3)Aim, Color.green);
     }
 
+    private void OnAim(InputAction.CallbackContext obj)
+    {
+        _isMouseAim = false;
+    }
+
+    private void OnMousePos(InputAction.CallbackContext obj)
+    {
+        _isMouseAim = true;
+    }
+
     private void OnDodge(InputAction.CallbackContext obj)
     {
         if (DodgeCallback != null)
@@ -109,6 +115,7 @@ public class PlayerInput : MonoBehaviour
             DodgeCallback();
         }
     }
+
     private void OnHook(InputAction.CallbackContext obj)
     {
         if (HookCallback != null)
@@ -117,23 +124,23 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
-    private void OnHeavyAttack(InputAction.CallbackContext obj)
-    {
-        if (HeavyAttackCallback != null)
-        {
-            HeavyAttackCallback();
-        }
-        _lastAttackTime = Time.time;
-    }
+    //private void OnHeavyAttack(InputAction.CallbackContext obj)
+    //{
+    //    if (HeavyAttackCallback != null)
+    //    {
+    //        HeavyAttackCallback();
+    //    }
+    //    _lastAttackTime = Time.time;
+    //}
 
-    private void OnQuickAttack(InputAction.CallbackContext obj)
-    {
-        if (QuickAttackCallback != null)
-        {
-            QuickAttackCallback();
-        }
-        _lastAttackTime = Time.time;
-    }
+    //private void OnQuickAttack(InputAction.CallbackContext obj)
+    //{
+    //    if (QuickAttackCallback != null)
+    //    {
+    //        QuickAttackCallback();
+    //    }
+    //    _lastAttackTime = Time.time;
+    //}
 
     private void OnInteract(InputAction.CallbackContext obj)
     {

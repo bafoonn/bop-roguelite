@@ -87,13 +87,13 @@ public class Player : Singleton<Player>, IPlayer
 
         GetComponentInChildren<CurrencyUI>().Setup(this);
 
-        _dodgeAction = new PlayerAction(Dodge, () => _attackHandler.Cancel());
+        _dodgeAction = new PlayerAction(Dodge, () => _movement.CanDodge && _attackHandler.Cancel());
         _quickAttackAction = new PlayerAction(QuickAttack, () => !_movement.IsDodging && _attackHandler.CanAttack);
         _heavyAttackAction = new PlayerAction(HeavyAttack, () => !_movement.IsDodging && _attackHandler.CanAttack);
 
         _input.DodgeCallback = () => AddAction(_dodgeAction);
-        _input.QuickAttackCallback = () => AddAction(_quickAttackAction);
-        _input.HeavyAttackCallback = () => AddAction(_heavyAttackAction);
+        //_input.QuickAttackCallback = () => AddAction(_quickAttackAction);
+        //_input.HeavyAttackCallback = () => AddAction(_heavyAttackAction);
 
         _movement.Setup(_rigidbody);
 
@@ -103,6 +103,14 @@ public class Player : Singleton<Player>, IPlayer
     private void Update()
     {
         _input.enabled = !(GameManager.Current.IsPaused || _itemPopUp.IsActive || GameManager.Current.CurrentState == GameStateType.GameOver);
+        if (_input.DoQuickAttack)
+        {
+            AddAction(_quickAttackAction);
+        }
+        if (_input.DoHeavyAttack)
+        {
+            AddAction(_heavyAttackAction);
+        }
     }
 
     private void FixedUpdate()
@@ -211,18 +219,22 @@ public class Player : Singleton<Player>, IPlayer
         }
     }
 
+    private List<PlayerAction> _actionBuffer = new();
     private void AddAction(PlayerAction action)
     {
-        if (_buffer != null)
-        {
-            StopCoroutine(_buffer);
-        }
+        //if (_buffer != null)
+        //{
+        //    StopCoroutine(_buffer);
+        //}
 
-        _buffer = StartCoroutine(InputBuffer(action));
+        //_buffer = StartCoroutine(InputBuffer(action));
+        if (_actionBuffer.Contains(action)) return;
+        StartCoroutine(InputBuffer(action));
     }
 
     private IEnumerator InputBuffer(PlayerAction action)
     {
+        _actionBuffer.Add(action);
         float timer = 0f;
         do
         {
@@ -235,7 +247,8 @@ public class Player : Singleton<Player>, IPlayer
             yield return null;
         }
         while (timer < _inputBuffer);
-        _buffer = null;
+        //_buffer = null;
+        _actionBuffer.Remove(action);
     }
 
     private void AddIframes(float time)
