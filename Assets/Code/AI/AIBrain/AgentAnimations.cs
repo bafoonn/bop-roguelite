@@ -16,6 +16,7 @@ public class AgentAnimations : MonoBehaviour
     private AgentMover agentMover;
     private float defaultSpeed;
     private Transform player;
+    private FixedEnemyAI fixedAI;
     private void Awake()
     {
         //animator = GetComponent<Animator>();
@@ -48,11 +49,24 @@ public class AgentAnimations : MonoBehaviour
     {
         if (animator != null)
         {
-            animator.SetBool("isAttacking", enemyAi.isAttacking);
-            animator.SetBool("IsIdle", enemyAi.IsIdle);
-            animator.SetBool("Death", enemyAi.Death);
-            animator.SetFloat("DirX", enemyAi.movementInput.x);
-            animator.SetFloat("DirY", enemyAi.movementInput.y);
+            if(enemyAi != null)
+			{
+                animator.SetBool("isAttacking", enemyAi.isAttacking);
+                animator.SetBool("IsIdle", enemyAi.IsIdle);
+                animator.SetBool("Death", enemyAi.Death);
+                animator.SetFloat("DirX", enemyAi.movementInput.x);
+                animator.SetFloat("DirY", enemyAi.movementInput.y);
+            }
+			else
+			{
+                fixedAI = GetComponent<FixedEnemyAI>();
+                animator.SetBool("isAttacking", fixedAI.isAttacking);
+                animator.SetBool("IsIdle", fixedAI.IsIdle);
+                animator.SetBool("Death", fixedAI.Death);
+                animator.SetFloat("DirX", fixedAI.movementInput.x);
+                animator.SetFloat("DirY", fixedAI.movementInput.y);
+            }
+            
            
         }
     }

@@ -8,16 +8,17 @@ namespace Pasta
 	{
 		private bool canSeePlayer;
 		public OldAIChaseState oldchaseState;
-		private GameObject Enemy;
-		private EnemyAi enemyAI;
-		private TargetDetector targetDetector;
-		private AIData aiData;
+		public GameObject Enemy;
+		private FixedEnemyAI enemyAI;
+		public TargetDetector targetDetector;
+		public AIData aiData;
+		private Transform parent;
 		public override State EnterState()
 		{
+			parent = transform.parent.transform.parent;
 			Enemy = transform.parent.gameObject;
-			enemyAI = GetComponentInParent<EnemyAi>();
-			targetDetector = Enemy.GetComponentInChildren<TargetDetector>();
-			aiData = Enemy.GetComponentInChildren<AIData>();
+			enemyAI = parent.GetComponent<FixedEnemyAI>();
+			targetDetector = parent.GetComponentInChildren<TargetDetector>();
 			return this;
 		}
 
@@ -26,23 +27,20 @@ namespace Pasta
 			if (aiData.currentTarget == null) // If current target is null go to idle.
 			{
 				enemyAI.attackDistance = enemyAI.attackDefaultDist;
-
 				if (enemyAI.hasAttackEffect) enemyAI.attackEffect.CancelAttack();
-
 				enemyAI.isAttacking = false; // FOR ANIMATOR
-
 				enemyAI.IsIdle = true;
-
 				if (enemyAI.abilityHolder.ability != null) enemyAI.abilityHolder.CanUseAbility = false;
-
 				enemyAI.timeToAttack = 0;
-
 				enemyAI.Chasing = false;
-
 			}
 			if (targetDetector.SeenPlayer)
 			{
 				canSeePlayer = true;
+			}
+			else
+			{
+				canSeePlayer = false;
 			}
 			if (canSeePlayer)
 			{

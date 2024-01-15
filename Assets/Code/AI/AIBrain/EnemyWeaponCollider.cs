@@ -7,6 +7,7 @@ namespace Pasta
     public class EnemyWeaponCollider : MonoBehaviour
     {
         public EnemyAi m_Ai;
+        private FixedEnemyAI fixedAI;
         [SerializeField] private bool isNormalEnemy = true;
         public BossAI bossAI;
         private float damage = 2f;
@@ -16,7 +17,16 @@ namespace Pasta
             if (isNormalEnemy)
             {
                 m_Ai = GetComponentInParent<EnemyAi>();
-                damage = m_Ai.damage;
+                if(m_Ai != null)
+				{
+                    damage = m_Ai.damage;
+                }
+				else
+				{
+                    fixedAI = GetComponentInParent<FixedEnemyAI>();
+                    damage = fixedAI.damage;
+				}
+               
             }
             else
             {

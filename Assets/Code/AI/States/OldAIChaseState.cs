@@ -9,26 +9,36 @@ namespace Pasta
 		public bool isInAttackRange;
 		public OldAIApproachState approachState;
 		private GameObject Enemy;
-		private EnemyAi enemyAI;
+		private FixedEnemyAI enemyAI;
 		private TargetDetector targetDetector;
 		private AIData aiData;
+		private Transform player;
+		private Transform parent;
+
+		public bool closeToPlayer;
 		public override State EnterState()
 		{
-			Enemy = transform.parent.gameObject;
-			enemyAI = GetComponentInParent<EnemyAi>();
-			targetDetector = Enemy.GetComponentInChildren<TargetDetector>();
-			aiData = Enemy.GetComponentInChildren<AIData>();
+			Debug.Log("Entered chase state");
+			player = GameObject.FindGameObjectWithTag("Player").transform;
+			parent = transform.parent.transform.parent;
+			Enemy = parent.gameObject;
+			enemyAI = parent.GetComponent<FixedEnemyAI>();
+			targetDetector = parent.GetComponentInChildren<TargetDetector>();
+			aiData = parent.GetComponentInChildren<AIData>();
 			return this;
 		}
 
 		public override State RunCurrentState()
 		{
+			parent = transform.parent.transform.parent;
+			enemyAI = parent.GetComponent<FixedEnemyAI>();
+			targetDetector = parent.GetComponentInChildren<TargetDetector>();
+			aiData = parent.GetComponent<AIData>();
+
+
 			enemyAI.attackDistance = enemyAI.attackDefaultDist;
-
 			enemyAI.weaponParent.Aim = true;
-
 			enemyAI.animations.aim = true;
-
 			enemyAI.isAttacking = false; // FOR ANIMATOR
 								 //Chasing
 
@@ -41,10 +51,19 @@ namespace Pasta
 			enemyAI.UseAbility();
 
 			enemyAI.timeToAttack = 0;
-
 			enemyAI.movementInput = enemyAI.movementDirectionSolver.GetDirectionToMove(enemyAI.steeringBehaviours, aiData);
 
-			if (isInAttackRange)
+			if ((player.transform.position - transform.position).magnitude < 4.5f)
+			{
+				Debug.Log("Close to player");
+				closeToPlayer = true;
+			}
+			else
+			{
+				closeToPlayer = false;
+			}
+
+			if (closeToPlayer)
 			{
 				return approachState;
 			}
