@@ -17,7 +17,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
     [SerializeField] public List<Detector> detectors;
     [SerializeField] public AIData aiData;
     [SerializeField] public float detectionDelay = 0.05f, aiUpdateDelay = 0.06f, attackDelay = 2f;
-    [SerializeField] public float attackDistance = 0.5f, attackStopDistance = 1.5f;
+    [SerializeField] public float attackDistance = 1f, attackStopDistance = 1.5f;
     [SerializeField] public List<SteeringBehaviour> steeringBehaviours;
     private TargetDetector targetDetector;
     #endregion
@@ -380,10 +380,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
                         }
                     }
                     //attackIndicator.enabled = true;
-                    if (isAttacking == true)
-                    {
-                        timeToAttack += Time.deltaTime;
-                    }
+                    
                     if (timeToAttack >= defaultTimeToAttack / 1.5) // Stops enemy from aiming when close to attacking.
                     {
                         weaponParent.Aim = false;
@@ -407,6 +404,25 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
             aiData.currentTarget = aiData.targets[0];
         }
         //Debug.Log(movementInput);
+        if (isAttacking == true)
+        {
+            timeToAttack += Time.deltaTime;
+        }
+        if (timeToAttack >= defaultTimeToAttack - 0.1f) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
+        {
+            Debug.Log("Attacking");
+            Attack(); // Attack method
+            timeToAttack = 0;
+            isAttacking = false;
+            detectionDelay = defaultDetectionDelay;
+        }
+		if (canAttack)
+		{
+            if (attackplaceholderindicator != null)
+            {
+                attackplaceholderindicator.enabled = false;
+            }
+        }
         OnMovementInput?.Invoke(movementInput);
     }
 
@@ -562,17 +578,16 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
         {
             Debug.Log("going inside AttackCourotine");
             stopAttacking = true;
-            isAttacking = true;
             StartCoroutine(AttackCourotine());
         }       
     }
 
     public IEnumerator AttackCourotine() 
-    {          
-            IsIdle = false;
-        if(aiData.currentTarget != null)
-        {
-            float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
+    {
+        Debug.Log("Inside attack courotine start");
+        IsIdle = false;
+        
+            
        
                 Debug.Log("Inside attack courotine");
                 isAttacking = true; // FOR ANIMATOR
@@ -581,7 +596,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
                 movementInput = Vector2.zero;
                 OnAttackPressed?.Invoke();
 
-                if (timeToAttack >= defaultTimeToAttack) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
+                if (timeToAttack >= defaultTimeToAttack - 0.1f) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
                 {
                     Debug.Log("Attacking");
                     Attack(); // Attack method
@@ -591,12 +606,10 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
                 }
                 attackDistance = attackStopDistance;
                 yield return new WaitForSeconds(defaultTimeToAttack);
+                isAttacking = false;
                 canAttack = false;
-                stopAttacking = false;
-                //firstAttack = false;
-                StartCoroutine(AttackCourotine());
-            
-        }
+                stopAttacking = false;         
+        
             
     }
 

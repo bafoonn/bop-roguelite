@@ -7,6 +7,8 @@ namespace Pasta
 	public class OldAIApproachState : State
 	{
 		public OldAIAttackState attackState;
+		public OldAIChaseState chaseState;
+
 		public bool gotAttackToken;
 		private FixedEnemyAI enemyAI;
 		private TargetDetector targetDetector;
@@ -35,24 +37,31 @@ namespace Pasta
 			aiData = parent.GetComponent<AIData>();
             player = GameObject.FindGameObjectWithTag("Player").transform;
 
-            if ((player.transform.position - transform.position).magnitude < 4.5f)
-            {
-                Debug.Log("too Close to player");	
-                isTakingStepsBack = true;
-                StartCoroutine(takeStepsBack());
-            }
-			else
+   //         if ((player.transform.position - parent.transform.position).magnitude < 1.5f) // Need to think of a way to implement walking back from enemy
+   //         {
+   //             Debug.Log("too Close to player");
+			//	enemyAI.movementInput = Vector2.zero;
+			//	isTakingStepsBack = true;
+   //             StartCoroutine(takeStepsBack());
+   //         }
+			//else
+			//{
+			//	StopTakingStepsBack();
+			//}
+
+			if ((player.transform.position - parent.transform.position).magnitude > 7.5f)
 			{
-				StopTakingStepsBack();
+				Debug.Log("Returning to chase");
+				return chaseState;
 			}
 
-            CanAttack = enemyAI.canAttack;
-			float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
+			CanAttack = enemyAI.canAttack;
+			float distance = Vector2.Distance(player.position, parent.transform.position);
 			if (!CanAttack)
 			{
 				// This puts the distance enemies will stay away from player if hasnt gotten attack token
 				SeekBehaviour seekbehaviour = parent.gameObject.GetComponentInChildren<SeekBehaviour>();
-				seekbehaviour.targetReachedThershold = 3f; // Just here to stop seekbehaviour from reaching target too soon and stopping.
+				seekbehaviour.targetReachedThershold = 4f; // Just here to stop seekbehaviour from reaching target too soon and stopping.
 				enemyAI.attackDistance = enemyAI.dontattackdist; // decrease attack dist
 				float safeDistance = 5f;
 				if (distance < safeDistance && enemyAI.shouldMaintainDistance) // If inside safedistance stop moving & getting shouldMaintainDistance bool from PlayerCloseSensor which stops enemys from all attacking at the same time.
@@ -61,11 +70,7 @@ namespace Pasta
 					enemyAI.movementInput = Vector2.zero;
 				}
                 enemyAI.attackDistance = enemyAI.dontattackdist;
-                if (enemyAI.attackplaceholderindicator != null)
-                {
-                    enemyAI.attackplaceholderindicator.enabled = false;
-                }
-                return this;
+                return chaseState;
 			}
 			else
 			{
@@ -74,10 +79,6 @@ namespace Pasta
 				enemyAI.shouldMaintainDistance = false;
 				enemyAI.attackDistance = enemyAI.attackDefaultDist;
 				enemyAI.detectionDelay = 0.1f;
-                if (enemyAI.attackplaceholderindicator != null)
-                {
-                    enemyAI.attackplaceholderindicator.enabled = true;
-                }
                 enemyAI.gotAttackToken = true;
                 enemyAI.attackDistance = enemyAI.attackDefaultDist;
                 return attackState;
@@ -89,10 +90,10 @@ namespace Pasta
 		{
             while (isTakingStepsBack)
             {
-                Vector2 currentPosition = transform.position;
+                Vector2 currentPosition = parent.transform.position;
                 Vector2 targetPosition = currentPosition - new Vector2(backwardSpeed * Time.deltaTime, 0f);
 
-                transform.position = targetPosition;
+				parent.transform.position = targetPosition;
 
                 yield return null;
             }

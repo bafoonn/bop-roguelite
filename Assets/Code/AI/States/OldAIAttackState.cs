@@ -16,6 +16,7 @@ namespace Pasta
         private bool CanAttack;
         private bool returnThis;
         private bool attacking;
+        private Transform player;
 
         public override State EnterState()
 		{
@@ -33,12 +34,14 @@ namespace Pasta
             enemyAI = parent.GetComponent<FixedEnemyAI>();
             targetDetector = parent.GetComponentInChildren<TargetDetector>();
             aiData = parent.GetComponent<AIData>();
+            player = GameObject.FindGameObjectWithTag("Player").transform;
 
             SeekBehaviour seekbehaviour = parent.gameObject.GetComponentInChildren<SeekBehaviour>();
-            seekbehaviour.targetReachedThershold = 1f; // This is default 0.5f
+            seekbehaviour.targetReachedThershold = enemyAI.attackDefaultDist; // This is default 0.5f
             enemyAI.shouldMaintainDistance = false;
             enemyAI.attackDistance = enemyAI.attackDefaultDist;
             enemyAI.detectionDelay = 0.1f;
+
             if (enemyAI.attackplaceholderindicator != null)
             {
                 enemyAI.attackplaceholderindicator.enabled = true;
@@ -46,7 +49,7 @@ namespace Pasta
 
             enemyAI.gotAttackToken = true;
 
-            float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
+            float distance = Vector2.Distance(player.position, parent.transform.position);
 
             if (enemyAI.canAttack)
             {
@@ -57,20 +60,6 @@ namespace Pasta
                     Debug.Log("Starting attack");
                     enemyAI.StartAttack();
                     enemyAI.movementInput = Vector2.zero;
-                    while (enemyAI.canAttack)
-                    {
-                        enemyAI.OnAttackPressed?.Invoke();
-                        enemyAI.isAttacking = true;
-                        if (enemyAI.timeToAttack >= enemyAI.defaultTimeToAttack) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
-                        {
-                            Debug.Log("Attacking");
-                            enemyAI.Attack(); // Attack method
-                            enemyAI.timeToAttack = 0;
-                            enemyAI.isAttacking = false;
-                            enemyAI.detectionDelay = enemyAI.defaultDetectionDelay;
-                            enemyAI.canAttack = false;
-                        }
-                    }
                 }
                 return this;
             }

@@ -425,6 +425,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7995406111701598927, guid: 4e22e2fe8ad9ff34480f6bae6fa99d08, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -23.31
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -626,7 +630,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4148447015453757000, guid: 9f37f85d1ba75d54a803a24712822e31, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.0554476
+      value: -16.49
       objectReference: {fileID: 0}
     - target: {fileID: 4148447015453757000, guid: 9f37f85d1ba75d54a803a24712822e31, type: 3}
       propertyPath: m_LocalPosition.z
@@ -737,6 +741,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackState: {fileID: 2145923815}
   gotAttackToken: 0
+  backwardSpeed: 3
 --- !u!4 &1223244776
 Transform:
   m_ObjectHideFlags: 0
@@ -1676,12 +1681,12 @@ MonoBehaviour:
   detectionDelay: 0.05
   aiUpdateDelay: 0.06
   attackDelay: 2
-  attackDistance: 0.5
-  attackStopDistance: 1.5
+  attackDistance: 1
+  attackStopDistance: 2.5
   steeringBehaviours:
   - {fileID: 1705467949}
   - {fileID: 355749984}
-  attackDefaultDist: 0
+  attackDefaultDist: 2
   supportEnemyTarger: {fileID: 0}
   layermask:
     serializedVersion: 2
@@ -1754,7 +1759,7 @@ MonoBehaviour:
   hasAttackEffect: 0
   hasDeathAnim: 1
   Corpse: {fileID: 6992705672734178762, guid: 0bd6a8d9d9f054945bcfe81a42ba2fc6, type: 3}
-  shouldMaintainDistance: 0
+  shouldMaintainDistance: 1
   attackplaceholderindicator: {fileID: 1146314576}
   IsIdle: 1
   isAttacking: 0
