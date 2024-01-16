@@ -53,7 +53,7 @@ namespace Pasta
 			enemyAI.timeToAttack = 0;
 			enemyAI.movementInput = enemyAI.movementDirectionSolver.GetDirectionToMove(enemyAI.steeringBehaviours, aiData);
 
-			if ((player.transform.position - transform.position).magnitude < 4.5f)
+			if ((player.transform.position - transform.position).magnitude < 5.5f)
 			{
 				Debug.Log("Close to player");
 				closeToPlayer = true;

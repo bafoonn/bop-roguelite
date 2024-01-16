@@ -13,7 +13,11 @@ namespace Pasta
 		private AIData aiData;
 		private Transform parent;
 		private bool CanAttack;
-		public override State EnterState()
+        private Transform player;
+
+        public float backwardSpeed = 3f; // Adjust this value to control the speed of the backward movement
+        private bool isTakingStepsBack = false;
+        public override State EnterState()
 		{
 			Debug.Log("Entered approach state");
 			parent = transform.parent.transform.parent;
@@ -29,8 +33,20 @@ namespace Pasta
 			enemyAI = parent.GetComponent<FixedEnemyAI>();
 			targetDetector = parent.GetComponentInChildren<TargetDetector>();
 			aiData = parent.GetComponent<AIData>();
+            player = GameObject.FindGameObjectWithTag("Player").transform;
 
-			CanAttack = enemyAI.canAttack;
+            if ((player.transform.position - transform.position).magnitude < 4.5f)
+            {
+                Debug.Log("too Close to player");	
+                isTakingStepsBack = true;
+                StartCoroutine(takeStepsBack());
+            }
+			else
+			{
+				StopTakingStepsBack();
+			}
+
+            CanAttack = enemyAI.canAttack;
 			float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
 			if (!CanAttack)
 			{
@@ -41,9 +57,15 @@ namespace Pasta
 				float safeDistance = 5f;
 				if (distance < safeDistance && enemyAI.shouldMaintainDistance) // If inside safedistance stop moving & getting shouldMaintainDistance bool from PlayerCloseSensor which stops enemys from all attacking at the same time.
 				{
+					Debug.Log("Stopping movement");
 					enemyAI.movementInput = Vector2.zero;
 				}
-				return this;
+                enemyAI.attackDistance = enemyAI.dontattackdist;
+                if (enemyAI.attackplaceholderindicator != null)
+                {
+                    enemyAI.attackplaceholderindicator.enabled = false;
+                }
+                return this;
 			}
 			else
 			{
@@ -52,9 +74,33 @@ namespace Pasta
 				enemyAI.shouldMaintainDistance = false;
 				enemyAI.attackDistance = enemyAI.attackDefaultDist;
 				enemyAI.detectionDelay = 0.1f;
-				return attackState;
+                if (enemyAI.attackplaceholderindicator != null)
+                {
+                    enemyAI.attackplaceholderindicator.enabled = true;
+                }
+                enemyAI.gotAttackToken = true;
+                enemyAI.attackDistance = enemyAI.attackDefaultDist;
+                return attackState;
 			}
 			
 		}
-	}
+
+		IEnumerator takeStepsBack()
+		{
+            while (isTakingStepsBack)
+            {
+                Vector2 currentPosition = transform.position;
+                Vector2 targetPosition = currentPosition - new Vector2(backwardSpeed * Time.deltaTime, 0f);
+
+                transform.position = targetPosition;
+
+                yield return null;
+            }
+        }
+
+        void StopTakingStepsBack()
+        {
+            isTakingStepsBack = false;
+        }
+    }
 }

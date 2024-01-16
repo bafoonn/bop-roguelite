@@ -85,7 +85,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
     [SerializeField] private GameObject Corpse;
 
     private SeekBehaviour seekBehaviour;
-    public bool shouldMaintainDistance = false;
+    public bool shouldMaintainDistance = true;
 
     [SerializeField] public Image attackplaceholderindicator;
 
@@ -94,6 +94,8 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
     public bool isAttacking = false;
     public bool stunned = false;
     public bool Death = false;
+
+    private bool stopAttacking;
 
     private bool goAheadAttack = false;
 
@@ -554,9 +556,49 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
         if (hasAttackEffect) attackEffect.CancelAttack();
     }
 
-    
-   
+    public void StartAttack()
+    {
+        if (!stopAttacking)
+        {
+            Debug.Log("going inside AttackCourotine");
+            stopAttacking = true;
+            isAttacking = true;
+            StartCoroutine(AttackCourotine());
+        }       
+    }
 
+    public IEnumerator AttackCourotine() 
+    {          
+            IsIdle = false;
+        if(aiData.currentTarget != null)
+        {
+            float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
+       
+                Debug.Log("Inside attack courotine");
+                isAttacking = true; // FOR ANIMATOR
+                                    //Attacking 
+                if (abilityHolder.ability != null) abilityHolder.CanUseAbility = true;
+                movementInput = Vector2.zero;
+                OnAttackPressed?.Invoke();
+
+                if (timeToAttack >= defaultTimeToAttack) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
+                {
+                    Debug.Log("Attacking");
+                    Attack(); // Attack method
+                    timeToAttack = 0;
+                    isAttacking = false;
+                    detectionDelay = defaultDetectionDelay;
+                }
+                attackDistance = attackStopDistance;
+                yield return new WaitForSeconds(defaultTimeToAttack);
+                canAttack = false;
+                stopAttacking = false;
+                //firstAttack = false;
+                StartCoroutine(AttackCourotine());
+            
+        }
+            
+    }
 
     public void Hit(float damage, HitType type, ICharacter source = null)
     {

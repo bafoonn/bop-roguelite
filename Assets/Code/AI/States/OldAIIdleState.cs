@@ -24,7 +24,12 @@ namespace Pasta
 
 		public override State RunCurrentState()
 		{
-			if (aiData.currentTarget == null) // If current target is null go to idle.
+            parent = transform.parent.transform.parent;
+            Enemy = transform.parent.gameObject;
+            enemyAI = parent.GetComponent<FixedEnemyAI>();
+            targetDetector = parent.GetComponentInChildren<TargetDetector>();
+
+            if (aiData.currentTarget == null) // If current target is null go to idle.
 			{
 				enemyAI.attackDistance = enemyAI.attackDefaultDist;
 				if (enemyAI.hasAttackEffect) enemyAI.attackEffect.CancelAttack();

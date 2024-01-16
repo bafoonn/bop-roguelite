@@ -14,6 +14,8 @@ namespace Pasta
         private AIData aiData;
         private Transform parent;
         private bool CanAttack;
+        private bool returnThis;
+        private bool attacking;
 
         public override State EnterState()
 		{
@@ -32,67 +34,55 @@ namespace Pasta
             targetDetector = parent.GetComponentInChildren<TargetDetector>();
             aiData = parent.GetComponent<AIData>();
 
-            enemyAI.IsIdle = false;
+            SeekBehaviour seekbehaviour = parent.gameObject.GetComponentInChildren<SeekBehaviour>();
+            seekbehaviour.targetReachedThershold = 1f; // This is default 0.5f
+            enemyAI.shouldMaintainDistance = false;
+            enemyAI.attackDistance = enemyAI.attackDefaultDist;
+            enemyAI.detectionDelay = 0.1f;
+            if (enemyAI.attackplaceholderindicator != null)
+            {
+                enemyAI.attackplaceholderindicator.enabled = true;
+            }
+
+            enemyAI.gotAttackToken = true;
+
             float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
 
-            // start attack at distance 
-            if (!enemyAI.canAttack)
+            if (enemyAI.canAttack)
             {
-                enemyAI.attackDistance = enemyAI.dontattackdist;
-                if (enemyAI.attackplaceholderindicator != null)
+                
+                enemyAI.movementInput = enemyAI.movementDirectionSolver.GetDirectionToMove(enemyAI.steeringBehaviours, aiData);
+                if (distance < enemyAI.attackDistance && enemyAI.canAttack && enemyAI.canAttackAnim)  // if distance is smaller than attackdistance execute attack.
                 {
-                    enemyAI.attackplaceholderindicator.enabled = false;
+                    Debug.Log("Starting attack");
+                    enemyAI.StartAttack();
+                    enemyAI.movementInput = Vector2.zero;
+                    while (enemyAI.canAttack)
+                    {
+                        enemyAI.OnAttackPressed?.Invoke();
+                        enemyAI.isAttacking = true;
+                        if (enemyAI.timeToAttack >= enemyAI.defaultTimeToAttack) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
+                        {
+                            Debug.Log("Attacking");
+                            enemyAI.Attack(); // Attack method
+                            enemyAI.timeToAttack = 0;
+                            enemyAI.isAttacking = false;
+                            enemyAI.detectionDelay = enemyAI.defaultDetectionDelay;
+                            enemyAI.canAttack = false;
+                        }
+                    }
                 }
-                return approachState;
+                return this;
             }
             else
             {
-
-                if (enemyAI.attackplaceholderindicator != null)
-                {
-                    enemyAI.attackplaceholderindicator.enabled = true;
-                }
-
-                enemyAI.gotAttackToken = true;
-                enemyAI.attackDistance = enemyAI.attackDefaultDist;
-            }
-            // Attack state
-            if (distance < enemyAI.attackDistance && enemyAI.canAttack && enemyAI.canAttackAnim)  // if distance is smaller than attackdistance execute attack.
-            {
-                enemyAI.isAttacking = true; // FOR ANIMATOR
-                                            //Attacking 
-                if (enemyAI.abilityHolder.ability != null) enemyAI.abilityHolder.CanUseAbility = true;
-
-                enemyAI.movementInput = Vector2.zero;
-                enemyAI.OnAttackPressed?.Invoke();
-
-                if (enemyAI.timeToAttack >= enemyAI.defaultTimeToAttack) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
-                {
-                    Debug.Log("Attacking");
-
-                    enemyAI.Attack(); // Attack method
-                    enemyAI.timeToAttack = 0;
-                    enemyAI.isAttacking = false;
-                    enemyAI.detectionDelay = enemyAI.defaultDetectionDelay;
-                }
-                enemyAI.attackDistance = enemyAI.attackStopDistance;
-                //if (enemyAI.firstAttack) // TODO: FIX THIS IF TIME // Here only since indicator bugged out if enemy attacking first time don't know why
-                //{
-                //    enemyAI.timeToAttack = 0;
-                //    yield return new WaitForSeconds(0);
-                //}
-                //else
-                //{
-                //    yield return new WaitForSeconds(enemyAI.defaultTimeToAttack);
-                //}
-                enemyAI.firstAttack = false;
-                return approachState;
-            }
-			else
-			{
                 return idleState;
             }
 
         }
+
+        
+
+        
     }
 }
