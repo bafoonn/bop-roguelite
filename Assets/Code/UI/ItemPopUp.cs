@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace Pasta
 {
@@ -48,6 +50,7 @@ namespace Pasta
         public bool IsActive { get; private set; }
         private Coroutine _currentCoroutine = null;
 
+
         void Awake()
         {
             nameObj = transform.Find("Name").gameObject.GetComponent<UIElementAnimations>();
@@ -80,7 +83,7 @@ namespace Pasta
 
         public void Activate(ItemBase item)
         {
-            this.gameObject.SetActive(true);
+            HUD.Current.OpenWindow(name);
             this.item = item;
 
             nameObj.GetComponent<Text>().text = item.Name;
@@ -173,7 +176,8 @@ namespace Pasta
             IsActive = false;
 
 
-            gameObject.Deactivate();
+            //gameObject.Deactivate();
+            HUD.Current.CloseWindow();
             _currentCoroutine = null;
         }
     }

@@ -16,6 +16,12 @@ namespace Pasta
             Setup(Item, hasCost);
         }
 
+        private void OnValidate()
+        {
+            if (Item == null) return;
+            Setup(Item, hasCost);
+        }
+
         public void Setup(ItemBase item, bool isShopItem)
         {
             if (item == null)
@@ -40,7 +46,7 @@ namespace Pasta
                 ShopItemGeneration shop = GetComponentInParent<ShopItemGeneration>();
                 shop.ItemBought();
             }
-            else if(level != null)
+            else if (level != null)
             {
                 level.PickedUpReward();
             }

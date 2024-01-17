@@ -19,7 +19,7 @@ public class Player : Singleton<Player>, IPlayer
     private ItemAbilities _actions;
     [SerializeField] private SpriteRenderer _sprite;
     private StatusHandler _statusHandler;
-    private ItemPopUp _itemPopUp;
+    //private ItemPopUp _itemPopUp;
     public int currency = 10;
 
     public PlayerInput Input => _input;
@@ -59,7 +59,7 @@ public class Player : Singleton<Player>, IPlayer
     [SerializeField] private PlayerUIAnimationController _playerUI;
     private bool _havePlayerUI;
 
-    public UnityEvent OnItemPickUp;
+    public UnityEvent<ItemBase> OnItemPickUp;
     public UnityEvent OnCoinPickUp;
     public UnityEvent OnHealPickUp;
 
@@ -81,11 +81,11 @@ public class Player : Singleton<Player>, IPlayer
         _defaultMaterial = _sprite.material;
         _statusHandler = this.AddOrGetComponent<StatusHandler>();
         _statusHandler.Setup(this);
-        _itemPopUp = GetComponentInChildren<ItemPopUp>(true);
-        var lootUI = GetComponentInChildren<LootUI>(true);
-        if (lootUI != null) lootUI.Setup(_loot);
+        //_itemPopUp = GetComponentInChildren<ItemPopUp>(true);
+        //var lootUI = GetComponentInChildren<LootUI>(true);
+        //if (lootUI != null) lootUI.Setup(_loot);
 
-        GetComponentInChildren<CurrencyUI>().Setup(this);
+        //GetComponentInChildren<CurrencyUI>().Setup(this);
 
         _dodgeAction = new PlayerAction(Dodge, () => _movement.CanDodge && _attackHandler.Cancel());
         _quickAttackAction = new PlayerAction(QuickAttack, () => !_movement.IsDodging && _attackHandler.CanAttack);
@@ -102,9 +102,10 @@ public class Player : Singleton<Player>, IPlayer
 
     private void Update()
     {
-        _input.enabled = !(GameManager.Current.IsPaused || _itemPopUp.IsActive || GameManager.Current.CurrentState == GameStateType.GameOver);
+        _input.enabled = !HUD.Current.HasWindowOpen;
         if (_input.DoQuickAttack)
         {
+            Debug.Log("doquickattack");
             AddAction(_quickAttackAction);
         }
         if (_input.DoHeavyAttack)
@@ -172,7 +173,7 @@ public class Player : Singleton<Player>, IPlayer
                     ShowItem(pickup.Item);
                     _loot.Add(pickup.Item);
                     pickup.Take();
-                    OnItemPickUp.Invoke();
+                    OnItemPickUp.Invoke(pickup.Item);
                 }
             }
             else
@@ -185,7 +186,7 @@ public class Player : Singleton<Player>, IPlayer
                         ShowItem(pickup.Item);
                         _loot.Add(pickup.Item);
                         pickup.Take();
-                        OnItemPickUp.Invoke();
+                        OnItemPickUp.Invoke(pickup.Item);
                     }
                 }
             }
@@ -213,9 +214,11 @@ public class Player : Singleton<Player>, IPlayer
         void ShowItem(ItemBase item)
         {
             if (_loot.Contains(item)) return;
-            if (_itemPopUp == null) return;
-            if (_itemPopUp.IsActive) _itemPopUp.Close();
-            _itemPopUp.Activate(item);
+            var window = HUD.Current.OpenWindow("ItemPopUp");
+            if (window != null && window.TryGetComponent<ItemPopUp>(out var popup))
+            {
+                popup.Activate(item);
+            }
         }
     }
 

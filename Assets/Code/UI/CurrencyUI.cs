@@ -10,6 +10,11 @@ namespace Pasta
         private Player _player = null;
         [SerializeField] private Text _text;
 
+        private void Start()
+        {
+            Setup(Player.Current);
+        }
+
         public void Setup(Player player)
         {
             if (_text == null) return;

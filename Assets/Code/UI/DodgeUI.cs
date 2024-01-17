@@ -9,13 +9,17 @@ namespace Pasta
     {
         [SerializeField] private Image _image;
         [SerializeField] private Text _text;
-        private PlayerMovement _playerMovement;
         private UIElementAnimations _elementAnimations;
+        private PlayerMovement _playerMovement;
 
         private void Awake()
         {
             _elementAnimations = GetComponent<UIElementAnimations>();
-            _playerMovement = GetComponentInParent<PlayerMovement>();
+        }
+
+        private void Start()
+        {
+            _playerMovement = Player.Current.Movement as PlayerMovement;
             _playerMovement.OnDodgeGained.AddListener(Animate);
         }
 

@@ -77,6 +77,9 @@ namespace Pasta
         {
         }
 
+        /// <summary>
+        /// Only called when the current instance is destroyed.
+        /// </summary>
         protected virtual void OnDestroyed()
         {
         }

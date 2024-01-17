@@ -7,43 +7,27 @@ namespace Pasta
 {
     public class HUD : Singleton<HUD>
     {
-        public class Window
-        {
-            public readonly string Name;
-            public bool IsOpen => _gameObject.activeSelf;
-            public readonly bool PauseWhileOpen;
-            private readonly GameObject _gameObject;
-
-            public Window(string name, bool pauseWhileOpen, GameObject gameObject)
-            {
-                Name = name;
-                PauseWhileOpen = pauseWhileOpen;
-                _gameObject = gameObject;
-            }
-
-            public void Open()
-            {
-                _gameObject.Activate();
-            }
-
-            public void Close()
-            {
-                _gameObject.Deactivate();
-            }
-        }
-
         public override bool PersistSceneLoad => false;
-        private Window _openWindow = null;
-        private List<Window> _windows = new List<Window>();
+        private HUDWindow _openWindow = null;
+        private List<HUDWindow> _windows = new List<HUDWindow>();
 
-        private Controls.HUDActions _actions;
+        private Controls.HUDActions _hudActions;
+
+        public bool HasWindowOpen => _openWindow != null;
 
         protected override void Init()
         {
-            _actions = InputReader.Current.GetHUDActions();
-            _actions.Loot.performed += OnLoot;
-            _actions.Pause.performed += OnPause;
-            _actions.Enable();
+            _hudActions = InputReader.Current.GetHUDActions();
+            _hudActions.Enable();
+            _hudActions.Loot.performed += OnLoot;
+            _hudActions.Pause.performed += OnPause;
+
+
+            var windows = GetComponentsInChildren<HUDWindow>(true);
+            foreach (var window in windows)
+            {
+                AddWindow(window);
+            }
         }
 
         private void OnPause(InputAction.CallbackContext obj)
@@ -53,35 +37,53 @@ namespace Pasta
 
         private void OnLoot(InputAction.CallbackContext obj)
         {
-            OpenWindow("Loot");
+            if (_openWindow != null && _openWindow.Name.Equals("Loot"))
+            {
+                CloseWindow();
+            }
+            else
+            {
+                OpenWindow("Loot");
+            }
+
         }
 
         protected override void OnDestroyed()
         {
-            _actions.Loot.performed -= OnLoot;
-            _actions.Pause.performed -= OnPause;
+            _hudActions.Loot.performed -= OnLoot;
+            _hudActions.Pause.performed -= OnPause;
         }
 
-        private Window GetWindow(string name)
+        private void AddWindow(HUDWindow window)
+        {
+            if (_windows.Contains(window)) return;
+            if (window.Name == string.Empty) return;
+            _windows.Add(window);
+            window.Close();
+        }
+
+        private HUDWindow GetWindow(string name)
         {
             foreach (var window in _windows)
             {
-                if (window.Name == name) return window;
+                if (window.Name.Equals(name)) return window;
             }
             return null;
         }
 
-        public void OpenWindow(string name)
+        public HUDWindow OpenWindow(string name, bool closeOpen = false)
         {
             var window = GetWindow(name);
-            if (window == null) return;
-            if (_openWindow != null) return;
+            if (window == null) return null;
+            if (closeOpen == false && _openWindow != null) return null;
+            else CloseWindow();
             window.Open();
             if (window.PauseWhileOpen)
             {
                 GameManager.Current.Pause();
             }
             _openWindow = window;
+            return window;
         }
 
         public void CloseWindow()

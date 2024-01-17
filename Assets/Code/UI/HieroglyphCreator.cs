@@ -70,6 +70,7 @@ namespace Pasta
 
             for (int i = 0; i < list.Count; i++)
             {
+                if (list[i] == null) continue;
                 list[i].GetComponent<Image>().enabled = true;
                 list[i].GetComponent<UIElementAnimations>().SetScale(0f);
                 list[i].gameObject.GetComponent<UIElementAnimations>().ScaleFromZero(popUpSpeed);

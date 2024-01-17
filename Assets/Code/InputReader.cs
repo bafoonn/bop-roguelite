@@ -19,14 +19,9 @@ namespace Pasta
             _controls.Enable();
         }
 
-        public Controls.PlayerActions GetPlayerActions()
-        {
-            return _controls.Player;
-        }
+        public Controls.PlayerActions GetPlayerActions() => _controls.Player;
+        public Controls.HUDActions GetHUDActions() => _controls.HUD;
+        public Controls.UIActions GetUIActions() => _controls.UI;
 
-        public Controls.HUDActions GetHUDActions()
-        {
-            return _controls.HUD;
-        }
     }
 }

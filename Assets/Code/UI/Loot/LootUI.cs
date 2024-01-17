@@ -29,11 +29,11 @@ namespace Pasta
             {
                 Item = item;
                 Button.gameObject.name = Item.Name;
-                var offset = new Vector2(Random.Range(-5, 5), Random.Range(-5, 5));
+                var offset = new Vector2(Random.Range(-3, 3), Random.Range(-3, 3));
                 _amount.text = Item.Amount.ToString();
-                _amount.rectTransform.anchoredPosition += offset;
+                _amount.rectTransform.anchoredPosition = offset;
                 _image.sprite = item.Sprite;
-                _image.rectTransform.anchoredPosition += offset;
+                _image.rectTransform.anchoredPosition = offset;
                 _image.color = Color.gray;
                 Button.gameObject.Activate();
             }
@@ -92,12 +92,30 @@ namespace Pasta
             _gridItemTemplate.gameObject.Deactivate();
         }
 
+        private void Start()
+        {
+            Setup(Player.Current.Loot);
+        }
+
         public void Setup(Loot loot)
         {
             _loot = loot;
+            CreateLayout();
         }
 
         private void OnEnable()
+        {
+            CreateLayout();
+        }
+
+        private void OnDisable()
+        {
+            foreach (var item in _gridItems)
+            {
+                item.Clear();
+            }
+        }
+        private void CreateLayout()
         {
             if (_loot == null) return;
             List<ItemBase> distinctItems = new();
@@ -121,14 +139,6 @@ namespace Pasta
             }
 
             if (_gridItems.Count > 0) _gridItems[0].Select();
-        }
-
-        private void OnDisable()
-        {
-            foreach (var item in _gridItems)
-            {
-                item.Clear();
-            }
         }
 
         public void SelectItem(GridItem gridItem)
