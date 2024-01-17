@@ -77,7 +77,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
     public float defaultTimeToAttack = 2; //Increase this if you want to make ai take longer WHEN ATTACKING
     public bool canAttack = false; // Used in getting attacktoken
     public bool canAttackAnim = true;
-    private bool firstAttack = true;y
+    private bool firstAttack = true;
     private float stunTimer = 1; // Will be used or replaced when adding stagger
 
     [Header("Animations & Speed")]
