@@ -8,6 +8,7 @@ namespace Pasta
     {
         public OldAIIdleState idleState;
         public OldAIApproachState approachState;
+
         private bool hasAttacked;
         private FixedEnemyAI enemyAI;
         private TargetDetector targetDetector;

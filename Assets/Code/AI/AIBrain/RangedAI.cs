@@ -10,7 +10,7 @@ using UnityEngine.VFX;
 
 // This requires: (PlayerCloseSensor script attached to player, WeaponParent script attached to enemys weapon parent, AgentMover, Detector Scripts, Steering scripts, AIData, AgentAnimations, Health, EnemyDeath scripts attached to gameobject.)
 
-public class FixedEnemyAI : MonoBehaviour, IEnemy
+public class RangedAI : MonoBehaviour, IEnemy
 {
     #region detector stuff
     [Header("detector stuff")]
@@ -51,7 +51,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
     private float cooldown = 10f;
     private bool canuseAbility = true;
 
-
+    
     public float dontattackdist = 5f;
 
     private int RandomInt;
@@ -74,10 +74,10 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
 
     [Header("Attack timers")]
     public float timeToAttack = 0; // When this reaches defaultTimeToAttack enemy will attack
-    public float defaultTimeToAttack = 2; //Increase this if you want to make ai take longer WHEN ATTACKING
-    public bool canAttack = false; // Used in getting attacktoken
+    public float defaultTimeToAttack = 2; //Increase this if you want to make ai take longer
+    public bool canAttack = false;
     public bool canAttackAnim = true;
-    private bool firstAttack = true;y
+    private bool firstAttack = true;
     private float stunTimer = 1; // Will be used or replaced when adding stagger
 
     [Header("Animations & Speed")]
@@ -246,6 +246,57 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
 
         }
 
+        #region supportenemy stuff
+        if (gameObject.name.Contains("Support"))
+        {
+            if (supportEnemyTarger != null)
+            {
+                LineRenderer lineRenderer;
+
+
+
+                lineRenderer = GetComponent<LineRenderer>(); // Here to visualise for testing
+                Vector3[] positions = new Vector3[2];
+                positions[0] = gameObject.transform.position;
+                positions[1] = supportEnemyTarger.position;
+                lineRenderer.SetPositions(positions);
+
+            }
+
+            if ((player.transform.position - transform.position).magnitude < 15.0f && canTarget) // If player is close support enemy gets random enemy closeby to buff
+            {
+
+                Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, radius, layermask);
+                int random = Random.Range(1, hitColliders.Length);
+                for (int i = 0; i < hitColliders.Length; i++)
+                {
+
+                    if (i == random) // Check if the current hitcollider is inside the result
+                    {
+
+                        if (hitColliders[i].gameObject.name.Contains("Support")) // Stops from buffing itself or other support enemies
+                        {
+                            break;
+                        }
+                        Debug.Log(i);
+
+                        if (hitColliders[i].gameObject.TryGetComponent(out Health health))
+                        {
+                            supportEnemyTarger = hitColliders[i].gameObject.transform;
+                            hitColliders[i].gameObject.GetComponent<Health>().immune = true; // added check to health script called immune. // goes false on death method.
+
+                            canTarget = false;
+                        }
+                    }
+
+                }
+
+
+            }
+        }
+        #endregion
+
+
         if (aiData.currentTarget != null)
         {
             cooldown -= Time.deltaTime;
@@ -267,23 +318,40 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
             if (aiData.currentTarget != null)
             {
 
-                if ((player.transform.position - transform.position).magnitude > 7.0f)
-                {
-                    canAttack = false;
-
-                }
-                if ((player.transform.position - transform.position).magnitude < 1.2f) // Stops enemies from pushing player
-                {
-                    movementInput = Vector2.zero;
-
-                }
-                distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
 
 
-
+                
+                    canAttack = true;
+                    if (!canAttack) // Ranged enemy
+                    {
+                        SeekBehaviour seekbehaviour = gameObject.GetComponentInChildren<SeekBehaviour>();
+                        seekbehaviour.targetReachedThershold = 10f;
+                        attackDistance = dontattackdist;
+                        detectionDelay = defaultDetectionDelay;
+                        float safeDistance = 10f;
+                        if (distance < safeDistance && shouldMaintainDistance)
+                        {
+                            movementInput = Vector2.zero;
+                        }
+                    }
+                
                 if (distance < attackDistance)
                 {
-
+                    if (weaponParent.Scoot && transform.gameObject.name.Contains("Ranged")) // Ranged enemy "runs" away from player
+                    {
+                        if ((player.transform.position - transform.position).magnitude < 5.0f) // if player is in range of enemy do this.
+                        {
+                            Vector3 direction = transform.position - player.transform.position;
+                            //direction.y = 0;
+                            direction = Vector3.Normalize(direction);
+                            transform.rotation = Quaternion.Euler(direction);
+                            movementInput = direction;
+                        }
+                        else
+                        {
+                            weaponParent.Scoot = false;
+                        }
+                    }
                     //attackIndicator.enabled = true;
 
                     if (timeToAttack >= defaultTimeToAttack / 1.5) // Stops enemy from aiming when close to attacking.
@@ -292,7 +360,10 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
                         animations.aim = false;
                     }
                     //attackIndicator.fillAmount = timeToAttack / defaultTimeToAttack;
-                    
+                    if (targetDetector.colliders == null && gameObject.tag.Contains("Ranged"))
+                    {
+                        aiData.currentTarget = null;
+                    }
                 }
                 if (distance > attackDistance + 0.5f) // TEMP SOLUTION 
                 {
@@ -307,7 +378,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
         }
 
         #region Attacking // TODO: Test this more (added here since seemed to bug out after putting to attack state)
-        if (isAttacking == true)
+        if (isAttacking == true) // If is attacking start increasing timetoattack and when that reaches defaulttimetoattack then attack
         {
             timeToAttack += Time.deltaTime;
         }
@@ -331,13 +402,6 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
                 attackplaceholderindicator.enabled = true;
             }
         }
-        else
-        {
-            if (attackplaceholderindicator != null)
-            {
-                attackplaceholderindicator.enabled = false;
-            }
-        }
         #endregion
 
         OnMovementInput?.Invoke(movementInput);
@@ -345,24 +409,17 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
 
     public void Attack()
     {
-
-        weaponParent.Attack();
-        if (abilityHolder.ability != null) if (abilityHolder.ability.randomize)
+        if (gameObject.tag.Contains("Ranged"))
         {
-           RandomInt = Random.Range(1, 8);
-           if (RandomInt == 1 && canuseAbility)
-           {
-              canuseAbility = false;
-              if (abilityHolder.ability != null) abilityHolder.UseAbility = true;
-           }
+            weaponParent.RangedAttack();
+            if (hasAttackEffect) attackEffect.CancelAttack(); // Stops indicator
         }
-        else
+        if (gameObject.name.Contains("Support"))
         {
-           if (abilityHolder.ability != null) abilityHolder.UseAbility = true;
+            weaponParent.ImmunityBeam();
+            canAttack = false;
         }
-        if (hasAttackEffect) attackEffect.CancelAttack(); // Stops indicator
-        if (hasAttackEffect) attackEffect.HeavyAttack(); // Does attack sprite
-
+        
     }
 
     protected virtual void DeathAction()
@@ -500,7 +557,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
 
         if (timeToAttack >= defaultTimeToAttack - 0.1f) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
         {
-            Debug.Log("Attacking"); 
+            Debug.Log("Attacking");
             Attack(); // Attack method
             timeToAttack = 0;
             isAttacking = false;
