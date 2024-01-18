@@ -7,7 +7,7 @@ namespace Pasta
     public class SpikeTrap : MonoBehaviour
     {
         [SerializeField]
-        private int damage = 20;
+        private int damage = 5;
         private bool isActive;
         private bool spikesTriggered;
         private SpriteRenderer spriteRenderer;

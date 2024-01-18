@@ -7,7 +7,7 @@ namespace Pasta
     public class DartTrap : MonoBehaviour
     {
         [SerializeField]
-        private Transform[] dartShooters;
+        private DartShooter[] dartShooters;
         [SerializeField]
         private Dart dart;
         private Dart activeDart;
@@ -32,11 +32,15 @@ namespace Pasta
                 spriteRenderer.material.SetColor("_Color", Color.black);
                 for (int i = 0; i < dartShooters.Length; i++)
                 {
-                    activeDart = Instantiate(dart, dartShooters[i].transform.position, Quaternion.identity);
-                    activeDart.transform.up = transform.position - activeDart.transform.position;
-                    SpriteRenderer sprite = activeDart.GetComponent<SpriteRenderer>();
-                    sprite.transform.Rotate(0, 0, 90);
-                    activeDart.StartMoving(damage);
+                    if (!dartShooters[i].ReturnOnCooldown())
+                    {
+                        activeDart = Instantiate(dart, dartShooters[i].transform.position, Quaternion.identity);
+                        activeDart.transform.up = transform.position - activeDart.transform.position;
+                        SpriteRenderer sprite = activeDart.GetComponent<SpriteRenderer>();
+                        sprite.transform.Rotate(0, 0, 90);
+                        activeDart.StartMoving(damage);
+                        dartShooters[i].PutOnCooldown();
+                    }
                 }
                 StartCoroutine(OffTimer());
             }
