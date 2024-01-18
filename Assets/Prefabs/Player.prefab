@@ -1299,6 +1299,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2173627222364492586}
   - component: {fileID: 1034199967721226364}
+  - component: {fileID: 8443187298108635846}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
@@ -1336,7 +1337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponPivot: {fileID: 3956650840437490488}
-  _attackHandler: {fileID: 0}
+  _attackHandler: {fileID: 1202589799142473351}
   _idleOffset: {x: 0.3, y: -0.1}
   _idleRotation: 30
   AnimateSwing: 1
@@ -1344,6 +1345,19 @@ MonoBehaviour:
   MoveSpeed: 25
   RotateSpeed: 10
   AdditionalAngle: 20
+--- !u!114 &8443187298108635846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2590211648222208569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daac68b8fecdd9f4d9d996385e8df98b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weaponAnimations: {fileID: 1034199967721226364}
 --- !u!1 &2796527159111041530
 GameObject:
   m_ObjectHideFlags: 0
