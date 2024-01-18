@@ -8,10 +8,13 @@ namespace Pasta
     public class CleavingWeaponAnimations : MonoBehaviour
     {
         [SerializeField] private Transform _weaponPivot;
+        [SerializeField] private Transform _attackHandler;
+
         private SpriteRenderer _weaponRenderer;
         [SerializeField] private Vector2 _idleOffset;
         [SerializeField] private float _idleRotation;
         private float _flippedRotation;
+        private Vector2 _aimDir;
         private Vector2 _targetOffset;
         private Vector2 _targetDir;
         private Vector2 _currentDir;
@@ -21,19 +24,10 @@ namespace Pasta
         public bool AnimateSwing = false;
         public float SwingTime = 0.1f, MoveSpeed = 25f, RotateSpeed = 10f, AdditionalAngle = 20f;
 
-        private PlayerInput _input;
-        private PlayerAttackHandler _attackHandler;
-
         private void Awake()
         {
             _weaponRenderer = _weaponPivot.GetComponentInChildren<SpriteRenderer>();
-            _attackHandler = GetComponentInChildren<PlayerAttackHandler>();
             _flippedRotation = 180 - _idleRotation;
-        }
-
-        private void Start()
-        {
-            _input = GetComponentInParent<PlayerInput>(true);
         }
 
         private void OnValidate()
@@ -50,16 +44,21 @@ namespace Pasta
             _weaponRenderer.flipY = _flip;
             if (_swinging) return;
 
-            _flip = Vector2.Dot(Vector2.right, _input.Aim) < 0;
+            _flip = Vector2.Dot(Vector2.right, _aimDir) < 0;
 
             _targetOffset = _idleOffset;
-            _targetDir = _input.Aim;
+            _targetDir = _aimDir;
             if (_flip) _targetOffset.x = -_targetOffset.x;
 
             _currentOffset = Vector2.Lerp(_currentOffset, _targetOffset, MoveSpeed * Time.deltaTime);
             _currentDir = Vector2.Lerp(_currentDir, _targetDir, RotateSpeed * Time.deltaTime);
 
             SetPosition(_currentOffset, _currentDir);
+        }
+
+        public void SetAim(Vector2 aim)
+        {
+            _aimDir = aim.normalized;
         }
 
         private void SetPosition(Vector2 offset, Vector2 direction)
@@ -105,7 +104,7 @@ namespace Pasta
             Vector2 target;
             while (timer < windup)
             {
-                offset = UnitCircle.Lerp(min, max, 0, distance, _attackHandler.transform.eulerAngles.z);
+                offset = UnitCircle.Lerp(min, max, 0, distance, _attackHandler.eulerAngles.z);
                 target = offset;
                 current = Vector2.Lerp(current, target, Time.deltaTime * MoveSpeed);
                 SetPosition(current, current);
@@ -116,7 +115,7 @@ namespace Pasta
             if (!AnimateSwing)
             {
 
-                offset = UnitCircle.Lerp(min, max, 1, distance, _attackHandler.transform.eulerAngles.z);
+                offset = UnitCircle.Lerp(min, max, 1, distance, _attackHandler.eulerAngles.z);
                 SetPosition(offset, offset);
                 current = offset;
                 yield return new WaitForSeconds(attackTime);
@@ -127,7 +126,7 @@ namespace Pasta
                 while (timer < swingTime)
                 {
                     float t = timer / swingTime;
-                    offset = UnitCircle.Lerp(min, max, t, distance, _attackHandler.transform.eulerAngles.z);
+                    offset = UnitCircle.Lerp(min, max, t, distance, _attackHandler.eulerAngles.z);
                     target = offset;
                     current = Vector2.Lerp(current, target, Time.deltaTime * MoveSpeed);
                     SetPosition(current, current);

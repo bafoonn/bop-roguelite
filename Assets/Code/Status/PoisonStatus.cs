@@ -28,7 +28,7 @@ namespace Pasta
         public void Update(float deltaTime)
         {
             if (_current == null) return;
-            _current.Hit(Damage);
+            _current.Hit(Damage, HitType.Status);
         }
 
         public void UnApply(ICharacter character)

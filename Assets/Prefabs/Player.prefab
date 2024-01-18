@@ -1336,6 +1336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponPivot: {fileID: 3956650840437490488}
+  _attackHandler: {fileID: 0}
   _idleOffset: {x: 0.3, y: -0.1}
   _idleRotation: 30
   AnimateSwing: 1
