@@ -21,7 +21,6 @@ namespace Pasta
 
         public override State EnterState()
 		{
-            Debug.Log("Entered attack state");
             parent = transform.parent.transform.parent;
             enemyAI = parent.GetComponent<FixedEnemyAI>();
             targetDetector = parent.GetComponentInChildren<TargetDetector>();
@@ -47,18 +46,25 @@ namespace Pasta
 
             
 
-            float distance = Vector2.Distance(player.position, parent.transform.position);
+            //float distance = Vector2.Distance(player.position, parent.transform.position);
 
             if (enemyAI.canAttack)
             {
-                
+               
+
                 enemyAI.movementInput = enemyAI.movementDirectionSolver.GetDirectionToMove(enemyAI.steeringBehaviours, aiData);
-                if (distance < enemyAI.attackDistance && enemyAI.canAttack && enemyAI.canAttackAnim)  // if distance is smaller than attackdistance execute attack.
+                if ((player.transform.position - transform.position).magnitude < enemyAI.attackDistance)
                 {
                     Debug.Log("Starting attack");
                     enemyAI.StartAttack();
                     enemyAI.movementInput = Vector2.zero;
                 }
+                //if (distance < enemyAI.attackDistance && enemyAI.canAttack && enemyAI.canAttackAnim)  // if distance is smaller than attackdistance execute attack.
+                //{
+                //    Debug.Log("Starting attack");
+                //    enemyAI.StartAttack();
+                //    enemyAI.movementInput = Vector2.zero;
+                //}
                 return this;
             }
             else

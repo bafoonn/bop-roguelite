@@ -21,7 +21,6 @@ namespace Pasta
         private bool isTakingStepsBack = false;
         public override State EnterState()
 		{
-			Debug.Log("Entered approach state");
 			parent = transform.parent.transform.parent;
 			enemyAI = parent.GetComponent<FixedEnemyAI>();
 			targetDetector = parent.GetComponentInChildren<TargetDetector>();
@@ -37,21 +36,9 @@ namespace Pasta
 			aiData = parent.GetComponent<AIData>();
             player = GameObject.FindGameObjectWithTag("Player").transform;
 
-   //         if ((player.transform.position - parent.transform.position).magnitude < 1.5f) // Need to think of a way to implement walking back from enemy
-   //         {
-   //             Debug.Log("too Close to player");
-			//	enemyAI.movementInput = Vector2.zero;
-			//	isTakingStepsBack = true;
-   //             StartCoroutine(takeStepsBack());
-   //         }
-			//else
-			//{
-			//	StopTakingStepsBack();
-			//}
-
+			
 			if ((player.transform.position - parent.transform.position).magnitude > 7.5f)
 			{
-				Debug.Log("Returning to chase");
 				return chaseState;
 			}
 
@@ -66,7 +53,6 @@ namespace Pasta
 				float safeDistance = 5f;
 				if (distance < safeDistance && enemyAI.shouldMaintainDistance) // If inside safedistance stop moving & getting shouldMaintainDistance bool from PlayerCloseSensor which stops enemys from all attacking at the same time.
 				{
-					Debug.Log("Stopping movement");
 					enemyAI.movementInput = Vector2.zero;
 				}
                 enemyAI.attackDistance = enemyAI.dontattackdist;
@@ -85,22 +71,6 @@ namespace Pasta
 			
 		}
 
-		IEnumerator takeStepsBack()
-		{
-            while (isTakingStepsBack)
-            {
-                Vector2 currentPosition = parent.transform.position;
-                Vector2 targetPosition = currentPosition - new Vector2(backwardSpeed * Time.deltaTime, 0f);
-
-				parent.transform.position = targetPosition;
-
-                yield return null;
-            }
-        }
-
-        void StopTakingStepsBack()
-        {
-            isTakingStepsBack = false;
-        }
+		
     }
 }

@@ -18,7 +18,6 @@ namespace Pasta
 		public bool closeToPlayer;
 		public override State EnterState()
 		{
-			Debug.Log("Entered chase state");
 			player = GameObject.FindGameObjectWithTag("Player").transform;
 			parent = transform.parent.transform.parent;
 			Enemy = parent.gameObject;
@@ -57,7 +56,6 @@ namespace Pasta
 
 			if ((player.transform.position - transform.position).magnitude < 5.5f)
 			{
-				Debug.Log("Close to player");
 				enemyAI.movementInput = Vector2.zero;
 				closeToPlayer = true;
 			}

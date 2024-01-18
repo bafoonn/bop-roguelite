@@ -674,6 +674,8 @@ public class EnemyAi : MonoBehaviour, IEnemy
             // Attack state
             if (distance < attackDistance && canAttack && canAttackAnim)  // if distance is smaller than attackdistance execute attack.
             {
+                CleavingWeaponAnimations clclcl = GetComponentInChildren<CleavingWeaponAnimations>();
+                clclcl.Swing(defaultTimeToAttack, 1f, 0.2f, attackEffect.IsFlipped, 90f);
                 isAttacking = true; // FOR ANIMATOR
                                     //Attacking 
                 if (abilityHolder.ability != null) abilityHolder.CanUseAbility = true;

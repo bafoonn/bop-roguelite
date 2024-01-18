@@ -18,6 +18,8 @@ public class AgentAnimations : MonoBehaviour
     private Transform player;
     private FixedEnemyAI fixedAI;
 
+    CleavingWeaponAnimations weaponAnimations;
+
     private void Awake()
     {
         //animator = GetComponent<Animator>();
@@ -32,6 +34,8 @@ public class AgentAnimations : MonoBehaviour
     {
         if (aim)
         {
+            weaponAnimations = GetComponentInChildren<CleavingWeaponAnimations>();
+            weaponAnimations.SetAim(lookDirection);
             float x = Mathf.Abs(EnemyBody.transform.localScale.x);
             if (lookDirection.x < 0)
             {

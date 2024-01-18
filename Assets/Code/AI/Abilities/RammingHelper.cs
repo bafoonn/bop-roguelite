@@ -42,7 +42,7 @@ namespace Pasta
             intObstacle = obstacleLayer;
             intPlayer = playerlayer;
             startDist = transform.position;
-            direction = parent.GetComponentInChildren<WeaponParent>().transform.Find("WeaponSprite").transform.right;
+            direction = parent.GetComponentInChildren<CleavingWeaponAnimations>().transform.Find("SpritePivot").transform.Find("WeaponSprite").transform.right;
             player = GameObject.FindGameObjectWithTag("Player").transform.position;
             circleCollider2d = GetComponent<CircleCollider2D>();
             if(parent.gameObject.tag != "Boss")
@@ -66,7 +66,7 @@ namespace Pasta
         {
             agentMover.enabled = false;
             yield return new WaitForSeconds(0.2f);
-            direction = parent.GetComponentInChildren<WeaponParent>().transform.Find("WeaponSprite").transform.right;
+            direction = parent.GetComponentInChildren<CleavingWeaponAnimations>().transform.Find("SpritePivot").transform.Find("WeaponSprite").transform.right;
             StartCoroutine(startCharge());
         }
 
@@ -81,7 +81,7 @@ namespace Pasta
                 bossAI.movementInput = Vector3.zero;
             }
             agentMover.enabled = false;
-            direction = parent.GetComponentInChildren<WeaponParent>().transform.Find("WeaponSprite").transform.right;
+            direction = parent.GetComponentInChildren<CleavingWeaponAnimations>().transform.Find("SpritePivot").transform.Find("WeaponSprite").transform.right;
             pointAtPlayer = false;
             weaponParent.Aim = false;
             agentAnimations.aim = false;

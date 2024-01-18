@@ -42,6 +42,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
     private float cooldown = 10f;
     private bool canuseAbility = true;
 
+    private bool isTakingStepsBack = false;
 
     public float dontattackdist = 5f;
 
@@ -97,6 +98,8 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
     private Material _defaultMaterial = null;
     [SerializeField] private Material _damagedMaterial = null;
     [SerializeField] private SoundEffect deathSound;
+    private bool attacked = false;
+
 
     #region Damage taking effects
     [Header("damage taking effects or other effects")]
@@ -160,6 +163,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
 
         attackDistance = dontattackdist;
 
+
         if (attackplaceholderindicator != null)
         {
             attackplaceholderindicator.enabled = false;
@@ -222,9 +226,27 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
 
         }
 
+        if (attacked)
+        {
+            if ((player.transform.position - transform.position).magnitude < 3.5f) // Back away from player if not attacking.
+            {
+                Vector3 direction = transform.position - player.transform.position;
+                direction = Vector3.Normalize(direction);
+                transform.rotation = Quaternion.Euler(direction);
+                movementInput = direction;
+            }
+            else
+            {
+                attacked = false;
+                movementInput = Vector2.zero;
+            }
+
+        }
+
+
         if (aiData.currentTarget != null)
         {
-            cooldown -= Time.deltaTime;
+            cooldown -= Time.deltaTime; // Attack cooldown
 
             if (cooldown <= 0)
             {
@@ -235,10 +257,6 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
             //Looking at target.
             PointerEnemy?.Invoke(aiData.currentTarget.position);
 
-            if (Chasing == false)
-            {
-                Chasing = true;
-            }
 
             if (aiData.currentTarget != null)
             {
@@ -260,7 +278,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
                 if (distance < attackDistance)
                 {
 
-
+                    
                     if (timeToAttack >= defaultTimeToAttack / 1.5) // Stops enemy from aiming when close to attacking.
                     {
                         weaponParent.Aim = false;
@@ -319,8 +337,10 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
 
     public void Attack()
     {
-
+        if (hasAttackEffect) attackEffect.CancelAttack(); // Stops indicator
+        if (hasAttackEffect) attackEffect.HeavyAttack(); // Does attack sprite
         weaponParent.Attack();
+        attacked = true;
         if (abilityHolder.ability != null) if (abilityHolder.ability.randomize)
         {
            RandomInt = Random.Range(1, 8);
@@ -334,10 +354,11 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
         {
            if (abilityHolder.ability != null) abilityHolder.UseAbility = true;
         }
-        if (hasAttackEffect) attackEffect.CancelAttack(); // Stops indicator
-        if (hasAttackEffect) attackEffect.HeavyAttack(); // Does attack sprite
+        
 
     }
+
+   
 
     protected virtual void DeathAction()
     {
@@ -442,6 +463,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
     {
         if (!stopAttacking)
         {
+            attacked = false;
             Debug.Log("going inside AttackCourotine");
             stopAttacking = true;
             StartCoroutine(AttackCourotine());
@@ -450,6 +472,9 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
 
     public IEnumerator AttackCourotine()
     {
+        CleavingWeaponAnimations clclcl = GetComponentInChildren<CleavingWeaponAnimations>();
+        clclcl.Swing(defaultTimeToAttack, 1f, 0.5f, !attackEffect.IsFlipped, 80f);
+        
         IsIdle = false;
         Debug.Log("Inside attack courotine");
         isAttacking = true; // FOR ANIMATOR
@@ -462,6 +487,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
         yield return new WaitForSeconds(defaultTimeToAttack);
         isAttacking = false;
         canAttack = false;
+        shouldMaintainDistance = true;
         stopAttacking = false;
 
 

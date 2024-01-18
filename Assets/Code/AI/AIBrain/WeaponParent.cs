@@ -31,35 +31,36 @@ public class WeaponParent : MonoBehaviour
     private Projectile projectileScript;
     private EnemyAi enemyAI;
     public bool Scoot = false;
+    private Transform parent;
+
+    //private CleavingWeaponAnimations weaponAnimations;
     private void Start()
     {
+        parent = transform.parent;
         //AttackIndicatorImage = gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject;
         aidata = GetComponentInParent<AIData>();
-        spriteRend = GetComponentInChildren<SpriteRenderer>();
+        spriteRend = parent.GetComponentInChildren<SpriteRenderer>();
         animations = GetComponentInParent<AgentAnimations>();
         weaponScale = transform.localScale;
         enemyAI = GetComponentInParent<EnemyAi>();
+        //weaponAnimations = GetComponentInParent<CleavingWeaponAnimations>();
     }
 
     private void Update()
     {
+
 		
         if (Aim)
         {
             Vector3 weaponPos = EnemyWeaponPos; // THIS WHOLE THING IS A SHITSHOW BUT IT WORKS!
             direction = new Vector2(weaponPos.x - transform.position.x, weaponPos.y - transform.position.y);
+
+            //weaponAnimations.SetAim(direction);
+
             if (aidata.currentTarget != null)
             {
                 enemyDirectionLocal = transform.InverseTransformPoint(aidata.currentTarget.transform.position); // Gets players position from aidata script.
             }
-            //if (gameObject.name.Contains("Support"))
-            //{
-            //    if(enemyAI.supportEnemyTarger != null)
-            //    {
-            //        enemyDirectionLocal = transform.InverseTransformPoint(enemyAI.supportEnemyTarger.transform.position);
-            //    }
-                
-            //}
 
             Vector2 scale = attackColliderHolder.transform.localScale;
             transform.right = direction;
@@ -70,13 +71,12 @@ public class WeaponParent : MonoBehaviour
                 scale.x = -1f;
                 weaponScale.x = -1f;
                 weaponScale.y = 0f;
-                //weaponSpriteTrans.position = new Vector3(-1, 0, 0);
                 spriteRend.flipY = true;
-                if(spriteTransform != null) // TEMP FOR ERROR MANAGEMENT
-                {
-                    spriteTransform.localPosition = weaponScale; // Changes weapon sprites "side"
-                }
-                
+                //if (spriteTransform != null) // TEMP FOR ERROR MANAGEMENT
+                //{
+                //    spriteTransform.localPosition = weaponScale; // Changes weapon sprites "side"
+                //}
+
                 attackColliderHolder.transform.localScale = scale; // Changing child since editing parents scale fucks direction check
             }
             else if (enemyDirectionLocal.x > 0)
@@ -87,12 +87,11 @@ public class WeaponParent : MonoBehaviour
                 scale.x = 1f;
                 weaponScale.x = 1f;
                 weaponScale.y = 0f;
-                //weaponSpriteTrans.position = new Vector3(1, 0, 0);
                 spriteRend.flipY = false;
-                if (spriteTransform != null) // TEMP FOR ERROR MANAGEMENT
-                {
-                    spriteTransform.localPosition = weaponScale; // Changes weapon sprites "side"
-                }
+                //if (spriteTransform != null) // TEMP FOR ERROR MANAGEMENT
+                //{
+                //    spriteTransform.localPosition = weaponScale; // Changes weapon sprites "side"
+                //}
                 attackColliderHolder.transform.localScale = scale; // Changing child since editing parents scale fucks direction check
             }
         }
