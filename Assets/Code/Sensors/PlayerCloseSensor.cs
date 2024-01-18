@@ -17,7 +17,7 @@ namespace Pasta
         private int layer;
         public int maxEnemiesThatcanAttack = 4;
         private float timer = 3f; // Initial timer value
-        private ChaseState chaseState;
+        private ApproachPlayerState approachState;
 
         // Start is called before the first frame update
         void Start()
@@ -70,16 +70,6 @@ namespace Pasta
             {
                 if (i < maxEnemiesThatcanAttack) // Check if the current hitcollider is inside the result
                 {
-                    if (hitColliders[i].gameObject.TryGetComponent<ChaseState>(out ChaseState chaseState))
-                    {
-                        if ((transform.position - hitColliders[i].gameObject.transform.position).magnitude < radius)
-                        {
-                            chaseState = hitColliders[i].gameObject.GetComponentInChildren<ChaseState>();
-                            chaseState.hasGottenToken = true;
-                        }
-             
-                    }
-                    //Debug.Log(i);
                     if (hitColliders[i].gameObject.TryGetComponent(out EnemyAi enemyAi))
                     {
                         

@@ -37,7 +37,7 @@ namespace Pasta
 				enemyAI.IsIdle = true;
 				if (enemyAI.abilityHolder.ability != null) enemyAI.abilityHolder.CanUseAbility = false;
 				enemyAI.timeToAttack = 0;
-				enemyAI.Chasing = false;
+				
 			}
 			if (targetDetector.SeenPlayer)
 			{

@@ -149,6 +149,10 @@ public class BossAI : MonoBehaviour, IEnemy
                
             }
         }
+        if (CurrentHealthPercentage <= abilityHolder.ability.usableAtHealthPercentage)
+        {
+            abilityHolder.UseAbility = true;
+        }
         weaponParent.Attack();
         if (hasAttackEffect) attackEffect.CancelAttack();
         if (hasAttackEffect) attackEffect.HeavyAttack();
@@ -156,7 +160,14 @@ public class BossAI : MonoBehaviour, IEnemy
     public void UseAbility()
     {
         RandomInt = UnityEngine.Random.Range(1, 3);
-
+        if (abilityHolder.ability.usableOutsideAttackRange == true)
+        {
+            if (CurrentHealthPercentage <= abilityHolder.ability.usableAtHealthPercentage)
+            {
+                abilityHolder.UseAbility = true;
+            }
+        }
+        
         for (int i = 0; i < abilityHolders.Length; i++)
         {
             if (abilityHolders[i] != null)

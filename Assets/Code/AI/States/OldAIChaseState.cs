@@ -35,8 +35,10 @@ namespace Pasta
 			targetDetector = parent.GetComponentInChildren<TargetDetector>();
 			aiData = parent.GetComponent<AIData>();
 
+            SeekBehaviour seekbehaviour = parent.gameObject.GetComponentInChildren<SeekBehaviour>();
+            seekbehaviour.targetReachedThershold = 1f; // This is default 0.5f
 
-			enemyAI.attackDistance = enemyAI.attackDefaultDist;
+            enemyAI.attackDistance = enemyAI.attackDefaultDist;
 			enemyAI.weaponParent.Aim = true;
 			enemyAI.animations.aim = true;
 			enemyAI.isAttacking = false; // FOR ANIMATOR
@@ -48,7 +50,7 @@ namespace Pasta
 
 			if (enemyAI.hasAttackEffect) enemyAI.attackEffect.CancelAttack();
 
-			enemyAI.UseAbility();
+			enemyAI.UseAbilityAtRange();
 
 			enemyAI.timeToAttack = 0;
 			enemyAI.movementInput = enemyAI.movementDirectionSolver.GetDirectionToMove(enemyAI.steeringBehaviours, aiData);
@@ -56,6 +58,7 @@ namespace Pasta
 			if ((player.transform.position - transform.position).magnitude < 5.5f)
 			{
 				Debug.Log("Close to player");
+				enemyAI.movementInput = Vector2.zero;
 				closeToPlayer = true;
 			}
 			else

@@ -33,15 +33,6 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
 
     public Rigidbody2D Rigidbody { get; private set; }
 
-
-    #region supportenemy stuff
-    [Header("Support enemy variables")]
-    public Transform supportEnemyTarger;
-    [SerializeField] private LayerMask layermask;
-    public float radius = 20;
-    private bool canTarget = true;
-    #endregion
-
     private Level level;
 
     [Header("Damage that ai does")]
@@ -63,13 +54,12 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
     [SerializeField] public AISolver movementDirectionSolver;
 
     // Enemy state variables and diffrent enemy "logic"
-    public bool Chasing = false;
+    private bool Chasing = false;
     private EnemyCarrier enemySpawningCarrier; // Only used by carrier enemies
     public WeaponParent weaponParent;
     public AbilityHolder abilityHolder;
-    [SerializeField] private Transform Player;
     private GameObject player;
-    public float defaultDetectionDelay;
+    private float defaultDetectionDelay;
     private Image attackIndicator;
 
     [Header("Attack timers")]
@@ -81,9 +71,8 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
     private float stunTimer = 1; // Will be used or replaced when adding stagger
 
     [Header("Animations & Speed")]
-    public bool gotAttackToken = false;
     public AgentAnimations animations;
-    [SerializeField] private Drop drop;
+    private Drop drop;
     private AgentMover agentMover;
     private float defaultMaxSpeed;
     public AttackEffects attackEffect;
@@ -95,12 +84,11 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
     private SeekBehaviour seekBehaviour;
     public bool shouldMaintainDistance = true;
 
-    [SerializeField] public Image attackplaceholderindicator;
+    [SerializeField] private Image attackplaceholderindicator;
 
     [Header("animator bools")]
     public bool IsIdle = true;
     public bool isAttacking = false;
-    public bool stunned = false;
     public bool Death = false;
 
     // Attack effect-related variables
@@ -112,7 +100,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
 
     #region Damage taking effects
     [Header("damage taking effects or other effects")]
-    public SpriteRenderer spriteRenderer; // TAKE DAMAGE STUFF
+    private SpriteRenderer spriteRenderer; // TAKE DAMAGE STUFF
     private Color defaultColor; // TAKE DAMAGE STUFF
     private ParticleSystem m_particleSystem; // TAKE DAMAGE STUFF
     [SerializeField] private VisualEffect takeDamageEffects;
@@ -123,11 +111,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
 
     private void Start()
     {
-        if (gameObject.name.Contains("Support"))
-        {
-            gameObject.AddComponent<LineRenderer>();
-            canAttack = false;
-        }
+
         seekBehaviour = GetComponentInChildren<SeekBehaviour>();
 
         Status = this.AddOrGetComponent<StatusHandler>();
@@ -152,8 +136,6 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
 
         player = GameObject.FindGameObjectWithTag("Player");
 
-        Player = player.transform;
-
         level = FindFirstObjectByType<Level>();
 
         weaponParent = GetComponentInChildren<WeaponParent>();
@@ -167,12 +149,6 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
         defaultDetectionDelay = detectionDelay;
 
         aiData = GetComponent<AIData>();
-
-        //Detect objects
-        if (this.gameObject.name.Contains("Carrier"))
-        {
-            enemySpawningCarrier = GetComponent<EnemyCarrier>();
-        }
 
         attackEffect = GetComponentInChildren<AttackEffects>();
 
@@ -284,14 +260,12 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
                 if (distance < attackDistance)
                 {
 
-                    //attackIndicator.enabled = true;
 
                     if (timeToAttack >= defaultTimeToAttack / 1.5) // Stops enemy from aiming when close to attacking.
                     {
                         weaponParent.Aim = false;
                         animations.aim = false;
                     }
-                    //attackIndicator.fillAmount = timeToAttack / defaultTimeToAttack;
                     
                 }
                 if (distance > attackDistance + 0.5f) // TEMP SOLUTION 
@@ -368,26 +342,12 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
     protected virtual void DeathAction()
     {
         AudioManager.Current.PlaySoundEffect(deathSound, 1f);
-        if (this.gameObject.name.Contains("Carrier"))
-        {
-            enemySpawningCarrier.SpawnMinions();
-        }
-
-        if (gameObject.name.Contains("Support"))
-        {
-            if (supportEnemyTarger != null)
-            {
-                supportEnemyTarger.GetComponent<Health>().immune = false;
-            }
-
-        }
 
         Death = true;
         ItemAbilities.InvokeEvent(EventActionType.OnKill);
 
         level.EnemyKilled();
 
-        //HitStopper.Stop(0.2f);
 
         if (Corpse == null)
         {
@@ -403,7 +363,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
         }
     }
 
-    public void UseAbility()
+    public void UseAbilityAtRange()
     {
         if (abilityHolder.ability != null)
         {
@@ -498,14 +458,6 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
         movementInput = Vector2.zero;
         OnAttackPressed?.Invoke();
 
-        if (timeToAttack >= defaultTimeToAttack - 0.1f) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
-        {
-            Debug.Log("Attacking"); 
-            Attack(); // Attack method
-            timeToAttack = 0;
-            isAttacking = false;
-            detectionDelay = defaultDetectionDelay;
-        }
         attackDistance = attackStopDistance;
         yield return new WaitForSeconds(defaultTimeToAttack);
         isAttacking = false;

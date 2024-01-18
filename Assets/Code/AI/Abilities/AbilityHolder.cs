@@ -9,8 +9,8 @@ namespace Pasta
     {
         public Ability[] abilities;
         public Ability ability;
-        float cooldownTime;
-        float activeTime;
+        public float cooldownTime;
+        public float activeTime;
         private int random = 0;
         public bool CanUseAbility = false; // <- Here for testing purposes.
         public bool UseAbility = false; // <- Here for testing purposes.
@@ -40,10 +40,9 @@ namespace Pasta
         {
             if (abilities.Length != 0)
             {
-
-
                 if (CanUseAbility)
                 {
+                    random = UnityEngine.Random.Range(0, abilities.Length);
                     ability = abilities[random];
                     switch (state)
                     {
@@ -87,7 +86,7 @@ namespace Pasta
                                 UseAbility = false; // <- Here for testing purposes.
                                 ability.Deactivate();
                                 state = AbilityState.cooldown;
-                                cooldownTime = ability.coolDown;
+                                cooldownTime = 10;
                             }
                             break;
                         case AbilityState.cooldown:

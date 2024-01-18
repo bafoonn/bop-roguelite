@@ -79,7 +79,6 @@ namespace Pasta
 				enemyAI.shouldMaintainDistance = false;
 				enemyAI.attackDistance = enemyAI.attackDefaultDist;
 				enemyAI.detectionDelay = 0.1f;
-                enemyAI.gotAttackToken = true;
                 enemyAI.attackDistance = enemyAI.attackDefaultDist;
                 return attackState;
 			}

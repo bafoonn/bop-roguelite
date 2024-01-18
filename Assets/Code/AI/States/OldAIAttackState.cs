@@ -43,12 +43,9 @@ namespace Pasta
             enemyAI.attackDistance = enemyAI.attackDefaultDist;
             enemyAI.detectionDelay = 0.1f;
 
-            if (enemyAI.attackplaceholderindicator != null)
-            {
-                enemyAI.attackplaceholderindicator.enabled = true;
-            }
+            
 
-            enemyAI.gotAttackToken = true;
+            
 
             float distance = Vector2.Distance(player.position, parent.transform.position);
 
