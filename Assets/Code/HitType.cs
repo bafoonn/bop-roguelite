@@ -3,6 +3,7 @@ namespace Pasta
     public enum HitType
     {
         None,
-        Hit
+        Hit,
+        Status
     }
 }

@@ -12,7 +12,7 @@ namespace Pasta
         private ShopPortal shopPortal;
         private RoomRewardSpawner rewardSpawner;
         private GameObject player;
-        private int enemiesLeft;
+        public int enemiesLeft;
         private ItemBase reward;
         private bool isCombatRoom = true;
         private ItemBase[] rewards;
@@ -72,6 +72,28 @@ namespace Pasta
             CheckIfNonCombatRoom();
         }
 
+        private void OnEnable()
+        {
+            EnemyAi.OnSpawn += OnEnemySpawn;
+            EnemyAi.OnDie += OnEnemyDeath;
+        }
+
+        private void OnEnemySpawn(EnemyAi obj)
+        {
+            enemiesLeft += 1;
+        }
+
+        private void OnEnemyDeath(EnemyAi obj)
+        {
+            EnemyKilled();
+        }
+
+        private void OnDisable()
+        {
+            EnemyAi.OnSpawn -= OnEnemySpawn;
+            EnemyAi.OnDie -= OnEnemyDeath;
+        }
+
         public void PassRewardIndex(ItemBase passedReward, int passedLevelNumber, int passedRewardType)
         {
             reward = passedReward;
@@ -81,8 +103,8 @@ namespace Pasta
         // Each enemy spawner passes the value of the number of enemies it will spawn, which is then added to the total sum
         public void AddToEnemyCount(int addedEnemyCount)
         {
-            enemiesLeft += addedEnemyCount;
-            Debug.Log(enemiesLeft);
+            //enemiesLeft += addedEnemyCount;
+            //Debug.Log(enemiesLeft);
         }
         // Called whenever an enemy dies, at 0 enemies left activates endpoints that start the next level generation
         public void EnemyKilled()

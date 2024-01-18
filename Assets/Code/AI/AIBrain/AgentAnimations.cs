@@ -17,6 +17,7 @@ public class AgentAnimations : MonoBehaviour
     private float defaultSpeed;
     private Transform player;
     private FixedEnemyAI fixedAI;
+
     private void Awake()
     {
         //animator = GetComponent<Animator>();
@@ -31,16 +32,14 @@ public class AgentAnimations : MonoBehaviour
     {
         if (aim)
         {
-            Vector3 scale = transform.localScale;
-            if (lookDirection.x > 0)
+            float x = Mathf.Abs(EnemyBody.transform.localScale.x);
+            if (lookDirection.x < 0)
             {
-                scale.x = 1;
+                x *= -1;
             }
-            else if (lookDirection.x < 0)
-            {
-                scale.x = -1;
-            }
-            EnemyBody.transform.localScale = scale;
+            Vector3 newScale = EnemyBody.transform.localScale;
+            newScale.x = x;
+            EnemyBody.transform.localScale = newScale;
         }
 
     }
@@ -49,16 +48,16 @@ public class AgentAnimations : MonoBehaviour
     {
         if (animator != null)
         {
-            if(enemyAi != null)
-			{
+            if (enemyAi != null)
+            {
                 animator.SetBool("isAttacking", enemyAi.isAttacking);
                 animator.SetBool("IsIdle", enemyAi.IsIdle);
                 animator.SetBool("Death", enemyAi.Death);
                 animator.SetFloat("DirX", enemyAi.movementInput.x);
                 animator.SetFloat("DirY", enemyAi.movementInput.y);
             }
-			else
-			{
+            else
+            {
                 fixedAI = GetComponent<FixedEnemyAI>();
                 animator.SetBool("isAttacking", fixedAI.isAttacking);
                 animator.SetBool("IsIdle", fixedAI.IsIdle);
@@ -66,12 +65,12 @@ public class AgentAnimations : MonoBehaviour
                 animator.SetFloat("DirX", fixedAI.movementInput.x);
                 animator.SetFloat("DirY", fixedAI.movementInput.y);
             }
-            
-           
+
+
         }
     }
 
-    
+
     public void PlayAbilityAnim() // For playing enemy ability anims.
     {
         agentMover.Speed = 0f;

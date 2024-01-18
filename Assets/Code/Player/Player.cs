@@ -105,7 +105,6 @@ public class Player : Singleton<Player>, IPlayer
         _input.enabled = !HUD.Current.HasWindowOpen;
         if (_input.DoQuickAttack)
         {
-            Debug.Log("doquickattack");
             AddAction(_quickAttackAction);
         }
         if (_input.DoHeavyAttack)
@@ -308,7 +307,7 @@ public class Player : Singleton<Player>, IPlayer
 
     public void Hit(float damage, HitType type, ICharacter source = null)
     {
-        if (_hasIframes) return;
+        if (type != HitType.Status && _hasIframes) return;
         _health.TakeDamage(damage);
         AddIframes(_hitFrames);
         StartCoroutine(HitRoutine());

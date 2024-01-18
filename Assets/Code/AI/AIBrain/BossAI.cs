@@ -7,91 +7,15 @@ using UnityEngine.UI;
 using Pasta;
 
 
-public class BossAI : MonoBehaviour, IEnemy
+public class BossAI : EnemyAi
 {
-    [SerializeField] private List<Detector> detectors;
-    [SerializeField] private AIData aiData;
-    [SerializeField] private float detectionDelay = 0.05f, aiUpdateDelay = 0.06f, attackDelay = 2f;
-    [SerializeField] public float attackDistance = 0.5f;
-    [SerializeField] private List<SteeringBehaviour> steeringBehaviours;
-    private int RandomInt;
-    public MonoBehaviour Mono => this;
     public bool indicatorAlive = false;
-    public UnityEvent OnAttackPressed;
-    public UnityEvent<Vector2> OnMovementInput, OnPointerInput;
-    [SerializeField] public Vector2 movementInput;
-    [SerializeField] private AISolver movementDirectionSolver;
-    bool Chasing = false;
-    public float damage = 10f;
-    public bool isAttacking = false;
-    public bool canAttack = false;
-    [SerializeField] private AbilityHolder abilityHolder;
-    private WeaponParent weaponParent;
-    public Health Health { get; protected set; }
-    public Movement Movement { get; private set; }
-    public Rigidbody2D Rigidbody { get; private set; }
-    public StatusHandler Status { get; private set; }
-    private float CurrentHealthPercentage;
-    public static event System.Action<BossAI> OnDeath;
-    private Level level;
-    [SerializeField] private Transform Player;
-    private GameObject player;
-    private Image attackIndicator;
-    public float timeToAttack = 0; // When this reaches defaultTimeToAttack enemy will attack
-    public float defaultTimeToAttack = 2; //Increase this if you want to make ai take longer
-    public float stunTimer = 1; // Will be used or replaced when adding stagger
-    private AgentAnimations animations;
-    [SerializeField] private AttackEffects attackEffect;
-    public bool hasAttackEffect;
-    private AbilityHolder[] abilityHolders;
-    private Drop drop;
-
+    public UnityEvent<Vector2> OnPointerInput;
+    public float CurrentHealthPercentage;
 
     //[SerializeField] private float chaseDistanceThershold = 3, attackDistanceThershold = 0.8f;
     //private float passedTime = 1;
 
-    private void Start()
-    {
-
-        player = GameObject.FindGameObjectWithTag("Player");
-        Player = player.transform;
-        level = FindFirstObjectByType<Level>();
-        weaponParent = GetComponentInChildren<WeaponParent>();
-        //attackIndicator = weaponParent.GetComponentInChildren<Image>();
-        abilityHolder = GetComponent<AbilityHolder>();
-        abilityHolders = GetComponents<AbilityHolder>(); // Boss usually has more than one ability so added more abilityholders to gameobject.
-        animations = GetComponent<AgentAnimations>();
-        //Detect objects
-        attackEffect = GetComponentInChildren<AttackEffects>();
-        hasAttackEffect = attackEffect != null;
-        drop = GetComponent<Drop>();
-
-
-    }
-    private void Awake()
-    {
-
-        InvokeRepeating("PerformDetection", 0, detectionDelay);
-        Health = GetComponent<Health>();
-        Debug.Assert(Health != null);
-        Health.Reset();
-        Status = this.AddOrGetComponent<StatusHandler>();
-        Status.Setup(this);
-        Movement = GetComponent<Movement>();
-        Rigidbody = GetComponent<Rigidbody2D>();
-    }
-    protected virtual void OnEnable()
-    {
-        Health.OnDeath += DeathAction;
-    }
-    private void PerformDetection()
-    {
-        foreach (Detector detector in detectors)
-        {
-            detector.Detect(aiData);
-        }
-
-    }
     private void Update()
     {
         CurrentHealthPercentage = (Health.CurrentHealth / Health.MaxHealth) * 100;
@@ -138,20 +62,13 @@ public class BossAI : MonoBehaviour, IEnemy
     {
         Debug.Log("Swing");
         //abilityHolder.UseAbility = true; // <- Here for testing purposes.
-        for (int i = 0; i < abilityHolders.Length; i++)
+        if (abilityHolder != null)
         {
-            if (abilityHolders[i] != null)
+            if (CurrentHealthPercentage <= abilityHolder.ability.usableAtHealthPercentage)
             {
-                if(CurrentHealthPercentage <= abilityHolders[i].ability.usableAtHealthPercentage)
-                {
-                    abilityHolders[i].UseAbility = true;
-                }
-               
+                abilityHolder.UseAbility = true;
             }
-        }
-        if (CurrentHealthPercentage <= abilityHolder.ability.usableAtHealthPercentage)
-        {
-            abilityHolder.UseAbility = true;
+
         }
         weaponParent.Attack();
         if (hasAttackEffect) attackEffect.CancelAttack();
@@ -159,25 +76,13 @@ public class BossAI : MonoBehaviour, IEnemy
     }
     public void UseAbility()
     {
-        RandomInt = UnityEngine.Random.Range(1, 3);
-        if (abilityHolder.ability.usableOutsideAttackRange == true)
+        if (abilityHolder != null)
         {
-            if (CurrentHealthPercentage <= abilityHolder.ability.usableAtHealthPercentage)
+            if (abilityHolder.ability.usableOutsideAttackRange == true)
             {
-                abilityHolder.UseAbility = true;
-            }
-        }
-        
-        for (int i = 0; i < abilityHolders.Length; i++)
-        {
-            if (abilityHolders[i] != null)
-            {
-                if (abilityHolders[i].ability.usableOutsideAttackRange == true)
+                if (CurrentHealthPercentage <= abilityHolder.ability.usableAtHealthPercentage)
                 {
-                    if (CurrentHealthPercentage <= abilityHolders[i].ability.usableAtHealthPercentage)
-                    {
-                        abilityHolders[i].UseAbility = true;
-                    }
+                    abilityHolder.UseAbility = true;
                 }
             }
         }
@@ -189,24 +94,14 @@ public class BossAI : MonoBehaviour, IEnemy
         //}
     }
 
-    protected virtual void DeathAction()
-    {
-        level.EnemyKilled();
-        drop.RollDrop();
-        Destroy(gameObject);
-    }
-
     private IEnumerator ChaseAndAttack()
     {
         if (aiData.currentTarget == null)
         {
             //abilityHolder.CanUseAbility = false; // <- Here for testing purposes.
-            for (int i = 0; i < abilityHolders.Length; i++)
+            if (abilityHolder != null)
             {
-                if (abilityHolders[i] != null)
-                {
-                    abilityHolders[i].CanUseAbility = false;
-                }
+                abilityHolder.CanUseAbility = false;
             }
             isAttacking = false;
             if (hasAttackEffect) attackEffect.CancelAttack();
@@ -228,24 +123,18 @@ public class BossAI : MonoBehaviour, IEnemy
                 isAttacking = true;
                 //Attacking 
                 //abilityHolder.CanUseAbility = true; // <- Here for testing purposes.
-                for (int i = 0; i < abilityHolders.Length; i++)
+                if (abilityHolder != null)
                 {
-                    if (abilityHolders[i] != null)
-                    {
-                        abilityHolders[i].CanUseAbility = true;
-                    }
+                    abilityHolder.CanUseAbility = true;
                 }
                 //if (abilityHolder.UseAbility == false)
                 //{
                 //    movementInput = Vector2.zero;
-                for (int i = 0; i < abilityHolders.Length; i++)
+                if (abilityHolder != null)
                 {
-                    if (abilityHolders[i] != null)
+                    if (abilityHolder.UseAbility == false)
                     {
-                        if (abilityHolders[i].UseAbility == false)
-                        {
-                            movementInput = Vector2.zero;
-                        }
+                        movementInput = Vector2.zero;
                     }
                 }
                 //}
@@ -253,12 +142,12 @@ public class BossAI : MonoBehaviour, IEnemy
                 if (!indicatorAlive)
                 {
                     indicatorAlive = true;
-                    
+
                     if (hasAttackEffect) attackEffect.AttackIndicator();
                     if (hasAttackEffect) attackEffect.SetIndicatorLifetime(defaultTimeToAttack);
                 }
-                
-                
+
+
 
                 if (timeToAttack >= defaultTimeToAttack) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
                 {
@@ -268,7 +157,7 @@ public class BossAI : MonoBehaviour, IEnemy
                     //attackIndicator.fillAmount = 0;
                     isAttacking = false;
                 }
-                
+
                 yield return new WaitForSeconds(attackDelay);
                 StartCoroutine(ChaseAndAttack());
             }
@@ -281,12 +170,9 @@ public class BossAI : MonoBehaviour, IEnemy
                 Debug.Log("Chasing");
                 //Chasing
                 //abilityHolder.CanUseAbility = true; // <- Here for testing purposes.
-                for (int i = 0; i < abilityHolders.Length; i++)
+                if (abilityHolder != null)
                 {
-                    if (abilityHolders[i] != null)
-                    {
-                        abilityHolders[i].CanUseAbility = true;
-                    }
+                    abilityHolder.CanUseAbility = true;
                 }
 
                 UseAbility();
@@ -300,12 +186,8 @@ public class BossAI : MonoBehaviour, IEnemy
         }
     }
 
-    public void Hit(float damage, HitType type, ICharacter source = null)
+    public override void Hit(float damage, HitType type, ICharacter source = null)
     {
-        if (OnDeath != null)
-        {
-            OnDeath(this);
-        }
         Health.TakeDamage(damage);
     }
 }

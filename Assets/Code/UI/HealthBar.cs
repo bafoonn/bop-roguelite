@@ -22,11 +22,6 @@ namespace Pasta
             _image.type = Image.Type.Filled;
         }
 
-        private void Start()
-        {
-            SetHealth(Player.Current.Health);
-        }
-
         public void SetHealth(Health health)
         {
             if (_health != null)

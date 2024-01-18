@@ -59,7 +59,6 @@ public class EnemyAi : MonoBehaviour, IEnemy
     private EnemyCarrier enemySpawningCarrier; // Only used by carrier enemies
     public WeaponParent weaponParent;
     public AbilityHolder abilityHolder;
-    [SerializeField] private Transform Player;
     private GameObject player;
     private float defaultDetectionDelay;
     private Image attackIndicator;
@@ -110,8 +109,19 @@ public class EnemyAi : MonoBehaviour, IEnemy
     [SerializeField] private GameObject ParticleSystemHolder;
     #endregion
 
+    public static event System.Action<EnemyAi> OnSpawn;
+    public static event System.Action<EnemyAi> OnDie;
 
-    private void Start()
+    protected virtual void Awake()
+    {
+        InvokeRepeating("PerformDetection", 0, detectionDelay);
+        Health = GetComponent<Health>();
+        Debug.Assert(Health != null);
+        Health.Reset();
+        if (OnSpawn != null) OnSpawn(this);
+    }
+
+    protected virtual void Start()
     {
         if (gameObject.name.Contains("Support"))
         {
@@ -141,8 +151,6 @@ public class EnemyAi : MonoBehaviour, IEnemy
         enemyDeathScript = GetComponent<EnemyDeath>();
 
         player = GameObject.FindGameObjectWithTag("Player");
-
-        Player = player.transform;
 
         level = FindFirstObjectByType<Level>();
 
@@ -179,13 +187,6 @@ public class EnemyAi : MonoBehaviour, IEnemy
             attackplaceholderindicator.enabled = false;
         }
     }
-    private void Awake()
-    {
-        InvokeRepeating("PerformDetection", 0, detectionDelay);
-        Health = GetComponent<Health>();
-        Debug.Assert(Health != null);
-        Health.Reset();
-    }
 
     protected virtual void OnEnable()
     {
@@ -193,13 +194,13 @@ public class EnemyAi : MonoBehaviour, IEnemy
         Health.OnDamaged += OnDamaged;
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         Health.OnDeath -= DeathAction;
         Health.OnDamaged -= OnDamaged;
     }
 
-    private void OnDamaged()
+    protected virtual void OnDamaged()
     {
         if (m_particleSystem != null)
         {
@@ -222,8 +223,6 @@ public class EnemyAi : MonoBehaviour, IEnemy
         }
 
     }
-
-
 
     private void Update()
     {
@@ -489,7 +488,8 @@ public class EnemyAi : MonoBehaviour, IEnemy
         Death = true;
         ItemAbilities.InvokeEvent(EventActionType.OnKill);
 
-        level.EnemyKilled();
+        //level.EnemyKilled();
+        if (OnDie != null) OnDie(this);
 
         //HitStopper.Stop(0.2f);
 
@@ -618,7 +618,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
         if (hasAttackEffect) attackEffect.CancelAttack();
     }
 
-    private IEnumerator ChaseAndAttack() // Enemy ai states "idle" "chase & look" "attack"
+    protected virtual IEnumerator ChaseAndAttack() // Enemy ai states "idle" "chase & look" "attack"
     {
 
         // Idle state
@@ -743,7 +743,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
     }
 
 
-    public void Hit(float damage, HitType type, ICharacter source = null)
+    public virtual void Hit(float damage, HitType type, ICharacter source = null)
     {
         Health.TakeDamage(damage);
         if (type == HitType.Hit && source != null)

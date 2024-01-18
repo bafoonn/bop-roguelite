@@ -876,7 +876,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9d885d423d7f4d14d9917f505277dd45, type: 2}
   - {fileID: 11400000, guid: fc9e4e04687c0b046ab3e81fc38c3a81, type: 2}
   - {fileID: 11400000, guid: 37a8d6b5f9e41024297ee7ff4dfda960, type: 2}
+  - {fileID: 11400000, guid: b62ae1ed20430494ca0dfe7233c99350, type: 2}
   ability: {fileID: 0}
+  cooldownTime: 0
+  activeTime: 0
   CanUseAbility: 0
   UseAbility: 0
   AnimDone: 1
@@ -900,10 +903,17 @@ MonoBehaviour:
   aiUpdateDelay: 0.06
   attackDelay: 1
   attackDistance: 5
+  attackStopDistance: 1.5
   steeringBehaviours:
   - {fileID: 5337389736714812942}
   - {fileID: 4012314741522539382}
-  indicatorAlive: 0
+  attackDefaultDist: 0
+  supportEnemyTarger: {fileID: 0}
+  layermask:
+    serializedVersion: 2
+    m_Bits: 0
+  radius: 20
+  damage: 30
   OnAttackPressed:
     m_PersistentCalls:
       m_Calls:
@@ -919,6 +929,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  dontattackdist: 5
   OnMovementInput:
     m_PersistentCalls:
       m_Calls:
@@ -934,6 +945,37 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  PointerEnemy:
+    m_PersistentCalls:
+      m_Calls: []
+  movementInput: {x: 0, y: 0}
+  movementDirectionSolver: {fileID: 1643930942005312169}
+  Chasing: 0
+  weaponParent: {fileID: 0}
+  abilityHolder: {fileID: 8806108206215821516}
+  timeToAttack: 0
+  defaultTimeToAttack: 1.5
+  canAttack: 0
+  stunTimer: 1
+  gotAttackToken: 0
+  animations: {fileID: 0}
+  drop: {fileID: 0}
+  attackEffect: {fileID: 636390242923387232}
+  hasAttackEffect: 1
+  hasDeathAnim: 0
+  Corpse: {fileID: 0}
+  shouldMaintainDistance: 0
+  attackplaceholderindicator: {fileID: 0}
+  IsIdle: 1
+  isAttacking: 0
+  stunned: 0
+  Death: 0
+  _damagedMaterial: {fileID: 0}
+  deathSound: {fileID: 0}
+  spriteRenderer: {fileID: 0}
+  takeDamageEffects: {fileID: 0}
+  ParticleSystemHolder: {fileID: 0}
+  indicatorAlive: 0
   OnPointerInput:
     m_PersistentCalls:
       m_Calls:
@@ -949,18 +991,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  movementInput: {x: 0, y: 0}
-  movementDirectionSolver: {fileID: 1643930942005312169}
-  damage: 30
-  isAttacking: 0
-  canAttack: 0
-  abilityHolder: {fileID: 8806108206215821516}
-  Player: {fileID: 0}
-  timeToAttack: 0
-  defaultTimeToAttack: 1.5
-  stunTimer: 1
-  attackEffect: {fileID: 636390242923387232}
-  hasAttackEffect: 1
+  CurrentHealthPercentage: 0
 --- !u!114 &3680416250225216278
 MonoBehaviour:
   m_ObjectHideFlags: 0

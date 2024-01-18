@@ -53,7 +53,7 @@ namespace Pasta
                 return false;
             }
 
-            if (Amount == 0)
+            if (Amount == 0 && Abilities != null)
             {
                 foreach (var container in Abilities)
                 {
