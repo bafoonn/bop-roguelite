@@ -19,7 +19,7 @@ namespace Pasta
 
         public float backwardSpeed = 3f; // Adjust this value to control the speed of the backward movement
         private bool isTakingStepsBack = false;
-        public override State EnterState()
+        public override State EnterState() // This is currently non needed since RunCurrent State happens first need to fix this.
 		{
 			parent = transform.parent.transform.parent;
 			enemyAI = parent.GetComponent<FixedEnemyAI>();

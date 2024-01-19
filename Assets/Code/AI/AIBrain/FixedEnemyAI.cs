@@ -8,7 +8,7 @@ using UnityEngine.U2D.IK;
 using UnityEngine.UI;
 using UnityEngine.VFX;
 
-// This requires: (PlayerCloseSensor script attached to player, WeaponParent script attached to enemys weapon parent, AgentMover, Detector Scripts, Steering scripts, AIData, AgentAnimations, Health, EnemyDeath scripts attached to gameobject.)
+// This requires: (PlayerCloseSensor script attached to player, WeaponParent script attached to enemys weapon parent, AgentMover, Detector Scripts, Steering scripts, AIData,Enemy, AgentAnimations, Health, EnemyDeath scripts attached to gameobject.)
 
 public class FixedEnemyAI : MonoBehaviour, IEnemy
 {
@@ -161,11 +161,6 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
 
     private void OnDamaged()
     {
-        if (m_particleSystem != null)
-        {
-            //ParticleSystemHolder.transform.rotation = Quaternion.Euler(0, 0, player.transform.Find("AttackHandler").transform.localEulerAngles.z);
-            //m_particleSystem.Play();
-        }
         if (hasDamageEffects)
         {
             //takeDamageEffects.SetFloat("Rotation", player.transform.Find("AttackHandler").transform.localEulerAngles.z);
@@ -196,7 +191,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
 
         }
 
-        if (attacked)
+        if (attacked) // If has just performed attack
         {
             if ((player.transform.position - transform.position).magnitude < 3.5f) // Back away from player if not attacking.
             {
@@ -216,9 +211,9 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
 
         if (aiData.currentTarget != null)
         {
-            cooldown -= Time.deltaTime; // Attack cooldown
+            cooldown -= Time.deltaTime; // ability cooldown
 
-            if (cooldown <= 0)
+            if (cooldown <= 0) 
             {
                 canuseAbility = true;
             }

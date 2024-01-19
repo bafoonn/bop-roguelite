@@ -16,14 +16,11 @@ namespace Pasta
 
         private void RunStateMachine()
 		{
-
             State nextState = currentState?.RunCurrentState();
             if (nextState != null)
 			{
                 SwitchState(nextState);
 			}
-
-           
         }
 
         private void SwitchState(State nextState)

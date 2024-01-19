@@ -19,8 +19,8 @@ namespace Pasta
         private bool attacking;
         private Transform player;
 
-        public override State EnterState()
-		{
+        public override State EnterState() // This is currently non needed since RunCurrent State happens first need to fix this.
+        {
             parent = transform.parent.transform.parent;
             enemyAI = parent.GetComponent<FixedEnemyAI>();
             targetDetector = parent.GetComponentInChildren<TargetDetector>();
@@ -43,15 +43,10 @@ namespace Pasta
             enemyAI.detectionDelay = 0.1f;
 
             
-
-            
-
             //float distance = Vector2.Distance(player.position, parent.transform.position);
 
             if (enemyAI.canAttack)
             {
-               
-
                 enemyAI.movementInput = enemyAI.movementDirectionSolver.GetDirectionToMove(enemyAI.steeringBehaviours, aiData);
                 if ((player.transform.position - parent.transform.position).magnitude < enemyAI.attackDistance)
                 {

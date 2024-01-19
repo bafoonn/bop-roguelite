@@ -13,7 +13,7 @@ namespace Pasta
 		public TargetDetector targetDetector;
 		public AIData aiData;
 		private Transform parent;
-		public override State EnterState()
+		public override State EnterState() // This is currently non needed since RunCurrent State happens first need to fix this.
 		{
 			parent = transform.parent.transform.parent;
 			Enemy = transform.parent.gameObject;
@@ -47,6 +47,7 @@ namespace Pasta
 			{
 				canSeePlayer = false;
 			}
+
 			if (canSeePlayer)
 			{
 				return oldchaseState;
