@@ -44,9 +44,9 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
 
     private bool isTakingStepsBack = false;
 
-    public float dontattackdist = 5f;
+    public float dontattackdist = 5f; 
 
-    private int RandomInt;
+    private int RandomInt; // For randomizing
 
     [Header("Unity events")]
     public UnityEvent OnAttackPressed;
@@ -55,32 +55,25 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
     [SerializeField] public AISolver movementDirectionSolver;
 
     // Enemy state variables and diffrent enemy "logic"
-    private bool Chasing = false;
-    private EnemyCarrier enemySpawningCarrier; // Only used by carrier enemies
-    public WeaponParent weaponParent;
-    public AbilityHolder abilityHolder;
+    public WeaponParent weaponParent; // Has activate collider inside and deactivate as well.
+    public AbilityHolder abilityHolder; // Abilities for enemy goes inside abilityholder.
     private GameObject player;
-    private float defaultDetectionDelay;
-    private Image attackIndicator;
+    private float defaultDetectionDelay; // If changing detection delay this is here to easily go back to default
 
     [Header("Attack timers")]
     public float timeToAttack = 0; // When this reaches defaultTimeToAttack enemy will attack
     public float defaultTimeToAttack = 2; //Increase this if you want to make ai take longer WHEN ATTACKING
     public bool canAttack = false; // Used in getting attacktoken
-    public bool canAttackAnim = true;
-    private bool firstAttack = true;
-    private float stunTimer = 1; // Will be used or replaced when adding stagger
+    public bool canAttackAnim = true; // For animations and some if checks
 
     [Header("Animations & Speed")]
-    public AgentAnimations animations;
-    private Drop drop;
-    private AgentMover agentMover;
-    private float defaultMaxSpeed;
-    public AttackEffects attackEffect;
-    public bool hasAttackEffect;
-    [SerializeField] private bool hasDeathAnim = false;
-    private EnemyDeath enemyDeathScript;
-    [SerializeField] private GameObject Corpse;
+    public AgentAnimations animations; // Animations
+    private Drop drop; // Drop script
+    private AgentMover agentMover; // has acceleration and other movement variables inside.
+    public AttackEffects attackEffect; // Attack effects
+    public bool hasAttackEffect; // for error checking
+    [SerializeField] private bool hasDeathAnim = false; // here to error check and just tick to true when adding corpse to prefab
+    [SerializeField] private GameObject Corpse; // Has death anim inside
 
     private SeekBehaviour seekBehaviour;
     public bool shouldMaintainDistance = true;
@@ -114,53 +107,30 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
 
     private void Start()
     {
-
         seekBehaviour = GetComponentInChildren<SeekBehaviour>();
-
         Status = this.AddOrGetComponent<StatusHandler>();
-
         Status.Setup(this);
-
         Rigidbody = GetComponent<Rigidbody2D>();
-
-        attackDefaultDist = attackDistance;
-
         agentMover = GetComponent<AgentMover>();
-
         spriteRenderer = GetComponent<SpriteRenderer>(); // TAKE DAMAGE STUFF
-
         _defaultMaterial = spriteRenderer.material;
-
         defaultColor = spriteRenderer.color; // TAKE DAMAGE STUFF
-
         m_particleSystem = GetComponentInChildren<ParticleSystem>(); // TAKE DAMAGE STUFF
-
-        enemyDeathScript = GetComponent<EnemyDeath>();
-
         player = GameObject.FindGameObjectWithTag("Player");
-
         level = FindFirstObjectByType<Level>();
-
         weaponParent = GetComponentInChildren<WeaponParent>();
-
         animations = GetComponent<AgentAnimations>();
-
         abilityHolder = GetComponent<AbilityHolder>();
-
-        targetDetector = GetComponentInChildren<TargetDetector>();
-
-        defaultDetectionDelay = detectionDelay;
-
+        targetDetector = GetComponentInChildren<TargetDetector>();        
         aiData = GetComponent<AIData>();
-
-        attackEffect = GetComponentInChildren<AttackEffects>();
-
-        hasAttackEffect = attackEffect != null;
-
-        hasDamageEffects = takeDamageEffects != null;
-
+        attackEffect = GetComponentInChildren<AttackEffects>();     
         drop = GetComponent<Drop>();
 
+        // Setting variable values.
+        hasAttackEffect = attackEffect != null;
+        hasDamageEffects = takeDamageEffects != null;
+        attackDefaultDist = attackDistance;
+        defaultDetectionDelay = detectionDelay;
         attackDistance = dontattackdist;
 
 
@@ -261,7 +231,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
             if (aiData.currentTarget != null)
             {
 
-                if ((player.transform.position - transform.position).magnitude > 7.0f)
+                if ((player.transform.position - transform.position).magnitude > 7.0f) // If far away and hasent returned to false then return false
                 {
                     canAttack = false;
 
@@ -339,7 +309,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
     {
         if (hasAttackEffect) attackEffect.CancelAttack(); // Stops indicator
         if (hasAttackEffect) attackEffect.HeavyAttack(); // Does attack sprite
-        weaponParent.Attack();
+        weaponParent.Attack(); // this just activates and deactivates collider on weapon.
         attacked = true;
         if (abilityHolder.ability != null) if (abilityHolder.ability.randomize)
         {
@@ -429,7 +399,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
     {
         shouldMaintainDistance = value;
     }
-    IEnumerator CanAttack()
+    IEnumerator CanAttack() // adds delay so enemy dosent attack nonstop
     {
         yield return new WaitForSeconds(attackDelay);
         canAttackAnim = true;
@@ -446,7 +416,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
         }
     }
 
-    public void DeActivateIndicator()
+    public void DeActivateIndicator() // Called from PlayerCloseSensor script when not getting attack token.
     {
         goAheadAttack = false;
 
@@ -459,7 +429,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
         if (hasAttackEffect) attackEffect.CancelAttack();
     }
 
-    public void StartAttack()
+    public void StartAttack() // Comes from attackstate and activates attack
     {
         if (!stopAttacking)
         {

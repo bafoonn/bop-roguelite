@@ -53,18 +53,12 @@ namespace Pasta
                
 
                 enemyAI.movementInput = enemyAI.movementDirectionSolver.GetDirectionToMove(enemyAI.steeringBehaviours, aiData);
-                if ((player.transform.position - transform.position).magnitude < enemyAI.attackDistance)
+                if ((player.transform.position - parent.transform.position).magnitude < enemyAI.attackDistance)
                 {
                     Debug.Log("Starting attack");
                     enemyAI.StartAttack();
                     enemyAI.movementInput = Vector2.zero;
                 }
-                //if (distance < enemyAI.attackDistance && enemyAI.canAttack && enemyAI.canAttackAnim)  // if distance is smaller than attackdistance execute attack.
-                //{
-                //    Debug.Log("Starting attack");
-                //    enemyAI.StartAttack();
-                //    enemyAI.movementInput = Vector2.zero;
-                //}
                 return this;
             }
             else

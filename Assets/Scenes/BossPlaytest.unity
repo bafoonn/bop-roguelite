@@ -1554,12 +1554,12 @@ MonoBehaviour:
   detectionDelay: 0.05
   aiUpdateDelay: 0.06
   attackDelay: 2
-  attackDistance: 1
-  attackStopDistance: 2.5
+  attackDistance: 2
+  attackStopDistance: 3
   steeringBehaviours:
   - {fileID: 1705467949}
   - {fileID: 355749984}
-  attackDefaultDist: 2
+  attackDefaultDist: 2.5
   damage: 5
   dontattackdist: 5
   OnAttackPressed:
