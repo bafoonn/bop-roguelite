@@ -39,6 +39,22 @@ public class PlayerInput : MonoBehaviour
         Assert.IsNotNull(_autoAim);
     }
 
+    private void Start()
+    {
+        HUD.OnOpenWindow += OnOpenWindow;
+        HUD.OnCloseWindow += OnCloseWindow;
+    }
+
+    private void OnCloseWindow()
+    {
+        enabled = true;
+    }
+
+    private void OnOpenWindow(HUDWindow obj)
+    {
+        enabled = false;
+    }
+
     private void OnEnable()
     {
         _actions.Enable();
@@ -63,6 +79,12 @@ public class PlayerInput : MonoBehaviour
         Movement = Vector2.zero;
     }
 
+    private void OnDestroy()
+    {
+        HUD.OnOpenWindow -= OnOpenWindow;
+        HUD.OnCloseWindow -= OnCloseWindow;
+    }
+
     private void Update()
     {
         Movement = _actions.Movement.ReadValue<Vector2>();
@@ -75,27 +97,32 @@ public class PlayerInput : MonoBehaviour
 
         if (_isMouseAim)
         {
-            Aim = MouseWorldPos - (Vector2)transform.position;
+            SetAim(MouseWorldPos - (Vector2)transform.position);
         }
         else
         {
-            if (!_isAiming && _autoAim.EnemiesInRange)
+            if (_isAiming) // If player is actively aiming aim in that direction
             {
-                Aim = _autoAim.ClosestEnemyDir();
+                SetAim(_actions.Aim.ReadValue<Vector2>());
             }
-            else
+            else if (_autoAim.EnemiesInRange) // If player is not aiming but there are enemies nearby, aim at them
             {
-                Aim = _actions.Aim.ReadValue<Vector2>();
+                SetAim(_autoAim.ClosestEnemyDir());
+            }
+            else // Aim at movement direction otherwise
+            {
+                SetAim(Movement);
             }
         }
-
-        if (Aim == Vector2.zero)
-        {
-            Aim = Movement;
-        }
-        Aim.Normalize();
 
         Debug.DrawLine(transform.position, transform.position + (Vector3)Aim, Color.green);
+    }
+
+    private void SetAim(Vector2 dir)
+    {
+        dir.Normalize();
+        if (dir == Vector2.zero) return;
+        Aim = dir;
     }
 
     private void OnAim(InputAction.CallbackContext obj)

@@ -102,7 +102,7 @@ public class Player : Singleton<Player>, IPlayer
 
     private void Update()
     {
-        _input.enabled = !HUD.Current.HasWindowOpen;
+        if (!_input.enabled) return;
         if (_input.DoQuickAttack)
         {
             AddAction(_quickAttackAction);
@@ -159,6 +159,7 @@ public class Player : Singleton<Player>, IPlayer
     {
         if (OnPlayerDeath != null) OnPlayerDeath();
         _input.enabled = false;
+        _movement.enabled = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

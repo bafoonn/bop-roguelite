@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,12 +9,14 @@ namespace Pasta
     public class HUD : Singleton<HUD>
     {
         public override bool PersistSceneLoad => false;
-        private HUDWindow _openWindow = null;
+        private HUDWindow _currentWindow = null;
         private List<HUDWindow> _windows = new List<HUDWindow>();
 
         private Controls.HUDActions _hudActions;
 
-        public bool HasWindowOpen => _openWindow != null;
+        public bool HasWindowOpen => _currentWindow != null;
+        public static event Action<HUDWindow> OnOpenWindow;
+        public static event Action OnCloseWindow;
 
         protected override void Init()
         {
@@ -37,7 +40,7 @@ namespace Pasta
 
         private void OnLoot(InputAction.CallbackContext obj)
         {
-            if (_openWindow != null && _openWindow.Name.Equals("Loot"))
+            if (_currentWindow != null && _currentWindow.Name.Equals("Loot"))
             {
                 CloseWindow();
             }
@@ -75,26 +78,34 @@ namespace Pasta
         {
             var window = GetWindow(name);
             if (window == null) return null;
-            if (closeOpen == false && _openWindow != null) return null;
+            if (closeOpen == false && _currentWindow != null) return null;
             else CloseWindow();
             window.Open();
             if (window.PauseWhileOpen)
             {
                 GameManager.Current.Pause();
             }
-            _openWindow = window;
+            if (OnOpenWindow != null)
+            {
+                OnOpenWindow(window);
+            }
+            _currentWindow = window;
             return window;
         }
 
         public void CloseWindow()
         {
-            if (_openWindow == null) return;
-            _openWindow.Close();
-            if (_openWindow.PauseWhileOpen)
+            if (_currentWindow == null) return;
+            _currentWindow.Close();
+            if (_currentWindow.PauseWhileOpen)
             {
                 GameManager.Current.Unpause();
             }
-            _openWindow = null;
+            if (OnCloseWindow != null)
+            {
+                OnCloseWindow();
+            }
+            _currentWindow = null;
         }
     }
 }

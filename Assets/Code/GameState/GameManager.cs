@@ -17,7 +17,7 @@ namespace Pasta
         [SerializeField] private string _mainMenuScene = "MainMenu";
         //[SerializeField] private string _pauseScene = "Pause";
         [SerializeField] private string _gameScene = "Playtest";
-        [SerializeField] private string _gameOverScene = "GameOver";
+        //[SerializeField] private string _gameOverScene = "GameOver";
 
         [field: SerializeField] public GameStateType CurrentState { get; private set; }
 
@@ -27,7 +27,7 @@ namespace Pasta
         private GameState _mainMenuState = null;
         private GameState _gameState = null;
         //private GameState _pauseState = null;
-        private GameState _gameOverState = null;
+        //private GameState _gameOverState = null;
         private GameState[] _gameStates = null;
 
         public static event Action OnPause;
@@ -53,15 +53,15 @@ namespace Pasta
             //        if (OnUnpause != null) OnUnpause();
             //    });
 
-            _gameOverState = new GameState(_gameOverScene, GameStateType.GameOver, true,
-                canActivate: () => _currentState.SceneName.Equals(_gameScene));
+            //_gameOverState = new GameState(_gameOverScene, GameStateType.GameOver, true,
+            //    canActivate: () => _currentState.SceneName.Equals(_gameScene));
 
             _gameStates = new GameState[]
             {
                 _mainMenuState,
                 _gameState,
                 //_pauseState,
-                _gameOverState
+                //_gameOverState
             };
 
             foreach (var state in _gameStates)
@@ -140,7 +140,8 @@ namespace Pasta
 
         private void OnDeath()
         {
-            GoTo(GameStateType.GameOver);
+            HUD.Current.OpenWindow("GameOver");
+            //GoTo(GameStateType.GameOver);
         }
 
         public void Pause()

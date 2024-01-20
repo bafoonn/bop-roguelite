@@ -32,6 +32,7 @@ namespace Pasta
         private void LateUpdate()
         {
             if (_player == null || _reader == null) return;
+            if (HUD.Current.HasWindowOpen) return;
             Vector2 screenCenter = transform.position;
 
             Vector2 playerPos = _player.transform.position;
