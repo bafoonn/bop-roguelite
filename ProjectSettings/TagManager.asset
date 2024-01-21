@@ -44,8 +44,20 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Floor
+    uniqueID: 2640425325
+    locked: 0
+  - name: Shadows
+    uniqueID: 2074821585
+    locked: 0
+  - name: Obstacles
+    uniqueID: 482084797
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Ceiling
+    uniqueID: 2719812217
     locked: 0
   - name: UI
     uniqueID: 1566854977

@@ -32,11 +32,11 @@ namespace Pasta
 
         private void OnValidate()
         {
-            if (_weaponPivot != null)
-            {
-                _weaponPivot.position = transform.position + (Vector3)_idleOffset;
-                _weaponPivot.rotation = Quaternion.Euler(0, 0, _idleRotation);
-            }
+            //    if (_weaponPivot != null)
+            //    {
+            //        _weaponPivot.position = transform.position + (Vector3)_idleOffset;
+            //        _weaponPivot.rotation = Quaternion.Euler(0, 0, _idleRotation);
+            //    }
         }
 
         private void Update()
@@ -45,10 +45,12 @@ namespace Pasta
             if (_swinging) return;
 
             _flip = Vector2.Dot(Vector2.right, _aimDir) < 0;
+            bool flipY = Vector2.Dot(Vector2.up, _aimDir) < 0;
 
             _targetOffset = _idleOffset;
             _targetDir = _aimDir;
             if (_flip) _targetOffset.x = -_targetOffset.x;
+            if (flipY) _targetOffset.y = -_targetOffset.y;
 
             _currentOffset = Vector2.Lerp(_currentOffset, _targetOffset, MoveSpeed * Time.deltaTime);
             _currentDir = Vector2.Lerp(_currentDir, _targetDir, RotateSpeed * Time.deltaTime);
