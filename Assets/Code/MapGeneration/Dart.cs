@@ -11,7 +11,7 @@ namespace Pasta
         [SerializeField]
         private LayerMask layers;
 
-        private int dartdamage;
+        private float dartdamage;
         private bool isActive = false;
 
         // Update is called once per frame
@@ -23,7 +23,7 @@ namespace Pasta
             }
         }
 
-        public void StartMoving(int damage)
+        public void StartMoving(float damage)
         {
             dartdamage = damage;
             isActive = true;

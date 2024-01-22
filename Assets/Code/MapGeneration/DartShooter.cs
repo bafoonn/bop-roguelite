@@ -6,26 +6,15 @@ namespace Pasta
 {
     public class DartShooter : MonoBehaviour
     {
-        private bool OnCooldown;
         [SerializeField]
-        private float cooldown = 3f;
-        // Start is called before the first frame update
-        
-        IEnumerator Cooldown()
+        private Transform target;
+        public void Shoot(float damage, Dart dart)
         {
-            OnCooldown = true;
-            yield return new WaitForSeconds(cooldown);
-            OnCooldown = true;
-        }
-
-        public bool ReturnOnCooldown()
-        {
-            return OnCooldown;
-        }
-
-        public void PutOnCooldown()
-        {
-            StartCoroutine(Cooldown());
+            Dart activeDart = Instantiate(dart, transform.position, Quaternion.identity);
+            activeDart.transform.right = transform.position - target.position;
+            SpriteRenderer sprite = activeDart.GetComponent<SpriteRenderer>();
+            sprite.transform.Rotate(0, 0, 180);
+            activeDart.StartMoving(damage);
         }
     }
 }

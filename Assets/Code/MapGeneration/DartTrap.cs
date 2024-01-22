@@ -9,51 +9,33 @@ namespace Pasta
         [SerializeField]
         private DartShooter[] dartShooters;
         [SerializeField]
+        private PressurePlate[] pressurePlates;
+        [SerializeField]
         private Dart dart;
         private Dart activeDart;
         [SerializeField]
         private int damage = 30;
         private bool isActivated = false;
-        private SpriteRenderer spriteRenderer;
-        private Color baseColor;
-        private BoxCollider2D boxcol;
 
         private void Start()
         {
-            spriteRenderer = GetComponent<SpriteRenderer>();
-            baseColor = spriteRenderer.color;
-            boxcol = gameObject.GetComponent<BoxCollider2D>();
+            
         }
 
-        private void OnTriggerEnter2D(Collider2D col)
+
+        public void ActivaeTrap()
         {
-            if (!isActivated && col.TryGetComponent<IHittable>(out _))
+            if (!isActivated)
             {
-                spriteRenderer.material.SetColor("_Color", Color.black);
                 for (int i = 0; i < dartShooters.Length; i++)
                 {
-                    if (!dartShooters[i].ReturnOnCooldown())
-                    {
-                        activeDart = Instantiate(dart, dartShooters[i].transform.position, Quaternion.identity);
-                        activeDart.transform.up = transform.position - activeDart.transform.position;
-                        SpriteRenderer sprite = activeDart.GetComponent<SpriteRenderer>();
-                        sprite.transform.Rotate(0, 0, 90);
-                        activeDart.StartMoving(damage);
-                        dartShooters[i].PutOnCooldown();
-                    }
+                    dartShooters[i].Shoot(damage, dart);
                 }
-                StartCoroutine(OffTimer());
+                for (int i = 0; i < pressurePlates.Length; i++)
+                {
+                    StartCoroutine(pressurePlates[i].OffTimer());
+                }
             }
-        }
-
-        IEnumerator OffTimer()
-        {
-            isActivated = true;
-            yield return new WaitForSeconds(2f);
-            isActivated = false;
-            spriteRenderer.material.SetColor("_Color", baseColor);
-            boxcol.enabled = false;
-            boxcol.enabled = true;
         }
     }
 }
