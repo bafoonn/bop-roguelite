@@ -76,14 +76,19 @@ namespace Pasta
             CurrentHealth += amount;
             if (OnHealed != null) OnHealed();
         }
-        public bool CheckIfTakenTrapDamage()
+        public bool DealTrapDamage()
         {
-            return trapDamageTaken;
-        }
-        public void TrapDamageTaken()
-        {
-            trapDamageTaken = true;
-            StartCoroutine(trapDamageInterval());
+            if (!trapDamageTaken)
+            {
+                trapDamageTaken = true;
+                StartCoroutine(trapDamageInterval());
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+            
         }
         IEnumerator trapDamageInterval()
         {

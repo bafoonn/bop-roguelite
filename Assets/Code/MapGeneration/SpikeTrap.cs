@@ -18,7 +18,7 @@ namespace Pasta
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
             baseColor = spriteRenderer.color;
-            spriteRenderer.material.SetColor("_Color", Color.black);
+            spriteRenderer.material.SetColor("_Color", Color.grey);
             boxcol = gameObject.GetComponent<BoxCollider2D>();
         }
         private void OnTriggerEnter2D(Collider2D col)
@@ -28,9 +28,12 @@ namespace Pasta
                 StartCoroutine(ActivateSpikes());
             }
 
-            if (isActive && col.TryGetComponent(out IHittable hittable))
-            {
-                hittable.Hit(damage);
+            if (isActive && col.TryGetComponent(out IHittable hittable) && col.TryGetComponent(out Health health))
+            {   
+                if (!health.DealTrapDamage())
+                { 
+                    hittable.Hit(damage); 
+                }
             }
         }
 
@@ -44,7 +47,7 @@ namespace Pasta
             boxcol.enabled = false;
             boxcol.enabled = true;
             yield return new WaitForSeconds(1f);
-            spriteRenderer.material.SetColor("_Color", Color.black);
+            spriteRenderer.material.SetColor("_Color", Color.grey);
             spikesTriggered = false;
             isActive = false;
         }

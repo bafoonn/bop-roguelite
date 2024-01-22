@@ -19,7 +19,7 @@ namespace Pasta
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
             baseColor = spriteRenderer.color;
-            spriteRenderer.material.SetColor("_Color", Color.black);
+            spriteRenderer.material.SetColor("_Color", Color.grey);
             boxcol = gameObject.GetComponent<BoxCollider2D>();
             timer = timerSet;
         }
@@ -36,9 +36,12 @@ namespace Pasta
         }
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if (isActive && col.TryGetComponent(out ICharacter character))
+            if (isActive && col.TryGetComponent(out ICharacter character) && col.TryGetComponent(out Health health))
             {
-                character.Status.ApplyStatus(new BurnStatus(damage), 1f);
+                if (!health.DealTrapDamage())
+                {
+                    character.Status.ApplyStatus(new BurnStatus(damage), 1f);
+                }
             }
         }
 
@@ -47,7 +50,7 @@ namespace Pasta
             if (isActive)
             {
                 isActive = false;
-                spriteRenderer.material.SetColor("_Color", Color.black);
+                spriteRenderer.material.SetColor("_Color", Color.grey);
             }
             else
             {
