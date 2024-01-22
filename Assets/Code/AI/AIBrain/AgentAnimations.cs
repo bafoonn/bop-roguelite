@@ -17,6 +17,7 @@ public class AgentAnimations : MonoBehaviour
     private float defaultSpeed;
     private Transform player;
     private FixedEnemyAI fixedAI;
+    private RangedAI rangedAI;
 
     CleavingWeaponAnimations weaponAnimations;
 
@@ -28,6 +29,8 @@ public class AgentAnimations : MonoBehaviour
         agentMover = GetComponent<AgentMover>();
         defaultSpeed = agentMover.maxSpeed;
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        fixedAI = GetComponent<FixedEnemyAI>();
+        rangedAI = GetComponent<RangedAI>();
     }
 
     public void RotateToPointer(Vector2 lookDirection)
@@ -35,7 +38,11 @@ public class AgentAnimations : MonoBehaviour
         if (aim)
         {
             weaponAnimations = GetComponentInChildren<CleavingWeaponAnimations>();
-            weaponAnimations.SetAim(lookDirection);
+            if(weaponAnimations != null )
+            {
+                weaponAnimations.SetAim(lookDirection);
+            }
+           
             float x = Mathf.Abs(EnemyBody.transform.localScale.x);
             if (lookDirection.x < 0)
             {
@@ -60,14 +67,22 @@ public class AgentAnimations : MonoBehaviour
                 animator.SetFloat("DirX", enemyAi.movementInput.x);
                 animator.SetFloat("DirY", enemyAi.movementInput.y);
             }
-            else
+            if(fixedAI != null)
             {
-                fixedAI = GetComponent<FixedEnemyAI>();
+                
                 animator.SetBool("isAttacking", fixedAI.isAttacking);
                 animator.SetBool("IsIdle", fixedAI.IsIdle);
                 animator.SetBool("Death", fixedAI.Death);
                 animator.SetFloat("DirX", fixedAI.movementInput.x);
                 animator.SetFloat("DirY", fixedAI.movementInput.y);
+            }
+            if(rangedAI != null)
+            {
+                animator.SetBool("isAttacking", rangedAI.isAttacking);
+                animator.SetBool("IsIdle", rangedAI.IsIdle);
+                animator.SetBool("Death", rangedAI.Death);
+                animator.SetFloat("DirX", rangedAI.movementInput.x);
+                animator.SetFloat("DirY", rangedAI.movementInput.y);
             }
 
 

@@ -50,9 +50,20 @@ namespace Pasta
                 enemyAI.movementInput = enemyAI.movementDirectionSolver.GetDirectionToMove(enemyAI.steeringBehaviours, aiData);
                 if ((player.transform.position - parent.transform.position).magnitude < enemyAI.attackDistance)
                 {
-                    Debug.Log("Starting attack");
                     enemyAI.StartAttack();
-                    enemyAI.movementInput = Vector2.zero;
+                    if (enemyAI.timeToAttack >= enemyAI.defaultTimeToAttack - 0.1f) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
+                    {
+                        enemyAI.Attack(); // Attack method
+                        enemyAI.timeToAttack = 0;
+                        enemyAI.isAttacking = false;
+                        enemyAI.detectionDelay = enemyAI.defaultDetectionDelay;
+                    }
+                    if (enemyAI.timeToAttack >= enemyAI.defaultTimeToAttack / 1.5) // Stops enemy from aiming when close to attacking.
+                    {
+                        enemyAI.weaponParent.Aim = false;
+                        enemyAI.animations.aim = false;
+                    }
+                    
                 }
                 return this;
             }

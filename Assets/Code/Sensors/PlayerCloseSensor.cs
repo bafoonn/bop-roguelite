@@ -11,7 +11,7 @@ namespace Pasta
         public float precentage = 40;
         private float precentageSubtract;
         public float result;
-        private EnemyAi enemyai;
+        private FixedEnemyAI enemyai;
         [SerializeField] private LayerMask layermask;
         private SeekBehaviour seekBehaviour;
         private int layer;
@@ -70,7 +70,7 @@ namespace Pasta
             {
                 if (i < maxEnemiesThatcanAttack) // Check if the current hitcollider is inside the result
                 {
-                    if (hitColliders[i].gameObject.TryGetComponent(out EnemyAi enemyAi))
+                    if (hitColliders[i].gameObject.TryGetComponent(out FixedEnemyAI enemyAi))
                     {
                         
                         if ((transform.position - hitColliders[i].gameObject.transform.position).magnitude < radius)
@@ -79,9 +79,8 @@ namespace Pasta
                             AIData aidata = hitColliders[i].gameObject.GetComponent<AIData>();               
                             Debug.Log("Can attack");
                             seekBehaviour = hitColliders[i].gameObject.GetComponentInChildren<SeekBehaviour>();
-                            enemyai = hitColliders[i].gameObject.GetComponent<EnemyAi>();
+                            enemyai = hitColliders[i].gameObject.GetComponent<FixedEnemyAI>();
                             enemyai.ToggleMaintainDistance(false);
-                            enemyAi.gotAttackToken = true;
                             enemyAi.ActivateIndicator();
                             enemyai.canAttack = true;
                         }
@@ -90,11 +89,10 @@ namespace Pasta
                 }
                 else
                 {
-                    if (hitColliders[i].gameObject.TryGetComponent(out EnemyAi enemyAi))
+                    if (hitColliders[i].gameObject.TryGetComponent(out FixedEnemyAI enemyAi))
                     {
-                        enemyai = hitColliders[i].gameObject.GetComponent<EnemyAi>();
+                        enemyai = hitColliders[i].gameObject.GetComponent<FixedEnemyAI>();
                         enemyai.ToggleMaintainDistance(true);
-                        enemyAi.gotAttackToken = false;
                         enemyAi.DeActivateIndicator();
                         enemyai.canAttack = false;
                         AIData aidata = hitColliders[i].gameObject.GetComponent<AIData>();

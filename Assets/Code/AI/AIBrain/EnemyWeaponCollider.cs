@@ -8,6 +8,7 @@ namespace Pasta
     {
         public EnemyAi m_Ai;
         private FixedEnemyAI fixedAI;
+        private RangedAI rangedAI;
         [SerializeField] private bool isNormalEnemy = true;
         public BossAI bossAI;
         private float damage = 2f;
@@ -17,15 +18,22 @@ namespace Pasta
             if (isNormalEnemy)
             {
                 m_Ai = GetComponentInParent<EnemyAi>();
-                if(m_Ai != null)
+                fixedAI = GetComponentInParent<FixedEnemyAI>();
+                rangedAI = GetComponentInParent<RangedAI>();
+                if (m_Ai != null)
 				{
                     damage = m_Ai.damage;
                 }
-				else
+				if(fixedAI != null)
 				{
-                    fixedAI = GetComponentInParent<FixedEnemyAI>();
+                    
                     damage = fixedAI.damage;
 				}
+                if(rangedAI != null)
+                {
+                    damage = rangedAI.damage;
+                }
+
                
             }
             else

@@ -2,6 +2,7 @@ using Pasta;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.U2D.IK;
@@ -110,6 +111,9 @@ public class RangedAI : MonoBehaviour, IEnemy
     [SerializeField] private Material _damagedMaterial = null;
     [SerializeField] private SoundEffect deathSound;
 
+    public static event System.Action<RangedAI> OnSpawn;
+    public static event System.Action<RangedAI> OnDie;
+
     #region Damage taking effects
     [Header("damage taking effects or other effects")]
     public SpriteRenderer spriteRenderer; // TAKE DAMAGE STUFF
@@ -195,6 +199,7 @@ public class RangedAI : MonoBehaviour, IEnemy
         Health = GetComponent<Health>();
         Debug.Assert(Health != null);
         Health.Reset();
+        if (OnSpawn != null) OnSpawn(this);
     }
 
     protected virtual void OnEnable()
@@ -296,6 +301,11 @@ public class RangedAI : MonoBehaviour, IEnemy
         }
         #endregion
 
+        if(aiData.currentTarget != null)
+        {
+            StartAttack();
+           
+        }
 
         if (aiData.currentTarget != null)
         {
@@ -442,7 +452,7 @@ public class RangedAI : MonoBehaviour, IEnemy
         Death = true;
         ItemAbilities.InvokeEvent(EventActionType.OnKill);
 
-        level.EnemyKilled();
+        if (OnDie != null) OnDie(this);
 
         //HitStopper.Stop(0.2f);
 

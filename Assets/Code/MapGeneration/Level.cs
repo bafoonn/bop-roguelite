@@ -74,24 +74,24 @@ namespace Pasta
 
         private void OnEnable()
         {
-            EnemyAi.OnSpawn += OnEnemySpawn;
-            EnemyAi.OnDie += OnEnemyDeath;
+            FixedEnemyAI.OnSpawn += OnEnemySpawn;
+            FixedEnemyAI.OnDie += OnEnemyDeath;
         }
 
-        private void OnEnemySpawn(EnemyAi obj)
+        private void OnEnemySpawn(FixedEnemyAI obj)
         {
             enemiesLeft += 1;
         }
 
-        private void OnEnemyDeath(EnemyAi obj)
+        private void OnEnemyDeath(FixedEnemyAI obj)
         {
             EnemyKilled();
         }
 
         private void OnDisable()
         {
-            EnemyAi.OnSpawn -= OnEnemySpawn;
-            EnemyAi.OnDie -= OnEnemyDeath;
+            FixedEnemyAI.OnSpawn -= OnEnemySpawn;
+            FixedEnemyAI.OnDie -= OnEnemyDeath;
         }
 
         public void PassRewardIndex(ItemBase passedReward, int passedLevelNumber, int passedRewardType)

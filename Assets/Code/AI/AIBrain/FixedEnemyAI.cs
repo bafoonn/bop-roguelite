@@ -58,11 +58,11 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
     public WeaponParent weaponParent; // Has activate collider inside and deactivate as well.
     public AbilityHolder abilityHolder; // Abilities for enemy goes inside abilityholder.
     private GameObject player;
-    private float defaultDetectionDelay; // If changing detection delay this is here to easily go back to default
+    public float defaultDetectionDelay; // If changing detection delay this is here to easily go back to default
 
     [Header("Attack timers")]
     public float timeToAttack = 0; // When this reaches defaultTimeToAttack enemy will attack
-    public float defaultTimeToAttack = 2; //Increase this if you want to make ai take longer WHEN ATTACKING
+    public float defaultTimeToAttack = 2; // Attack speed
     public bool canAttack = false; // Used in getting attacktoken
     public bool canAttackAnim = true; // For animations and some if checks
 
@@ -92,6 +92,9 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
     [SerializeField] private Material _damagedMaterial = null;
     [SerializeField] private SoundEffect deathSound;
     private bool attacked = false;
+
+    public static event System.Action<FixedEnemyAI> OnSpawn;
+    public static event System.Action<FixedEnemyAI> OnDie;
 
 
     #region Damage taking effects
@@ -145,6 +148,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
         Health = GetComponent<Health>();
         Debug.Assert(Health != null);
         Health.Reset();
+        if (OnSpawn != null) OnSpawn(this);
     }
 
     protected virtual void OnEnable()
@@ -208,6 +212,10 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
 
         }
 
+        if(movementInput.x == 0 && movementInput.y == 0)
+        {
+            IsIdle = true;
+        }
 
         if (aiData.currentTarget != null)
         {
@@ -268,19 +276,6 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
         {
             timeToAttack += Time.deltaTime;
         }
-        if (timeToAttack >= defaultTimeToAttack - 0.1f) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
-        {
-            Debug.Log("Attacking");
-            Attack(); // Attack method
-            timeToAttack = 0;
-            isAttacking = false;
-            detectionDelay = defaultDetectionDelay;
-        }
-        if (timeToAttack >= defaultTimeToAttack / 1.5) // Stops enemy from aiming when close to attacking.
-        {
-            weaponParent.Aim = false;
-            animations.aim = false;
-        }
         if (canAttack)
         {
             if (attackplaceholderindicator != null)
@@ -300,7 +295,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
         OnMovementInput?.Invoke(movementInput);
     }
 
-    public void Attack()
+    public virtual void Attack()
     {
         if (hasAttackEffect) attackEffect.CancelAttack(); // Stops indicator
         if (hasAttackEffect) attackEffect.HeavyAttack(); // Does attack sprite
@@ -332,7 +327,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
         Death = true;
         ItemAbilities.InvokeEvent(EventActionType.OnKill);
 
-        level.EnemyKilled();
+        if (OnDie != null) OnDie(this);
 
 
         if (Corpse == null)
@@ -449,6 +444,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
         OnAttackPressed?.Invoke();
 
         attackDistance = attackStopDistance;
+
         yield return new WaitForSeconds(defaultTimeToAttack);
         isAttacking = false;
         canAttack = false;
@@ -483,3 +479,5 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
         spriteRenderer.color = Color.white;
     }
 }
+
+
