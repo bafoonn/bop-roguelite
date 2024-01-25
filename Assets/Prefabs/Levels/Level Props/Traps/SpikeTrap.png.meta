@@ -1,0 +1,389 @@
+fileFormatVersion: 2
+guid: de7fc56b4896f41909c62aef69eca183
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2043158116506350236
+    second: SpikeTrap_0
+  - first:
+      213: -7302982605069411523
+    second: SpikeTrap_1
+  - first:
+      213: 2714214838753232394
+    second: SpikeTrap_2
+  - first:
+      213: 6937224288314271496
+    second: SpikeTrap_3
+  - first:
+      213: 3162431432003428786
+    second: SpikeTrap_4
+  - first:
+      213: -4896834758532026821
+    second: SpikeTrap_5
+  - first:
+      213: 8159593047088887375
+    second: SpikeTrap_6
+  - first:
+      213: 8008058675260062860
+    second: SpikeTrap_7
+  - first:
+      213: 9008299820636339262
+    second: SpikeTrap_8
+  - first:
+      213: -8045218497484825661
+    second: SpikeTrap_9
+  - first:
+      213: 6867217757695905567
+    second: SpikeTrap_10
+  - first:
+      213: 4417295776483658264
+    second: SpikeTrap_11
+  - first:
+      213: 3547616718291762943
+    second: SpikeTrap_12
+  - first:
+      213: 5367382074793821111
+    second: SpikeTrap_13
+  - first:
+      213: -3666062053298594516
+    second: SpikeTrap_14
+  - first:
+      213: -2295682765126622867
+    second: SpikeTrap_15
+  - first:
+      213: -5494865696349603985
+    second: SpikeTrap_16
+  - first:
+      213: -8777820547900549862
+    second: SpikeTrap_17
+  - first:
+      213: -2806607427789502793
+    second: SpikeTrap_18
+  - first:
+      213: 3716591848418709519
+    second: SpikeTrap_19
+  - first:
+      213: 7043545694472183430
+    second: SpikeTrap_20
+  - first:
+      213: 7904166666204108510
+    second: SpikeTrap_21
+  - first:
+      213: -6819961443593384804
+    second: SpikeTrap_22
+  - first:
+      213: 5506285193473547921
+    second: SpikeTrap_23
+  - first:
+      213: -8875654408266489012
+    second: SpikeTrap_24
+  - first:
+      213: 9044413984219315111
+    second: SpikeTrap_25
+  - first:
+      213: 4268604424238385863
+    second: SpikeTrap_26
+  - first:
+      213: -7010920057972696724
+    second: SpikeTrap_27
+  - first:
+      213: 1071581838371959174
+    second: SpikeTrap_28
+  - first:
+      213: -5075599940204084415
+    second: SpikeTrap_29
+  - first:
+      213: -6390475858245171656
+    second: SpikeTrap_30
+  - first:
+      213: 9041142985527781945
+    second: SpikeTrap_31
+  - first:
+      213: -6980274041711321067
+    second: SpikeTrap_32
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SpikeTrap_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46dcea5a48e35a3e0800000000000000
+      internalID: -2043158116506350236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpikeTrap_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3b1bf7730896aa90800000000000000
+      internalID: -7302982605069411523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpikeTrap_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a060bfbe304daa520800000000000000
+      internalID: 2714214838753232394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpikeTrap_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8072f283cb8f54060800000000000000
+      internalID: 6937224288314271496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpikeTrap_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b12813d1a633eb20800000000000000
+      internalID: 3162431432003428786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpikeTrap_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3ea9ed4bb2fa0cb0800000000000000
+      internalID: -4896834758532026821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpikeTrap_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f46fa7b15a2bc3170800000000000000
+      internalID: 8159593047088887375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: f6246292385734a4fb407874a664fb43
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      SpikeTrap_0: -2043158116506350236
+      SpikeTrap_1: -7302982605069411523
+      SpikeTrap_2: 2714214838753232394
+      SpikeTrap_3: 6937224288314271496
+      SpikeTrap_4: 3162431432003428786
+      SpikeTrap_5: -4896834758532026821
+      SpikeTrap_6: 8159593047088887375
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
