@@ -20,22 +20,30 @@ namespace Pasta
         }
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if (isActive && col.TryGetComponent<IHittable>(out _))
+            if (col.TryGetComponent<IHittable>(out _))
             {
-                dartTrap.ActivaeTrap();
+                spriteRenderer.material.SetColor("_Color", Color.grey);
+                if (isActive)
+                {
+                    dartTrap.ActivateTrap();
+                }
+            }
+        }
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.TryGetComponent<IHittable>(out _))
+            {
+                spriteRenderer.material.SetColor("_Color", baseColor);
             }
         }
 
         public IEnumerator OffTimer()
         {
             isActive = false;
-            spriteRenderer.material.SetColor("_Color", Color.grey);
             yield return new WaitForSeconds(3f);
-            spriteRenderer.material.SetColor("_Color", baseColor);
             boxCol.enabled = false;
             boxCol.enabled = true;
             isActive = true;
-
         }
     }
 }

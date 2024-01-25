@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Pasta
 {
-    public class DartTrap : MonoBehaviour
+    public class DartTrap : Trap
     {
         [SerializeField]
         private DartShooter[] dartShooters;
@@ -15,7 +15,6 @@ namespace Pasta
         private Dart activeDart;
         [SerializeField]
         private int damage = 30;
-        private bool isActivated = false;
 
         private void Start()
         {
@@ -23,9 +22,10 @@ namespace Pasta
         }
 
 
-        public void ActivaeTrap()
+        public void ActivateTrap()
         {
-            if (!isActivated)
+            Debug.Log(Disabled);
+            if (!Disabled)
             {
                 for (int i = 0; i < dartShooters.Length; i++)
                 {

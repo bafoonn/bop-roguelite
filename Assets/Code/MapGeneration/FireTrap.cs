@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Pasta
 {
-    public class FireTrap : MonoBehaviour
+    public class FireTrap : Trap
     {
         [SerializeField]
         private int damage;
@@ -25,13 +25,16 @@ namespace Pasta
         }
         private void Update()
         {
-            if (timer >= 0)
+            if (!Disabled)
             {
-                timer -= Time.deltaTime;
-            }
-            else
-            {
-                SwapModes();
+                if (timer >= 0)
+                {
+                    timer -= Time.deltaTime;
+                }
+                else
+                {
+                    SwapModes();
+                }
             }
         }
         private void OnTriggerEnter2D(Collider2D col)
@@ -60,6 +63,15 @@ namespace Pasta
                 spriteRenderer.material.SetColor("_Color", baseColor);
             }
             timer = timerSet;
+        }
+
+        public override void Disable()
+        {
+            if (isActive)
+            {
+                isActive = false;
+                spriteRenderer.material.SetColor("_Color", Color.grey);
+            }
         }
     }
 }

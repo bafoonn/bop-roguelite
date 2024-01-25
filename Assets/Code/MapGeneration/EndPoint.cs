@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Pasta
 {
-    public class EndPoint : MonoBehaviour
+    public class EndPoint : Trap
     {
         private ItemBase roomReward;
         private ItemBase returnedItem;

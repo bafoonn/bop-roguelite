@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Pasta
 {
-    public class SpikeTrap : MonoBehaviour
+    public class SpikeTrap : Trap
     {
         [SerializeField]
         private int damage = 5;
@@ -23,16 +23,19 @@ namespace Pasta
         }
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if (!spikesTriggered && col.TryGetComponent<IHittable>(out _))
+            if (!Disabled)
             {
-                StartCoroutine(ActivateSpikes());
-            }
+                if (!spikesTriggered && col.TryGetComponent<IHittable>(out _))
+                {
+                    StartCoroutine(ActivateSpikes());
+                }
 
-            if (isActive && col.TryGetComponent(out IHittable hittable) && col.TryGetComponent(out Health health))
-            {   
-                if (!health.DealTrapDamage())
-                { 
-                    hittable.Hit(damage); 
+                if (isActive && col.TryGetComponent(out IHittable hittable) && col.TryGetComponent(out Health health))
+                {
+                    if (!health.DealTrapDamage())
+                    {
+                        hittable.Hit(damage);
+                    }
                 }
             }
         }

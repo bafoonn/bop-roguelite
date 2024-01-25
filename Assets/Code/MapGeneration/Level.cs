@@ -27,6 +27,7 @@ namespace Pasta
         public LayerMask FloorLayer;
         private int rewardType;
         private int[] rewardTypes;
+        private Trap[] traps;
 
         public ItemBase Reward => reward;
 
@@ -66,6 +67,11 @@ namespace Pasta
                 {
                     bossPortal.gameObject.SetActive(false);
                 }
+            }
+            if (GetComponentInChildren<Trap>())
+            {
+                traps = GetComponentsInChildren<Trap>();
+                Debug.Log(traps.Length);
             }
             player = GameObject.FindGameObjectWithTag("Player");
             player.transform.position = spawnPoint.transform.position;
@@ -134,6 +140,10 @@ namespace Pasta
                     foreach (var ability in abilities)
                     {
                         Destroy(ability.gameObject);
+                    }
+                    for (int i = 0; i < traps.Length; i++)
+                    {
+                        traps[i].Disable();
                     }
                     rewardSpawner.gameObject.SetActive(true);
                     rewardSpawner.InitializeRewardSpawn(reward, rewardType);
