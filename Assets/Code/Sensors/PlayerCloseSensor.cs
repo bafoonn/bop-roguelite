@@ -61,7 +61,7 @@ namespace Pasta
 
         private IEnumerator updateAttackers()
 		{
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.5f);
             Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, radius, layermask); 
 
             // sorts closest hitcolliders to player.

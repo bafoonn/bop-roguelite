@@ -179,7 +179,7 @@ PrefabInstance:
     - target: {fileID: 2169823766682597197, guid: 0126e69d2efc30743ba1b9f6eb6aadc2, type: 3}
       propertyPath: 'regions.Array.data[1]'
       value: 
-      objectReference: {fileID: 6814757665653483006, guid: b73e2f46e6e85ba4aad203bf8c8be2a9, type: 3}
+      objectReference: {fileID: 6814757665653483006, guid: ef41b1b6f0424ed47ad92e339ff78a42, type: 3}
     - target: {fileID: 2169823766682597197, guid: 0126e69d2efc30743ba1b9f6eb6aadc2, type: 3}
       propertyPath: 'regions.Array.data[2]'
       value: 
@@ -684,6 +684,10 @@ PrefabInstance:
     - target: {fileID: 1034199967721226364, guid: dcabfba1a1c5cc14caaa87d00026cabc, type: 3}
       propertyPath: AnimateSwing
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1197986375191235570, guid: dcabfba1a1c5cc14caaa87d00026cabc, type: 3}
+      propertyPath: maxEnemiesThatcanAttack
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2076966697667818739, guid: dcabfba1a1c5cc14caaa87d00026cabc, type: 3}
       propertyPath: m_Name

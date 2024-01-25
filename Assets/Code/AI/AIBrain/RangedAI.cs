@@ -215,12 +215,7 @@ public class RangedAI : MonoBehaviour, IEnemy
     }
 
     private void OnDamaged()
-    {
-        if (m_particleSystem != null)
-        {
-            //ParticleSystemHolder.transform.rotation = Quaternion.Euler(0, 0, player.transform.Find("AttackHandler").transform.localEulerAngles.z);
-            //m_particleSystem.Play();
-        }
+    {    
         if (hasDamageEffects)
         {
             //takeDamageEffects.SetFloat("Rotation", player.transform.Find("AttackHandler").transform.localEulerAngles.z);

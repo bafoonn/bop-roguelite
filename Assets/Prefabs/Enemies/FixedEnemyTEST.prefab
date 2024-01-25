@@ -6709,7 +6709,7 @@ MonoBehaviour:
   aiUpdateDelay: 0.06
   attackDelay: 2
   attackDistance: 2
-  attackStopDistance: 3
+  attackStopDistance: 4
   steeringBehaviours:
   - {fileID: 3838692728030095157}
   - {fileID: 3029777545630577490}
@@ -6933,6 +6933,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd9002ecee7cd004486553bdbcf63377, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BulletSpawner: {fileID: 0}
 --- !u!114 &8168645598572289301
 MonoBehaviour:
   m_ObjectHideFlags: 0

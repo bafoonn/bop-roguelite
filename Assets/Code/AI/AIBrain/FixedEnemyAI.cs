@@ -78,7 +78,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
     private SeekBehaviour seekBehaviour;
     public bool shouldMaintainDistance = true;
 
-    [SerializeField] private Image attackplaceholderindicator;
+    public Image attackplaceholderindicator;
 
     [Header("animator bools")]
     public bool IsIdle = true;
@@ -231,6 +231,12 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
             PointerEnemy?.Invoke(aiData.currentTarget.position);
 
 
+            if(aiData.currentTarget == null)
+            {
+                canAttack = false;
+            }
+
+
             if (aiData.currentTarget != null)
             {
 
@@ -252,8 +258,9 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
                 {
 
                     
-                    if (timeToAttack >= defaultTimeToAttack / 1.5) // Stops enemy from aiming when close to attacking.
+                    if (timeToAttack >= defaultTimeToAttack / 1.5) // Stops enemy from aiming and moving when close to attacking.
                     {
+                        //movementInput = Vector2.zero;  // Uncomment if want to stop moving also when close to attacking.
                         weaponParent.Aim = false;
                         animations.aim = false;
                     }
@@ -274,7 +281,12 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
         #region Attacking // TODO: Test this more (added here since seemed to bug out after putting to attack state)
         if (isAttacking == true)
         {
+            attackDistance = attackStopDistance;
             timeToAttack += Time.deltaTime;
+        }
+        else
+        {
+            attackDistance = attackDefaultDist;
         }
         if (canAttack)
         {
@@ -320,7 +332,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
 
    
 
-    protected virtual void DeathAction()
+    public virtual void DeathAction()
     {
         AudioManager.Current.PlaySoundEffect(deathSound, 1f);
 
@@ -385,7 +397,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
         }
 
     }
-    public void ToggleMaintainDistance(bool value) // Gets bool value from playerclosesensor script.
+    public virtual void ToggleMaintainDistance(bool value) // Gets bool value from playerclosesensor script.
     {
         shouldMaintainDistance = value;
     }
@@ -395,18 +407,16 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
         canAttackAnim = true;
     }
 
-    public void ActivateIndicator() // Called from PlayerCloseSensor script when getting attack token. // DELETE THIS
+    public virtual void ActivateIndicator() // Called from PlayerCloseSensor script when getting attack token. // DELETE THIS
     {
         if (!goAheadAttack)
         {
             goAheadAttack = true;
             Debug.Log("Got attack go ahead");
-            if (hasAttackEffect) attackEffect.SetIndicatorLifetime(1f);
-            if (hasAttackEffect) attackEffect.AttackIndicator();
         }
     }
 
-    public void DeActivateIndicator() // Called from PlayerCloseSensor script when not getting attack token.
+    public virtual void DeActivateIndicator() // Called from PlayerCloseSensor script when not getting attack token.
     {
         goAheadAttack = false;
 
@@ -415,22 +425,20 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
             attackplaceholderindicator.enabled = false;
         }
 
-        if (hasAttackEffect) attackEffect.SetIndicatorLifetime(0);
-        if (hasAttackEffect) attackEffect.CancelAttack();
     }
 
-    public void StartAttack() // Comes from attackstate and activates attack
+    public virtual void StartAttack() // Comes from attackstate and activates attack
     {
         if (!stopAttacking)
         {
             attacked = false;
             Debug.Log("going inside AttackCourotine");
-            stopAttacking = true;
+            stopAttacking = true;           
             StartCoroutine(AttackCourotine());
         }
     }
 
-    public IEnumerator AttackCourotine()
+    public virtual IEnumerator AttackCourotine()
     {
         CleavingWeaponAnimations clclcl = GetComponentInChildren<CleavingWeaponAnimations>();
         clclcl.Swing(defaultTimeToAttack, 1f, 0.5f, !attackEffect.IsFlipped, 80f);
@@ -443,7 +451,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
         movementInput = Vector2.zero;
         OnAttackPressed?.Invoke();
 
-        attackDistance = attackStopDistance;
+        
 
         yield return new WaitForSeconds(defaultTimeToAttack);
         isAttacking = false;

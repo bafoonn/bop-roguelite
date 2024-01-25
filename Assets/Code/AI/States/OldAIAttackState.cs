@@ -39,7 +39,7 @@ namespace Pasta
             SeekBehaviour seekbehaviour = parent.gameObject.GetComponentInChildren<SeekBehaviour>();
             seekbehaviour.targetReachedThershold = enemyAI.attackDefaultDist; // This is default 0.5f
             enemyAI.shouldMaintainDistance = false;
-            enemyAI.attackDistance = enemyAI.attackDefaultDist;
+            //enemyAI.attackDistance = enemyAI.attackDefaultDist;
             enemyAI.detectionDelay = 0.1f;
 
             

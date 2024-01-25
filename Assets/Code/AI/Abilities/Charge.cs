@@ -32,7 +32,7 @@ namespace Pasta
             }
             AIData aiData = parent.GetComponent<AIData>();
             //BossAI bossAi = parent.GetComponent<BossAI>();
-            //GameObject player = GameObject.FindGameObjectWithTag("Player");
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
 
             rigidbody = parent.GetComponent<Rigidbody2D>();
             BoxCollider2d = parent.GetComponent<BoxCollider2D>();
@@ -52,7 +52,7 @@ namespace Pasta
 			}
 			else
 			{
-                TargetPos = player.position;
+                TargetPos = player.transform.position;
                 v2i = Vector2Int.RoundToInt(TargetPos);
                 v3i = ((Vector3Int)v2i);
                 if (tilemap.HasTile(v3i))
