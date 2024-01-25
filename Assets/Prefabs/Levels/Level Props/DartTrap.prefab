@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1df6f4010cdac4fba9d38c6641b4c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Disabled: 0
   dartShooters:
   - {fileID: 2142931312367286342}
   pressurePlates:
@@ -239,6 +240,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2459079255539106362, guid: 381975d130cca744f97ba1c506526d82, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4298631287679494217, guid: 381975d130cca744f97ba1c506526d82, type: 3}
+      propertyPath: m_SortingOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8291884488051372201, guid: 381975d130cca744f97ba1c506526d82, type: 3}
