@@ -530,7 +530,7 @@ VisualEffect:
   m_PropertySheet:
     m_Float:
       m_Array:
-      - m_Value: 0.2
+      - m_Value: 0.12
         m_Name: QA Lifetime
         m_Overridden: 1
       - m_Value: 0.16
@@ -538,10 +538,10 @@ VisualEffect:
         m_Overridden: 1
     m_Vector2f:
       m_Array:
-      - m_Value: {x: 2.5, y: 2.5}
+      - m_Value: {x: 4, y: 4}
         m_Name: QA Scale
         m_Overridden: 1
-      - m_Value: {x: 4, y: 4}
+      - m_Value: {x: 4, y: 6}
         m_Name: HA Scale
         m_Overridden: 1
       - m_Value: {x: 4, y: 4}
@@ -556,7 +556,7 @@ VisualEffect:
       - m_Value: {x: -0.25, y: 0}
         m_Name: Ind Pivot
         m_Overridden: 1
-      - m_Value: {x: -0.45, y: 0}
+      - m_Value: {x: -0.25, y: 0}
         m_Name: QA Pivot
         m_Overridden: 1
     m_Vector3f:
@@ -567,7 +567,7 @@ VisualEffect:
       m_Array: []
     m_Int:
       m_Array:
-      - m_Value: 9
+      - m_Value: 4
         m_Name: QA Animation Frames
         m_Overridden: 1
       - m_Value: 4
@@ -581,7 +581,7 @@ VisualEffect:
       m_Array: []
     m_NamedObject:
       m_Array:
-      - m_Value: {fileID: 2800000, guid: 1c8a8ac9dffa83d4586f9e371c95ba60, type: 3}
+      - m_Value: {fileID: 2800000, guid: 2365afc890384e94c86df3cc0f694591, type: 3}
         m_Name: QA Sprite
         m_Overridden: 1
       - m_Value: {fileID: 2800000, guid: 1cff45966919b1d45884075dc07e4219, type: 3}
@@ -591,7 +591,10 @@ VisualEffect:
         m_Name: Ind Sprite
         m_Overridden: 1
     m_Bool:
-      m_Array: []
+      m_Array:
+      - m_Value: 0
+        m_Name: QA Is Flipped
+        m_Overridden: 0
 --- !u!73398921 &8442697504343626281
 VFXRenderer:
   serializedVersion: 1
@@ -1492,13 +1495,13 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.8550504, y: 2.3492315}
-      - {x: 1.7156042, y: 1.818434}
-      - {x: 2.2955403, y: 0.9901994}
-      - {x: 2.5, y: 0}
-      - {x: 2.2955403, y: -0.99019945}
-      - {x: 1.7156042, y: -1.818434}
-      - {x: 0.8550504, y: -2.3492315}
+    - - {x: 0.47753263, y: 2.7082212}
+      - {x: 1.6421862, y: 2.2058387}
+      - {x: 2.4574897, y: 1.2341976}
+      - {x: 2.75, y: 0}
+      - {x: 2.4574897, y: -1.234198}
+      - {x: 1.6421864, y: -2.2058387}
+      - {x: 0.47753263, y: -2.7082212}
       - {x: 0, y: 0}
   m_UseDelaunayMesh: 0
 --- !u!50 &3226930536080211820
@@ -1559,8 +1562,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Collider: {fileID: 8072183943745596453}
-  Range: 2.5
-  Angle: 140
+  Range: 2.75
+  Angle: 160
   Divisions: 7
 --- !u!1 &3202896001364875642
 GameObject:
@@ -3401,13 +3404,13 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 1.7619022, y: 1.4784114}
-      - {x: 2.055355, y: 1.032238}
-      - {x: 2.2380033, y: 0.5304164}
-      - {x: 2.3, y: 0}
-      - {x: 2.2380033, y: -0.53041655}
-      - {x: 2.055355, y: -1.032238}
-      - {x: 1.7619022, y: -1.4784114}
+    - - {x: 1.1999999, y: 2.0784612}
+      - {x: 1.8385067, y: 1.5426903}
+      - {x: 2.2552624, y: 0.8208483}
+      - {x: 2.4, y: 0}
+      - {x: 2.2552624, y: -0.8208484}
+      - {x: 1.8385068, y: -1.5426903}
+      - {x: 1.1999999, y: -2.0784612}
       - {x: 0, y: 0}
   m_UseDelaunayMesh: 0
 --- !u!50 &8647414192065037778
@@ -3468,8 +3471,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Collider: {fileID: 2561964209840252160}
-  Range: 2.3
-  Angle: 80
+  Range: 2.4
+  Angle: 120
   Divisions: 7
 --- !u!1 &6458672967513891400
 GameObject:
