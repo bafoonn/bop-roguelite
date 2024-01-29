@@ -40,6 +40,18 @@ PrefabInstance:
       propertyPath: BaseSpeed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 3246212096596688428, guid: 9f37f85d1ba75d54a803a24712822e31, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.x
+      value: 0.70110214
+      objectReference: {fileID: 0}
+    - target: {fileID: 3246212096596688428, guid: 9f37f85d1ba75d54a803a24712822e31, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.y
+      value: 0.16513224
+      objectReference: {fileID: 0}
+    - target: {fileID: 3246212096596688428, guid: 9f37f85d1ba75d54a803a24712822e31, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.z
+      value: 0.036889452
+      objectReference: {fileID: 0}
     - target: {fileID: 4148447015453757000, guid: 9f37f85d1ba75d54a803a24712822e31, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.0685622

@@ -427,7 +427,10 @@ VisualEffect:
   m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 0
+        m_Name: Rotation
+        m_Overridden: 0
     m_Vector2f:
       m_Array: []
     m_Vector3f:
@@ -6773,7 +6776,6 @@ MonoBehaviour:
   animations: {fileID: 0}
   attackEffect: {fileID: 0}
   hasAttackEffect: 0
-  hasDeathAnim: 1
   Corpse: {fileID: 6992705672734178762, guid: 0bd6a8d9d9f054945bcfe81a42ba2fc6, type: 3}
   shouldMaintainDistance: 1
   attackplaceholderindicator: {fileID: 7898873113766303716}

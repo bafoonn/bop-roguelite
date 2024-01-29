@@ -280,7 +280,10 @@ VisualEffect:
   m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 0
+        m_Name: Rotation
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
@@ -744,11 +747,6 @@ MonoBehaviour:
   - {fileID: 6142189328296033702}
   - {fileID: 605021886678652623}
   attackDefaultDist: 0
-  supportEnemyTarger: {fileID: 0}
-  layermask:
-    serializedVersion: 2
-    m_Bits: 0
-  radius: 20
   damage: 5
   dontattackdist: 5
   OnAttackPressed:
@@ -798,33 +796,28 @@ MonoBehaviour:
         m_CallState: 2
   movementInput: {x: 0, y: 0}
   movementDirectionSolver: {fileID: 0}
-  Chasing: 0
   weaponParent: {fileID: 0}
   abilityHolder: {fileID: 0}
-  Player: {fileID: 0}
   defaultDetectionDelay: 0
   timeToAttack: 0
   defaultTimeToAttack: 2
   canAttack: 0
   canAttackAnim: 1
-  gotAttackToken: 0
   animations: {fileID: 0}
-  drop: {fileID: 0}
   attackEffect: {fileID: 0}
   hasAttackEffect: 0
-  hasDeathAnim: 0
   Corpse: {fileID: 4335425223508017075, guid: 2e59b9c170f78f74ea76eb82374851a5, type: 3}
   shouldMaintainDistance: 1
   attackplaceholderindicator: {fileID: 0}
   IsIdle: 1
   isAttacking: 0
-  stunned: 0
   Death: 0
   _damagedMaterial: {fileID: 0}
   deathSound: {fileID: 11400000, guid: 9ca0e3b3e818b9c41bc127b98e89fcca, type: 2}
-  spriteRenderer: {fileID: 0}
   takeDamageEffects: {fileID: 2166885918499705267}
   ParticleSystemHolder: {fileID: 0}
+  Chasing: 0
+  gotAttackToken: 0
 --- !u!114 &3273630249781390691
 MonoBehaviour:
   m_ObjectHideFlags: 0

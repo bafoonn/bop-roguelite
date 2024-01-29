@@ -58,6 +58,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
     public WeaponParent weaponParent; // Has activate collider inside and deactivate as well.
     public AbilityHolder abilityHolder; // Abilities for enemy goes inside abilityholder.
     protected Player player;
+    protected GameObject attackHandler;
     public float defaultDetectionDelay; // If changing detection delay this is here to easily go back to default
 
     [Header("Attack timers")]
@@ -124,7 +125,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
         aiData = GetComponent<AIData>();
         attackEffect = GetComponentInChildren<AttackEffects>();
         drop = GetComponent<Drop>();
-
+        attackHandler = player.GetComponentInChildren<PlayerAttackHandler>().gameObject;
         // Setting variable values.
         hasAttackEffect = attackEffect != null;
         hasDamageEffects = takeDamageEffects != null;
@@ -163,7 +164,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
     {
         if (hasDamageEffects)
         {
-            //takeDamageEffects.SetFloat("Rotation", player.transform.Find("AttackHandler").transform.localEulerAngles.z);
+            takeDamageEffects.SetFloat("Rotation", attackHandler.transform.localEulerAngles.z);
             takeDamageEffects.SendEvent("Hit");
         }
         StartCoroutine(TakingDamage());
@@ -417,7 +418,6 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
         if (!stopAttacking)
         {
             attacked = false;
-            Debug.Log("going inside AttackCourotine");
             stopAttacking = true;
             StartCoroutine(AttackCourotine());
         }
@@ -429,7 +429,6 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
         clclcl.Swing(defaultTimeToAttack, 1f, 0.5f, !attackEffect.IsFlipped, 80f);
 
         IsIdle = false;
-        Debug.Log("Inside attack courotine");
         isAttacking = true; // FOR ANIMATOR
                             //Attacking 
         if (abilityHolder.ability != null) abilityHolder.CanUseAbility = true;

@@ -176,7 +176,6 @@ public class RangedAI : FixedEnemyAI
         }
         if (timeToAttack >= defaultTimeToAttack - 0.1f) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
         {
-            Debug.Log("Attacking");
             Attack(); // Attack method
             timeToAttack = 0;
             isAttacking = false;
@@ -256,8 +255,8 @@ public class RangedAI : FixedEnemyAI
     public override void ActivateIndicator() // Called from PlayerCloseSensor script when getting attack token. // DELETE THIS
     {
         base.ActivateIndicator();
-        if (hasAttackEffect) attackEffect.SetIndicatorLifetime(1f);
-        if (hasAttackEffect) attackEffect.AttackIndicator();
+        //if (hasAttackEffect) attackEffect.SetIndicatorLifetime(1f);
+        //if (hasAttackEffect) attackEffect.AttackIndicator();
     }
 
     public override void DeActivateIndicator()
@@ -270,7 +269,6 @@ public class RangedAI : FixedEnemyAI
     public override IEnumerator AttackCourotine()
     {
         IsIdle = false;
-        Debug.Log("raenged Inside attack courotine");
         isAttacking = true; // FOR ANIMATOR
                             //Attacking 
         if (abilityHolder.ability != null) abilityHolder.CanUseAbility = true;

@@ -77,7 +77,6 @@ namespace Pasta
                         {
                            
                             AIData aidata = hitColliders[i].gameObject.GetComponent<AIData>();               
-                            Debug.Log("Can attack");
                             seekBehaviour = hitColliders[i].gameObject.GetComponentInChildren<SeekBehaviour>();
                             enemyai = hitColliders[i].gameObject.GetComponent<FixedEnemyAI>();
                             enemyai.ToggleMaintainDistance(false);

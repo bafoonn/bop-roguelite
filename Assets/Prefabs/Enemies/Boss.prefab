@@ -1330,6 +1330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 477d206c5bf7eb24882fa6a5a20226dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponParent: {fileID: 0}
 --- !u!114 &3619182219885599983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1480,7 +1481,7 @@ MonoBehaviour:
   stunned: 0
   Death: 0
   _damagedMaterial: {fileID: 0}
-  deathSound: {fileID: 0}
+  deathSound: {fileID: 11400000, guid: 9ca0e3b3e818b9c41bc127b98e89fcca, type: 2}
   spriteRenderer: {fileID: 0}
   takeDamageEffects: {fileID: 0}
   ParticleSystemHolder: {fileID: 0}
