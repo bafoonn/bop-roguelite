@@ -28,6 +28,7 @@ namespace Pasta
         private int rewardType;
         private int[] rewardTypes;
         private Trap[] traps;
+        private bool isTrapLevel;
 
         public ItemBase Reward => reward;
 
@@ -71,7 +72,7 @@ namespace Pasta
             if (GetComponentInChildren<Trap>())
             {
                 traps = GetComponentsInChildren<Trap>();
-                Debug.Log(traps.Length);
+                isTrapLevel = true;
             }
             player = GameObject.FindGameObjectWithTag("Player");
             player.transform.position = spawnPoint.transform.position;
@@ -141,9 +142,12 @@ namespace Pasta
                     {
                         Destroy(ability.gameObject);
                     }
-                    for (int i = 0; i < traps.Length; i++)
+                    if (isTrapLevel)
                     {
-                        traps[i].Disable();
+                        for (int i = 0; i < traps.Length; i++)
+                        {
+                            traps[i].Disable();
+                        }
                     }
                     rewardSpawner.gameObject.SetActive(true);
                     rewardSpawner.InitializeRewardSpawn(reward, rewardType);
