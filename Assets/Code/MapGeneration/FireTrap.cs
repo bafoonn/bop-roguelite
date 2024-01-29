@@ -10,16 +10,13 @@ namespace Pasta
         private int damage;
         private bool isActive;
         [SerializeField]
-        private float timerSet = 2f;
+        private float timerSet = 5f;
         private float timer;
-        private SpriteRenderer spriteRenderer;
-        private Color baseColor;
+        private Animator animator;
         private BoxCollider2D boxcol;
         private void Start()
         {
-            spriteRenderer = GetComponent<SpriteRenderer>();
-            baseColor = spriteRenderer.color;
-            spriteRenderer.material.SetColor("_Color", Color.grey);
+            animator = GetComponent<Animator>();
             boxcol = gameObject.GetComponent<BoxCollider2D>();
             timer = timerSet;
         }
@@ -52,17 +49,30 @@ namespace Pasta
         {
             if (isActive)
             {
-                isActive = false;
-                spriteRenderer.material.SetColor("_Color", Color.grey);
+                StartCoroutine(Deactivate());
             }
             else
             {
-                boxcol.enabled = false;
-                boxcol.enabled = true;
-                isActive = true;
-                spriteRenderer.material.SetColor("_Color", baseColor);
+                Activate();
             }
             timer = timerSet;
+        }
+
+        private void Activate()
+        {
+            animator.SetTrigger("Activate");
+            animator.SetTrigger("On");
+            boxcol.enabled = false;
+            boxcol.enabled = true;
+            isActive = true;
+        }
+        
+        IEnumerator Deactivate()
+        {
+            isActive = false;
+            animator.SetTrigger("Deactivate");
+            yield return new WaitForSeconds(0.5f);
+            animator.SetTrigger("Default");
         }
 
         public override void Disable()
@@ -70,7 +80,6 @@ namespace Pasta
             if (isActive)
             {
                 isActive = false;
-                spriteRenderer.material.SetColor("_Color", Color.grey);
             }
         }
     }
