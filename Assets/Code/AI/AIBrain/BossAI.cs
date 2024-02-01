@@ -5,13 +5,15 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using Pasta;
+using UnityEditor.Experimental.GraphView;
 
 
-public class BossAI : EnemyAi
+public class BossAI : FixedEnemyAI
 {
     public bool indicatorAlive = false;
     public UnityEvent<Vector2> OnPointerInput;
     public float CurrentHealthPercentage;
+    private bool Chasing = false;
 
     //[SerializeField] private float chaseDistanceThershold = 3, attackDistanceThershold = 0.8f;
     //private float passedTime = 1;
@@ -21,6 +23,23 @@ public class BossAI : EnemyAi
         CurrentHealthPercentage = (Health.CurrentHealth / Health.MaxHealth) * 100;
         if (aiData.currentTarget != null)
         {
+
+            if (attacked) // If has just performed attack
+            {
+                if ((aiData.currentTarget.transform.position - transform.position).magnitude < 3.5f) // Back away from player if not attacking.
+                {
+                    Vector3 direction = transform.position - aiData.currentTarget.transform.position;
+                    direction = Vector3.Normalize(direction);
+                    transform.rotation = Quaternion.Euler(direction);
+                    movementInput = direction;
+                }
+                else
+                {
+                    attacked = false;
+                    movementInput = Vector2.zero;
+                }
+
+            }
 
             //Looking at target.
             OnPointerInput?.Invoke(aiData.currentTarget.position);
@@ -61,6 +80,7 @@ public class BossAI : EnemyAi
     public void Attack()
     {
         Debug.Log("Swing");
+        attacked = true;
         //abilityHolder.UseAbility = true; // <- Here for testing purposes.
         if (abilityHolder != null)
         {

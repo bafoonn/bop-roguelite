@@ -446,7 +446,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
 
     }
 
-    public void Hit(float damage, HitType type, ICharacter source = null)
+    public virtual void Hit(float damage, HitType type, ICharacter source = null)
     {
         Health.TakeDamage(damage);
         if (type == HitType.Hit && source != null)
