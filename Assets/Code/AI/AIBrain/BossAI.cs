@@ -55,7 +55,12 @@ public class BossAI : FixedEnemyAI
                 //attackIndicator.enabled = true;
                 if (isAttacking == true)
                 {
+                    attackDistance = attackStopDistance;
                     timeToAttack += Time.deltaTime;
+                }
+                else
+                {
+                    attackDistance = attackDefaultDist;
                 }
 
                 if (timeToAttack >= defaultTimeToAttack / 1.5)
@@ -77,7 +82,7 @@ public class BossAI : FixedEnemyAI
         OnMovementInput?.Invoke(movementInput);
     }
 
-    public void Attack()
+    public override void Attack()
     {
         Debug.Log("Swing");
         attacked = true;
@@ -137,7 +142,8 @@ public class BossAI : FixedEnemyAI
             float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
             if (distance < attackDistance)
             {
-                movementInput = Vector2.zero;
+                
+                //movementInput = Vector2.zero;
                 Debug.Log("Attacking");
 
                 isAttacking = true;
@@ -167,7 +173,7 @@ public class BossAI : FixedEnemyAI
                     if (hasAttackEffect) attackEffect.SetIndicatorLifetime(defaultTimeToAttack);
                 }
 
-
+                
 
                 if (timeToAttack >= defaultTimeToAttack) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
                 {
@@ -177,7 +183,6 @@ public class BossAI : FixedEnemyAI
                     //attackIndicator.fillAmount = 0;
                     isAttacking = false;
                 }
-
                 yield return new WaitForSeconds(attackDelay);
                 StartCoroutine(ChaseAndAttack());
             }

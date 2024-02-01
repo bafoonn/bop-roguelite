@@ -1412,14 +1412,14 @@ MonoBehaviour:
   detectionDelay: 0.05
   aiUpdateDelay: 0.06
   attackDelay: 1
-  attackDistance: 1.5
+  attackDistance: 2
   attackStopDistance: 6
   steeringBehaviours:
   - {fileID: 5337389736714812942}
   - {fileID: 4012314741522539382}
-  attackDefaultDist: 1.5
+  attackDefaultDist: 2
   damage: 30
-  dontattackdist: 7
+  dontattackdist: 6
   OnAttackPressed:
     m_PersistentCalls:
       m_Calls:
