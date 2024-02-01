@@ -112,10 +112,18 @@ PrefabInstance:
       propertyPath: attackStopDistance
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7633629442350973519, guid: 9f37f85d1ba75d54a803a24712822e31, type: 3}
+      propertyPath: defaultTimeToAttack
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8022384325164921756, guid: 9f37f85d1ba75d54a803a24712822e31, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 4cda749f25c6d494c95355280110e41d, type: 2}
+    - target: {fileID: 8949284928838979291, guid: 9f37f85d1ba75d54a803a24712822e31, type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

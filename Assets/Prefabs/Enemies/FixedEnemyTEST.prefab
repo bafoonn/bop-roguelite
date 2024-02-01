@@ -6564,7 +6564,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 200
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -6717,7 +6717,7 @@ MonoBehaviour:
   - {fileID: 3838692728030095157}
   - {fileID: 3029777545630577490}
   attackDefaultDist: 2.5
-  damage: 5
+  damage: 10
   dontattackdist: 5
   OnAttackPressed:
     m_PersistentCalls:

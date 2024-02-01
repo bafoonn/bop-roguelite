@@ -16,7 +16,7 @@ namespace Pasta
         private SeekBehaviour seekBehaviour;
         private int layer;
         public int maxEnemiesThatcanAttack = 4;
-        private float timer = 3f; // Initial timer value
+        private float timer = 1.5f; // Initial timer value
         private ApproachPlayerState approachState;
 
         // Start is called before the first frame update
@@ -52,7 +52,7 @@ namespace Pasta
             {
 
                 // Reset the timer
-                timer = 3f;
+                timer = 1.5f;
 
                 // Call the coroutine logic
                 StartCoroutine(updateAttackers());
