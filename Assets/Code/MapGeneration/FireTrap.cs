@@ -10,7 +10,7 @@ namespace Pasta
         private int damage;
         private bool isActive;
         [SerializeField]
-        private float timerSet = 5f;
+        private float timerSet = 2f;
         private float timer;
         private Animator animator;
         private BoxCollider2D boxcol;
@@ -38,6 +38,13 @@ namespace Pasta
         {
             if (isActive && col.TryGetComponent(out ICharacter character) && col.TryGetComponent(out Health health))
             {
+                if (col.TryGetComponent(out Player player))
+                {
+                    if (player.CheckIfIFrames())
+                    {
+                        return;
+                    }
+                }
                 if (!health.DealTrapDamage())
                 {
                     character.Status.ApplyStatus(new BurnStatus(damage), 1f);
