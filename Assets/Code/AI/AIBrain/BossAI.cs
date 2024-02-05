@@ -5,13 +5,15 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using Pasta;
+using UnityEditor.Experimental.GraphView;
 
 
-public class BossAI : EnemyAi
+public class BossAI : FixedEnemyAI
 {
     public bool indicatorAlive = false;
     public UnityEvent<Vector2> OnPointerInput;
     public float CurrentHealthPercentage;
+    private bool Chasing = false;
 
     //[SerializeField] private float chaseDistanceThershold = 3, attackDistanceThershold = 0.8f;
     //private float passedTime = 1;
@@ -21,6 +23,23 @@ public class BossAI : EnemyAi
         CurrentHealthPercentage = (Health.CurrentHealth / Health.MaxHealth) * 100;
         if (aiData.currentTarget != null)
         {
+
+            if (attacked) // If has just performed attack
+            {
+                if ((aiData.currentTarget.transform.position - transform.position).magnitude < 3.5f) // Back away from player if not attacking.
+                {
+                    Vector3 direction = transform.position - aiData.currentTarget.transform.position;
+                    direction = Vector3.Normalize(direction);
+                    transform.rotation = Quaternion.Euler(direction);
+                    movementInput = direction;
+                }
+                else
+                {
+                    attacked = false;
+                    movementInput = Vector2.zero;
+                }
+
+            }
 
             //Looking at target.
             OnPointerInput?.Invoke(aiData.currentTarget.position);
@@ -36,7 +55,12 @@ public class BossAI : EnemyAi
                 //attackIndicator.enabled = true;
                 if (isAttacking == true)
                 {
+                    attackDistance = attackStopDistance;
                     timeToAttack += Time.deltaTime;
+                }
+                else
+                {
+                    attackDistance = attackDefaultDist;
                 }
 
                 if (timeToAttack >= defaultTimeToAttack / 1.5)
@@ -58,9 +82,10 @@ public class BossAI : EnemyAi
         OnMovementInput?.Invoke(movementInput);
     }
 
-    public void Attack()
+    public override void Attack()
     {
         Debug.Log("Swing");
+        attacked = true;
         //abilityHolder.UseAbility = true; // <- Here for testing purposes.
         if (abilityHolder != null)
         {
@@ -117,7 +142,8 @@ public class BossAI : EnemyAi
             float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
             if (distance < attackDistance)
             {
-                movementInput = Vector2.zero;
+                
+                //movementInput = Vector2.zero;
                 Debug.Log("Attacking");
 
                 isAttacking = true;
@@ -147,7 +173,7 @@ public class BossAI : EnemyAi
                     if (hasAttackEffect) attackEffect.SetIndicatorLifetime(defaultTimeToAttack);
                 }
 
-
+                
 
                 if (timeToAttack >= defaultTimeToAttack) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
                 {
@@ -157,7 +183,6 @@ public class BossAI : EnemyAi
                     //attackIndicator.fillAmount = 0;
                     isAttacking = false;
                 }
-
                 yield return new WaitForSeconds(attackDelay);
                 StartCoroutine(ChaseAndAttack());
             }

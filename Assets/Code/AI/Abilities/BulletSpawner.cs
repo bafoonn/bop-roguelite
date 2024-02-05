@@ -15,8 +15,8 @@ namespace Pasta
         {
             damageArea = GetComponentInParent<DamageArea>();
             float angle = 360 / howmanyDirections;
-            
 
+            StartCoroutine(Deactivate());
             if(damageArea != null )
             {
                 if (damageArea.enabled)
@@ -34,8 +34,16 @@ namespace Pasta
 
 
 
+        private IEnumerator Deactivate()
+        {
+            yield return new  WaitForSeconds(2f);
+            Destroy(this.transform.parent.gameObject);
+        }
 
 
-        
+
+
+
+
     }
 }

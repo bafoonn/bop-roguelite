@@ -4,33 +4,36 @@ using UnityEngine;
 
 namespace Pasta
 {
-    public class SpikeTrap : MonoBehaviour
+    public class SpikeTrap : Trap
     {
         [SerializeField]
         private int damage = 5;
         private bool isActive;
         private bool spikesTriggered;
-        private SpriteRenderer spriteRenderer;
-        private Color baseColor;
         private BoxCollider2D boxcol;
+        private Animator animator;
 
         private void Start()
         {
-            spriteRenderer = GetComponent<SpriteRenderer>();
-            baseColor = spriteRenderer.color;
-            spriteRenderer.material.SetColor("_Color", Color.black);
             boxcol = gameObject.GetComponent<BoxCollider2D>();
+            animator = GetComponent<Animator>();
         }
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if (!spikesTriggered && col.TryGetComponent<IHittable>(out _))
+            if (!Disabled)
             {
-                StartCoroutine(ActivateSpikes());
-            }
+                if (!spikesTriggered && col.TryGetComponent<IHittable>(out _))
+                {
+                    StartCoroutine(ActivateSpikes());
+                }
 
-            if (isActive && col.TryGetComponent(out IHittable hittable))
-            {
-                hittable.Hit(damage);
+                if (isActive && col.TryGetComponent(out IHittable hittable) && col.TryGetComponent(out Health health))
+                {
+                    if (!health.DealTrapDamage())
+                    {
+                        hittable.Hit(damage);
+                    }
+                }
             }
         }
 
@@ -38,15 +41,21 @@ namespace Pasta
         IEnumerator ActivateSpikes()
         {
             spikesTriggered = true;
+            animator.SetTrigger("Activate");
             yield return new WaitForSeconds(1f);
-            spriteRenderer.material.SetColor("_Color", Color.blue);
+            animator.SetTrigger("Spring");
+            yield return new WaitForSeconds(0.3f);
             isActive = true;
             boxcol.enabled = false;
             boxcol.enabled = true;
             yield return new WaitForSeconds(1f);
-            spriteRenderer.material.SetColor("_Color", Color.black);
+            animator.SetTrigger("Deactivate");
+            yield return new WaitForSeconds(0.2f);
+            animator.SetTrigger("Default");
             spikesTriggered = false;
             isActive = false;
+            boxcol.enabled = false;
+            boxcol.enabled = true;
         }
     }
 }

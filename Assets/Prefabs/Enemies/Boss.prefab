@@ -1330,6 +1330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 477d206c5bf7eb24882fa6a5a20226dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponParent: {fileID: 0}
 --- !u!114 &3619182219885599983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1411,18 +1412,14 @@ MonoBehaviour:
   detectionDelay: 0.05
   aiUpdateDelay: 0.06
   attackDelay: 1
-  attackDistance: 5
-  attackStopDistance: 3
+  attackDistance: 2
+  attackStopDistance: 6
   steeringBehaviours:
   - {fileID: 5337389736714812942}
   - {fileID: 4012314741522539382}
-  attackDefaultDist: 0
-  supportEnemyTarger: {fileID: 0}
-  layermask:
-    serializedVersion: 2
-    m_Bits: 0
-  radius: 20
+  attackDefaultDist: 2
   damage: 30
+  dontattackdist: 6
   OnAttackPressed:
     m_PersistentCalls:
       m_Calls:
@@ -1438,7 +1435,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  dontattackdist: 5
   OnMovementInput:
     m_PersistentCalls:
       m_Calls:
@@ -1459,29 +1455,24 @@ MonoBehaviour:
       m_Calls: []
   movementInput: {x: 0, y: 0}
   movementDirectionSolver: {fileID: 1643930942005312169}
-  Chasing: 0
   weaponParent: {fileID: 0}
   abilityHolder: {fileID: 8806108206215821516}
+  defaultDetectionDelay: 0
   timeToAttack: 0
   defaultTimeToAttack: 1.5
   canAttack: 0
-  stunTimer: 1
-  gotAttackToken: 0
+  canAttackAnim: 1
   animations: {fileID: 0}
-  drop: {fileID: 0}
   attackEffect: {fileID: 636390242923387232}
   hasAttackEffect: 1
-  hasDeathAnim: 0
   Corpse: {fileID: 0}
   shouldMaintainDistance: 0
   attackplaceholderindicator: {fileID: 0}
   IsIdle: 1
   isAttacking: 0
-  stunned: 0
   Death: 0
   _damagedMaterial: {fileID: 0}
-  deathSound: {fileID: 0}
-  spriteRenderer: {fileID: 0}
+  deathSound: {fileID: 11400000, guid: 9ca0e3b3e818b9c41bc127b98e89fcca, type: 2}
   takeDamageEffects: {fileID: 0}
   ParticleSystemHolder: {fileID: 0}
   indicatorAlive: 0

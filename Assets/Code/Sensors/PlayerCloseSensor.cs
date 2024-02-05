@@ -11,12 +11,12 @@ namespace Pasta
         public float precentage = 40;
         private float precentageSubtract;
         public float result;
-        private EnemyAi enemyai;
+        private FixedEnemyAI enemyai;
         [SerializeField] private LayerMask layermask;
         private SeekBehaviour seekBehaviour;
         private int layer;
         public int maxEnemiesThatcanAttack = 4;
-        private float timer = 3f; // Initial timer value
+        private float timer = 1.5f; // Initial timer value
         private ApproachPlayerState approachState;
 
         // Start is called before the first frame update
@@ -52,7 +52,7 @@ namespace Pasta
             {
 
                 // Reset the timer
-                timer = 3f;
+                timer = 1.5f;
 
                 // Call the coroutine logic
                 StartCoroutine(updateAttackers());
@@ -61,7 +61,7 @@ namespace Pasta
 
         private IEnumerator updateAttackers()
 		{
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.5f);
             Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, radius, layermask); 
 
             // sorts closest hitcolliders to player.
@@ -70,18 +70,16 @@ namespace Pasta
             {
                 if (i < maxEnemiesThatcanAttack) // Check if the current hitcollider is inside the result
                 {
-                    if (hitColliders[i].gameObject.TryGetComponent(out EnemyAi enemyAi))
+                    if (hitColliders[i].gameObject.TryGetComponent(out FixedEnemyAI enemyAi))
                     {
                         
                         if ((transform.position - hitColliders[i].gameObject.transform.position).magnitude < radius)
                         {
                            
                             AIData aidata = hitColliders[i].gameObject.GetComponent<AIData>();               
-                            Debug.Log("Can attack");
                             seekBehaviour = hitColliders[i].gameObject.GetComponentInChildren<SeekBehaviour>();
-                            enemyai = hitColliders[i].gameObject.GetComponent<EnemyAi>();
+                            enemyai = hitColliders[i].gameObject.GetComponent<FixedEnemyAI>();
                             enemyai.ToggleMaintainDistance(false);
-                            enemyAi.gotAttackToken = true;
                             enemyAi.ActivateIndicator();
                             enemyai.canAttack = true;
                         }
@@ -90,11 +88,10 @@ namespace Pasta
                 }
                 else
                 {
-                    if (hitColliders[i].gameObject.TryGetComponent(out EnemyAi enemyAi))
+                    if (hitColliders[i].gameObject.TryGetComponent(out FixedEnemyAI enemyAi))
                     {
-                        enemyai = hitColliders[i].gameObject.GetComponent<EnemyAi>();
+                        enemyai = hitColliders[i].gameObject.GetComponent<FixedEnemyAI>();
                         enemyai.ToggleMaintainDistance(true);
-                        enemyAi.gotAttackToken = false;
                         enemyAi.DeActivateIndicator();
                         enemyai.canAttack = false;
                         AIData aidata = hitColliders[i].gameObject.GetComponent<AIData>();

@@ -27,6 +27,8 @@ namespace Pasta
         public LayerMask FloorLayer;
         private int rewardType;
         private int[] rewardTypes;
+        private Trap[] traps;
+        private bool isTrapLevel;
 
         public ItemBase Reward => reward;
 
@@ -67,6 +69,11 @@ namespace Pasta
                     bossPortal.gameObject.SetActive(false);
                 }
             }
+            if (GetComponentInChildren<Trap>())
+            {
+                traps = GetComponentsInChildren<Trap>();
+                isTrapLevel = true;
+            }
             player = GameObject.FindGameObjectWithTag("Player");
             player.transform.position = spawnPoint.transform.position;
             CheckIfNonCombatRoom();
@@ -74,24 +81,24 @@ namespace Pasta
 
         private void OnEnable()
         {
-            EnemyAi.OnSpawn += OnEnemySpawn;
-            EnemyAi.OnDie += OnEnemyDeath;
+            FixedEnemyAI.OnSpawn += OnEnemySpawn;
+            FixedEnemyAI.OnDie += OnEnemyDeath;
         }
 
-        private void OnEnemySpawn(EnemyAi obj)
+        private void OnEnemySpawn(FixedEnemyAI obj)
         {
             enemiesLeft += 1;
         }
 
-        private void OnEnemyDeath(EnemyAi obj)
+        private void OnEnemyDeath(FixedEnemyAI obj)
         {
             EnemyKilled();
         }
 
         private void OnDisable()
         {
-            EnemyAi.OnSpawn -= OnEnemySpawn;
-            EnemyAi.OnDie -= OnEnemyDeath;
+            FixedEnemyAI.OnSpawn -= OnEnemySpawn;
+            FixedEnemyAI.OnDie -= OnEnemyDeath;
         }
 
         public void PassRewardIndex(ItemBase passedReward, int passedLevelNumber, int passedRewardType)
@@ -110,6 +117,7 @@ namespace Pasta
         public void EnemyKilled()
         {
             enemiesLeft--;
+            Debug.Log(enemiesLeft);
             if (enemiesLeft <= 0)
             {
                 allWavesSpawned = true;
@@ -134,6 +142,13 @@ namespace Pasta
                     foreach (var ability in abilities)
                     {
                         Destroy(ability.gameObject);
+                    }
+                    if (isTrapLevel)
+                    {
+                        for (int i = 0; i < traps.Length; i++)
+                        {
+                            traps[i].Disable();
+                        }
                     }
                     rewardSpawner.gameObject.SetActive(true);
                     rewardSpawner.InitializeRewardSpawn(reward, rewardType);

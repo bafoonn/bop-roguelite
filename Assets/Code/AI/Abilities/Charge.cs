@@ -32,7 +32,7 @@ namespace Pasta
             }
             AIData aiData = parent.GetComponent<AIData>();
             //BossAI bossAi = parent.GetComponent<BossAI>();
-            //GameObject player = GameObject.FindGameObjectWithTag("Player");
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
 
             rigidbody = parent.GetComponent<Rigidbody2D>();
             BoxCollider2d = parent.GetComponent<BoxCollider2D>();
@@ -52,7 +52,7 @@ namespace Pasta
 			}
 			else
 			{
-                TargetPos = player.position;
+                TargetPos = player.transform.position;
                 v2i = Vector2Int.RoundToInt(TargetPos);
                 v3i = ((Vector3Int)v2i);
                 if (tilemap.HasTile(v3i))
@@ -69,36 +69,16 @@ namespace Pasta
             {
                 Debug.Log("Tilemap not found");
             }
-            //rigidbody.MovePosition(TargetPos * speed);
-            
-            bC2D = parent.AddComponent<BoxCollider2D>();
-            BoxCollider2d.isTrigger = true;
-            bC2D.isTrigger = true;
-            bC2D.size = new Vector2(1, 1);
-            bC2D.edgeRadius = 0.9f;
-            LayerMask mask = LayerMask.GetMask("Player");
-            Collider2D[] colliders = Physics2D.OverlapBoxAll(parent.transform.position, bC2D.size, 0, mask);
-            Debug.Log(colliders.Length);
-            foreach (Collider2D collider2D in colliders)
-            {
-                if (collider2D.TryGetComponent(out IHittable hittable))
-                {
-                    //bossAi.movementInput = Vector2.zero;
 
-                    hittable.Hit(damage);// DO DAMAGE!
-                }
-            }
 
 
         }
 
         public override void Deactivate()
         {
-            if (bC2D == null) return;
             if (rigidbody == null) return;
             if (BoxCollider2d == null) return;
 
-            Destroy(bC2D);
 
             rigidbody.velocity = Vector2.zero;
             BoxCollider2d.isTrigger = false;

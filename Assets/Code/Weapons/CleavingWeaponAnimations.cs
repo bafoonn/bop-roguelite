@@ -78,7 +78,7 @@ namespace Pasta
             _flip = !clockWise;
 
             StopAllCoroutines();
-            StartCoroutine(PosRoutine(windup, winddown, attackTime, !_flip, angle));
+            StartCoroutine(SwingRoutine(windup, winddown, attackTime, !_flip, angle));
         }
 
         public void StopSwing()
@@ -87,7 +87,7 @@ namespace Pasta
             _swinging = false;
         }
 
-        private IEnumerator PosRoutine(float windup, float winddown, float attackTime, bool clockWise, float angle)
+        private IEnumerator SwingRoutine(float windup, float winddown, float attackTime, bool clockWise, float angle)
         {
             _swinging = true;
             angle += AdditionalAngle;
@@ -99,12 +99,13 @@ namespace Pasta
             float buffer = 0.1f;
             float swingTime = Mathf.Min(SwingTime, attackTime);
 
-            Vector2 offset = _currentOffset;
+            Vector2 offset = UnitCircle.Lerp(min, min * 1.5f, 0, distance, _attackHandler.eulerAngles.z);
             Vector2 current = offset;
             Vector2 target;
             while (timer < windup)
             {
-                offset = UnitCircle.Lerp(min, max, 0, distance, _attackHandler.eulerAngles.z);
+                float t = timer / windup;
+                offset = UnitCircle.Lerp(min, min * 1.5f, t * t, distance, _attackHandler.eulerAngles.z);
                 target = offset;
                 current = Vector2.Lerp(current, target, Time.deltaTime * MoveSpeed);
                 SetPosition(current, current);
@@ -135,20 +136,20 @@ namespace Pasta
                 }
             }
 
-            //yield return new WaitForSeconds(attackTime + winddown + buffer);
-            timer = 0;
-            while (timer < winddown + attackTime - swingTime)
-            {
-                offset = UnitCircle.Lerp(min, max, 1, distance, _attackHandler.transform.eulerAngles.z);
-                target = offset;
-                current = Vector2.Lerp(current, target, Time.deltaTime * 3);
-                SetPosition(current, current);
-                timer += Time.deltaTime;
-                yield return null;
-            }
+            yield return new WaitForSeconds(attackTime - swingTime + winddown);
+            //timer = 0;
+            //while (timer < winddown + attackTime - swingTime)
+            //{
+            //    offset = UnitCircle.Lerp(min, max, 1, distance, _attackHandler.transform.eulerAngles.z);
+            //    target = offset;
+            //    current = Vector2.Lerp(current, target, Time.deltaTime * 3);
+            //    SetPosition(current, current);
+            //    timer += Time.deltaTime;
+            //    yield return null;
+            //}
+            yield return new WaitForSeconds(buffer);
             _currentOffset = current;
             _currentDir = current;
-            yield return new WaitForSeconds(buffer);
             _swinging = false;
         }
     }

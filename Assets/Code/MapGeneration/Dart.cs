@@ -11,8 +11,9 @@ namespace Pasta
         [SerializeField]
         private LayerMask layers;
 
-        private int dartdamage;
+        private float dartdamage;
         private bool isActive = false;
+        private bool isColActive;
 
         // Update is called once per frame
         void FixedUpdate()
@@ -23,7 +24,7 @@ namespace Pasta
             }
         }
 
-        public void StartMoving(int damage)
+        public void StartMoving(float damage)
         {
             dartdamage = damage;
             isActive = true;
@@ -31,14 +32,26 @@ namespace Pasta
 
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if (layers.Includes(col.gameObject.layer))
+            if (layers.Includes(col.gameObject.layer) && isColActive)
             {
                 if (col.TryGetComponent<IHittable>(out IHittable hittable))
                 {
+                    if (col.TryGetComponent<Player>(out Player player))
+                    {
+                        if(player.CheckIfIFrames())
+                        {
+                            return;
+                        }
+                    }
                     hittable.Hit(dartdamage);
                 }
                 Destroy(gameObject);
             }
+        }
+
+        private void OnTriggerExit2D(Collider2D col)
+        {
+            isColActive = true;
         }
     }
 }

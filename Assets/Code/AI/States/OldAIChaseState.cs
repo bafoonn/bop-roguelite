@@ -54,7 +54,7 @@ namespace Pasta
 			enemyAI.timeToAttack = 0;
 			enemyAI.movementInput = enemyAI.movementDirectionSolver.GetDirectionToMove(enemyAI.steeringBehaviours, aiData);
 
-			if ((player.transform.position - transform.position).magnitude < 5.5f)
+			if ((player.transform.position - transform.position).magnitude < 5.5f && aiData.currentTarget != null && aiData.targets != null)
 			{
 				enemyAI.movementInput = Vector2.zero;
 				closeToPlayer = true;

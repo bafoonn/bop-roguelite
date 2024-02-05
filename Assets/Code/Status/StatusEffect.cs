@@ -7,7 +7,7 @@ namespace Pasta
     public interface IStatusEffect
     {
         public void Apply(ICharacter character, float duration);
-        public void Update(float deltaTime);
+        public void Update(ICharacter character, float deltaTime);
         public void UnApply(ICharacter character);
         public StatusType Type { get; }
         public bool CanStack { get; }

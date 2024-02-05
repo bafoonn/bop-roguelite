@@ -182,7 +182,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4768127272814901405
 Transform:
   m_ObjectHideFlags: 0
@@ -427,7 +427,10 @@ VisualEffect:
   m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 0
+        m_Name: Rotation
+        m_Overridden: 0
     m_Vector2f:
       m_Array: []
     m_Vector3f:
@@ -905,7 +908,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3990170630379701406}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -6508,7 +6511,7 @@ GameObject:
   - component: {fileID: 1259514723982879070}
   - component: {fileID: 1006995971007075442}
   - component: {fileID: 5913695015403125773}
-  - component: {fileID: 1021474887807162252}
+  - component: {fileID: 7633629442350973519}
   - component: {fileID: 5018959942009198676}
   - component: {fileID: 2565745539531763249}
   - component: {fileID: 1867457929088482630}
@@ -6518,6 +6521,7 @@ GameObject:
   - component: {fileID: 8022384325164921756}
   - component: {fileID: -7066841776315775025}
   - component: {fileID: 8623822399236905553}
+  - component: {fileID: 8168645598572289301}
   m_Layer: 7
   m_Name: FixedEnemyTEST
   m_TagString: Enemy
@@ -6560,7 +6564,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 200
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -6688,7 +6692,7 @@ MonoBehaviour:
   targets: []
   obstacles: []
   currentTarget: {fileID: 0}
---- !u!114 &1021474887807162252
+--- !u!114 &7633629442350973519
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6697,28 +6701,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 6992705672734178762}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f87d1003eb8dea14caf067fb41cd8d6c, type: 3}
+  m_Script: {fileID: 11500000, guid: 40bb08aedb043ed49b92b58bd10c3b7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   detectors:
   - {fileID: 1333527582292187005}
   - {fileID: 9136036092128122192}
   aiData: {fileID: 5913695015403125773}
-  detectionDelay: 0.01
-  aiUpdateDelay: 0.01
-  attackDelay: 1
-  attackDistance: 3
+  detectionDelay: 0.05
+  aiUpdateDelay: 0.06
+  attackDelay: 2
+  attackDistance: 2
   attackStopDistance: 4
   steeringBehaviours:
   - {fileID: 3838692728030095157}
   - {fileID: 3029777545630577490}
-  attackDefaultDist: 0
-  supportEnemyTarger: {fileID: 0}
-  layermask:
-    serializedVersion: 2
-    m_Bits: 0
-  radius: 20
+  attackDefaultDist: 2.5
   damage: 10
+  dontattackdist: 5
   OnAttackPressed:
     m_PersistentCalls:
       m_Calls:
@@ -6734,7 +6734,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  dontattackdist: 5
   OnMovementInput:
     m_PersistentCalls:
       m_Calls:
@@ -6767,29 +6766,24 @@ MonoBehaviour:
         m_CallState: 2
   movementInput: {x: 0, y: 0}
   movementDirectionSolver: {fileID: 8370257820556550191}
-  Chasing: 0
   weaponParent: {fileID: 0}
   abilityHolder: {fileID: 0}
+  defaultDetectionDelay: 0
   timeToAttack: 0
   defaultTimeToAttack: 1.5
   canAttack: 0
-  stunTimer: 1
-  gotAttackToken: 0
+  canAttackAnim: 1
   animations: {fileID: 0}
-  drop: {fileID: 0}
   attackEffect: {fileID: 0}
   hasAttackEffect: 0
-  hasDeathAnim: 1
   Corpse: {fileID: 6992705672734178762, guid: 0bd6a8d9d9f054945bcfe81a42ba2fc6, type: 3}
-  shouldMaintainDistance: 0
+  shouldMaintainDistance: 1
   attackplaceholderindicator: {fileID: 7898873113766303716}
   IsIdle: 1
   isAttacking: 0
-  stunned: 0
   Death: 0
-  _damagedMaterial: {fileID: 2100000, guid: e38b85b99faeab94bb79fd7af982aff5, type: 2}
+  _damagedMaterial: {fileID: 0}
   deathSound: {fileID: 11400000, guid: 9ca0e3b3e818b9c41bc127b98e89fcca, type: 2}
-  spriteRenderer: {fileID: 0}
   takeDamageEffects: {fileID: 3246212096596688428}
   ParticleSystemHolder: {fileID: 6295415784206921337}
 --- !u!114 &5018959942009198676
@@ -6804,6 +6798,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 477d206c5bf7eb24882fa6a5a20226dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponParent: {fileID: 0}
 --- !u!114 &2565745539531763249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6816,7 +6811,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ef204d4855b2c242a3d67ffb388fc3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BaseSpeed: 5
+  BaseSpeed: 4
   Speed: 0
   Acceleration: 15
   SlipperyAcceleration: 1
@@ -6872,7 +6867,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilities:
-  - {fileID: 11400000, guid: b62ae1ed20430494ca0dfe7233c99350, type: 2}
+  - {fileID: 0}
   ability: {fileID: 0}
   cooldownTime: 0
   activeTime: 0
@@ -6940,6 +6935,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd9002ecee7cd004486553bdbcf63377, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BulletSpawner: {fileID: 0}
+--- !u!114 &8168645598572289301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6992705672734178762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 262cbfbd49130d947a87b1e019d68504, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: {fileID: 5443134629800370886}
 --- !u!1 &7013777723855261698
 GameObject:
   m_ObjectHideFlags: 0
@@ -6990,7 +6999,7 @@ MonoBehaviour:
   _attackHandler: {fileID: 5621777006276906508}
   _idleOffset: {x: 0.3, y: -0.1}
   _idleRotation: 30
-  AnimateSwing: 1
+  AnimateSwing: 0
   SwingTime: 0.1
   MoveSpeed: 25
   RotateSpeed: 10

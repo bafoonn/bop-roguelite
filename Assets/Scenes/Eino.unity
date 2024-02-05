@@ -593,7 +593,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.125
+  orthographic size: 7.453125
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -712,6 +712,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6557065994092425368, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.29999995
+      objectReference: {fileID: 0}
+    - target: {fileID: 6557065994092425368, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.099999905
+      objectReference: {fileID: 0}
     - target: {fileID: 6992705672734178762, guid: acc5498240b74ce459d76ac23a8d1e7d, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -800,11 +808,11 @@ PrefabInstance:
     - target: {fileID: 2169823766682597197, guid: 0126e69d2efc30743ba1b9f6eb6aadc2, type: 3}
       propertyPath: 'regions.Array.data[0]'
       value: 
-      objectReference: {fileID: 6814757665653483006, guid: ef41b1b6f0424ed47ad92e339ff78a42, type: 3}
+      objectReference: {fileID: 3061933953697026495, guid: 45f742c8fcc7bd2458d5060ba1e0b5c1, type: 3}
     - target: {fileID: 2169823766682597197, guid: 0126e69d2efc30743ba1b9f6eb6aadc2, type: 3}
       propertyPath: 'regions.Array.data[1]'
       value: 
-      objectReference: {fileID: 6814757665653483006, guid: ef41b1b6f0424ed47ad92e339ff78a42, type: 3}
+      objectReference: {fileID: 3061933953697026495, guid: 45f742c8fcc7bd2458d5060ba1e0b5c1, type: 3}
     - target: {fileID: 2169823766682597197, guid: 0126e69d2efc30743ba1b9f6eb6aadc2, type: 3}
       propertyPath: 'regions.Array.data[2]'
       value: 

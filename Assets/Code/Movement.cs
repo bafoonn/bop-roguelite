@@ -15,6 +15,23 @@ namespace Pasta
         public float SlipperyAcceleration = 1f;
         public Vector2 _currentDir, _targetDir;
         private float _slow = 0f;
+        public float Slow
+        {
+            get => _slow;
+            set
+            {
+                if (value <= 0)
+                {
+                    _slow = 0;
+                }
+                else
+                {
+                    _slow = Mathf.Max(value, MINIMUM_SLOW);
+                }
+
+                UpdateSpeed();
+            }
+        }
         private int _slipperyCount = 0;
 
         public bool IsSlowed => _slow > 0f;
@@ -41,27 +58,13 @@ namespace Pasta
 
         public void UpdateSpeed()
         {
-            Speed = BaseSpeed - Mathf.Clamp(_slow, 0f, BaseSpeed - BaseSpeed * MINIMUM_SLOW);
+            float slow = BaseSpeed * _slow;
+            Speed = BaseSpeed - slow;
         }
 
         public virtual void Move(Vector2 dir)
         {
             _targetDir = dir;
-        }
-
-        public virtual void Slow(float percentage, float duration)
-        {
-            float slow = BaseSpeed * Mathf.Clamp01(percentage);
-            StartCoroutine(SlowRoutine(slow, duration));
-        }
-
-        private IEnumerator SlowRoutine(float slowAmount, float duration)
-        {
-            _slow += slowAmount;
-            UpdateSpeed();
-            yield return new WaitForSeconds(duration);
-            _slow -= slowAmount;
-            UpdateSpeed();
         }
 
         public virtual void MakeSlippery()

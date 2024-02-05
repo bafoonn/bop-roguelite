@@ -32,6 +32,7 @@ public class WeaponParent : MonoBehaviour
     private EnemyAi enemyAI;
     public bool Scoot = false;
     private Transform parent;
+    private RangedAI rangedAI;
 
     //private CleavingWeaponAnimations weaponAnimations;
     private void Start()
@@ -72,26 +73,31 @@ public class WeaponParent : MonoBehaviour
                 weaponScale.x = -1f;
                 weaponScale.y = 0f;
                 spriteRend.flipY = true;
-                //if (spriteTransform != null) // TEMP FOR ERROR MANAGEMENT
-                //{
-                //    spriteTransform.localPosition = weaponScale; // Changes weapon sprites "side"
-                //}
+                if(rangedAI != null)
+                {
+                    if (spriteTransform != null) // TEMP FOR ERROR MANAGEMENT
+                    {
+                        spriteTransform.localPosition = weaponScale; // Changes weapon sprites "side"
+                    }
+                }
 
                 attackColliderHolder.transform.localScale = scale; // Changing child since editing parents scale fucks direction check
             }
             else if (enemyDirectionLocal.x > 0)
             {
 
-
                 //Debug.Log("RIGHT");
                 scale.x = 1f;
                 weaponScale.x = 1f;
                 weaponScale.y = 0f;
                 spriteRend.flipY = false;
-                //if (spriteTransform != null) // TEMP FOR ERROR MANAGEMENT
-                //{
-                //    spriteTransform.localPosition = weaponScale; // Changes weapon sprites "side"
-                //}
+                if (rangedAI != null)
+                {
+                    if (spriteTransform != null) // TEMP FOR ERROR MANAGEMENT
+                    {
+                        spriteTransform.localPosition = weaponScale; // Changes weapon sprites "side"
+                    }
+                }
                 attackColliderHolder.transform.localScale = scale; // Changing child since editing parents scale fucks direction check
             }
         }
@@ -118,7 +124,15 @@ public class WeaponParent : MonoBehaviour
     {
         Instantiate(projectile, ProjectileSpawnPoint.transform.position, ProjectileSpawnPoint.transform.rotation);
         projectileScript = projectile.GetComponent<Projectile>();
-        projectileScript.damage = enemyAI.damage; // Get projectiles damage from enemyscript so no need to change damage on multiple places.
+        if(enemyAI != null)
+        {
+            projectileScript.damage = enemyAI.damage; // Get projectiles damage from enemyscript so no need to change damage on multiple places.
+        }
+        else
+        {
+            projectileScript.damage = 5f;
+        }
+       
         StartCoroutine(StopAttack());
         Scoot = true;
     }

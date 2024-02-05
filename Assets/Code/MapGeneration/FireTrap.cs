@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Pasta
 {
-    public class FireTrap : MonoBehaviour
+    public class FireTrap : Trap
     {
         [SerializeField]
         private int damage;
@@ -12,33 +12,43 @@ namespace Pasta
         [SerializeField]
         private float timerSet = 2f;
         private float timer;
-        private SpriteRenderer spriteRenderer;
-        private Color baseColor;
+        private Animator animator;
         private BoxCollider2D boxcol;
         private void Start()
         {
-            spriteRenderer = GetComponent<SpriteRenderer>();
-            baseColor = spriteRenderer.color;
-            spriteRenderer.material.SetColor("_Color", Color.black);
+            animator = GetComponent<Animator>();
             boxcol = gameObject.GetComponent<BoxCollider2D>();
             timer = timerSet;
         }
         private void Update()
         {
-            if (timer >= 0)
+            if (!Disabled)
             {
-                timer -= Time.deltaTime;
-            }
-            else
-            {
-                SwapModes();
+                if (timer >= 0)
+                {
+                    timer -= Time.deltaTime;
+                }
+                else
+                {
+                    SwapModes();
+                }
             }
         }
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if (isActive && col.TryGetComponent(out ICharacter character))
+            if (isActive && col.TryGetComponent(out ICharacter character) && col.TryGetComponent(out Health health))
             {
-                character.Status.ApplyStatus(new BurnStatus(damage), 1f);
+                if (col.TryGetComponent(out Player player))
+                {
+                    if (player.CheckIfIFrames())
+                    {
+                        return;
+                    }
+                }
+                if (!health.DealTrapDamage())
+                {
+                    character.Status.ApplyStatus(new BurnStatus(damage), 1f);
+                }
             }
         }
 
@@ -46,17 +56,38 @@ namespace Pasta
         {
             if (isActive)
             {
-                isActive = false;
-                spriteRenderer.material.SetColor("_Color", Color.black);
+                StartCoroutine(Deactivate());
             }
             else
             {
-                boxcol.enabled = false;
-                boxcol.enabled = true;
-                isActive = true;
-                spriteRenderer.material.SetColor("_Color", baseColor);
+                Activate();
             }
             timer = timerSet;
+        }
+
+        private void Activate()
+        {
+            animator.SetTrigger("Activate");
+            animator.SetTrigger("On");
+            boxcol.enabled = false;
+            boxcol.enabled = true;
+            isActive = true;
+        }
+        
+        IEnumerator Deactivate()
+        {
+            isActive = false;
+            animator.SetTrigger("Deactivate");
+            yield return new WaitForSeconds(0.5f);
+            animator.SetTrigger("Default");
+        }
+
+        public override void Disable()
+        {
+            if (isActive)
+            {
+                isActive = false;
+            }
         }
     }
 }

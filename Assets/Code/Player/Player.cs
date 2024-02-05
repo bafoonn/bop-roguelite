@@ -314,6 +314,11 @@ public class Player : Singleton<Player>, IPlayer
         StartCoroutine(HitRoutine());
     }
 
+    public bool CheckIfIFrames()
+    {
+        return _hasIframes;
+    }
+
     private IEnumerator HitRoutine()
     {
         _sprite.color = Color.white;

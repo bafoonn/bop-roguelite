@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
 
@@ -9,12 +10,10 @@ namespace Pasta
     {
         private GameObject player;
         public float speed = 1f;
-        int layer;
         public LayerMask WhatLayerDestroysThis;
         private void Start()
         {
             player = GameObject.FindGameObjectWithTag("Player");
-            layer = WhatLayerDestroysThis;
         }
         // Update is called once per frame
         void Update()
@@ -23,13 +22,16 @@ namespace Pasta
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, distance);
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            if(collision.gameObject.layer == layer)
+            Debug.Log("triggering with " + " " + collision.gameObject.layer);
+            if (WhatLayerDestroysThis.Includes(collision.gameObject.layer))
             {
+                Debug.Log("triggered with obstacle");
                 //TODO: ADD SOME ANIM HERE OR SOMETHING :)
                 Destroy(gameObject);
             }
         }
+
     }
 }
