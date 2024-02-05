@@ -47,23 +47,53 @@ namespace Pasta
 
             if (enemyAI.canAttack)
             {
-                enemyAI.movementInput = enemyAI.movementDirectionSolver.GetDirectionToMove(enemyAI.steeringBehaviours, aiData);
-                if ((player.transform.position - parent.transform.position).magnitude < enemyAI.attackDistance)
+                if (!enemyAI.stunned)
                 {
-                    enemyAI.StartAttack();
-                    if (enemyAI.timeToAttack >= enemyAI.defaultTimeToAttack - 0.1f) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
-                    {
-                        enemyAI.Attack(); // Attack method
-                        enemyAI.timeToAttack = 0;
-                        enemyAI.isAttacking = false;
-                        enemyAI.detectionDelay = enemyAI.defaultDetectionDelay;
-                    }
-                    if (enemyAI.timeToAttack >= enemyAI.defaultTimeToAttack / 1.5) // Stops enemy from aiming when close to attacking.
-                    {
-                        enemyAI.weaponParent.Aim = false;
-                        enemyAI.animations.aim = false;
-                    }
+                    enemyAI.movementInput = enemyAI.movementDirectionSolver.GetDirectionToMove(enemyAI.steeringBehaviours, aiData);
+
                     
+                    if ((player.transform.position - parent.transform.position).magnitude < enemyAI.attackDistance)
+                    {
+                        enemyAI.StartAttack();
+                        if (enemyAI.timeToAttack >= enemyAI.defaultTimeToAttack - 0.1f) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
+                        {
+                            enemyAI.Attack(); // Attack method
+                            enemyAI.timeToAttack = 0;
+                            enemyAI.isAttacking = false;
+                            enemyAI.detectionDelay = enemyAI.defaultDetectionDelay;
+                        }
+                        if (enemyAI.timeToAttack >= enemyAI.defaultTimeToAttack / 1.5) // Stops enemy from aiming when close to attacking.
+                        {
+                            enemyAI.weaponParent.Aim = false;
+                            enemyAI.animations.aim = false;
+                        }
+
+                    }
+                }
+                else
+                {
+                    if (!enemyAI.isAttackStunnable)
+                    {
+
+                   
+                    if ((player.transform.position - parent.transform.position).magnitude < enemyAI.attackDistance)
+                    {
+                        enemyAI.StartAttack();
+                        if (enemyAI.timeToAttack >= enemyAI.defaultTimeToAttack - 0.1f) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
+                        {
+                            enemyAI.Attack(); // Attack method
+                            enemyAI.timeToAttack = 0;
+                            enemyAI.isAttacking = false;
+                            enemyAI.detectionDelay = enemyAI.defaultDetectionDelay;
+                        }
+                        if (enemyAI.timeToAttack >= enemyAI.defaultTimeToAttack / 1.5) // Stops enemy from aiming when close to attacking.
+                        {
+                            enemyAI.weaponParent.Aim = false;
+                            enemyAI.animations.aim = false;
+                        }
+
+                    }
+                    }
                 }
                 return this;
             }

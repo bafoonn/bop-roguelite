@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: ffb93609bd506ac45919e53433719486, type: 2}
     - target: {fileID: 69885865199376009, guid: 9f37f85d1ba75d54a803a24712822e31, type: 3}
       propertyPath: <MaxHealth>k__BackingField
-      value: 20
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 1006995971007075442, guid: 9f37f85d1ba75d54a803a24712822e31, type: 3}
       propertyPath: m_Sprite
@@ -104,6 +104,10 @@ PrefabInstance:
       propertyPath: Corpse
       value: 
       objectReference: {fileID: 1707672250594075713, guid: 8f7a8eaa40b724843a752d00d090590d, type: 3}
+    - target: {fileID: 7633629442350973519, guid: 9f37f85d1ba75d54a803a24712822e31, type: 3}
+      propertyPath: stunDuration
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7633629442350973519, guid: 9f37f85d1ba75d54a803a24712822e31, type: 3}
       propertyPath: attackDistance
       value: 2

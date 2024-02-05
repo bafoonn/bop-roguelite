@@ -41,13 +41,12 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
     // Ability-related variables
     protected float cooldown = 10f;
     protected bool canuseAbility = true;
-
+    
     private bool isTakingStepsBack = false;
 
     public float dontattackdist = 5f;
 
     protected int RandomInt; // For randomizing
-
     [Header("Unity events")]
     public UnityEvent OnAttackPressed;
     public UnityEvent<Vector2> OnMovementInput, PointerEnemy;
@@ -86,16 +85,28 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
     public bool isAttacking = false;
     public bool Death = false;
 
+    [Header("Stun variables")]
+    public bool stunned = false;
+    public bool isStunnable = true;
+    public bool isAttackStunnable = true;
+    public float stunDuration = 1f;
+
+    
     // Attack effect-related variables
     protected bool stopAttacking;
     protected bool goAheadAttack = false;
     protected Material _defaultMaterial = null;
+    [Header("Misc")]
     [SerializeField] protected Material _damagedMaterial = null;
     [SerializeField] protected SoundEffect deathSound;
     protected bool attacked = false;
 
     public static event System.Action<FixedEnemyAI> OnSpawn;
     public static event System.Action<FixedEnemyAI> OnDie;
+
+    public HitType lastHitType; // Used to apply knockback to corpse.
+    public ICharacter lastSource; // Used to apply knockback to corpse.
+    public GameObject CorpseObj; // Used to apply knockback to corpse.
 
 
     #region Damage taking effects
@@ -182,127 +193,204 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
 
 
     protected virtual void Update()
-    {
-        if ((player.transform.position - transform.position).magnitude > 7.0f || aiData.currentTarget == null) // Deactivates attack indicator if player is not seen or is far enough away
+    {     
+        if (!stunned)
         {
-            if (attackplaceholderindicator != null)
+            if ((player.transform.position - transform.position).magnitude > 7.0f || aiData.currentTarget == null) // Deactivates attack indicator if player is not seen or is far enough away
             {
-                attackplaceholderindicator.enabled = false;
+                if (attackplaceholderindicator != null)
+                {
+                    attackplaceholderindicator.enabled = false;
+                }
+
             }
 
-        }
-
-        if (attacked) // If has just performed attack
-        {
-            if ((player.transform.position - transform.position).magnitude < 3.5f) // Back away from player if not attacking.
+            if (attacked) // If has just performed attack
             {
-                Vector3 direction = transform.position - player.transform.position;
-                direction = Vector3.Normalize(direction);
-                transform.rotation = Quaternion.Euler(direction);
-                movementInput = direction;
-            }
-            else
-            {
-                attacked = false;
-                movementInput = Vector2.zero;
-            }
+                if ((player.transform.position - transform.position).magnitude < 3.5f) // Back away from player if not attacking.
+                {
+                    Vector3 direction = transform.position - player.transform.position;
+                    direction = Vector3.Normalize(direction);
+                    transform.rotation = Quaternion.Euler(direction);
+                    movementInput = direction;
+                }
+                else
+                {
+                    attacked = false;
+                    movementInput = Vector2.zero;
+                }
 
-        }
-
-        if (movementInput.x == 0 && movementInput.y == 0)
-        {
-            IsIdle = true;
-        }
-
-        if (aiData.currentTarget != null)
-        {
-            cooldown -= Time.deltaTime; // ability cooldown
-
-            if (cooldown <= 0)
-            {
-                canuseAbility = true;
             }
 
-            float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
-            //Looking at target.
-            PointerEnemy?.Invoke(aiData.currentTarget.position);
-
-
-            if (aiData.currentTarget == null)
+            if (movementInput.x == 0 && movementInput.y == 0)
             {
-                canAttack = false;
+                IsIdle = true;
             }
-
 
             if (aiData.currentTarget != null)
             {
+                cooldown -= Time.deltaTime; // ability cooldown
 
-                if ((player.transform.position - transform.position).magnitude > 7.0f) // If far away and hasent returned to false then return false
+                if (cooldown <= 0)
+                {
+                    canuseAbility = true;
+                }
+
+                float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
+                //Looking at target.
+                PointerEnemy?.Invoke(aiData.currentTarget.position);
+
+
+                if (aiData.currentTarget == null)
                 {
                     canAttack = false;
-
                 }
-                if ((player.transform.position - transform.position).magnitude < 1.2f) // Stops enemies from pushing player
-                {
-                    movementInput = Vector2.zero;
-
-                }
-                distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
 
 
-
-                if (distance < attackDistance)
+                if (aiData.currentTarget != null)
                 {
 
-
-                    if (timeToAttack >= defaultTimeToAttack / 1.5) // Stops enemy from aiming and moving when close to attacking.
+                    if ((player.transform.position - transform.position).magnitude > 7.0f) // If far away and hasent returned to false then return false
                     {
-                        //movementInput = Vector2.zero;  // Uncomment if want to stop moving also when close to attacking.
-                        weaponParent.Aim = false;
-                        animations.aim = false;
+                        canAttack = false;
+
                     }
+                    if ((player.transform.position - transform.position).magnitude < 1.2f) // Stops enemies from pushing player
+                    {
+                        movementInput = Vector2.zero;
 
+                    }
+                    distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
+
+
+
+                    if (distance < attackDistance)
+                    {
+
+
+                        if (timeToAttack >= defaultTimeToAttack / 1.5) // Stops enemy from aiming and moving when close to attacking.
+                        {
+                            //movementInput = Vector2.zero;  // Uncomment if want to stop moving also when close to attacking.
+                            weaponParent.Aim = false;
+                            animations.aim = false;
+                        }
+
+                    }
+                    if (distance > attackDistance + 0.5f) // TEMP SOLUTION 
+                    {
+                        if (hasAttackEffect) attackEffect.CancelAttack();
+                    }
                 }
-                if (distance > attackDistance + 0.5f) // TEMP SOLUTION 
+            }
+            else if (aiData.GetTargetsCount() > 0)
+            {
+                //Getting the target
+                aiData.currentTarget = aiData.targets[0];
+            }
+            #region Attacking // TODO: Test this more (added here since seemed to bug out after putting to attack state)
+            if (isAttacking == true)
+            {
+                attackDistance = attackStopDistance;
+                timeToAttack += Time.deltaTime;
+            }
+            else
+            {
+                attackDistance = attackDefaultDist;
+            }
+            if (canAttack)
+            {
+                if (attackplaceholderindicator != null)
                 {
-                    if (hasAttackEffect) attackEffect.CancelAttack();
+                    attackplaceholderindicator.enabled = true;
                 }
             }
+            else
+            {
+                if (attackplaceholderindicator != null)
+                {
+                    attackplaceholderindicator.enabled = false;
+                }
+            }
+            #endregion
+
+            OnMovementInput?.Invoke(movementInput);
         }
-        else if (aiData.GetTargetsCount() > 0)
+        else
         {
-            //Getting the target
-            aiData.currentTarget = aiData.targets[0];
+            movementInput = Vector2.zero;
+            agentMover.enabled = false;
+            StartCoroutine(UnStun());
         }
 
-        #region Attacking // TODO: Test this more (added here since seemed to bug out after putting to attack state)
-        if (isAttacking == true)
+
+        #region Attacking unStunnable.
+        if (!isAttackStunnable)
         {
-            attackDistance = attackStopDistance;
-            timeToAttack += Time.deltaTime;
-        }
-        else
-        {
-            attackDistance = attackDefaultDist;
-        }
-        if (canAttack)
-        {
-            if (attackplaceholderindicator != null)
+            if (attacked) // If has just performed attack
             {
-                attackplaceholderindicator.enabled = true;
+                if ((player.transform.position - transform.position).magnitude < 3.5f) // Back away from player if not attacking.
+                {
+                    Vector3 direction = transform.position - player.transform.position;
+                    direction = Vector3.Normalize(direction);
+                    transform.rotation = Quaternion.Euler(direction);
+                    movementInput = direction;
+                }
+                else
+                {
+                    attacked = false;
+                    movementInput = Vector2.zero;
+                }
+
             }
-        }
-        else
-        {
-            if (attackplaceholderindicator != null)
+            if (movementInput.x == 0 && movementInput.y == 0)
             {
-                attackplaceholderindicator.enabled = false;
+                IsIdle = true;
             }
-        }
+            if(aiData.currentTarget != null)
+            {
+                PointerEnemy?.Invoke(aiData.currentTarget.position);
+            }
+            if (timeToAttack >= defaultTimeToAttack / 1.5) // Stops enemy from aiming and moving when close to attacking.
+            {
+                //movementInput = Vector2.zero;  // Uncomment if want to stop moving also when close to attacking.
+                weaponParent.Aim = false;
+                animations.aim = false;
+            }
+
+            if (isAttacking == true)
+            {
+                attackDistance = attackStopDistance;
+                timeToAttack += Time.deltaTime;
+            }
+            else
+            {
+                attackDistance = attackDefaultDist;
+            }
+            if (canAttack)
+            {
+                if (attackplaceholderindicator != null)
+                {
+                    attackplaceholderindicator.enabled = true;
+                }
+            }
+            else
+            {
+                if (attackplaceholderindicator != null)
+                {
+                    attackplaceholderindicator.enabled = false;
+                }
+            }
+        } 
         #endregion
-
-        OnMovementInput?.Invoke(movementInput);
     }
+
+    private IEnumerator UnStun()
+    {
+        yield return new WaitForSeconds(stunDuration);
+        stunned = false;
+        agentMover.enabled = true;
+    }
+
 
     public virtual void Attack()
     {
@@ -339,10 +427,23 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
         if (OnDie != null) OnDie(this);
 
         drop.RollDrop();
+        
         Destroy(gameObject);
-        if (hasDeathAnim) Instantiate(Corpse, transform.position, transform.rotation);
+        if (hasDeathAnim) 
+        CorpseObj = Instantiate(Corpse, transform.position, transform.rotation);
+        
+            if (lastHitType == HitType.Hit && lastSource != null) // Used to apply knockback to corpse.
+            {
+                Vector2 direction = CorpseObj.transform.position - lastSource.Mono.transform.position;
+
+                direction.Normalize();
+                
+                CorpseObj.GetComponent<Rigidbody2D>().position = CorpseObj.GetComponent<Rigidbody2D>().position + direction * 0.33f;
+            }
+        
     }
 
+    
     public void UseAbilityAtRange()
     {
         if (abilityHolder.ability != null)
@@ -448,7 +549,8 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
 
     public virtual void Hit(float damage, HitType type, ICharacter source = null)
     {
-        Health.TakeDamage(damage);
+        lastHitType = type;
+        lastSource = source;
         if (type == HitType.Hit && source != null)
         {
             Vector2 direction = transform.position - source.Mono.transform.position;
@@ -456,7 +558,12 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
             direction.Normalize();
 
             Rigidbody.position = Rigidbody.position + direction * 0.33f;
+            if (isStunnable)
+            {
+                stunned = true;
+            }
         }
+        Health.TakeDamage(damage);
     }
 
 

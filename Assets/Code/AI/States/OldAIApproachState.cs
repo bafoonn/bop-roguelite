@@ -41,6 +41,9 @@ namespace Pasta
 			{
 				return chaseState;
 			}
+			
+
+			
 
 			CanAttack = enemyAI.canAttack;
 			float distance = Vector2.Distance(player.position, parent.transform.position);
@@ -68,8 +71,9 @@ namespace Pasta
                 enemyAI.attackDistance = enemyAI.attackDefaultDist;
                 return attackState;
 			}
-			
-		}
+            
+
+        }
 
 		
     }

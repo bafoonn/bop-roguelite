@@ -24,7 +24,7 @@ public class RangedAI : FixedEnemyAI
 
     [Header("Animations & Speed")]
     public bool gotAttackToken = false;
-
+    private bool DosentSeePlayer;
 
     protected override void Update()
     {
@@ -37,60 +37,17 @@ public class RangedAI : FixedEnemyAI
 
         }
 
-        //#region supportenemy stuff
-        //if (gameObject.name.Contains("Support"))
+        canAttack = true;
+      
+
+        //if(aiData.currentTarget != null)
         //{
-        //    if (supportEnemyTarger != null)
-        //    {
-        //        LineRenderer lineRenderer;
-
-
-
-        //        lineRenderer = GetComponent<LineRenderer>(); // Here to visualise for testing
-        //        Vector3[] positions = new Vector3[2];
-        //        positions[0] = gameObject.transform.position;
-        //        positions[1] = supportEnemyTarger.position;
-        //        lineRenderer.SetPositions(positions);
-
-        //    }
-
-        //    if ((player.transform.position - transform.position).magnitude < 15.0f && canTarget) // If player is close support enemy gets random enemy closeby to buff
-        //    {
-
-        //        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, radius, layermask);
-        //        int random = Random.Range(1, hitColliders.Length);
-        //        for (int i = 0; i < hitColliders.Length; i++)
-        //        {
-
-        //            if (i == random) // Check if the current hitcollider is inside the result
-        //            {
-
-        //                if (hitColliders[i].gameObject.name.Contains("Support")) // Stops from buffing itself or other support enemies
-        //                {
-        //                    break;
-        //                }
-        //                Debug.Log(i);
-
-        //                if (hitColliders[i].gameObject.TryGetComponent(out Health health))
-        //                {
-        //                    supportEnemyTarger = hitColliders[i].gameObject.transform;
-        //                    hitColliders[i].gameObject.GetComponent<Health>().immune = true; // added check to health script called immune. // goes false on death method.
-
-        //                    canTarget = false;
-        //                }
-        //            }
-
-        //        }
-
-
-        //    }
+        //    movementInput = movementDirectionSolver.GetDirectionToMove(steeringBehaviours, aiData);
         //}
-        //#endregion
 
         if (aiData.currentTarget != null)
-        {
+        {          
             StartAttack();
-
         }
 
         if (aiData.currentTarget != null)
@@ -117,10 +74,10 @@ public class RangedAI : FixedEnemyAI
                 if (!canAttack) // Ranged enemy
                 {
                     SeekBehaviour seekbehaviour = gameObject.GetComponentInChildren<SeekBehaviour>();
-                    seekbehaviour.targetReachedThershold = 10f;
+                    seekbehaviour.targetReachedThershold = 3f;
                     attackDistance = dontattackdist;
                     detectionDelay = defaultDetectionDelay;
-                    float safeDistance = 10f;
+                    float safeDistance = 3f;
                     if (distance < safeDistance && shouldMaintainDistance)
                     {
                         movementInput = Vector2.zero;
@@ -133,6 +90,8 @@ public class RangedAI : FixedEnemyAI
                     {
                         if ((player.transform.position - transform.position).magnitude < 5.0f) // if player is in range of enemy do this.
                         {
+                            SeekBehaviour seekbehaviour = gameObject.GetComponentInChildren<SeekBehaviour>();
+                            seekbehaviour.targetReachedThershold = 10f;
                             Vector3 direction = transform.position - player.transform.position;
                             //direction.y = 0;
                             direction = Vector3.Normalize(direction);
@@ -140,7 +99,7 @@ public class RangedAI : FixedEnemyAI
                             movementInput = direction;
                         }
                         else
-                        {
+                        {                           
                             weaponParent.Scoot = false;
                         }
                     }
@@ -154,6 +113,10 @@ public class RangedAI : FixedEnemyAI
                     //attackIndicator.fillAmount = timeToAttack / defaultTimeToAttack;
                     if (targetDetector.colliders == null)
                     {
+                        SeekBehaviour seekbehaviour = gameObject.GetComponentInChildren<SeekBehaviour>();
+                        seekbehaviour.targetReachedThershold = 5f;
+                        seekbehaviour.targetPositionCached = player.transform.position;
+                        movementInput = movementDirectionSolver.GetDirectionToMove(steeringBehaviours, aiData);
                         aiData.currentTarget = null;
                     }
                 }
@@ -200,8 +163,10 @@ public class RangedAI : FixedEnemyAI
 
     public override void Attack()
     {
+
         weaponParent.RangedAttack();
         if (hasAttackEffect) attackEffect.CancelAttack(); // Stops indicator
+        
         //if (gameObject.name.Contains("Support"))
         //{
         //    weaponParent.ImmunityBeam();
