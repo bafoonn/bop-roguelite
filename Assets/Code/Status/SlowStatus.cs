@@ -6,28 +6,50 @@ namespace Pasta
 {
     public class SlowStatus : IStatusEffect
     {
-        public float SlowPercentage;
+        public int SlowPercentage => Mathf.RoundToInt(_slowPercentage * 100);
+        private float _slowPercentage;
         public StatusType Type => StatusType.Slow;
         public bool CanStack => true;
 
         public float Interval => 0;
+        private List<ICharacter> _applied = new List<ICharacter>();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="percentage">Value between 0 and 100</param>
+        public SlowStatus(int percentage)
+        {
+            percentage = Mathf.Clamp(percentage, 0, 100);
+            _slowPercentage = percentage * 0.01f;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="percentage">Value between 0 and 1</param>
         public SlowStatus(float percentage)
         {
-            SlowPercentage = percentage;
+            percentage = Mathf.Clamp01(percentage);
+            _slowPercentage = percentage;
         }
 
         public void Apply(ICharacter character, float duration)
         {
-            character.Movement.Slow(SlowPercentage, duration);
+            if (_applied.Contains(character)) return;
+            character.Movement.Slow += _slowPercentage;
+            _applied.Add(character);
         }
 
-        public void Update(float deltaTime)
+        public void Update(ICharacter character, float deltaTime)
         {
         }
 
         public void UnApply(ICharacter character)
         {
+            if (!_applied.Contains(character)) return;
+            character.Movement.Slow -= _slowPercentage;
+            _applied.Remove(character);
         }
 
         public int Compare(IStatusEffect other)

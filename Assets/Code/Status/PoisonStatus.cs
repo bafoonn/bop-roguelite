@@ -9,9 +9,6 @@ namespace Pasta
         public float Damage;
         public float Interval => 1f;
 
-        private IHittable _current = null;
-        private float _timer = 0;
-
         public StatusType Type => StatusType.Poison;
         public bool CanStack => true;
 
@@ -22,19 +19,16 @@ namespace Pasta
 
         public void Apply(ICharacter character, float duration)
         {
-            _current = character;
         }
 
-        public void Update(float deltaTime)
+        public void Update(ICharacter character, float deltaTime)
         {
-            if (_current == null) return;
-            _current.Hit(Damage, HitType.Status);
+            if (character == null) return;
+            character.Hit(Damage, HitType.Status);
         }
 
         public void UnApply(ICharacter character)
         {
-            _current = null;
-            _timer = 0;
         }
 
         public int Compare(IStatusEffect other)

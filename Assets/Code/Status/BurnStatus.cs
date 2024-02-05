@@ -18,8 +18,6 @@ namespace Pasta
 
         public bool CanStack => false;
 
-        private IHittable _current = null;
-
         public BurnStatus(float damage)
         {
             Damage = damage;
@@ -27,18 +25,16 @@ namespace Pasta
 
         public void Apply(ICharacter character, float duration)
         {
-            _current = character;
         }
 
-        public void Update(float deltaTime)
+        public void Update(ICharacter character, float deltaTime)
         {
-            if (_current == null) return;
-            _current.Hit(Damage, HitType.Status);
+            if (character == null) return;
+            character.Hit(Damage, HitType.Status);
         }
 
         public void UnApply(ICharacter character)
         {
-            _current = null;
         }
 
         public int Compare(IStatusEffect other)

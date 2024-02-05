@@ -39,12 +39,12 @@ namespace Pasta
         }
 
         /// <summary>
-        /// Applies a status effect. If duration is zero the effect will be applied and only unapplies by manually calling UnapplyStatus
+        /// Applies a status effect. If duration is zero the effect will be applied and only unapplies by manually calling UnapplyStatus. Status effect should be cached in this case.
         /// </summary>
         /// <param name="statusEffect">Status to be applied.</param>
         /// <param name="duration">Duration of the status.</param>
         /// <returns>True if status is not applied yet, false otherwise.</returns>
-        public bool ApplyStatus(IStatusEffect statusEffect, float duration)
+        public bool ApplyStatus(IStatusEffect statusEffect, float duration = 0)
         {
             if (_activeEffects.ContainsKey(statusEffect))
             {
@@ -107,7 +107,7 @@ namespace Pasta
             float timer = 0;
             do
             {
-                effect.Update(Time.deltaTime);
+                effect.Update(_character, Time.deltaTime);
                 if (hasTickRate)
                 {
                     timer += effect.Interval;
@@ -119,10 +119,12 @@ namespace Pasta
                     yield return null;
                 }
             }
-            while (duration > timer);
+            while (DoUpdate());
             yield return null;
-            effect.Update(Time.deltaTime);
+            effect.Update(_character, Time.deltaTime);
             RemoveStatus(effect);
+
+            bool DoUpdate() => duration > 0 ? duration > timer : true;
         }
 
         private void OnDestroy()
