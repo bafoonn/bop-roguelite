@@ -34,7 +34,7 @@ namespace Pasta
         public void QuickAttack()
         {
             _isFlipped = !_isFlipped;
-            effect.SetBool("QA Is Flipped", !_isFlipped);
+            effect.SetBool("QA Is Flipped", _isFlipped);
             effect.SendEvent("QuickAttack");
         }
         public void HeavyAttack()
