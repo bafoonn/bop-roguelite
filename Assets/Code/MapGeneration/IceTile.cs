@@ -6,11 +6,12 @@ namespace Pasta
 {
     public class IceTile : MonoBehaviour
     {
+        private SlipperyStatus slipperyStatus = new SlipperyStatus();
         private void OnTriggerEnter2D(Collider2D col)
         {
             if (col.TryGetComponent(out ICharacter character))
             {
-                character.Status.ApplyStatus(new SlipperyStatus(), 2f);
+                character.Status.ApplyStatus(slipperyStatus);
                 
             }
         }
@@ -18,7 +19,7 @@ namespace Pasta
         {
             if (col.TryGetComponent(out ICharacter character))
             {
-                character.Status.UnapplyStatus(new SlipperyStatus());
+                character.Status.UnapplyStatus(slipperyStatus);
             }
         }
     }
