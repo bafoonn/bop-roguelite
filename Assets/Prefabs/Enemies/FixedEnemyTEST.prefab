@@ -6719,7 +6719,6 @@ MonoBehaviour:
   attackDefaultDist: 2.5
   damage: 10
   dontattackdist: 5
-  stunDuration: 3
   OnAttackPressed:
     m_PersistentCalls:
       m_Calls:
@@ -6786,6 +6785,7 @@ MonoBehaviour:
   stunned: 0
   isStunnable: 1
   isAttackStunnable: 1
+  stunDuration: 3
   _damagedMaterial: {fileID: 0}
   deathSound: {fileID: 11400000, guid: 9ca0e3b3e818b9c41bc127b98e89fcca, type: 2}
   lastHitType: 0
