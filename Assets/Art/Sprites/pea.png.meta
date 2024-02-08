@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 18bdb08990f2b6e458b34398fec836d8
+guid: 7eb0d65599fee4642ac08940550c7cb0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3659599985904461297
-    second: CoinPickup_0
+      213: -6178020182079693598
+    second: pea_0
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -74,8 +74,8 @@ TextureImporter:
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: 4
-    textureCompression: 1
+    textureFormat: -1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -98,22 +98,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CoinPickup_0
+      name: pea_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 16
-        height: 15
-      alignment: 9
-      pivot: {x: 0.5, y: 0.0675}
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1f52cdb3cc289c230800000000000000
-      internalID: 3659599985904461297
+      spriteID: 2ec12ff7063434aa0800000000000000
+      internalID: -6178020182079693598
       vertices: []
       indices: 
       edges: []
@@ -121,7 +121,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 1b636ee27fa2b8f4ebf365ad4c1b0f43
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -129,7 +129,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      CoinPickup_0: 3659599985904461297
+      pea_0: -6178020182079693598
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

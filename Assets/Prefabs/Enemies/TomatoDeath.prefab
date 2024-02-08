@@ -103,7 +103,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 0
   m_Sprite: {fileID: -8113185096396602001, guid: 79c75128458c8e843b266a354e44c6f0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -114,7 +114,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!95 &8022384325164921756
 Animator:
   serializedVersion: 7
@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd9002ecee7cd004486553bdbcf63377, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BulletSpawner: {fileID: 0}
 --- !u!1 &8738995796098305536
 GameObject:
   m_ObjectHideFlags: 0

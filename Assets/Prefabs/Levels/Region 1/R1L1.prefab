@@ -2346,7 +2346,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 3
-      m_TileSpriteIndex: 3
+      m_TileSpriteIndex: 15
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -3955,8 +3955,8 @@ Tilemap:
     m_Data: {fileID: 1642366435, guid: b794d58e75c0c564db230e6270964893, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: -2115322713, guid: b794d58e75c0c564db230e6270964893, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 497026344, guid: b794d58e75c0c564db230e6270964893, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 6
     m_Data: {fileID: -1850033950, guid: b794d58e75c0c564db230e6270964893, type: 3}
   - m_RefCount: 0
@@ -3979,8 +3979,8 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 10
     m_Data: {fileID: -221122712, guid: b794d58e75c0c564db230e6270964893, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 497026344, guid: b794d58e75c0c564db230e6270964893, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: 3400942968497567094, guid: b794d58e75c0c564db230e6270964893, type: 3}
   - m_RefCount: 2
@@ -10464,7 +10464,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8626903070362185259, guid: 334cf38a3f4c6b448ad8d000225b5ed8, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

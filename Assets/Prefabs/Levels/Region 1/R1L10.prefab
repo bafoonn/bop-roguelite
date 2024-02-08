@@ -6847,7 +6847,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 11
-      m_TileSpriteIndex: 11
+      m_TileSpriteIndex: 15
       m_TileMatrixIndex: 0
       m_TileColorIndex: 1
       m_TileObjectToInstantiateIndex: 65535
@@ -7252,16 +7252,16 @@ Tilemap:
     m_Data: {fileID: 476116218, guid: b794d58e75c0c564db230e6270964893, type: 3}
   - m_RefCount: 14
     m_Data: {fileID: -1850033950, guid: b794d58e75c0c564db230e6270964893, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: -1047040068, guid: b794d58e75c0c564db230e6270964893, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: -140154417, guid: b794d58e75c0c564db230e6270964893, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 317306560, guid: b794d58e75c0c564db230e6270964893, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 497026344, guid: b794d58e75c0c564db230e6270964893, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: -1047040068, guid: b794d58e75c0c564db230e6270964893, type: 3}
   - m_RefCount: 17
     m_Data: {fileID: -300876993, guid: b794d58e75c0c564db230e6270964893, type: 3}
   m_TileMatrixArray:
@@ -9264,7 +9264,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8626903070362185259, guid: c314673962c7bf942b7fae55c1625434, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9763,7 +9763,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8626903070362185259, guid: f56a414c073c3b140a682e6a6bda57b7, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9829,7 +9829,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8626903070362185259, guid: c314673962c7bf942b7fae55c1625434, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
