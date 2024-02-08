@@ -22,6 +22,7 @@ namespace Pasta
         public float spawnRadius;
         private Tilemap tileMap;
         private DestroyAbility destroy;
+        private int previous;
         public override void Activate(GameObject parent)
         {
             originPoint = parent.transform.position;
@@ -42,7 +43,7 @@ namespace Pasta
                         destroy = puddleObjects[i].AddComponent<DestroyAbility>();
                         destroy.activeTime = ActiveTime;
                     }
-                    if ((puddleObjects[i - 1].gameObject.transform.position - puddleObjects[i].gameObject.transform.position).magnitude > 2.0f && i != 0) // if previous puddle is not in range do this.
+                    if ((puddleObjects[previous].gameObject.transform.position - puddleObjects[i].gameObject.transform.position).magnitude > 2.0f && i != 0) // if previous puddle is not in range do this.
                     {
                         puddleObjects[i] = Instantiate(puddleObject, originPoint, Quaternion.identity);
                         puddleObjects[i].GetComponent<DamageArea>().Damage = damage;
@@ -50,7 +51,9 @@ namespace Pasta
                         destroy.activeTime = ActiveTime;
                     }
                 }
+                previous = i;
             }
+
             DeactivateAbility();
         }
 

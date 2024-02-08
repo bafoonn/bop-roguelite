@@ -7,7 +7,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 public class TargetDetector : Detector
 {
     //If having problems detecting;
-    //You want to Disable 'Queries Start In Colliders' under Edit - Project Settings - Physics 2D 
+    //Disable 'Queries Start In Colliders' under Edit - Project Settings - Physics 2D 
     //This will stop the raycast from counting the enemy collider that it starts in
     [SerializeField] private float targetDetectionRange = 5; // How far does the ai detect. Circle cast.
     [SerializeField] private LayerMask obstacleLayerMask, playerLayerMask; // Check if player is visible to enemy.
