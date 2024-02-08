@@ -13,9 +13,9 @@ public class SeekBehaviour : SteeringBehaviour
     private Transform parent;
     bool reachedLastTarget = false;
     bool seenPlayer = false;
-    public Vector2 targetPositionCached;
+    public Vector2 playerPositionCached; // Players pos when sees player.
     private GameObject player;
-    private float[] intrestsTemp;
+    private float[] intrestsTemp; // For gizmos
     public override (float[] danger, float[] intrest) GetSteering(float[] danger, float[] intrest, AIData aiData)
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -46,10 +46,10 @@ public class SeekBehaviour : SteeringBehaviour
             if (aiData.currentTarget != null && aiData.targets != null && aiData.targets.Contains(aiData.currentTarget))
             {
                 seenPlayer = true;
-                targetPositionCached = aiData.currentTarget.position;
+                playerPositionCached = aiData.currentTarget.position;
             }
             //Check if has reached the target   
-            if (Vector2.Distance(transform.position, targetPositionCached) < targetReachedThershold)
+            if (Vector2.Distance(transform.position, playerPositionCached) < targetReachedThershold)
             {
 
                 
@@ -60,7 +60,7 @@ public class SeekBehaviour : SteeringBehaviour
             }
           
         //If we havent's reached the target do the main logic
-        Vector2 directionToTarget = (targetPositionCached - (Vector2)transform.position);
+        Vector2 directionToTarget = (playerPositionCached - (Vector2)transform.position);
             for (int i = 0; i < intrest.Length; i++)
             {
                 float result = Vector2.Dot(directionToTarget.normalized, Directions.eightDirections[i]);
@@ -87,7 +87,7 @@ public class SeekBehaviour : SteeringBehaviour
 
         if (ShowGizmos == false)
             return;
-        Gizmos.DrawSphere(targetPositionCached, 0.2f);
+        Gizmos.DrawSphere(playerPositionCached, 0.2f);
 
         if (Application.isPlaying && intrestsTemp != null)
         {
@@ -101,7 +101,7 @@ public class SeekBehaviour : SteeringBehaviour
                 if (reachedLastTarget == false)
                 {
                     Gizmos.color = Color.red;
-                    Gizmos.DrawSphere(targetPositionCached, 0.1f);
+                    Gizmos.DrawSphere(playerPositionCached, 0.1f);
                 }
             }
         }

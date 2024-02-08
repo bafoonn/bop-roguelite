@@ -13,7 +13,7 @@ public class ObstacleDetector : Detector
     public override void Detect(AIData aiData)
     {
         colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius, layerMask); // Detect all obstacles in the circle
-        aiData.obstacles = colliders; 
+        aiData.obstacles = colliders; // Add detected obstacles to aidata.obstacles
     }
 
     private void OnDrawGizmos()

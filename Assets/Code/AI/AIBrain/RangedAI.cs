@@ -9,14 +9,7 @@ using UnityEngine;
 
 public class RangedAI : FixedEnemyAI
 {
-    //#region supportenemy stuff
-    //[Header("Support enemy variables")]
-    //public Transform supportEnemyTarger;
-    //[SerializeField] private LayerMask layermask;
-    //public float radius = 20;
-    //private bool canTarget = true;
-    //#endregion
-    // Ability-related variables
+    
 
 
     // Enemy state variables and diffrent enemy "logic"
@@ -40,10 +33,6 @@ public class RangedAI : FixedEnemyAI
         canAttack = true;
       
 
-        //if(aiData.currentTarget != null)
-        //{
-        //    movementInput = movementDirectionSolver.GetDirectionToMove(steeringBehaviours, aiData);
-        //}
 
         if (aiData.currentTarget != null)
         {          
@@ -71,8 +60,8 @@ public class RangedAI : FixedEnemyAI
             if (aiData.currentTarget != null)
             {
                 canAttack = true;
-                if (!canAttack) // Ranged enemy
-                {
+                if (!canAttack) // Ranged enemy // This is currently just a placeholder since it wont ever execute.
+                { 
                     SeekBehaviour seekbehaviour = gameObject.GetComponentInChildren<SeekBehaviour>();
                     seekbehaviour.targetReachedThershold = 3f;
                     attackDistance = dontattackdist;
@@ -111,11 +100,11 @@ public class RangedAI : FixedEnemyAI
                         animations.aim = false;
                     }
                     //attackIndicator.fillAmount = timeToAttack / defaultTimeToAttack;
-                    if (targetDetector.colliders == null)
+                    if (targetDetector.colliders == null) // Smalled threshold to make ranged ai "seek" player when cant see player.
                     {
                         SeekBehaviour seekbehaviour = gameObject.GetComponentInChildren<SeekBehaviour>();
                         seekbehaviour.targetReachedThershold = 5f;
-                        seekbehaviour.targetPositionCached = player.transform.position;
+                        seekbehaviour.playerPositionCached = player.transform.position;
                         movementInput = movementDirectionSolver.GetDirectionToMove(steeringBehaviours, aiData);
                         aiData.currentTarget = null;
                     }

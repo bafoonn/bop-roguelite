@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ObstacleAvoidanceBehaviour : SteeringBehaviour
 {
-    [SerializeField] private float radius = 2f, agentColliderSize = 0.6f; // Avoid if in 2f, Avoid at any cost if in 0.6f.
+    [SerializeField] private float radius = 2f, enemyColliderSize = 0.6f; // Avoid if in 2f, Avoid at any cost if in 0.6f.
     [SerializeField] private bool ShowGizmos = true;
     float[] dangersResultTemp = null; // gizmo params.
 
@@ -17,7 +17,7 @@ public class ObstacleAvoidanceBehaviour : SteeringBehaviour
             if (obstacleCollider == null) continue;
             Vector2 directionToObstacle = obstacleCollider.ClosestPoint(transform.position) - (Vector2)transform.position;
             float distanceToObstacle = directionToObstacle.magnitude;
-            float weight = distanceToObstacle <= agentColliderSize ? 1 : (radius - distanceToObstacle) / radius; // Calculate the weight on how far is the enemy and obstacle
+            float weight = distanceToObstacle <= enemyColliderSize ? 1 : (radius - distanceToObstacle) / radius; // Calculate the weight on how far is the enemy and obstacle
             Vector2 directionToObstacleNormalized = directionToObstacle.normalized;
 
             for (int i = 0; i < Directions.eightDirections.Count; i++) // Add params to the danger array (what to avoid)
