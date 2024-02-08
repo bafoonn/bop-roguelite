@@ -13,8 +13,6 @@ namespace Pasta
         private int waves = 1;
         private int currentWave = 0;
         [SerializeField]
-        private float startDelay;
-        [SerializeField]
         private float spawnDelay;
         [SerializeField]
         private bool randomSpawn = true;
@@ -31,7 +29,6 @@ namespace Pasta
             waves = totalEnemiesToSpawnPerWave.Length;
             enemiesToSpawn = totalEnemiesToSpawnPerWave[currentWave];
             level = GetComponentInParent<Level>();
-            level.AddToEnemyCount(enemiesToSpawn);
             isSpawning = false;
         }
         void Update()
@@ -45,13 +42,9 @@ namespace Pasta
         private IEnumerator SpawnRoutine()
         {
             isSpawning = true;
-            //Delay at the start of the spawn routine
-            if (enemiesToSpawn == totalEnemiesToSpawnPerWave[currentWave] && startDelay != 0)
-            {
-                yield return new WaitForSeconds(startDelay);
-            }
+
             //Delay between each spawn
-            else if (enemiesToSpawn != totalEnemiesToSpawnPerWave[currentWave] && spawnDelay != 0 && firstSpawn)
+            if (enemiesToSpawn != totalEnemiesToSpawnPerWave[currentWave] && spawnDelay != 0 && firstSpawn)
             {
                 yield return new WaitForSeconds(spawnDelay);
             }
@@ -104,7 +97,6 @@ namespace Pasta
             {
                 currentWave++;
                 enemiesToSpawn = totalEnemiesToSpawnPerWave[currentWave];
-                level.AddToEnemyCount(enemiesToSpawn);
                 spawnWave = true;
             }
         }

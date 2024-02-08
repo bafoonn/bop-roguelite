@@ -100,18 +100,12 @@ namespace Pasta
             FixedEnemyAI.OnSpawn -= OnEnemySpawn;
             FixedEnemyAI.OnDie -= OnEnemyDeath;
         }
-
+        // Gets the chosen reward from last room's endpoints as a reward for clearing this room
         public void PassRewardIndex(ItemBase passedReward, int passedLevelNumber, int passedRewardType)
         {
             reward = passedReward;
             rewardType = passedRewardType;
             levelNumber = passedLevelNumber;
-        }
-        // Each enemy spawner passes the value of the number of enemies it will spawn, which is then added to the total sum
-        public void AddToEnemyCount(int addedEnemyCount)
-        {
-            //enemiesLeft += addedEnemyCount;
-            //Debug.Log(enemiesLeft);
         }
         // Called whenever an enemy dies, at 0 enemies left activates endpoints that start the next level generation
         public void EnemyKilled()
@@ -154,14 +148,15 @@ namespace Pasta
                 }
             }
         }
-
+        // Method for enemies that spawn minions etc.
         public EnemyAi SpawnEnemy(EnemyAi enemyPrefab, Vector2 position)
         {
             Assert.IsNotNull(enemyPrefab, "Tried to spawn null enemyPrefab: " + nameof(enemyPrefab));
-            AddToEnemyCount(1);
             return Instantiate(enemyPrefab, position, Quaternion.identity, transform);
         }
 
+        // Called when the player picks up the room reward
+        // Activates the objects needed to advance to the next level
         public void PickedUpReward()
         {
             if (levelNumber != 4)
@@ -181,6 +176,8 @@ namespace Pasta
             rewardTypes = passedRewardTypes;
             isCombatRoom = false;
         }
+
+ 
         private void CheckIfNonCombatRoom()
         {
             if (!isCombatRoom)
