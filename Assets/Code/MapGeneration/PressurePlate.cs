@@ -23,10 +23,7 @@ namespace Pasta
             if (col.TryGetComponent<IHittable>(out _))
             {
                 spriteRenderer.material.SetColor("_Color", Color.grey);
-                if (isActive)
-                {
-                    dartTrap.ActivateTrap();
-                }
+                dartTrap.ActivateTrap();
             }
         }
         private void OnTriggerExit2D(Collider2D collision)
@@ -37,13 +34,10 @@ namespace Pasta
             }
         }
 
-        public IEnumerator OffTimer()
+        public void ResetPlate()
         {
-            isActive = false;
-            yield return new WaitForSeconds(3f);
             boxCol.enabled = false;
             boxCol.enabled = true;
-            isActive = true;
         }
     }
 }
