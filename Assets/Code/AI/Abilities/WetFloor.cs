@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 namespace Pasta
 {
@@ -34,10 +35,20 @@ namespace Pasta
                 originPoint3int = ((Vector3Int)originPoint2int);
                 if (tileMap.HasTile(originPoint3int))
                 {
-                    puddleObjects[i] = Instantiate(puddleObject, originPoint, Quaternion.identity);
-                    puddleObjects[i].GetComponent<DamageArea>().Damage = damage;
-                    destroy = puddleObjects[i].AddComponent<DestroyAbility>();
-                    destroy.activeTime = ActiveTime;
+                    if(i == 0)
+                    {
+                        puddleObjects[i] = Instantiate(puddleObject, originPoint, Quaternion.identity);
+                        puddleObjects[i].GetComponent<DamageArea>().Damage = damage;
+                        destroy = puddleObjects[i].AddComponent<DestroyAbility>();
+                        destroy.activeTime = ActiveTime;
+                    }
+                    if ((puddleObjects[i - 1].gameObject.transform.position - puddleObjects[i].gameObject.transform.position).magnitude > 2.0f && i != 0) // if previous puddle is not in range do this.
+                    {
+                        puddleObjects[i] = Instantiate(puddleObject, originPoint, Quaternion.identity);
+                        puddleObjects[i].GetComponent<DamageArea>().Damage = damage;
+                        destroy = puddleObjects[i].AddComponent<DestroyAbility>();
+                        destroy.activeTime = ActiveTime;
+                    }
                 }
             }
             DeactivateAbility();

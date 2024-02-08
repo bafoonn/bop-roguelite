@@ -1190,7 +1190,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 200
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -1386,7 +1386,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9d885d423d7f4d14d9917f505277dd45, type: 2}
   - {fileID: 11400000, guid: fc9e4e04687c0b046ab3e81fc38c3a81, type: 2}
   - {fileID: 11400000, guid: 37a8d6b5f9e41024297ee7ff4dfda960, type: 2}
-  - {fileID: 11400000, guid: b62ae1ed20430494ca0dfe7233c99350, type: 2}
+  - {fileID: 11400000, guid: 330a6064f2eabc84b97c4b45b8920831, type: 2}
+  - {fileID: 11400000, guid: fc9e4e04687c0b046ab3e81fc38c3a81, type: 2}
+  - {fileID: 11400000, guid: fc9e4e04687c0b046ab3e81fc38c3a81, type: 2}
   ability: {fileID: 0}
   cooldownTime: 0
   activeTime: 0
@@ -1418,7 +1420,7 @@ MonoBehaviour:
   - {fileID: 5337389736714812942}
   - {fileID: 4012314741522539382}
   attackDefaultDist: 2
-  damage: 30
+  damage: 35
   dontattackdist: 6
   OnAttackPressed:
     m_PersistentCalls:
@@ -1471,8 +1473,14 @@ MonoBehaviour:
   IsIdle: 1
   isAttacking: 0
   Death: 0
+  stunned: 0
+  isStunnable: 1
+  isAttackStunnable: 1
+  stunDuration: 1
   _damagedMaterial: {fileID: 0}
   deathSound: {fileID: 11400000, guid: 9ca0e3b3e818b9c41bc127b98e89fcca, type: 2}
+  lastHitType: 0
+  CorpseObj: {fileID: 0}
   takeDamageEffects: {fileID: 0}
   ParticleSystemHolder: {fileID: 0}
   indicatorAlive: 0
@@ -1668,7 +1676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3420b309b6a6b8f49b8b8fb6d3db88e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetDetectionRange: 7.28
+  targetDetectionRange: 15
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 64

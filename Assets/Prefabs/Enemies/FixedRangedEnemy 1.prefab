@@ -227,7 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac645b9282d68274d9f527221479be0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetReachedThershold: 10
+  targetReachedThershold: 3
   ShowGizmos: 1
   targetPositionCached: {x: 0, y: 0}
 --- !u!1 &5203261256575303095
@@ -742,13 +742,13 @@ MonoBehaviour:
   aiUpdateDelay: 0.06
   attackDelay: 1
   attackDistance: 13
-  attackStopDistance: 17
+  attackStopDistance: 15
   steeringBehaviours:
   - {fileID: 6142189328296033702}
   - {fileID: 605021886678652623}
   attackDefaultDist: 0
   damage: 5
-  dontattackdist: 5
+  dontattackdist: 16
   OnAttackPressed:
     m_PersistentCalls:
       m_Calls:
@@ -795,7 +795,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   movementInput: {x: 0, y: 0}
-  movementDirectionSolver: {fileID: 0}
+  movementDirectionSolver: {fileID: 5558899787974861798}
   weaponParent: {fileID: 0}
   abilityHolder: {fileID: 0}
   defaultDetectionDelay: 0
@@ -814,6 +814,8 @@ MonoBehaviour:
   Death: 0
   _damagedMaterial: {fileID: 0}
   deathSound: {fileID: 11400000, guid: 9ca0e3b3e818b9c41bc127b98e89fcca, type: 2}
+  lastHitType: 0
+  CorpseObj: {fileID: 0}
   takeDamageEffects: {fileID: 2166885918499705267}
   ParticleSystemHolder: {fileID: 0}
   Chasing: 0

@@ -10,7 +10,6 @@ namespace Pasta
         private GameObject[] enemies;
         [SerializeField]
         private int[] totalEnemiesToSpawnPerWave;
-        [SerializeField]
         private int waves = 1;
         private int currentWave = 0;
         [SerializeField]
@@ -29,6 +28,7 @@ namespace Pasta
         // Start is called before the first frame update
         void Start()
         {
+            waves = totalEnemiesToSpawnPerWave.Length;
             enemiesToSpawn = totalEnemiesToSpawnPerWave[currentWave];
             level = GetComponentInParent<Level>();
             level.AddToEnemyCount(enemiesToSpawn);

@@ -41,19 +41,22 @@ namespace Pasta
 			enemyAI.weaponParent.Aim = true;
 			enemyAI.animations.aim = true;
 			enemyAI.isAttacking = false; // FOR ANIMATOR
-								 //Chasing
+										 //Chasing
+			if (!enemyAI.stunned)
+			{
 
-			if (enemyAI.abilityHolder.ability != null) enemyAI.abilityHolder.CanUseAbility = true; // <- Here for testing purposes.
 
-			if (enemyAI.hasAttackEffect) enemyAI.attackEffect.SetIndicatorLifetime(0);
+				if (enemyAI.abilityHolder.ability != null) enemyAI.abilityHolder.CanUseAbility = true; // <- Here for testing purposes.
 
-			if (enemyAI.hasAttackEffect) enemyAI.attackEffect.CancelAttack();
+				if (enemyAI.hasAttackEffect) enemyAI.attackEffect.SetIndicatorLifetime(0);
 
-			enemyAI.UseAbilityAtRange();
+				if (enemyAI.hasAttackEffect) enemyAI.attackEffect.CancelAttack();
 
-			enemyAI.timeToAttack = 0;
-			enemyAI.movementInput = enemyAI.movementDirectionSolver.GetDirectionToMove(enemyAI.steeringBehaviours, aiData);
+				enemyAI.UseAbilityAtRange();
 
+				enemyAI.timeToAttack = 0;
+				enemyAI.movementInput = enemyAI.movementDirectionSolver.GetDirectionToMove(enemyAI.steeringBehaviours, aiData);
+			}
 			if ((player.transform.position - transform.position).magnitude < 5.5f && aiData.currentTarget != null && aiData.targets != null)
 			{
 				enemyAI.movementInput = Vector2.zero;

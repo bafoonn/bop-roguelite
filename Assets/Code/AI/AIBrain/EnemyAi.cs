@@ -252,7 +252,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
 
             }
 
-            if ((player.transform.position - transform.position).magnitude < 15.0f && canTarget) // If player is close support enemy gets random enemy closeby to buff
+            if ((player.transform.position - transform.position).magnitude < 20.0f && canTarget) // If player is close support enemy gets random enemy closeby to buff
             {
 
                 Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, radius, layermask);

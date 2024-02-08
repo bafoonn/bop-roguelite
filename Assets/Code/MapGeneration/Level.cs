@@ -117,7 +117,6 @@ namespace Pasta
         public void EnemyKilled()
         {
             enemiesLeft--;
-            Debug.Log(enemiesLeft);
             if (enemiesLeft <= 0)
             {
                 allWavesSpawned = true;

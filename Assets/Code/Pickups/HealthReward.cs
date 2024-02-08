@@ -13,6 +13,13 @@ namespace Pasta
             level = GetComponentInParent<Level>();
         }
 
+        public override void Heal(PlayerHealth playerHealth)
+        {
+            float heal = IsPercentage ? playerHealth.MaxHealth * HealAmount : HealAmount;
+
+            playerHealth.Heal(heal);
+            Take();
+        }
         public override void Take()
         {
             base.Take();
