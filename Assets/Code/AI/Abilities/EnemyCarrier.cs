@@ -48,7 +48,6 @@ namespace Pasta
             //    //    Instantiate(Minion, originPoint, Quaternion.identity);
             //    //}
             //}
-            levelScript.AddToEnemyCount(howManytoSpawn);
         }
     }
 }

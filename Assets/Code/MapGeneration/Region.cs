@@ -34,6 +34,7 @@ namespace Pasta
         }
         public void GenerateLevel(ItemBase roomReward, int rewardType)
         {
+            // Clear the previous level
             if (levelNumber != 0)
             {
                 Destroy(activeLevel.gameObject);
@@ -53,7 +54,7 @@ namespace Pasta
                 InstantiateLevel(levels.Length - 1, roomReward, rewardType);
             }
 
-            // Instantiate random level from levels list
+            // If no special level is to be activated, instantiate random level from levels list
             else
             {
                 while (true)
@@ -76,6 +77,8 @@ namespace Pasta
             activeLevel.PassRewardIndex(roomReward, levelNumber, rewardType);
         }
 
+        // Shop level is a non-combat room that doesn't add to the level count
+        // Always instantiated as the final room before a boss room
         public void ActivateShopLevel()
         {
             endPoints = GetComponentInChildren<EndPoints>();
