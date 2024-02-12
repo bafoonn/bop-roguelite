@@ -7,11 +7,17 @@ namespace Pasta
 {
     public class HUDWindow : MonoBehaviour
     {
-        public string Name => gameObject.name;
+        public HUD.Window Window;
+        public string Name => Window.ToString();
         public bool PauseWhileOpen = false;
         public bool IsOpen => gameObject.activeSelf;
         public UnityEvent OnContinue;
         public UnityEvent OnEscape;
+
+        private void OnValidate()
+        {
+            gameObject.name = Name;
+        }
 
         public void Open()
         {

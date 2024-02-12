@@ -11,8 +11,6 @@ namespace Pasta
         public override bool PersistSceneLoad => true;
         private Controls _controls;
 
-        public static event Action OnPause;
-
         protected override void Init()
         {
             _controls = new Controls();

@@ -13,7 +13,7 @@ namespace Pasta
 
         public void ReloadGame()
         {
-            GameManager.Current.GoTo(GameStateType.Game, forceLoad: true);
+            GameManager.Current.ReloadCurrent();
         }
 
         public void MainMenu()

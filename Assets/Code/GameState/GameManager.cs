@@ -77,19 +77,7 @@ namespace Pasta
 
         }
 
-        private void OnEnable()
-        {
-            //InputReader.OnPause += OnPaused;
-            Player.OnPlayerDeath += OnDeath;
-        }
-
-        private void OnDisable()
-        {
-            //InputReader.OnPause -= OnPaused;
-            Player.OnPlayerDeath -= OnDeath;
-        }
-
-        public bool GoTo(GameStateType type, bool forceLoad = false)
+        public bool GoTo(GameStateType type)
         {
             if (_currentState == null) return false;
             if (_currentState.Type == type)
@@ -123,11 +111,16 @@ namespace Pasta
 
             _currentState.Deactivate();
             _prevState = _currentState;
-            target.Activate(forceLoad);
+            target.Activate();
             _currentState = target;
             CurrentState = _currentState.Type;
 
             return true;
+        }
+
+        public bool ReloadCurrent()
+        {
+            return _currentState.Reload();
         }
 
         public void GoBack()
@@ -136,12 +129,6 @@ namespace Pasta
             {
                 GoTo(_prevState.Type);
             }
-        }
-
-        private void OnDeath()
-        {
-            HUD.Current.OpenWindow("GameOver");
-            //GoTo(GameStateType.GameOver);
         }
 
         public void Pause()

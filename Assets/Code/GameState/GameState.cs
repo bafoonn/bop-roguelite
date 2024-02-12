@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using UnityEngine.SceneManagement;
 
 namespace Pasta
@@ -26,16 +27,34 @@ namespace Pasta
             _canActivate = canActivate;
         }
 
-        public bool Activate(bool forceLoad = false)
+        public bool Activate()
         {
             if (IsActive) return false;
             IsActive = true;
 
-            if (forceLoad || !SceneManager.GetActiveScene().name.Equals(SceneName))
+            if (!SceneManager.GetActiveScene().name.Equals(SceneName))
             {
                 SceneManager.LoadSceneAsync(SceneName, _mode);
             }
             if (_onActivate != null) _onActivate();
+            return true;
+        }
+
+        public bool Reload()
+        {
+            if (!IsActive)
+            {
+                UnityEngine.Debug.LogWarning($"Cannot reload state, state ({Type}) is not active.");
+                return false;
+            }
+            if (_mode == LoadSceneMode.Additive)
+            {
+                UnityEngine.Debug.LogWarning("Cannot reload state, state scene is additive.");
+                return false;
+            }
+
+            SceneManager.LoadScene(SceneName, _mode);
+
             return true;
         }
 

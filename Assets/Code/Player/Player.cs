@@ -16,14 +16,13 @@ public class Player : Singleton<Player>, IPlayer
     private PlayerHealth _health;
     private Loot _loot;
     private PlayerAnimations _anim;
-    private ItemAbilities _actions;
+    private ItemAbilities _abilities;
     [SerializeField] private SpriteRenderer _sprite;
     private StatusHandler _statusHandler;
     //private ItemPopUp _itemPopUp;
     public int currency = 10;
 
     public PlayerInput Input => _input;
-    public PlayerHealth PlayerHealth => _health;
     public Loot Loot => _loot;
 
     private float _iframes = 0;
@@ -38,19 +37,16 @@ public class Player : Singleton<Player>, IPlayer
     [Header("Iframes")]
     [SerializeField] private float _hitFrames = 0.66f;
     [SerializeField] private float _dodgeFrames = 0.33f;
-    [SerializeField] private Color _iFrameColor = new Color(1, 1, 1, 0.5f);
-    private Color _baseColor = Color.white;
 
     public MonoBehaviour Mono => this;
-
     public Health Health => _health;
     public Movement Movement => _movement;
     public StatusHandler Status => _statusHandler;
     public Rigidbody2D Rigidbody => _rigidbody;
+    public PlayerAttackHandler AttackHandler => _attackHandler;
 
     public override bool PersistSceneLoad => false;
 
-    public static event Action OnPlayerDeath;
     [SerializeField] private Material _damagedMaterial = null;
     private Material _defaultMaterial = null;
     [SerializeField] private float _hitStopTime = 0.3f;
@@ -68,34 +64,28 @@ public class Player : Singleton<Player>, IPlayer
         _input = this.AddOrGetComponent<PlayerInput>();
         _movement = this.AddOrGetComponent<PlayerMovement>();
         _attackHandler = GetComponentInChildren<PlayerAttackHandler>();
-        Assert.IsNotNull(_attackHandler, "Player has no PlayerAttackHandler component in children.");
         _rigidbody = this.AddOrGetComponent<Rigidbody2D>();
         _health = this.AddOrGetComponent<PlayerHealth>();
         _loot = this.AddOrGetComponent<Loot>();
         _anim = GetComponent<PlayerAnimations>();
-        _anim.Setup(_movement, _attackHandler, _input);
-        _actions = GetComponentInChildren<ItemAbilities>();
-        Assert.IsNotNull(_actions);
-        Assert.IsNotNull(_sprite, "Player has no sprite set in the inspector.");
-        _actions.Setup(this);
+        _abilities = GetComponentInChildren<ItemAbilities>();
         _defaultMaterial = _sprite.material;
         _statusHandler = this.AddOrGetComponent<StatusHandler>();
-        _statusHandler.Setup(this);
-        //_itemPopUp = GetComponentInChildren<ItemPopUp>(true);
-        //var lootUI = GetComponentInChildren<LootUI>(true);
-        //if (lootUI != null) lootUI.Setup(_loot);
 
-        //GetComponentInChildren<CurrencyUI>().Setup(this);
+        Assert.IsNotNull(_anim, "Player has no PlayerAnimations");
+        Assert.IsNotNull(_attackHandler, "Player has no PlayerAttackHandler component in children.");
+        Assert.IsNotNull(_abilities, "Player has no ItemAbilities in children.");
+        Assert.IsNotNull(_sprite, "Player has no sprite set in the inspector.");
 
         _dodgeAction = new PlayerAction(Dodge, () => _movement.CanDodge && _attackHandler.Cancel());
         _quickAttackAction = new PlayerAction(QuickAttack, () => !_movement.IsDodging && _attackHandler.CanAttack);
         _heavyAttackAction = new PlayerAction(HeavyAttack, () => !_movement.IsDodging && _attackHandler.CanAttack);
 
-        _input.DodgeCallback = () => AddAction(_dodgeAction);
-        //_input.QuickAttackCallback = () => AddAction(_quickAttackAction);
-        //_input.HeavyAttackCallback = () => AddAction(_heavyAttackAction);
-
+        _statusHandler.Setup(this);
+        _abilities.Setup(this);
+        _input.Setup(this, () => AddAction(_dodgeAction));
         _movement.Setup(_rigidbody);
+        _anim.Setup(this);
 
         _havePlayerUI = _playerUI != null;
     }
@@ -122,11 +112,6 @@ public class Player : Singleton<Player>, IPlayer
             movement *= _movementMultiplierWhileAttacking;
         }
 
-        //if (!_attackHandler.IsAttacking)
-        //{
-        //    _attackHandler.transform.right = _inputReader.Aim;
-        //}
-
         _attackHandler.transform.right = _input.Aim;
         _movement.Move(movement);
     }
@@ -134,32 +119,21 @@ public class Player : Singleton<Player>, IPlayer
     private void OnEnable()
     {
         _health.OnDeath += OnDeath;
-        //GameManager.OnPause += OnPause;
-        //GameManager.OnUnpause += OnUnpause;
     }
 
     private void OnDisable()
     {
         _health.OnDeath -= OnDeath;
-        //GameManager.OnPause -= OnPause;
-        //GameManager.OnUnpause -= OnUnpause;
     }
-
-    //private void OnPause()
-    //{
-    //    _input.enabled = false;
-    //}
-
-    //private void OnUnpause()
-    //{
-    //    _input.enabled = true;
-    //}
 
     private void OnDeath()
     {
-        if (OnPlayerDeath != null) OnPlayerDeath();
         _input.enabled = false;
         _movement.enabled = false;
+        this.WaitAndRun(2f, () =>
+        {
+            HUD.Current.OpenWindow(HUD.Window.GameOver, true);
+        });
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -310,6 +284,7 @@ public class Player : Singleton<Player>, IPlayer
     {
         if (type != HitType.Status && _hasIframes) return;
         _health.TakeDamage(damage);
+        if (_health.IsDead) return;
         AddIframes(_hitFrames);
         StartCoroutine(HitRoutine());
     }

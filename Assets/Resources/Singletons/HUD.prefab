@@ -1134,6 +1134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 736447747597f984ea40229a8ab9daa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Window: 3
   PauseWhileOpen: 1
   OnContinue:
     m_PersistentCalls:
@@ -2455,6 +2456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 736447747597f984ea40229a8ab9daa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Window: 0
   PauseWhileOpen: 1
   OnContinue:
     m_PersistentCalls:
@@ -2528,6 +2530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 736447747597f984ea40229a8ab9daa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Window: 1
   PauseWhileOpen: 1
   OnContinue:
     m_PersistentCalls:
@@ -4046,7 +4049,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1359453175617583049, guid: bdd0a8fe972680446b50621b1236b98b, type: 3}
       propertyPath: m_Name
-      value: ItemPopUp
+      value: Item
       objectReference: {fileID: 0}
     - target: {fileID: 1359453175617583049, guid: bdd0a8fe972680446b50621b1236b98b, type: 3}
       propertyPath: m_IsActive
@@ -4360,6 +4363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 736447747597f984ea40229a8ab9daa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Window: 2
   PauseWhileOpen: 1
   OnContinue:
     m_PersistentCalls:

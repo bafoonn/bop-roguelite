@@ -2406,6 +2406,37 @@ MonoBehaviour:
   ItemContent: {fileID: 1656617818}
   ItemHolder: {fileID: 4167559126975326014, guid: aa441e9d4523f324f872a62a64dba790, type: 3}
   itemsInUi: []
+--- !u!1 &1707110233
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1707110234}
+  m_Layer: 0
+  m_Name: GameObject (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1707110234
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707110233}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.178487, y: -1.2419374, z: 0.4109043}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1787241464 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3336964447234180641, guid: 866a2ad941929904ba0195b65a717199, type: 3}
@@ -12501,3 +12532,4 @@ SceneRoots:
   - {fileID: 1872673083}
   - {fileID: 2919973328040399076}
   - {fileID: 5833568101280317803}
+  - {fileID: 1707110234}

@@ -41,7 +41,7 @@ namespace Pasta
 
             if (_reader.IsMouseAim)
             {
-                var aim = _reader.MouseWorldPos - screenCenter;
+                var aim = _reader.MouseWorldPosition - screenCenter;
                 if (aim.sqrMagnitude > 0.5f)
                     aimOffset += Vector2.ClampMagnitude(aim * OffsetMultiplier, MouseAimOffset);
                 moveOffset += _reader.Movement * MouseMoveOffset;

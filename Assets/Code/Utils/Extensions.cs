@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Pasta
@@ -13,6 +15,17 @@ namespace Pasta
             else
             {
                 return component.gameObject.AddComponent<T>();
+            }
+        }
+
+        public static void WaitAndRun(this MonoBehaviour mono, float time, Action action)
+        {
+            mono.StartCoroutine(Wait());
+
+            IEnumerator Wait()
+            {
+                yield return new WaitForSeconds(time);
+                action();
             }
         }
 

@@ -41,7 +41,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
     // Ability-related variables
     protected float cooldown = 10f;
     protected bool canuseAbility = true;
-    
+
     private bool isTakingStepsBack = false;
 
     public float dontattackdist = 5f;
@@ -91,7 +91,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
     public bool isAttackStunnable = true;
     public float stunDuration = 1f;
 
-    
+
     // Attack effect-related variables
     protected bool stopAttacking;
     protected bool goAheadAttack = false;
@@ -193,7 +193,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
 
 
     protected virtual void Update()
-    {     
+    {
         if (!stunned)
         {
             if ((player.transform.position - transform.position).magnitude > 7.0f || aiData.currentTarget == null) // Deactivates attack indicator if player is not seen or is far enough away
@@ -346,7 +346,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
             {
                 IsIdle = true;
             }
-            if(aiData.currentTarget != null)
+            if (aiData.currentTarget != null)
             {
                 PointerEnemy?.Invoke(aiData.currentTarget.position);
             }
@@ -380,7 +380,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
                     attackplaceholderindicator.enabled = false;
                 }
             }
-        } 
+        }
         #endregion
     }
 
@@ -427,23 +427,23 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
         if (OnDie != null) OnDie(this);
 
         drop.RollDrop();
-        
-        Destroy(gameObject);
-        if (hasDeathAnim) 
-        CorpseObj = Instantiate(Corpse, transform.position, transform.rotation);
-        
-            if (lastHitType == HitType.Hit && lastSource != null) // Used to apply knockback to corpse.
-            {
-                Vector2 direction = CorpseObj.transform.position - lastSource.Mono.transform.position;
 
-                direction.Normalize();
-                
-                CorpseObj.GetComponent<Rigidbody2D>().position = CorpseObj.GetComponent<Rigidbody2D>().position + direction * 0.33f;
-            }
-        
+        Destroy(gameObject);
+        if (hasDeathAnim)
+            CorpseObj = Instantiate(Corpse, transform.position, transform.rotation);
+
+        if (lastHitType == HitType.Hit && lastSource != null) // Used to apply knockback to corpse.
+        {
+            Vector2 direction = CorpseObj.transform.position - lastSource.Mono.transform.position;
+
+            direction.Normalize();
+
+            CorpseObj.GetComponent<Rigidbody2D>().position = CorpseObj.GetComponent<Rigidbody2D>().position + direction * 0.33f;
+        }
+
     }
 
-    
+
     public void UseAbilityAtRange()
     {
         if (abilityHolder.ability != null)

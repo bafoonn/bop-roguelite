@@ -8,6 +8,6 @@ namespace Pasta
     {
         public Loot Loot { get; }
         public PlayerInput Input { get; }
-        public PlayerHealth PlayerHealth { get; }
+        public PlayerAttackHandler AttackHandler { get; }
     }
 }

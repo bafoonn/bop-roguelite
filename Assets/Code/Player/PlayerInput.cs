@@ -10,18 +10,15 @@ public class PlayerInput : MonoBehaviour
     private Controls.PlayerActions _actions;
     public Vector2 Movement;
     public Vector2 Aim;
-    public Vector2 MouseScreenPos;
-    public Vector2 MouseWorldPos;
+    public Vector2 MouseScreenPosition;
+    public Vector2 MouseWorldPosition;
     //public bool DoDodge;
     public bool DoQuickAttack;
     public bool DoHeavyAttack;
-    public Action DodgeCallback;
-    public Action InteractCallback;
-    //public Action QuickAttackCallback;
-    //public Action HeavyAttackCallback;
-    public Action HookCallback;
+    private Action _dodgeCallback;
+
     private bool _isMouseAim = true;
-    public bool _isAiming = false;
+    private bool _isAiming = false;
 
     private AutoAim _autoAim = null;
 
@@ -30,6 +27,7 @@ public class PlayerInput : MonoBehaviour
 
     public bool IsMouseAim => _isMouseAim;
     public bool IsAiming => _isAiming;
+    private IPlayer _player = null;
 
     private void Awake()
     {
@@ -39,8 +37,10 @@ public class PlayerInput : MonoBehaviour
         Assert.IsNotNull(_autoAim);
     }
 
-    private void Start()
+    public void Setup(IPlayer player, Action dodgeCallback)
     {
+        _player = player;
+        _dodgeCallback = dodgeCallback;
         HUD.OnOpenWindow += OnOpenWindow;
         HUD.OnCloseWindow += OnCloseWindow;
     }
@@ -59,9 +59,6 @@ public class PlayerInput : MonoBehaviour
     {
         _actions.Enable();
         _actions.Dodge.performed += OnDodge;
-        //_actions.QuickAttack.performed += OnQuickAttack;
-        _actions.Interact.performed += OnInteract;
-        //_actions.HeavyAttack.performed += OnHeavyAttack;
         _actions.Aim.performed += OnAim;
         _actions.MousePos.performed += OnMousePos;
     }
@@ -71,9 +68,6 @@ public class PlayerInput : MonoBehaviour
     {
         _actions.Disable();
         _actions.Dodge.performed -= OnDodge;
-        _actions.Interact.performed -= OnInteract;
-        //_actions.QuickAttack.performed -= OnQuickAttack;
-        //_actions.HeavyAttack.performed -= OnHeavyAttack;
         _actions.Aim.performed -= OnAim;
         _actions.MousePos.performed -= OnMousePos;
         Movement = Vector2.zero;
@@ -88,8 +82,8 @@ public class PlayerInput : MonoBehaviour
     private void Update()
     {
         Movement = _actions.Movement.ReadValue<Vector2>();
-        MouseScreenPos = _actions.MousePos.ReadValue<Vector2>();
-        MouseWorldPos = _camera.ScreenToWorldPoint(MouseScreenPos);
+        MouseScreenPosition = _actions.MousePos.ReadValue<Vector2>();
+        MouseWorldPosition = _camera.ScreenToWorldPoint(MouseScreenPosition);
         _isAiming = _actions.Aim.ReadValue<Vector2>() != Vector2.zero;
         //DoDodge = _actions.Dodge.IsPressed();
         DoQuickAttack = _actions.QuickAttack.IsPressed();
@@ -97,7 +91,7 @@ public class PlayerInput : MonoBehaviour
 
         if (_isMouseAim)
         {
-            SetAim(MouseWorldPos - (Vector2)transform.position);
+            SetAim(MouseWorldPosition - (Vector2)transform.position);
         }
         else
         {
@@ -137,44 +131,9 @@ public class PlayerInput : MonoBehaviour
 
     private void OnDodge(InputAction.CallbackContext obj)
     {
-        if (DodgeCallback != null)
-        {
-            DodgeCallback();
-        }
+        if (_dodgeCallback == null) return;
+        _dodgeCallback();
     }
 
-    private void OnHook(InputAction.CallbackContext obj)
-    {
-        if (HookCallback != null)
-        {
-            HookCallback();
-        }
-    }
-
-    //private void OnHeavyAttack(InputAction.CallbackContext obj)
-    //{
-    //    if (HeavyAttackCallback != null)
-    //    {
-    //        HeavyAttackCallback();
-    //    }
-    //    _lastAttackTime = Time.time;
-    //}
-
-    //private void OnQuickAttack(InputAction.CallbackContext obj)
-    //{
-    //    if (QuickAttackCallback != null)
-    //    {
-    //        QuickAttackCallback();
-    //    }
-    //    _lastAttackTime = Time.time;
-    //}
-
-    private void OnInteract(InputAction.CallbackContext obj)
-    {
-        if (InteractCallback != null)
-        {
-            InteractCallback();
-        }
-    }
-
+    public void SetDodge(Action dodgeCallback) => _dodgeCallback = dodgeCallback;
 }
