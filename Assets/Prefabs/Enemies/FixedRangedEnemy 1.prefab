@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7f5bb024d752be4d9d568c257ced690, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 5401989974700438533, guid: 58ccf5dbf0290d2499a8cc89c7f9c0df, type: 3}
+  projectile: {fileID: 7179530240980603498, guid: 58ccf5dbf0290d2499a8cc89c7f9c0df, type: 3}
   ProjectileSpawnPoint: {fileID: 5978514276958614828}
   direction: {x: 0, y: 0}
   radius: 0.6
@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 2
-  agentColliderSize: 0.6
+  enemyColliderSize: 0.6
   ShowGizmos: 1
 --- !u!1 &5147818758857402159
 GameObject:
@@ -229,7 +229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetReachedThershold: 3
   ShowGizmos: 1
-  targetPositionCached: {x: 0, y: 0}
+  playerPositionCached: {x: 0, y: 0}
 --- !u!1 &5203261256575303095
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,6 +766,10 @@ MonoBehaviour:
   IsIdle: 1
   isAttacking: 0
   Death: 0
+  stunned: 0
+  isStunnable: 1
+  isAttackStunnable: 1
+  stunDuration: 1
   _damagedMaterial: {fileID: 0}
   deathSound: {fileID: 11400000, guid: 9ca0e3b3e818b9c41bc127b98e89fcca, type: 2}
   lastHitType: 0
@@ -774,6 +778,9 @@ MonoBehaviour:
   ParticleSystemHolder: {fileID: 0}
   Chasing: 0
   gotAttackToken: 0
+  ObstacleLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &3273630249781390691
 MonoBehaviour:
   m_ObjectHideFlags: 0

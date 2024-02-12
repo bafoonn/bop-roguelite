@@ -1,11 +1,6 @@
-using NUnit.Framework;
 using Pasta;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using static UnityEngine.EventSystems.EventTrigger;
 
 public class WeaponParent : MonoBehaviour
 {
@@ -13,7 +8,7 @@ public class WeaponParent : MonoBehaviour
     public Vector2 EnemyWeaponPos { get; set; } // Replace this!
 
     private GameObject AttackIndicatorImage;
-    [SerializeField] private GameObject projectile;
+    [SerializeField] private Projectile projectile;
     [SerializeField] public GameObject ProjectileSpawnPoint;
     public Vector2 direction;
     private AIData aidata;
@@ -50,7 +45,7 @@ public class WeaponParent : MonoBehaviour
     private void Update()
     {
 
-		
+
         if (Aim)
         {
             Vector3 weaponPos = EnemyWeaponPos; // THIS WHOLE THING IS A SHITSHOW BUT IT WORKS!
@@ -73,7 +68,7 @@ public class WeaponParent : MonoBehaviour
                 weaponScale.x = -1f;
                 weaponScale.y = 0f;
                 spriteRend.flipY = true;
-                if(rangedAI != null)
+                if (rangedAI != null)
                 {
                     if (spriteTransform != null) // TEMP FOR ERROR MANAGEMENT
                     {
@@ -101,38 +96,40 @@ public class WeaponParent : MonoBehaviour
                 attackColliderHolder.transform.localScale = scale; // Changing child since editing parents scale fucks direction check
             }
         }
-        
-        
+
+
     }
-   
+
 
     public void Attack()
     {
-        if(attackCollider != null) attackCollider.enabled = true;
+        if (attackCollider != null) attackCollider.enabled = true;
         StartCoroutine(StopAttack());
     }
     private IEnumerator StopAttack() // TEST STUFF
     {
         yield return new WaitForSeconds(0.1f);
-       
+
         if (attackCollider != null) attackCollider.enabled = false;
-        
+
         Aim = true;
         animations.aim = true;
     }
     public void RangedAttack()
     {
-        Instantiate(projectile, ProjectileSpawnPoint.transform.position, ProjectileSpawnPoint.transform.rotation);
-        projectileScript = projectile.GetComponent<Projectile>();
-        if(enemyAI != null)
+        var Projectile = Instantiate(projectile, ProjectileSpawnPoint.transform.position, Quaternion.identity);
+        Vector2 direction = Player.Current.transform.position - transform.position;
+        direction.Normalize();
+        Projectile.Launch(direction);
+        if (enemyAI != null)
         {
-            projectileScript.damage = enemyAI.damage; // Get projectiles damage from enemyscript so no need to change damage on multiple places.
+            Projectile.damage = enemyAI.damage; // Get projectiles damage from enemyscript so no need to change damage on multiple places.
         }
         else
         {
-            projectileScript.damage = 5f;
+            Projectile.damage = 5f;
         }
-       
+
         StartCoroutine(StopAttack());
         Scoot = true;
     }

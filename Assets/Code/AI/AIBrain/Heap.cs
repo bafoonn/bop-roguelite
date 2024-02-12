@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace Pasta
 {
@@ -36,7 +33,7 @@ namespace Pasta
             while (true)
             {
                 T parentItem = items[parentIndex];
-                if(item.CompareTo(parentItem) > 0)
+                if (item.CompareTo(parentItem) > 0)
                 {
                     // Swap the item with its parent if necessary
                     Swap(item, parentItem);
@@ -70,11 +67,11 @@ namespace Pasta
                 int childIndexRight = item.HeapIndex * 2 + 2;
                 int swapIndex = 0;
 
-                if(childIndexLeft < currentItemCount)
+                if (childIndexLeft < currentItemCount)
                 {
                     swapIndex = childIndexLeft;
 
-                    if(childIndexRight < currentItemCount)
+                    if (childIndexRight < currentItemCount)
                     {
                         // Determine which child to swap with
                         if (items[childIndexLeft].CompareTo(items[childIndexRight]) < 0)

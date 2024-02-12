@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Pasta
@@ -11,7 +9,7 @@ namespace Pasta
         private Ramming ramming;
         private float speed = 15f;
         private bool pointAtPlayer = true;
-        public LayerMask obstacleLayer , playerlayer;
+        public LayerMask obstacleLayer, playerlayer;
         private LayerMask intObstacle;
         private LayerMask intPlayer;
         private bool Charge = true;
@@ -33,6 +31,7 @@ namespace Pasta
         private float Damage = 10f;
         private AttackEffects attackEffects;
         public float windupTime;
+        private PolygonCollider2D polygonCollider2D;
         // Start is called before the first frame update
         void Start()
         {
@@ -45,7 +44,7 @@ namespace Pasta
             direction = parent.GetComponentInChildren<CleavingWeaponAnimations>().transform.Find("SpritePivot").transform.Find("WeaponSprite").transform.right;
             player = GameObject.FindGameObjectWithTag("Player").transform.position;
             circleCollider2d = GetComponent<CircleCollider2D>();
-            if(parent.gameObject.tag != "Boss")
+            if (parent.gameObject.tag != "Boss")
             {
                 enemyAi = this.transform.GetComponentInParent<EnemyAi>();
             }
@@ -57,7 +56,8 @@ namespace Pasta
             agentAnimations = parent.GetComponent<AgentAnimations>();
             agentMover = parent.GetComponent<AgentMover>();
             boxCollider2Ds = parent.GetComponentsInChildren<BoxCollider2D>();
-            rbd2d = parent.GetComponent<Rigidbody2D>(); 
+            polygonCollider2D = GetComponent<PolygonCollider2D>(); // TEST;
+            rbd2d = parent.GetComponent<Rigidbody2D>();
             Charge = true;
             StartCoroutine(getTarget());
         }
@@ -96,30 +96,31 @@ namespace Pasta
         // Update is called once per frame
         void Update()
         {
-            if(pointAtPlayer == false)
+            if (pointAtPlayer == false)
             {
                 aidata.currentTarget = null;
             }
-            
+
             if (Charge && startChargebool)
             {
-                
+
                 float distanceThisFrame = Vector3.Distance(transform.position, startDist); // Get distance traveled in "time form" 
                 totalDistance += distanceThisFrame;
                 foreach (var boxCollider in boxCollider2Ds)
                 {
                     boxCollider.enabled = false;
+                    polygonCollider2D.enabled = false; // TEST;
                 }
                 weaponParent.Aim = false;
                 agentAnimations.aim = false;
                 //this.transform.parent.Translate(direction * speed * Time.deltaTime);
                 StartCoroutine(stopCharge());
             }
-            if(totalDistance >= 700f)
+            if (totalDistance >= 700f)
             {
                 Charge = false;
             }
-            if(!Charge) 
+            if (!Charge)
             {
                 agentMover.enabled = true;
                 foreach (var boxCollider in boxCollider2Ds)
@@ -129,7 +130,7 @@ namespace Pasta
                 Debug.Log("Stopped charge");
                 Destroy(gameObject);
             }
-            
+
         }
 
         IEnumerator stopCharge()
@@ -146,7 +147,7 @@ namespace Pasta
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if(collision.gameObject.layer == obstacleLayer)
+            if (collision.gameObject.layer == obstacleLayer)
             {
                 rbd2d.velocity = Vector2.zero;
                 Debug.Log("Collided with wall");
@@ -156,21 +157,23 @@ namespace Pasta
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if(collision.gameObject.layer == obstacleLayer) // if this dosent work change rigidbody to kinematic
+            if (collision.gameObject.layer == obstacleLayer) // if this dosent work change rigidbody to kinematic
             {
                 rbd2d.velocity = Vector2.zero;
                 Debug.Log("Collided with wall");
                 speed = 0f;
                 Charge = false;
             }
-           if(collision.gameObject.tag == "Player")
+            if (collision.gameObject.tag == "Player")
             {
                 if (collision.TryGetComponent<IHittable>(out var hittable))
                 {
                     hittable.Hit(Damage);
+                    rbd2d.velocity = Vector2.zero;
+                    Charge = false;
                 }
             }
         }
-        }
     }
+}
 

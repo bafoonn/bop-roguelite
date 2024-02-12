@@ -907,6 +907,7 @@ MonoBehaviour:
   _inputBuffer: 0.25
   _hitFrames: 0.66
   _dodgeFrames: 0.33
+  _iFrameColor: {r: 1, g: 1, b: 1, a: 0.5}
   _damagedMaterial: {fileID: 2100000, guid: e38b85b99faeab94bb79fd7af982aff5, type: 2}
   _hitStopTime: 0.3
   _movementMultiplierWhileAttacking: 0.36

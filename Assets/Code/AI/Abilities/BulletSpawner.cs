@@ -1,12 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Pasta
 {
     public class BulletSpawner : MonoBehaviour
     {
-        [SerializeField] private GameObject Bullet;
+        [SerializeField] private Projectile Bullet;
         private DamageArea damageArea;
         private float[] rotations;
         [SerializeField] private float howmanyDirections;
@@ -17,15 +16,17 @@ namespace Pasta
             float angle = 360 / howmanyDirections;
 
             StartCoroutine(Deactivate());
-            if(damageArea != null )
+            if (damageArea != null)
             {
                 if (damageArea.enabled)
                 {
-                    for(int i = 0; i < howmanyDirections; i++)
+                    for (int i = 0; i < howmanyDirections; i++)
                     {
-                        
-                        Instantiate(Bullet, transform.position, Quaternion.Euler(0, 0, angle * i));
-                        
+                        var bullet = Instantiate(Bullet, transform.position, Quaternion.identity);
+                        transform.rotation = Quaternion.Euler(0, 0, angle * i);
+                        Vector2 direction = transform.right;
+                        direction.Normalize();
+                        bullet.Launch(direction);
                     }
                     //Instantiate(Bullet, transform.position, Quaternion.Euler(0,0,));
                 }
@@ -36,7 +37,7 @@ namespace Pasta
 
         private IEnumerator Deactivate()
         {
-            yield return new  WaitForSeconds(2f);
+            yield return new WaitForSeconds(2f);
             Destroy(this.transform.parent.gameObject);
         }
 

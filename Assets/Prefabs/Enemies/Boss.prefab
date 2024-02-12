@@ -828,7 +828,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 2
-  agentColliderSize: 0.6
+  enemyColliderSize: 0.6
   ShowGizmos: 1
 --- !u!1 &5640543734753217030
 GameObject:
@@ -876,7 +876,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetReachedThershold: 0.5
   ShowGizmos: 1
-  targetPositionCached: {x: 0, y: 0}
+  playerPositionCached: {x: 0, y: 0}
 --- !u!1 &5762086597696656807
 GameObject:
   m_ObjectHideFlags: 0
@@ -1388,7 +1388,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 37a8d6b5f9e41024297ee7ff4dfda960, type: 2}
   - {fileID: 11400000, guid: 330a6064f2eabc84b97c4b45b8920831, type: 2}
   - {fileID: 11400000, guid: fc9e4e04687c0b046ab3e81fc38c3a81, type: 2}
-  - {fileID: 11400000, guid: fc9e4e04687c0b046ab3e81fc38c3a81, type: 2}
+  - {fileID: 11400000, guid: b62ae1ed20430494ca0dfe7233c99350, type: 2}
   ability: {fileID: 0}
   cooldownTime: 0
   activeTime: 0

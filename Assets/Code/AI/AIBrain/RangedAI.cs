@@ -1,16 +1,11 @@
 using Pasta;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 // This requires: (PlayerCloseSensor script attached to player, WeaponParent script attached to enemys weapon parent, AgentMover, Detector Scripts, Steering scripts, AIData, AgentAnimations, Health, EnemyDeath scripts attached to gameobject.)
 
 public class RangedAI : FixedEnemyAI
 {
-    
-
 
     // Enemy state variables and diffrent enemy "logic"
     public bool Chasing = false;
@@ -18,6 +13,7 @@ public class RangedAI : FixedEnemyAI
     [Header("Animations & Speed")]
     public bool gotAttackToken = false;
     private bool DosentSeePlayer;
+    [SerializeField] private LayerMask ObstacleLayer;
 
     protected override void Update()
     {
@@ -31,11 +27,11 @@ public class RangedAI : FixedEnemyAI
         }
 
         canAttack = true;
-      
+
 
 
         if (aiData.currentTarget != null)
-        {          
+        {
             StartAttack();
         }
 
@@ -61,7 +57,7 @@ public class RangedAI : FixedEnemyAI
             {
                 canAttack = true;
                 if (!canAttack) // Ranged enemy // This is currently just a placeholder since it wont ever execute.
-                { 
+                {
                     SeekBehaviour seekbehaviour = gameObject.GetComponentInChildren<SeekBehaviour>();
                     seekbehaviour.targetReachedThershold = 3f;
                     attackDistance = dontattackdist;
@@ -82,13 +78,13 @@ public class RangedAI : FixedEnemyAI
                             SeekBehaviour seekbehaviour = gameObject.GetComponentInChildren<SeekBehaviour>();
                             seekbehaviour.targetReachedThershold = 10f;
                             Vector3 direction = transform.position - player.transform.position;
-                            //direction.y = 0;
+                            //direction.y = 0; number 9, number 6 , number 3, one with cheese and large soda.
                             direction = Vector3.Normalize(direction);
                             transform.rotation = Quaternion.Euler(direction);
                             movementInput = direction;
                         }
                         else
-                        {                           
+                        {
                             weaponParent.Scoot = false;
                         }
                     }
@@ -152,16 +148,25 @@ public class RangedAI : FixedEnemyAI
 
     public override void Attack()
     {
-
         weaponParent.RangedAttack();
         if (hasAttackEffect) attackEffect.CancelAttack(); // Stops indicator
-        
-        //if (gameObject.name.Contains("Support"))
-        //{
-        //    weaponParent.ImmunityBeam();
-        //    canAttack = false;
-        //}
+    }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (ObstacleLayer.Includes(collision.gameObject.layer))
+        {
+            movementInput = Vector2.zero;
+            weaponParent.Scoot = false;
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (ObstacleLayer.Includes(collision.gameObject.layer))
+        {
+            IsIdle = true;
+        }
     }
 
     public void UseAbility()
