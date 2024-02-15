@@ -10,7 +10,7 @@ namespace Pasta
     {
         private Rigidbody2D _rigidbody = null;
         protected List<T> _objects = new();
-        public List<T> Objects => _objects;
+        public List<T> Objects => new List<T>(_objects);
         public LayerMask SensedLayers;
 
         public UnityEvent<T> OnItemDetected;
@@ -40,7 +40,7 @@ namespace Pasta
                 {
                     OnItemDetected.Invoke(obj);
                 }
-                OnEnter(obj);
+                OnDetect(obj);
             }
         }
 
@@ -49,15 +49,15 @@ namespace Pasta
             if (collision.TryGetComponent<T>(out var obj))
             {
                 _objects.Remove(obj);
-                OnExit(obj);
+                OnUndetect(obj);
             }
         }
 
-        protected virtual void OnEnter(T obj)
+        protected virtual void OnDetect(T obj)
         {
         }
 
-        protected virtual void OnExit(T obj)
+        protected virtual void OnUndetect(T obj)
         {
         }
     }
