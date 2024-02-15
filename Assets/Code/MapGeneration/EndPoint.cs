@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Pasta
 {
@@ -11,7 +12,7 @@ namespace Pasta
         [SerializeField] HealthRestore healthRestore;
         [SerializeField] Coin coinPickUp;
         private int rewardType;
-        [SerializeField] SpriteRenderer itemDisplay;
+        [SerializeField] Image itemDisplay;
 
         private bool isActive = false;
         private float timer = 0.5f;

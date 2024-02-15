@@ -33,13 +33,27 @@ namespace Pasta
         public override void Apply()
         {
             base.Apply();
-            StatManager.Current.AddEffectToStat(this);
+            var stat = StatManager.Current.GetStat(Stat);
+            stat.AddEffect(this);
+        }
+
+        public void Update()
+        {
+            var stat = StatManager.Current.GetStat(Stat);
+            stat.UpdateEffect(this);
+        }
+
+        public void Update(float value)
+        {
+            Value = value;
+            Update();
         }
 
         public override void Unapply()
         {
             base.Unapply();
-            StatManager.Current.RemoveEffectFromStat(this);
+            var stat = StatManager.Current.GetStat(Stat);
+            stat.RemoveEffect(this);
         }
 
         public override string ToString()

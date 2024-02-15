@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f9b0d845e3f73742a1930a2cd0ed9f7, type: 3}
+  m_Name: Sugar Rush
+  m_EditorClassIdentifier: 
+  _canStack: 1
+  Name: Damage Pre Missing Health
+  Description: Gain damage per missing health percentage up to 10% health.
+  Flavor: 
+  Sprite: {fileID: -7909161065004961426, guid: 12435301e90a78a42850db2451220dbd, type: 3}
+  cost: 20
+  Effects: []
+  Abilities:
+  - Name: Damage per health missing
+    ItemAbilityPrefab: {fileID: 3459210001842558931, guid: edd384aab9dec2f45b701bbba8e7480c, type: 3}
+    ActionType: 0
+    ProcChance:
+      Value: 0
+      ScaleType: 0
+  Hieroglyphs:
+  - Name: Missing Health Damge
+    sprites:
+    - {fileID: -3499231161864582761, guid: 2ec8cb5b2a196de4b9bddbb61c87034b, type: 3}
+    - {fileID: 7746310468709954608, guid: 5dd9ec5b1c784fc46a2bc77896303faf, type: 3}

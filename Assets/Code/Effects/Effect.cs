@@ -14,10 +14,7 @@ namespace Pasta
 
         public virtual void Apply()
         {
-            if (_applied)
-            {
-                return;
-            }
+            if (_applied) return;
             _applied = true;
         }
 
