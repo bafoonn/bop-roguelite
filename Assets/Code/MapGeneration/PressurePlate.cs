@@ -11,33 +11,57 @@ namespace Pasta
         private BoxCollider2D boxCol;
         private SpriteRenderer spriteRenderer;
         private Color baseColor;
+        private Animator animator;
+        private bool stay;
+        private bool disableOffAnimation;
         private void Start()
         {
             dartTrap = GetComponentInParent<DartTrap>();
             boxCol = gameObject.GetComponent<BoxCollider2D>();
-            spriteRenderer = GetComponent<SpriteRenderer>();
-            baseColor = spriteRenderer.color;
+            animator = GetComponent<Animator>();
         }
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if (col.TryGetComponent<IHittable>(out _))
+            if (col.TryGetComponent(out IHittable hittable))
             {
-                spriteRenderer.material.SetColor("_Color", Color.grey);
+                stay = true;
+                animator.SetTrigger("On");
+                animator.SetTrigger("Stay");
+                animator.ResetTrigger("Off");
+                animator.ResetTrigger("Default");
                 dartTrap.ActivateTrap();
             }
         }
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.TryGetComponent<IHittable>(out _))
+            if (collision.TryGetComponent(out IHittable hittable))
             {
-                spriteRenderer.material.SetColor("_Color", baseColor);
+                if (!disableOffAnimation)
+                {
+                    animator.SetTrigger("Off");
+                    animator.SetTrigger("Default");
+                    animator.ResetTrigger("On");
+                }
+                else
+                {
+                    disableOffAnimation = false;
+                }
+                stay = false;
             }
         }
 
         public void ResetPlate()
         {
-            boxCol.enabled = false;
-            boxCol.enabled = true;
+            if (stay)
+            {
+                disableOffAnimation = true;
+                boxCol.enabled = false;
+                boxCol.enabled = true;
+            }
+            else
+            {
+                disableOffAnimation = false;
+            }
         }
     }
 }

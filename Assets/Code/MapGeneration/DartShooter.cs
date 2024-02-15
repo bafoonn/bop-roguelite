@@ -8,7 +8,23 @@ namespace Pasta
     {
         [SerializeField]
         private Transform target;
-        public void Shoot(float damage, Dart dart)
+        private Dart dart;
+        private float damage;
+        private Animator animator;
+
+        private void Start()
+        {
+            animator = GetComponent<Animator>();
+        }
+        public void Shoot(float passedDamage, Dart dartPrefab)
+        {
+            dart = dartPrefab;
+            damage = passedDamage;
+            animator.SetTrigger("Shoot");
+            animator.SetTrigger("Default");
+        }
+
+        public void ShootDart()
         {
             Dart activeDart = Instantiate(dart, transform.position, Quaternion.identity);
             activeDart.transform.right = transform.position - target.position;
