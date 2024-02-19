@@ -6,9 +6,7 @@ namespace Pasta
 {
     public class DartTrap : Trap
     {
-        [SerializeField]
         private DartShooter[] dartShooters;
-        [SerializeField]
         private PressurePlate[] pressurePlates;
         [SerializeField]
         private Dart dart;
@@ -17,6 +15,12 @@ namespace Pasta
         private int damage = 30;
         private float cooldown = 3f;
         private bool onCooldown;
+
+        private void Start()
+        {
+            dartShooters = GetComponentsInChildren<DartShooter>();
+            pressurePlates = GetComponentsInChildren<PressurePlate>();
+        }
 
         public void ActivateTrap()
         {
