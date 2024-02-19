@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f9b0d845e3f73742a1930a2cd0ed9f7, type: 3}
+  m_Name: Pea Shooter
+  m_EditorClassIdentifier: 
+  _canStack: 1
+  Name: Pea Shooter
+  Description: Shoots enemies.
+  Flavor: 
+  Sprite: {fileID: -3070453432627086885, guid: 44bb34e8a67897d4d8b59b5dd09662e9, type: 3}
+  cost: 0
+  Effects: []
+  Abilities:
+  - Name: 
+    ItemAbilityPrefab: {fileID: 2902351094484777664, guid: 5444f1e0d109f614e8cde603b7fadfc2, type: 3}
+    ActionType: 0
+    ProcChance:
+      Value: 0
+      ScaleType: 0
+  Hieroglyphs:
+  - Name: asdf
+    sprites:
+    - {fileID: 2046177537035590154, guid: c0d98c1df091db149a39c00297b0849e, type: 3}
