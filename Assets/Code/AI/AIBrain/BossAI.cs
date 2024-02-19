@@ -14,6 +14,7 @@ public class BossAI : FixedEnemyAI
     public UnityEvent<Vector2> OnPointerInput;
     public float CurrentHealthPercentage;
     private bool Chasing = false;
+    public bool RangedBoss = false;
 
     //[SerializeField] private float chaseDistanceThershold = 3, attackDistanceThershold = 0.8f;
     //private float passedTime = 1;
@@ -43,6 +44,23 @@ public class BossAI : FixedEnemyAI
                     movementInput = Vector2.zero;
                 }
 
+            }
+
+
+            if (weaponParent.Scoot) // Ranged enemy "runs" away from player
+            {
+                if ((player.transform.position - transform.position).magnitude < 5.0f) // if player is in range of enemy do this.
+                {
+                    Vector3 direction = transform.position - player.transform.position;
+                    //direction.y = 0; number 9, number 6 , number 3, one with cheese and large soda.
+                    direction = Vector3.Normalize(direction);
+                    transform.rotation = Quaternion.Euler(direction);
+                    movementInput = direction;
+                }
+                else
+                {
+                    weaponParent.Scoot = false;
+                }
             }
 
             //Looking at target.
@@ -86,6 +104,8 @@ public class BossAI : FixedEnemyAI
         OnMovementInput?.Invoke(movementInput);
     }
 
+    
+
     public override void Attack()
     {
         Debug.Log("Swing");
@@ -99,9 +119,17 @@ public class BossAI : FixedEnemyAI
             }
 
         }
-        weaponParent.Attack();
-        if (hasAttackEffect) attackEffect.CancelAttack();
-        if (hasAttackEffect) attackEffect.HeavyAttack();
+        if (!RangedBoss)
+        {
+            weaponParent.Attack();
+            if (hasAttackEffect) attackEffect.CancelAttack();
+            if (hasAttackEffect) attackEffect.HeavyAttack();
+        }
+        else
+        {
+            weaponParent.RangedAttack();
+        }
+        
     }
     public void UseAbility()
     {

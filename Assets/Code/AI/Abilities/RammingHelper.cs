@@ -5,7 +5,7 @@ namespace Pasta
 {
     public class RammingHelper : MonoBehaviour
     {
-        private Transform parent;
+        public Transform parent;
         private Ramming ramming;
         private float speed = 15f;
         private bool pointAtPlayer = true;
@@ -44,6 +44,7 @@ namespace Pasta
             direction = parent.GetComponentInChildren<CleavingWeaponAnimations>().transform.Find("SpritePivot").transform.Find("WeaponSprite").transform.right;
             player = GameObject.FindGameObjectWithTag("Player").transform.position;
             circleCollider2d = GetComponent<CircleCollider2D>();
+            circleCollider2d.enabled = false;
             if (parent.gameObject.tag != "Boss")
             {
                 enemyAi = this.transform.GetComponentInParent<EnemyAi>();
@@ -56,7 +57,6 @@ namespace Pasta
             agentAnimations = parent.GetComponent<AgentAnimations>();
             agentMover = parent.GetComponent<AgentMover>();
             boxCollider2Ds = parent.GetComponentsInChildren<BoxCollider2D>();
-            polygonCollider2D = GetComponent<PolygonCollider2D>(); // TEST;
             rbd2d = parent.GetComponent<Rigidbody2D>();
             Charge = true;
             StartCoroutine(getTarget());
@@ -66,7 +66,7 @@ namespace Pasta
         {
             agentMover.enabled = false;
             yield return new WaitForSeconds(0.2f);
-            direction = parent.GetComponentInChildren<CleavingWeaponAnimations>().transform.Find("SpritePivot").transform.Find("WeaponSprite").transform.right;
+            direction = parent.GetComponentInChildren<CleavingWeaponAnimations>().transform.Find("SpritePivot").transform.right;
             StartCoroutine(startCharge());
         }
 
@@ -81,7 +81,7 @@ namespace Pasta
                 bossAI.movementInput = Vector3.zero;
             }
             agentMover.enabled = false;
-            direction = parent.GetComponentInChildren<CleavingWeaponAnimations>().transform.Find("SpritePivot").transform.Find("WeaponSprite").transform.right;
+            direction = parent.GetComponentInChildren<CleavingWeaponAnimations>().transform.Find("SpritePivot").transform.right;
             pointAtPlayer = false;
             weaponParent.Aim = false;
             agentAnimations.aim = false;
@@ -103,16 +103,24 @@ namespace Pasta
 
             if (Charge && startChargebool)
             {
-
+                rbd2d.velocity = new Vector2(direction.x * speed, direction.y * speed);
                 float distanceThisFrame = Vector3.Distance(transform.position, startDist); // Get distance traveled in "time form" 
                 totalDistance += distanceThisFrame;
                 foreach (var boxCollider in boxCollider2Ds)
                 {
                     boxCollider.enabled = false;
-                    polygonCollider2D.enabled = false; // TEST;
                 }
                 weaponParent.Aim = false;
                 agentAnimations.aim = false;
+                agentMover.enabled = false;
+                if (parent.gameObject.tag != "Boss")
+                {
+                    enemyAi.movementInput = Vector3.zero;
+                }
+                else
+                {
+                    bossAI.movementInput = Vector3.zero;
+                }
                 //this.transform.parent.Translate(direction * speed * Time.deltaTime);
                 StartCoroutine(stopCharge());
             }
@@ -137,6 +145,7 @@ namespace Pasta
         {
             yield return new WaitForSeconds(2.5f);
             agentMover.enabled = true;
+            rbd2d.velocity = Vector2.zero;
             foreach (var boxCollider in boxCollider2Ds)
             {
                 boxCollider.enabled = true;

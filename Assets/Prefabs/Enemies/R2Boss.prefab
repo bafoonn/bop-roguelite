@@ -108,7 +108,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -8113185096396602001, guid: 79c75128458c8e843b266a354e44c6f0, type: 3}
+  m_Sprite: {fileID: -3070453432627086885, guid: 44bb34e8a67897d4d8b59b5dd09662e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -693,7 +693,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5098334881713062524}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -1151,7 +1151,7 @@ GameObject:
   - component: {fileID: 892363581336020446}
   - component: {fileID: 3944359658029738373}
   m_Layer: 7
-  m_Name: Boss
+  m_Name: R2Boss
   m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1239,7 +1239,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 1.5}
   m_SpriteTilingProperty:
     border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
     pivot: {x: 0.5, y: 0.5}
@@ -1383,12 +1383,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilities:
-  - {fileID: 11400000, guid: 9d885d423d7f4d14d9917f505277dd45, type: 2}
+  - {fileID: 11400000, guid: e0f531149a3b5ad4b83dc74bfed680bc, type: 2}
   - {fileID: 11400000, guid: fc9e4e04687c0b046ab3e81fc38c3a81, type: 2}
   - {fileID: 11400000, guid: 37a8d6b5f9e41024297ee7ff4dfda960, type: 2}
   - {fileID: 11400000, guid: 330a6064f2eabc84b97c4b45b8920831, type: 2}
-  - {fileID: 11400000, guid: fc9e4e04687c0b046ab3e81fc38c3a81, type: 2}
-  - {fileID: 11400000, guid: b62ae1ed20430494ca0dfe7233c99350, type: 2}
+  - {fileID: 11400000, guid: 27d4c76c5c97f904080df97c85430dfb, type: 2}
+  - {fileID: 11400000, guid: 27d4c76c5c97f904080df97c85430dfb, type: 2}
   ability: {fileID: 0}
   cooldownTime: 0
   activeTime: 0
@@ -1413,15 +1413,15 @@ MonoBehaviour:
   aiData: {fileID: 1194820469025749998}
   detectionDelay: 0.05
   aiUpdateDelay: 0.06
-  attackDelay: 1
-  attackDistance: 2
-  attackStopDistance: 6
+  attackDelay: 0.5
+  attackDistance: 13
+  attackStopDistance: 15
   steeringBehaviours:
   - {fileID: 5337389736714812942}
   - {fileID: 4012314741522539382}
   attackDefaultDist: 2
-  damage: 35
-  dontattackdist: 6
+  damage: 20
+  dontattackdist: 16
   OnAttackPressed:
     m_PersistentCalls:
       m_Calls:
@@ -1461,7 +1461,7 @@ MonoBehaviour:
   abilityHolder: {fileID: 8806108206215821516}
   defaultDetectionDelay: 0
   timeToAttack: 0
-  defaultTimeToAttack: 1.5
+  defaultTimeToAttack: 1
   canAttack: 0
   canAttackAnim: 1
   animations: {fileID: 0}
@@ -1500,7 +1500,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   CurrentHealthPercentage: 0
-  RangedBoss: 0
+  RangedBoss: 1
 --- !u!114 &3680416250225216278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1592,10 +1592,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7f5bb024d752be4d9d568c257ced690, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 0}
-  ProjectileSpawnPoint: {fileID: 0}
+  projectile: {fileID: 7179530240980603498, guid: 58ccf5dbf0290d2499a8cc89c7f9c0df, type: 3}
+  ProjectileSpawnPoint: {fileID: 7757549683821718067}
   direction: {x: 0, y: 0}
-  radius: 0
+  radius: 0.6
   detectors: {fileID: 0}
   attackColliderHolder: {fileID: 5762086597696656807}
   attackCollider: {fileID: 923442222931253087}
@@ -1713,7 +1713,7 @@ Transform:
   m_GameObject: {fileID: 8456163861326925462}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.589, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0.589, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1779,7 +1779,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 1.25}
+  m_AnchoredPosition: {x: 0, y: 2}
   m_SizeDelta: {x: 2, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &7884354291130024675

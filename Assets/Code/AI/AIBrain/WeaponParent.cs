@@ -121,13 +121,13 @@ public class WeaponParent : MonoBehaviour
         Vector2 direction = Player.Current.transform.position - transform.position;
         direction.Normalize();
         Projectile.Launch(direction);
-        if (enemyAI != null)
+        if (rangedAI != null)
         {
-            Projectile.damage = enemyAI.damage; // Get projectiles damage from enemyscript so no need to change damage on multiple places.
+            Projectile.damage = rangedAI.damage; // Get projectiles damage from enemyscript so no need to change damage on multiple places.
         }
         else
         {
-            Projectile.damage = 5f;
+            Projectile.damage = 15f;
         }
 
         StartCoroutine(StopAttack());

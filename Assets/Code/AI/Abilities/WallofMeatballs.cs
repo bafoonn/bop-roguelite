@@ -45,7 +45,7 @@ namespace Pasta
 
         private IEnumerator DeactivateAbility()
         {
-            yield return new WaitForSeconds(coolDown + 1);
+            yield return new WaitForSeconds(ActiveTime);
             Destroy(spawnedWall);
         }
 
