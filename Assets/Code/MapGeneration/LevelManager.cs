@@ -53,21 +53,14 @@ namespace Pasta
             }
             else
             {
-                GameOver(true);
+                GameOver();
             }
         }
 
         // Called when either the player dies or beats the boss of the final region
-        public void GameOver(bool win)
+        public void GameOver()
         {
-            if (win)
-            {
-                Debug.Log("Game over! You win!");
-            }
-            else
-            {
-                Debug.Log("Game over! You lose!");
-            }
+            // Win
         }
 
         //Shopkeeper is a separate game object that's activated whenever the player enters into a shop room

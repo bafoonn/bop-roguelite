@@ -13,7 +13,8 @@ namespace Pasta
             Pause,
             Loot,
             Item,
-            GameOver
+            GameOver,
+            Victory
         }
 
         public override bool PersistSceneLoad => false;

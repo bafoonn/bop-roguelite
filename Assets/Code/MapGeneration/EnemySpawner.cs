@@ -23,6 +23,9 @@ namespace Pasta
         private bool spawnWave = true;
         private bool firstSpawn = false;
         private int enemyIndex = 0;
+        [SerializeField]
+        private EnemySpawnerPortal portal;
+        private bool preSpawn;
         // Start is called before the first frame update
         void Start()
         {
@@ -33,10 +36,27 @@ namespace Pasta
         }
         void Update()
         {
-            if (isSpawning == false && allEnemiesSpawned == false && spawnWave == true)
+            if (isSpawning == false && allEnemiesSpawned == false && spawnWave == true && !preSpawn)
+            {
+                StartCoroutine(PreSpawnRoutine());
+            }
+            else if (isSpawning == false && allEnemiesSpawned == false && spawnWave == true && preSpawn)
             {
                 StartCoroutine(SpawnRoutine());
             }
+        }
+
+        private IEnumerator PreSpawnRoutine()
+        {
+            isSpawning = true;
+            Debug.Log(currentWave);
+            if (totalEnemiesToSpawnPerWave[currentWave] != 0)
+            {
+                Instantiate(portal, transform.position, Quaternion.identity, transform);
+            }
+            yield return new WaitForSeconds(2.2f);
+            preSpawn = true;
+            isSpawning = false;
         }
 
         private IEnumerator SpawnRoutine()
@@ -85,6 +105,7 @@ namespace Pasta
             }
 
             isSpawning = false;
+            preSpawn = false;
         }
 
         public int wavesCheck()

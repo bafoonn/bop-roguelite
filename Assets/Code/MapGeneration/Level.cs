@@ -29,6 +29,8 @@ namespace Pasta
         private int[] rewardTypes;
         private Trap[] traps;
         private bool isTrapLevel;
+        private bool finalLevel = true;
+        private FinalDOor finalDoor;
 
         public ItemBase Reward => reward;
 
@@ -49,8 +51,17 @@ namespace Pasta
                     }
                 }
             }
-            endPoints = GetComponentInChildren<EndPoints>();
-            endPoints.gameObject.SetActive(false);
+            if (GetComponentInChildren<EndPoints>())
+            {
+                endPoints = GetComponentInChildren<EndPoints>();
+                endPoints.gameObject.SetActive(false);
+                finalLevel = false;
+            }
+            else
+            {
+                finalDoor = GetComponentInChildren<FinalDOor>();
+                finalDoor.gameObject.SetActive(false);
+            }
             if (GetComponentInChildren<ShopPortal>())
             {
                 shopPortal = GetComponentInChildren<ShopPortal>();
@@ -161,9 +172,15 @@ namespace Pasta
         {
             if (levelNumber != 4)
             {
-                endPoints.gameObject.SetActive(true);
-                endPoints.GenerateRoomRewards();
-                shopPortal.gameObject.SetActive(true);
+                if (!finalLevel)
+                {
+                    endPoints.gameObject.SetActive(true);
+                    endPoints.GenerateRoomRewards();
+                }
+                else
+                {
+                    finalDoor.gameObject.SetActive(true);
+                }
             }
             else
             {

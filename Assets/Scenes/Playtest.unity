@@ -170,7 +170,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2169823766682597197, guid: 0126e69d2efc30743ba1b9f6eb6aadc2, type: 3}
       propertyPath: regions.Array.size
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2169823766682597197, guid: 0126e69d2efc30743ba1b9f6eb6aadc2, type: 3}
       propertyPath: 'regions.Array.data[0]'
@@ -183,7 +183,7 @@ PrefabInstance:
     - target: {fileID: 2169823766682597197, guid: 0126e69d2efc30743ba1b9f6eb6aadc2, type: 3}
       propertyPath: 'regions.Array.data[2]'
       value: 
-      objectReference: {fileID: 6814757665653483006, guid: ef41b1b6f0424ed47ad92e339ff78a42, type: 3}
+      objectReference: {fileID: 6814757665653483006, guid: a3c3d592d4c4df44cb3ed59d4039f743, type: 3}
     - target: {fileID: 2169823766682597197, guid: 0126e69d2efc30743ba1b9f6eb6aadc2, type: 3}
       propertyPath: 'regions.Array.data[3]'
       value: 
@@ -786,7 +786,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.5
+  orthographic size: 5.15625
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

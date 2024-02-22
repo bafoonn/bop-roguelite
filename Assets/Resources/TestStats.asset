@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e0956e2f24a2b8479b985fb26cc1243, type: 3}
   m_Name: TestStats
   m_EditorClassIdentifier: 
-  Health: 100
+  Health: 1e+12
   MinHealth: 10
-  Damage: 10
+  Damage: 1e+19
   MinDamage: 1
-  MovementSpeed: 5
+  MovementSpeed: 20
   MinMovementSpeed: 3
   MaxMovementSpeed: 15
   AttackSpeed: 7
