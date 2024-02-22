@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f9b0d845e3f73742a1930a2cd0ed9f7, type: 3}
+  m_Name: HealthDrop
+  m_EditorClassIdentifier: 
+  _canStack: 1
+  Name: HealthDrop
+  Description: 'Chance to drop a health restore when damaged.
+
+    Health restore
+    decays after a short delay.'
+  Flavor: 
+  Sprite: {fileID: 4183432391770641887, guid: 3a6810a30b7a47047acdc630187c1e8a, type: 3}
+  cost: 0
+  Effects: []
+  Abilities:
+  - Name: SpawnHealthRestore
+    ItemAbilityPrefab: {fileID: 2384587891771664217, guid: 1b967dfc66ebb374fb25ae9b782d2e42, type: 3}
+    ActionType: 8
+    ProcChance:
+      Value: 0.3
+      ScaleType: 2
+  Hieroglyphs:
+  - Name: Damaged
+    sprites:
+    - {fileID: 1179439940712778770, guid: bbda53db35f2d2c4aa83cac19f8b17e5, type: 3}
+  - Name: Health
+    sprites:
+    - {fileID: 2094356212948544673, guid: 020f740b43dfa8641a22507cbbbc78b1, type: 3}
+    - {fileID: -2703576718235987106, guid: e228249b0771003448d8b5a7faf0913c, type: 3}

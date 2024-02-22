@@ -8,6 +8,15 @@ namespace Pasta
     {
         public float HealAmount = 0.1f;
         public bool IsPercentage = true;
+
+        public static HealthRestore Spawn(HealthRestore prefab, Vector2 position, float healAmount = 0.1f, bool isPercentage = true)
+        {
+            var newHealthRestore = Instantiate(prefab, position, Quaternion.identity);
+            newHealthRestore.HealAmount = healAmount;
+            newHealthRestore.IsPercentage = isPercentage;
+            return newHealthRestore;
+        }
+
         public virtual void Heal(PlayerHealth playerHealth)
         {
             if (playerHealth.IsMaxHealth)

@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 6468727529179309799}
   - component: {fileID: 3726232432550811183}
   - component: {fileID: 6467261472390001418}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: FloorDetails
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6171,7 +6171,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 20
-      m_TileSpriteIndex: 20
+      m_TileSpriteIndex: 26
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -8834,8 +8834,8 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 1
-    m_Data: {fileID: 1257326932, guid: b794d58e75c0c564db230e6270964893, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 21
     m_Data: {fileID: -1380903499, guid: b794d58e75c0c564db230e6270964893, type: 3}
   - m_RefCount: 0
@@ -8846,8 +8846,8 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: -1858575661, guid: b794d58e75c0c564db230e6270964893, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 1257326932, guid: b794d58e75c0c564db230e6270964893, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 510
     m_Data:
