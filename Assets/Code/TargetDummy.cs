@@ -11,6 +11,7 @@ namespace Pasta
         public Rigidbody2D Rigidbody { get; private set; }
         public StatusHandler Status { get; private set; }
         public MonoBehaviour Mono => this;
+        public bool IsBoss => false;
 
         public void Hit(float damage, HitType type, ICharacter source = null)
         {

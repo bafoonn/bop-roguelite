@@ -29,6 +29,7 @@ public class EnemyAi : MonoBehaviour, IEnemy
     public StatusHandler Status { get; private set; }
 
     public Rigidbody2D Rigidbody { get; private set; }
+    public bool IsBoss => false;
 
 
     #region supportenemy stuff

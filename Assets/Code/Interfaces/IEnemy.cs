@@ -6,6 +6,6 @@ namespace Pasta
 {
     public interface IEnemy : ICharacter
     {
-
+        public bool IsBoss { get; }
     }
 }

@@ -15,6 +15,7 @@ public class BossAI : FixedEnemyAI
     public float CurrentHealthPercentage;
     private bool Chasing = false;
     public bool RangedBoss = false;
+    public override bool IsBoss => true;
 
     //[SerializeField] private float chaseDistanceThershold = 3, attackDistanceThershold = 0.8f;
     //private float passedTime = 1;
@@ -104,7 +105,7 @@ public class BossAI : FixedEnemyAI
         OnMovementInput?.Invoke(movementInput);
     }
 
-    
+
 
     public override void Attack()
     {
@@ -129,7 +130,7 @@ public class BossAI : FixedEnemyAI
         {
             weaponParent.RangedAttack();
         }
-        
+
     }
     public void UseAbility()
     {
@@ -174,7 +175,7 @@ public class BossAI : FixedEnemyAI
             float distance = Vector2.Distance(aiData.currentTarget.position, transform.position);
             if (distance < attackDistance)
             {
-                
+
                 //movementInput = Vector2.zero;
                 Debug.Log("Attacking");
 
@@ -205,7 +206,7 @@ public class BossAI : FixedEnemyAI
                     if (hasAttackEffect) attackEffect.SetIndicatorLifetime(defaultTimeToAttack);
                 }
 
-                
+
 
                 if (timeToAttack >= defaultTimeToAttack) // Attack indicator stuff // Added timetoattack reset to chasing and idle states so that if player runs away it resets
                 {

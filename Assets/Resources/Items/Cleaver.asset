@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f9b0d845e3f73742a1930a2cd0ed9f7, type: 3}
+  m_Name: Cleaver
+  m_EditorClassIdentifier: 
+  _canStack: 1
+  Name: Cleaver
+  Description: 'Execute enemies below 20% health. Gain +1% execute threshold per
+    stack.
+
+    Threshold is halved against bosses.'
+  Flavor: 
+  Sprite: {fileID: 2355715862637842915, guid: f69299d3f308c8247926419a9983a0c9, type: 3}
+  cost: 30
+  Effects: []
+  Abilities:
+  - Name: Execute ability
+    ItemAbilityPrefab: {fileID: 7096334841619283043, guid: 95cf8f1fa86373248befd4ddd9a8ebb4, type: 3}
+    ActionType: 3
+    ProcChance:
+      Value: 1
+      ScaleType: 0
+  Hieroglyphs:
+  - Name: Low Health
+    sprites:
+    - {fileID: -3499231161864582761, guid: 2ec8cb5b2a196de4b9bddbb61c87034b, type: 3}
+  - Name: Damage
+    sprites:
+    - {fileID: -6799637688695467347, guid: 9db5ae1d9cb9b324eb0cda208a4c6388, type: 3}

@@ -32,6 +32,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
     public StatusHandler Status { get; private set; }
 
     public Rigidbody2D Rigidbody { get; private set; }
+    public virtual bool IsBoss => false;
 
     private Level level;
 
