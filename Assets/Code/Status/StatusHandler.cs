@@ -28,8 +28,11 @@ namespace Pasta
         public event Action<StatusType> OnApply;
         public event Action<StatusType> OnUnapply;
 
-        public void Setup(ICharacter character)
+        private Func<bool> _canApply = null;
+
+        public void Setup(ICharacter character, Func<bool> canApplyCallback = null)
         {
+            _canApply = canApplyCallback;
             _character = character;
             var statusUI = GetComponentInChildren<StatusUI>();
             if (statusUI != null)
@@ -46,6 +49,7 @@ namespace Pasta
         /// <returns>True if status is not applied yet, false otherwise.</returns>
         public bool ApplyStatus(IStatusEffect statusEffect, float duration = 0)
         {
+            if (_canApply != null && !_canApply()) return false;
             if (_activeEffects.ContainsKey(statusEffect))
             {
                 return false;

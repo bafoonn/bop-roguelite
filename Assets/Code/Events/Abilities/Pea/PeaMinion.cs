@@ -4,23 +4,38 @@ using UnityEngine;
 
 namespace Pasta
 {
-    public class PeaShooter : ItemAbility
+    public class PeaMinion : MonoBehaviour
     {
         private Transform _target = null;
-        [SerializeField] private Pea _peaPrefab = null;
-        [SerializeField] private float FireRate = 1.0f;
-        [SerializeField] private float Damage = 10.0f;
-        [SerializeField] private float _lerp = 5f;
+        private Pea _peaPrefab = null;
+        public float FireRate = 1.0f;
+        public float Damage = 10.0f;
+        private float _lerp = 3f;
         private EnemySensor _sensor;
         private float Interval => 1f / FireRate;
 
-        protected override void Init()
+        private void Awake()
         {
-            _target = _player.transform;
-            _sensor = GetComponent<EnemySensor>();
+            _target = Player.Current.transform;
         }
 
-        private IEnumerator Start()
+        public static PeaMinion Spawn(PeaMinion minionPrefab, Pea peaPrefab, EnemySensor sensor, float damage, float fireRate)
+        {
+            var newMinion = Instantiate(minionPrefab);
+            newMinion._sensor = sensor;
+            newMinion._peaPrefab = peaPrefab;
+            newMinion.Damage = damage;
+            newMinion.FireRate = fireRate;
+            newMinion.gameObject.Activate();
+            return newMinion;
+        }
+
+        private void OnEnable()
+        {
+            StartCoroutine(ShootLoop());
+        }
+
+        private IEnumerator ShootLoop()
         {
             while (true)
             {
@@ -32,6 +47,10 @@ namespace Pasta
                     var direction = enemy.Mono.transform.position - transform.position;
                     direction.Normalize();
                     pea.Shoot(direction, 6f);
+                }
+                else
+                {
+                    Debug.Log("ENEMY NULL");
                 }
             }
         }

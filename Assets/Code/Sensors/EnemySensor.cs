@@ -13,20 +13,25 @@ namespace Pasta
 
         public IEnemy ClosestEnemy()
         {
-            var enemies = new List<IEnemy>(_objects);
-            var closestPosition = Vector2.zero;
             IEnemy closest = null;
-            for (int i = 0; i < enemies.Count; i++)
+            for (int i = 0; i < _objects.Count; i++)
             {
-                var enemy = enemies[i];
+                var enemy = _objects[i];
                 if (enemy == null) continue;
-
-                float a = Vector2.SqrMagnitude((Vector2)transform.position - closestPosition);
-                float b = Vector2.SqrMagnitude(transform.position - enemy.Mono.transform.position);
-
-                if (a > b)
+                if (closest == null)
                 {
-                    closest = _objects[i];
+                    closest = enemy;
+                    continue;
+                }
+
+                Vector3 closestPos = closest.Mono.transform.position;
+                Vector3 enemyPos = enemy.Mono.transform.position;
+                float a = Vector2.SqrMagnitude(transform.position - closestPos);
+                float b = Vector2.SqrMagnitude(transform.position - enemyPos);
+
+                if (a > b || closest == null)
+                {
+                    closest = enemy;
                 }
             }
 
