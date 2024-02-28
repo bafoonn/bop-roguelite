@@ -17,10 +17,27 @@ namespace Pasta
         private Vector2 originPoint;
         private Vector2Int originPoint2int;
         private Vector3Int originPoint3int;
-        public override void Activate(GameObject parent)
-        {
-            tileMap = FindFirstObjectByType<Tilemap>();
+        public LayerMask floorLayer;
 
+		
+		public override void Activate(GameObject parent)
+        {
+
+#pragma warning disable CS0618 // FindObjectsOfType is obsolete
+            Tilemap[] allTilemaps = FindObjectsOfType<Tilemap>();
+#pragma warning restore CS0618 // FindObjectsOfType is obsolete
+
+
+            foreach (Tilemap tilemap in allTilemaps)
+            {
+                // Check if the current tilemap has the desired layer (e.g., "Floor")
+                if (tilemap.gameObject.layer == LayerMask.NameToLayer("Floor"))
+                {
+                    tileMap = tilemap;
+                    break; // Stop iterating once you find the correct tilemap
+                }
+            }
+            Debug.Log(tileMap + " :tilemap");
             originPoint = parent.transform.position + Random.insideUnitSphere * SpawnRadius;
             originPoint2int = Vector2Int.RoundToInt(originPoint);
             originPoint3int = ((Vector3Int)originPoint2int);
@@ -30,6 +47,7 @@ namespace Pasta
                 destroy = spawnedSpawner.AddComponent<DestroyAbility>();
                 destroy.activeTime = ActiveTime;
             }
+            
 
             DeactivateAbility();
         }
