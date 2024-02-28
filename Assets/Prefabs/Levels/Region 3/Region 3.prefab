@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8592037793999173637}
   - component: {fileID: 6814757665653483006}
   m_Layer: 0
-  m_Name: REGION 3
+  m_Name: Region 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9af12d5a8eb38534bbea46a339f2774d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shopRoom: {fileID: 4454962172724761198, guid: 04937a5ad2e3ff146b5dc1caf2e2cc87, type: 3}
+  shopRoom: {fileID: 4454962172724761198, guid: 6424bb7d1ab416844b789394dacfac0f, type: 3}
   levels:
   - {fileID: 4454962172724761198, guid: 133957a5be4cc8e4c9731d77d1d5e9d9, type: 3}
   - {fileID: 4454962172724761198, guid: 829022eb2752cf54983928108275de01, type: 3}

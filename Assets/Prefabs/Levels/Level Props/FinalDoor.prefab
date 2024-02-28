@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2503603672175510209}
   - component: {fileID: 4267512121892694194}
   - component: {fileID: 8912353676758776949}
-  - component: {fileID: 7960811860733571497}
+  - component: {fileID: 7471934577271178694}
   m_Layer: 0
   m_Name: FinalDoor
   m_TagString: Untagged
@@ -133,7 +133,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
---- !u!114 &7960811860733571497
+--- !u!114 &7471934577271178694
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8326101046796349522}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f326cd20656ba448b9d04d4a5869c0d, type: 3}
+  m_Script: {fileID: 11500000, guid: ce87dc241cd4efe4da103de687a7a5e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2241542375344156169

@@ -49,7 +49,6 @@ namespace Pasta
         private IEnumerator PreSpawnRoutine()
         {
             isSpawning = true;
-            Debug.Log(currentWave);
             if (totalEnemiesToSpawnPerWave[currentWave] != 0)
             {
                 Instantiate(portal, transform.position, Quaternion.identity, transform);

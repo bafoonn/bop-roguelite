@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Pasta
 {
-    public class FinalDOor : MonoBehaviour
+    public class FinaPortal : MonoBehaviour
     {
         private bool isActive = false;
 
