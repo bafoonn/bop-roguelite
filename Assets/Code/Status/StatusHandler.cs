@@ -49,7 +49,11 @@ namespace Pasta
         /// <returns>True if status is not applied yet, false otherwise.</returns>
         public bool ApplyStatus(IStatusEffect statusEffect, float duration = 0)
         {
-            if (_canApply != null && !_canApply()) return false;
+            if (_canApply != null && !_canApply())
+            {
+                return false;
+            }
+
             if (_activeEffects.ContainsKey(statusEffect))
             {
                 return false;
