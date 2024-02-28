@@ -81,7 +81,7 @@ public class Player : Singleton<Player>, IPlayer
         _quickAttackAction = new PlayerAction(QuickAttack, () => !_movement.IsDodging && _attackHandler.CanAttack);
         _heavyAttackAction = new PlayerAction(HeavyAttack, () => !_movement.IsDodging && _attackHandler.CanAttack);
 
-        _statusHandler.Setup(this, () => !_movement.IsDodging);
+        _statusHandler.Setup(this);
         _abilities.Setup(this);
         _input.Setup(this, () => AddAction(_dodgeAction));
         _movement.Setup(_rigidbody);
