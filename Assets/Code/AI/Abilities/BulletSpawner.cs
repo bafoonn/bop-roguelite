@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Pasta
 {
@@ -10,6 +12,26 @@ namespace Pasta
         private float[] rotations;
         [SerializeField] private float howmanyDirections;
         // Start is called before the first frame update
+
+
+        private void OnEnable()
+        {
+            // Subscribe to the sceneLoaded event
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        private void OnDisable()
+        {
+            // Unsubscribe from the sceneLoaded event to avoid memory leaks
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        // Called when the scene is loaded
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            Destroy(this.transform.parent.gameObject);
+        }
+
         void Start()
         {
             damageArea = GetComponentInParent<DamageArea>();

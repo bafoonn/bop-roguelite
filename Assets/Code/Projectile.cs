@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Pasta
 {
@@ -10,6 +11,24 @@ namespace Pasta
         private Rigidbody2D rbd2d;
         private Transform player;
         private Vector2 direction;
+
+
+        private void OnEnable()
+        {
+            // Subscribe to the sceneLoaded event
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        private void OnDisable()
+        {
+            // Unsubscribe from the sceneLoaded event to avoid memory leaks
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            Destroy(gameObject);
+        }
 
 
         // Start is called before the first frame update
