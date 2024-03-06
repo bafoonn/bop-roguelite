@@ -32,6 +32,7 @@ public class WeaponParent : MonoBehaviour
     //private CleavingWeaponAnimations weaponAnimations;
     private void Start()
     {
+        rangedAI = GetComponentInParent<RangedAI>();
         parent = transform.parent;
         //AttackIndicatorImage = gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject;
         aidata = GetComponentInParent<AIData>();

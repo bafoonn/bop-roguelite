@@ -48,10 +48,14 @@ namespace Pasta
             {
                 target = new Vector2(0, tileMap.cellBounds.yMax);
             }
+            Invoke("OnDestroy", 25);
         }
 
+        private void OnDestroy()
+        {
+            Destroy(this);
+        }
 
-        
         private void Update()
         {
             var distance = speed * Time.deltaTime;
