@@ -16,21 +16,20 @@ namespace Pasta
 
         private void OnEnable()
         {
-            // Subscribe to the sceneLoaded event
-            SceneManager.sceneLoaded += OnSceneLoaded;
+            ItemAbilities.OnEvent += OnEvent;
         }
 
         private void OnDisable()
         {
-            // Unsubscribe from the sceneLoaded event to avoid memory leaks
-            SceneManager.sceneLoaded -= OnSceneLoaded;
+            ItemAbilities.OnEvent -= OnEvent;
         }
 
-        // Called when the scene is loaded
-        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        private void OnEvent(EventContext obj)
         {
-            Destroy(this.transform.parent.gameObject);
+            if (obj.EventType != EventActionType.OnRoomEnter) return;
+            Destroy(this.gameObject);
         }
+
 
         void Start()
         {

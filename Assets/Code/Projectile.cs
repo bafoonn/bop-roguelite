@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Pasta
 {
@@ -15,19 +14,18 @@ namespace Pasta
 
         private void OnEnable()
         {
-            // Subscribe to the sceneLoaded event
-            SceneManager.sceneLoaded += OnSceneLoaded;
+            ItemAbilities.OnEvent += OnEvent;
         }
 
         private void OnDisable()
         {
-            // Unsubscribe from the sceneLoaded event to avoid memory leaks
-            SceneManager.sceneLoaded -= OnSceneLoaded;
+            ItemAbilities.OnEvent -= OnEvent;
         }
 
-        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        private void OnEvent(EventContext obj)
         {
-            Destroy(gameObject);
+            if (obj.EventType != EventActionType.OnRoomEnter) return;
+            Destroy(this.gameObject);
         }
 
 

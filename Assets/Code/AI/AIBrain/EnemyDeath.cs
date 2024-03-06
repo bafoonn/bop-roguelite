@@ -14,8 +14,23 @@ namespace Pasta
             
         }
 
+        private void OnEnable()
+        {
+            ItemAbilities.OnEvent += OnEvent;
+        }
 
-        
+        private void OnDisable()
+        {
+            ItemAbilities.OnEvent -= OnEvent;
+        }
+
+        private void OnEvent(EventContext obj)
+        {
+            if (obj.EventType != EventActionType.OnRoomEnter) return;
+            Destroy(this.gameObject);
+        }
+
+
 
         public void SpawnExplosion()
         {
@@ -23,9 +38,6 @@ namespace Pasta
         }
        
 
-        public void DeathAnimDone()
-        {
-            Destroy(gameObject);
-        }
+        
     }
 }
