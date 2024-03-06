@@ -235,6 +235,7 @@ public class RangedAI : FixedEnemyAI
         OnAttackPressed?.Invoke();
         attackDistance = attackStopDistance;
         yield return new WaitForSeconds(defaultTimeToAttack);
+        IsIdle = true;
         isAttacking = false;
         canAttack = false;
         stopAttacking = false;

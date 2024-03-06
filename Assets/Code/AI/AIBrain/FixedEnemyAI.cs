@@ -544,6 +544,7 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
 
 
         yield return new WaitForSeconds(defaultTimeToAttack);
+        IsIdle = true;
         isAttacking = false;
         canAttack = false;
         shouldMaintainDistance = true;
