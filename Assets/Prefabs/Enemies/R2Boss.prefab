@@ -6243,7 +6243,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -3317018263638013623, guid: 7909b1fdcac11ff4395f9507169bd452, type: 3}
+  m_Sprite: {fileID: -771326668240027002, guid: 86b84fc29b8688544815a48ed4650d05, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -6418,7 +6418,7 @@ MonoBehaviour:
   animations: {fileID: 0}
   attackEffect: {fileID: 636390242923387232}
   hasAttackEffect: 1
-  Corpse: {fileID: 6992705672734178762, guid: 556e64a71394d15408483ec2ebcc2eef, type: 3}
+  Corpse: {fileID: 6992705672734178762, guid: 3a2d9b1de6bc205408f6c86462cf25df, type: 3}
   shouldMaintainDistance: 0
   attackplaceholderindicator: {fileID: 0}
   IsIdle: 1
@@ -6505,7 +6505,7 @@ Animator:
   m_GameObject: {fileID: 7141955673082789303}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b3224cb3410688a44b67d56d33a88d7e, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4dc99b61691b9b94fa0cc571da330cd3, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
