@@ -188,7 +188,7 @@ public class Player : Singleton<Player>, IPlayer
         void ShowItem(ItemBase item)
         {
             if (_loot.Contains(item)) return;
-            var window = HUD.Current.OpenWindow("ItemPopUp");
+            var window = HUD.Current.OpenWindow(HUD.Window.Item);
             if (window != null && window.TryGetComponent<ItemPopUp>(out var popup))
             {
                 popup.Activate(item);
