@@ -60,15 +60,16 @@ namespace Pasta
             }
             else
             {
-                Activate();
+                StartCoroutine(Activate());
             }
             timer = timerSet;
         }
 
-        private void Activate()
+        IEnumerator Activate()
         {
             animator.SetTrigger("Activate");
             animator.SetTrigger("On");
+            yield return new WaitForSeconds(0.3f);
             boxcol.enabled = false;
             boxcol.enabled = true;
             isActive = true;
@@ -88,6 +89,8 @@ namespace Pasta
             {
                 isActive = false;
             }
+
+            Disabled = true;
         }
     }
 }

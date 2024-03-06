@@ -12027,7 +12027,7 @@ PrefabInstance:
     - target: {fileID: 6509901214721368227, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
       propertyPath: 'enemies.Array.data[0]'
       value: 
-      objectReference: {fileID: 7141955673082789303, guid: e89c81c65436e8243a056b4923c1ccc4, type: 3}
+      objectReference: {fileID: 7141955673082789303, guid: 1b52ab8268586dd46a24dbd6892920c0, type: 3}
     - target: {fileID: 6509901214721368227, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
       propertyPath: totalEnemiesToSpawnPerWave.Array.size
       value: 1
@@ -12229,7 +12229,7 @@ PrefabInstance:
     - target: {fileID: 6509901214721368227, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
       propertyPath: 'enemies.Array.data[0]'
       value: 
-      objectReference: {fileID: 4553441466770640541, guid: a916c6ae90b86f3408cbbba5716bb7f7, type: 3}
+      objectReference: {fileID: 7141955673082789303, guid: e89c81c65436e8243a056b4923c1ccc4, type: 3}
     - target: {fileID: 6509901214721368227, guid: c48b6dbccc7cd2744ab6f31d6d3e5cd3, type: 3}
       propertyPath: totalEnemiesToSpawnPerWave.Array.size
       value: 1

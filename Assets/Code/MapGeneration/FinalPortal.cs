@@ -15,10 +15,7 @@ namespace Pasta
                 LevelManager levelManager = GetComponentInParent<LevelManager>();
                 if (GetComponentInParent<Region>())
                 {
-                    this.WaitAndRun(2f, () =>
-                    {
-                        HUD.Current.OpenWindow(HUD.Window.Victory, true);
-                    });
+                    HUD.Current.OpenWindow(HUD.Window.Victory, true);
                 }
             }
         }
