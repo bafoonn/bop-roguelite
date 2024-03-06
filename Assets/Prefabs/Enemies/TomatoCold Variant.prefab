@@ -8,10 +8,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 69885865199376009, guid: 9f37f85d1ba75d54a803a24712822e31, type: 3}
+      propertyPath: _currentHealth
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 69885865199376009, guid: 9f37f85d1ba75d54a803a24712822e31, type: 3}
+      propertyPath: <MaxHealth>k__BackingField
+      value: 120
+      objectReference: {fileID: 0}
     - target: {fileID: 1006995971007075442, guid: 9f37f85d1ba75d54a803a24712822e31, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -9193965951395567266, guid: 1e979fd9e4a07554583f17c86441c559, type: 3}
+    - target: {fileID: 2565745539531763249, guid: 9f37f85d1ba75d54a803a24712822e31, type: 3}
+      propertyPath: BaseSpeed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4148447015453757000, guid: 9f37f85d1ba75d54a803a24712822e31, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.183932
