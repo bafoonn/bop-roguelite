@@ -69,6 +69,10 @@ PrefabInstance:
       value: TomatoCold Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7633629442350973519, guid: 9f37f85d1ba75d54a803a24712822e31, type: 3}
+      propertyPath: Corpse
+      value: 
+      objectReference: {fileID: 6992705672734178762, guid: 3534f234ba437e649b445b77575c76c6, type: 3}
+    - target: {fileID: 7633629442350973519, guid: 9f37f85d1ba75d54a803a24712822e31, type: 3}
       propertyPath: damage
       value: 20
       objectReference: {fileID: 0}

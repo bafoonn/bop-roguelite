@@ -31,6 +31,7 @@ namespace Pasta
         private float Damage = 10f;
         private AttackEffects attackEffects;
         public float windupTime;
+        private GameObject Player;
         private PolygonCollider2D polygonCollider2D;
         // Start is called before the first frame update
         void Start()
@@ -41,6 +42,7 @@ namespace Pasta
             intObstacle = obstacleLayer;
             intPlayer = playerlayer;
             startDist = transform.position;
+            Player = GameObject.FindGameObjectWithTag("Player");
             direction = parent.GetComponentInChildren<CleavingWeaponAnimations>().transform.Find("SpritePivot").transform.Find("WeaponSprite").transform.right;
             player = GameObject.FindGameObjectWithTag("Player").transform.position;
             circleCollider2d = GetComponent<CircleCollider2D>();
@@ -91,6 +93,10 @@ namespace Pasta
             Debug.Log("Adding force");
             rbd2d.AddForce(direction * speed, ForceMode2D.Impulse); // adds Explosion like force to the "charge"
             circleCollider2d.enabled = true;
+            if ((Player.transform.position - transform.position).magnitude < 2.5f) // Stops enemies from pushing player
+            {
+                rbd2d.velocity = Vector2.zero;
+            }
         }
 
         // Update is called once per frame

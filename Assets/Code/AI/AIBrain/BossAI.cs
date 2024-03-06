@@ -16,6 +16,7 @@ public class BossAI : FixedEnemyAI
     private bool Chasing = false;
     public bool RangedBoss = false;
     public override bool IsBoss => true;
+    private Rigidbody2D rbd2d;
 
     //[SerializeField] private float chaseDistanceThershold = 3, attackDistanceThershold = 0.8f;
     //private float passedTime = 1;
@@ -28,7 +29,6 @@ public class BossAI : FixedEnemyAI
             if ((player.transform.position - transform.position).magnitude < 2.5f) // Stops enemies from pushing player
             {
                 movementInput = Vector2.zero;
-
             }
             if (attacked) // If has just performed attack
             {

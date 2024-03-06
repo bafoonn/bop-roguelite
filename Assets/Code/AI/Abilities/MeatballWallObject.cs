@@ -53,7 +53,7 @@ namespace Pasta
 
         private void OnDestroy()
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
 
         private void Update()
