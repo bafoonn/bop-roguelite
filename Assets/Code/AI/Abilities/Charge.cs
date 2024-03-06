@@ -25,11 +25,7 @@ namespace Pasta
         public Level level;
         public override void Activate(GameObject parent)
         {
-            level = FindFirstObjectByType<Level>();
-            if (level != null)
-            {
-                tilemap = level.tilemap;
-            }
+           
             AIData aiData = parent.GetComponent<AIData>();
             //BossAI bossAi = parent.GetComponent<BossAI>();
             GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -40,15 +36,21 @@ namespace Pasta
                 TargetPos = aiData.currentTarget.position + Random.insideUnitSphere;
                 v2i = Vector2Int.RoundToInt(TargetPos);
                 v3i = ((Vector3Int)v2i);
-                if (tilemap.HasTile(v3i))
+                level = FindFirstObjectByType<Level>();
+                if (level != null)
                 {
-                    Debug.Log("Hastile");
-                    rigidbody.position = TargetPos;
+                    tilemap = level.tilemap;
+                    if (tilemap.HasTile(v3i))
+                    {
+                        Debug.Log("Hastile");
+                        rigidbody.position = TargetPos;
+                    }
+                    else
+                    {
+                        Debug.Log("notile");
+                    }
                 }
-                else
-                {
-                    Debug.Log("notile");
-                }
+               
 			}
 			else
 			{
