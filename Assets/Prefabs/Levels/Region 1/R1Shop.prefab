@@ -1778,7 +1778,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1654541971
-  m_SortingLayer: -3
+  m_SortingLayer: -4
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0.5, z: 0}
@@ -5430,7 +5430,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1654541971
-  m_SortingLayer: -3
+  m_SortingLayer: -4
   m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0.5, z: 0}
@@ -6450,6 +6450,22 @@ PrefabInstance:
     - target: {fileID: 2879785475166794871, guid: 85f39c3faef41af42b0fc79a4f509f5b, type: 3}
       propertyPath: m_Name
       value: BossPortal
+      objectReference: {fileID: 0}
+    - target: {fileID: 8017096465211911319, guid: 85f39c3faef41af42b0fc79a4f509f5b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 6806873361383555155, guid: 5b0125d56a3d8e64aaafa6edad92347c, type: 3}
+    - target: {fileID: 8017096465211911319, guid: 85f39c3faef41af42b0fc79a4f509f5b, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8017096465211911319, guid: 85f39c3faef41af42b0fc79a4f509f5b, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8017096465211911319, guid: 85f39c3faef41af42b0fc79a4f509f5b, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8558487659323459300, guid: 85f39c3faef41af42b0fc79a4f509f5b, type: 3}
       propertyPath: m_LocalPosition.x
