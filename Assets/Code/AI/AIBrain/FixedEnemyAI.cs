@@ -227,6 +227,10 @@ public class FixedEnemyAI : MonoBehaviour, IEnemy
             {
                 IsIdle = true;
             }
+            else
+            {
+                IsIdle = false;
+            }
 
             if (aiData.currentTarget != null)
             {

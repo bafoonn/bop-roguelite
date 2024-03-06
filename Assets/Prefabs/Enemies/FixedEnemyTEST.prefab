@@ -1246,7 +1246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 2
-  agentColliderSize: 1
+  enemyColliderSize: 0.6
   ShowGizmos: 1
 --- !u!1 &5060669626376293953
 GameObject:
@@ -6972,7 +6972,7 @@ Transform:
   m_GameObject: {fileID: 7013777723855261698}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7047,7 +7047,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetReachedThershold: 2
   ShowGizmos: 1
-  targetPositionCached: {x: 0, y: 0}
+  playerPositionCached: {x: 0, y: 0}
 --- !u!1 &7518006742336827222
 GameObject:
   m_ObjectHideFlags: 0

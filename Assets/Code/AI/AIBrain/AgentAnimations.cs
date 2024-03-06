@@ -13,6 +13,7 @@ public class AgentAnimations : MonoBehaviour
     public bool aim = true;
     public bool attacking = false;
     private EnemyAi enemyAi;
+    private BossAI bossAi;
     private AgentMover agentMover;
     private float defaultSpeed;
     private Transform player;
@@ -31,6 +32,7 @@ public class AgentAnimations : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         fixedAI = GetComponent<FixedEnemyAI>();
         rangedAI = GetComponent<RangedAI>();
+        bossAi = GetComponent<BossAI>();
     }
 
     public void RotateToPointer(Vector2 lookDirection)
@@ -83,6 +85,14 @@ public class AgentAnimations : MonoBehaviour
                 animator.SetBool("Death", rangedAI.Death);
                 animator.SetFloat("DirX", rangedAI.movementInput.x);
                 animator.SetFloat("DirY", rangedAI.movementInput.y);
+            }
+            if(bossAi != null)
+			{
+                animator.SetBool("isAttacking", bossAi.isAttacking);
+                animator.SetBool("IsIdle", bossAi.IsIdle);
+                animator.SetBool("Death", bossAi.Death);
+                animator.SetFloat("DirX", bossAi.movementInput.x);
+                animator.SetFloat("DirY", bossAi.movementInput.y);
             }
 
 

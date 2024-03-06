@@ -104,6 +104,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FixedCarrot Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7110548215903906025, guid: 9f37f85d1ba75d54a803a24712822e31, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.52
+      objectReference: {fileID: 0}
     - target: {fileID: 7633629442350973519, guid: 9f37f85d1ba75d54a803a24712822e31, type: 3}
       propertyPath: Corpse
       value: 

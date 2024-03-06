@@ -25,7 +25,7 @@ public class BossAI : FixedEnemyAI
         CurrentHealthPercentage = (Health.CurrentHealth / Health.MaxHealth) * 100;
         if (aiData.currentTarget != null)
         {
-            if ((player.transform.position - transform.position).magnitude < 1.5f) // Stops enemies from pushing player
+            if ((player.transform.position - transform.position).magnitude < 2.5f) // Stops enemies from pushing player
             {
                 movementInput = Vector2.zero;
 
@@ -46,7 +46,14 @@ public class BossAI : FixedEnemyAI
                 }
 
             }
-
+            if (movementInput.x == 0 && movementInput.y == 0)
+            {
+                IsIdle = true;
+            }
+			else
+			{
+                IsIdle = false;
+			}
 
             if (weaponParent.Scoot) // Ranged enemy "runs" away from player
             {
