@@ -12,7 +12,6 @@ namespace Pasta
             if (col.TryGetComponent(out ICharacter character))
             {
                 character.Status.ApplyStatus(slipperyStatus);
-                
             }
         }
         private void OnTriggerExit2D(Collider2D col)
