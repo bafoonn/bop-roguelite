@@ -10,6 +10,7 @@ namespace Pasta
         [SerializeField] private PeaMinion _minionPrefab = null;
         [SerializeField] private float _fireRate = 1.0f;
         [SerializeField] private float _damage = 10.0f;
+        [SerializeField] private float _damagePerStack = 1.0f;
         [SerializeField] private float _lerp = 5f;
 
         private EnemySensor _sensor;
@@ -20,6 +21,20 @@ namespace Pasta
         {
             _sensor = GetComponent<EnemySensor>();
             AddMinion();
+            _item.OnAmountChanged += OnItemAmountChanged;
+        }
+
+        private void OnDestroy()
+        {
+            _item.OnAmountChanged -= OnItemAmountChanged;
+        }
+
+        private void OnItemAmountChanged()
+        {
+            foreach (var minion in _minions)
+            {
+                minion.Damage = _damage + _damagePerStack * (_item.Amount - 1);
+            }
         }
 
         private void AddMinion()

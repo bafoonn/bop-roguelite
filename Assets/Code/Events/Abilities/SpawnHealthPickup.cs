@@ -36,6 +36,7 @@ namespace Pasta
             float timer = _restoreDuration;
             while (timer > 0)
             {
+                if (restore == null) break;
                 float t = timer / _restoreDuration;
                 restore.transform.localScale = Vector3.one * t;
                 timer -= Time.deltaTime;
